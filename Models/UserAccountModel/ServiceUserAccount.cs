@@ -65,7 +65,8 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            throw new NotImplementedException();
+            UserAccount u1 = new UserAccount() { Mail = "v.gaudel@clissons.fr", Password = "isika"};
+            InsertUserAccount(u1);
         }
 
         public void InsertUserAccount(UserAccount userAccount)

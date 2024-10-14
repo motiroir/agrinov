@@ -17,7 +17,6 @@ namespace AgriNov.Models
         public string Mail { get; set; }
         [Required(ErrorMessage = "Mot de passe obligatoire")]
         [MinLength(8, ErrorMessage = "Le mot de passe doit contenir au moins 6 charactères")]
-        [MaxLength(30)]
         public string Password { get; set; }
         public UserAccountLevel userAccountLevel { get; set; }
         public DateTime DateCreated { get; set; }
