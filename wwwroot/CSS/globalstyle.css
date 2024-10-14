@@ -1,0 +1,17 @@
+/* Colors */
+:root {
+    --darkViolet: #31152E;
+    --lightViolet: #6A2041;
+    --paleRed: #9C3344;
+    --orangeRed: #D15150;
+    --orange: #EB7051;
+    --lightOrange: #FE9E55;
+
+    --headerParagraph: #CBA8C7;
+    --contentParagraph: #2C2C2C;
+
+    --ghDarkBg: linear-gradient(180deg, #FFFFFF 0%, #CBA8C7 100%);
+    --ghLightBg: linear-gradient(180deg, #000000 0%, #464545 100%);
+    --transparentBg: rgba(21, 9, 20, 0.5);
+
+}
