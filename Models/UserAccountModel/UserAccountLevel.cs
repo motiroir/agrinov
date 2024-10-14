@@ -5,6 +5,7 @@ namespace AgriNov.Models
         DEFAULT,
         SUPPLIER,
         USER,
+        CORPORATE,
         VOLUNTEER,
         ADMIN
     }

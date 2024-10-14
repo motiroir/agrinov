@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using AgriNov.Models;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace AgriNov.Controllers
 {
@@ -68,14 +62,14 @@ namespace AgriNov.Controllers
                     {
                         List<Claim> userClaims = new List<Claim>() {
                             new Claim(ClaimTypes.Name, userAccount.Id.ToString()),
-                            new Claim(ClaimTypes.Role, userAccount.userAccountLevel.ToString())
+                            new Claim(ClaimTypes.Role, userAccount.UserAccountLevel.ToString())
                         };
 
                         ClaimsIdentity claimsIdentity = new ClaimsIdentity(userClaims, "User Identity");
                         ClaimsPrincipal userPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
                         HttpContext.SignInAsync(userPrincipal);
-                        return Redirect("Login/Login"); //change redirection later
+                        return RedirectToAction("Index","Account"); 
                     }
                     else
                     {
