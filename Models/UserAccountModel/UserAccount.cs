@@ -16,7 +16,7 @@ namespace AgriNov.Models
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Email invalide")]
         public string Mail { get; set; }
         [Required(ErrorMessage = "Mot de passe obligatoire")]
-        [MinLength(8, ErrorMessage = "Le mot de passe doit contenir au moins 6 charactères")]
+        [MinLength(8, ErrorMessage = "Le mot de passe doit contenir au moins 6 caractères")]
         public string Password { get; set; }
         public UserAccountLevel userAccountLevel { get; set; }
         public DateTime DateCreated { get; set; }
