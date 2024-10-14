@@ -23,9 +23,15 @@ app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 
-using( ServiceUserAccount sUA = new ServiceUserAccount()){
+using (ServiceUserAccount sUA = new ServiceUserAccount())
+{
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
+}
+
+using (ServiceActivity sA = new ServiceActivity())
+{
+    sA.InitializeTable();
 }
 
 app.MapControllerRoute(

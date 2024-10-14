@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using DotNetEnv;
 
 namespace AgriNov.Models
 {
     public class BDDContext : DbContext
     {
-        public DbSet<UserAccount> UserAccounts { get; set;}
+        public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
