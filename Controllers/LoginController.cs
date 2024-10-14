@@ -67,8 +67,8 @@ namespace AgriNov.Controllers
                     if (userAccount != null)
                     {
                         List<Claim> userClaims = new List<Claim>() {
-                            new Claim(ClaimTypes.Name, userAccount.Id.ToString())
-                            // add user role claim
+                            new Claim(ClaimTypes.Name, userAccount.Id.ToString()),
+                            new Claim(ClaimTypes.Role, userAccount.userAccountLevel.ToString())
                         };
 
                         ClaimsIdentity claimsIdentity = new ClaimsIdentity(userClaims, "User Identity");
