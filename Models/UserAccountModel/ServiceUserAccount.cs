@@ -65,7 +65,7 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            UserAccount u1 = new UserAccount() { Mail = "v.gaudel@clissons.fr", Password = "isika"};
+            UserAccount u1 = new UserAccount() { Mail = "v.gaudel@clissons.fr", Password = "isika24"};
             InsertUserAccount(u1);
         }
 
