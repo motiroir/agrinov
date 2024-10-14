@@ -20,5 +20,8 @@ namespace AgriNov.Models.ProductionModel
 
         public DeliveryFrequency DeliveryFrequency { get; set; }
 
+        public DateTime DateCreated { get; set; }
+        public DateTime DateLastModified { get; set; }
+
     }
 }

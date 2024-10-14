@@ -1,6 +1,6 @@
 ﻿namespace AgriNov.Models.ProductionModel
 {
-    public interface IServiceProduction
+    public interface IServiceProduction : IDisposable
     {
         void CreateDeleteDatabase();
         void Initializetable();
