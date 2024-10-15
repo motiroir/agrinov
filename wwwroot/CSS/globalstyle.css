@@ -369,7 +369,7 @@ footer {
         text-align: center;
     }
 
-/* À partir de 1750px */
+/* ï¿½ partir de 1750px */
 @media (max-width: 1720px) {
     .parallax {
         position: relative;
@@ -810,7 +810,7 @@ div.item {
 }
 
 
-/* pour chaque élément du carousel on défitit un offset */
+/* pour chaque ï¿½lï¿½ment du carousel on dï¿½fitit un offset */
 div.item:nth-of-type(1) {
     --offset: 1;
 }
