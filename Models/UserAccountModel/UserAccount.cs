@@ -25,5 +25,7 @@ namespace AgriNov.Models
 
         public int? UserId {get; set;}
         public User User {get; set;}
+        public int? CorporateUserId {get; set;}
+        public CorporateUser CorporateUser {get; set;}
     }
 }
