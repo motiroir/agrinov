@@ -7,7 +7,6 @@
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/formstyle.css">
 }
-<p>@model.UserAccount.Mail</p>
 <div class="form">
     @using (Html.BeginForm("AddRegularUser", "Account", FormMethod.Post))
     {
@@ -24,6 +23,8 @@
         @Html.ValidationMessageFor(model => model.ContactDetails.PhoneNumber)
 
         @Html.LabelFor(model => model.Address.Line1)
+
+        @Html.TextBoxFor(model => model.UserAccount.Id, new { @Value = @Model.UserAccount.Id, style = "display:none;"})
 
         @Html.TextBoxFor(model => model.Address.Line1, new { @class = "form-input" })
         @Html.ValidationMessageFor(model => model.Address.Line1)
