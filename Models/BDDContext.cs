@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
+using AgriNov.Models.ProductionModel;
 
 namespace AgriNov.Models
 {
@@ -14,6 +15,8 @@ namespace AgriNov.Models
         public DbSet<User> Users { get; set;}
         public DbSet<CorporateUser> CorporateUsers {get; set;}
         public DbSet<Supplier> Suppliers { get; set;}
+
+        public DbSet<Production> Productions { get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
