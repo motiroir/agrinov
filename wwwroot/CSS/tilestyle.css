@@ -1,0 +1,91 @@
+﻿.all-tiles-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 40px;
+    gap: 20px;
+    width: 90%;
+    margin: auto;
+    margin-top: 200px;
+}
+
+.activity-tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    max-width: 300px;
+    margin: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+    .activity-tile:hover {
+        transform: scale(1.05);
+    }
+
+.preview-img {
+    background-color: #000;
+    height: 200px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tile-content {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.activity-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.activity-author {
+    font-size: 0.9rem;
+    text-align: left;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.activity-date {
+    font-size: 0.9rem;
+    text-align: left;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.text-content {
+    text-align: left;
+}
+
+.btn-div {
+    margin-top: auto; 
+}
+
+.btn-inscription {
+    background-color: #ff8c5f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-inscription:hover {
+        background-color: #e67e50;
+    }
