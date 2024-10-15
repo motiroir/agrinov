@@ -12,6 +12,7 @@ namespace AgriNov.Models
     {
         public DbSet<UserAccount> UserAccounts { get; set;}
         public DbSet<User> Users { get; set;}
+        public DbSet<CorporateUser> CorporateUsers {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

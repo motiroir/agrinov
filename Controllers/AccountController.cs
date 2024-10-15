@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AgriNov.Models;
-using AgriNov.Models.UserAccountModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,8 +25,8 @@ namespace AgriNov.Controllers
             {
                 case UserAccountLevel.USER:
                     return RedirectToAction("AddRegularUser", "Account");
-                // case UserAccountLevel.CORPORATE:
-                //     return "You want to be a corporate user";
+                case UserAccountLevel.CORPORATE:
+                    return RedirectToAction("AddCorporateUser", "Account");
                 // case UserAccountLevel.SUPPLIER:
                 //     return "You want to be a supplier";
                 default:
@@ -74,5 +73,47 @@ namespace AgriNov.Controllers
             }
             return View(user);
         }
+
+        [Authorize(Roles = "DEFAULT")]
+        [HttpGet]
+        public IActionResult AddCorporateUser()
+        {
+            CorporateUser corporateUser = new CorporateUser();
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                corporateUser.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+            }
+            return View(corporateUser);
+        }
+
+        [Authorize(Roles = "DEFAULT")]
+        [HttpPost]
+        public IActionResult AddCorporateUser(CorporateUser corporateUser)
+        {
+            // Check if logged user id was not modified, if not proceed otherwise error.
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                UserAccount currentUserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+                if (corporateUser.UserAccount.Id.Equals(currentUserAccount.Id))
+                {
+                    corporateUser.UserAccount = currentUserAccount;
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            if (!ModelState.IsValid)
+            {
+                using (IServiceCorporateUser serviceCorporateUser = new ServiceCorporateUser())
+                {
+                    serviceCorporateUser.InsertCorporateUser(corporateUser);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(corporateUser);
+        }
+
+
     }
 }
