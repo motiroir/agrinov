@@ -1,0 +1,52 @@
+﻿@model AgriNov.Models.Activity
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Modifier une activité";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+
+}
+<div class="form">
+    @using (Html.BeginForm("UpdateActivity", "Activity", FormMethod.Post))
+    {
+        <div>
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Datetime)
+            @Html.EditorFor(model => model.Datetime, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.Datetime)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Location)
+            @Html.TextBoxFor(model => model.Location)
+            @Html.ValidationMessageFor(model => model.Location)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.MaxParticipants)
+            @Html.TextBoxFor(model => model.MaxParticipants, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaxParticipants)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.MaxInvitesPerPerson)
+            @Html.TextBoxFor(model => model.MaxInvitesPerPerson, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaxInvitesPerPerson)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "5", @cols = "50" })
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <button type="submit" class="button-add">Valider</button>
+    }
+</div>

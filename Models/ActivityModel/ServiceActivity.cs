@@ -23,12 +23,12 @@ namespace AgriNov.Models
 
         public Activity GetActivity(int id)
         {
-            throw new NotImplementedException();
+            return this._DBContext.Activities.Find(id);
         }
 
         public List<Activity> GetAllActivities()
         {
-            throw new NotImplementedException();
+            return _DBContext.Activities.ToList();
         }
 
         public void InitializeTable()
