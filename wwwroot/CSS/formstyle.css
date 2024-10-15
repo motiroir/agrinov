@@ -1,0 +1,7 @@
+div.form {
+    margin-top: 200px;
+}
+
+input[type="radio"]{
+    display: flex;
+}
