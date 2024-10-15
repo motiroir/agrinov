@@ -1,18 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/CSS/globalstyle.css">
-    @RenderSection("ExtraStyle",required:false)
+    <link rel="stylesheet" href="@Url.Content("~/CSS/globalstyle.css")">
+    @RenderSection("ExtraStyle", required: false)
 </head>
 
 <body>
-  <section id=content>
+    <nav class="navbar-container">
+        <section class="navbar">
+            <img src="@Url.Content("~/img/global/Logo.png")" class="logo">
+
+            <section class="navigation-center">
+                <div class="navbar-item-1">
+                    <a href="@Url.Action("Index", "Home")#accueil">Accueil</a>
+                    <div class="dropdown">
+                        <a href="@Url.Action("Index", "Home")#section-1">Le territoire</a>
+                        <a href="@Url.Action("Index", "Home")#section-2">Le projet digital</a>
+                        <a href="@Url.Action("Index", "Home")#section-3">Nos valeurs</a>
+                        <a href="@Url.Action("Index", "Home")#section-4">Les producteurs partenaires</a>
+                        <a href="@Url.Action("Index", "Home")#section-5">Nous rejoindre</a>
+                    </div>
+                </div>
+                <a href="@Url.Action("boutique", "boutique")">La boutique</a>
+                <a href="@Url.Action("ateliers", "ateliers")">Les ateliers</a>
+                <a href="@Url.Action("recettes", "recettes")">Les recettes</a>
+                <a href="@Url.Action("contact", "contact")">Contact</a>
+            </section>
+
+            <div class="navigation-right">
+                <a href="@Url.Action("Login", "Login")" class="connexion">connexion</a>
+                <a href="@Url.Action("CreateAccount", "Login")" class="inscription">inscription</a>
+            </div>
+        </section>
+    </nav>
+
+    <section id="content">
         @RenderBody()
     </section>
-</body>
 
+    <footer>
+        <section class="footer-container">
+            <section class="footer-subcontainer">
+                <img src="@Url.Content("~/img/global/Logo-footer.png")" id="Logo-footer" alt="Logo footer">
+
+                <section class="footer-subsubcontainer">
+                    <section class="col1">
+                        <p class="title">Coordonnées</p>
+                        <section class="content">
+                            <p>12 rue des producteurs,<br>44190 Clisson, France</p>
+                            <p>+33 2 40 00 00 00</p>
+                            <p>agrinov-contact@gmail.com</p>
+                        </section>
+                    </section>
+
+                    <section class="col2">
+                        <p class="title">Navigation</p>
+                        <section class="content">
+                            <a href="#accueil">Accueil</a>
+                            <a href="@Url.Action("boutique", "boutique")">La boutique</a>
+                            <a href="@Url.Action("ateliers", "ateliers")">Les ateliers</a>
+                            <a href="@Url.Action("recettes", "recettes")">Les recettes</a>
+                            <a href="@Url.Action("contact", "contact")">Contact</a>
+                        </section>
+                    </section>
+
+                    <section class="col3">
+                        <p class="title">Réseaux sociaux</p>
+                        <section class="content">
+                            <img src="@Url.Content("~/img/global/facebook.png")" id="facebook" alt="Facebook">
+                            <img src="@Url.Content("~/img/global/instagram.png")" id="instagram" alt="Instagram">
+                            <img src="@Url.Content("~/img/global/linkedin.png")" id="linkedin" alt="LinkedIn">
+                            <img src="@Url.Content("~/img/global/twitter.png")" id="twitter" alt="Twitter">
+                        </section>
+                    </section>
+                </section>
+
+                <a class="inscription-btn" href="@Url.Action("CreateAccount", "Login")">Inscription</a>
+            </section>
+
+            <img src="@Url.Content("~/img/global/line.png")" id="line" alt="Ligne séparatrice">
+            <p class="copyright">Copyright &copy; 2024 agrinov - Tous droits réservés <a class="mentions-legales" href="mentions_legales/mentions_legales.html">Mentions légales</a></p>
+        </section>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
 </html>
