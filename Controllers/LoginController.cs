@@ -9,7 +9,7 @@ namespace AgriNov.Controllers
 
     public class LoginController : Controller
     {
-        [HttpGet]
+		[HttpGet]
         public IActionResult CreateAccount()
         {
             return View();
