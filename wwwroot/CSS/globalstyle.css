@@ -16,14 +16,11 @@
     --orangeRed: #D15150;
     --orange: #EB7051;
     --lightOrange: #FE9E55;
-
     --headerParagraph: #CBA8C7;
     --contentParagraph: #2C2C2C;
-
     --ghDarkBg: linear-gradient(180deg, #FFFFFF 0%, #CBA8C7 100%);
     --ghLightBg: linear-gradient(180deg, #000000 0%, #464545 100%);
     --transparentBg: rgba(21, 9, 20, 0.5);
-
 }
 
 /* H1 Heading */
@@ -215,14 +212,14 @@ footer {
     height: 44px;
 }
 
-.navigation-center a {
-    text-decoration: none;
-    color: #DFDFDF;
-    padding: 6px 15px;
-    margin: 0 10px;
-    font-weight: 500;
-    border-radius: 13px;
-}
+    .navigation-center a {
+        text-decoration: none;
+        color: #DFDFDF;
+        padding: 6px 15px;
+        margin: 0 10px;
+        font-weight: 500;
+        border-radius: 13px;
+    }
 
 .navigation-right {
     display: flex;
@@ -234,43 +231,43 @@ footer {
     height: 50px;
 }
 
-.navigation-right a {
-    text-decoration: none;
-    padding: 6px 5px;
-    font-weight: 500;
-    border-radius: 13px;
-}
+    .navigation-right a {
+        text-decoration: none;
+        padding: 6px 5px;
+        font-weight: 500;
+        border-radius: 13px;
+    }
 
-.navigation-right a.connexion {
-    color: #DFDFDF;
-}
+        .navigation-right a.connexion {
+            color: #DFDFDF;
+        }
 
-.navigation-right a.inscription {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 24px;
-    width: 121px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.13);
-    color: white;
-    font-weight: 500;
-}
+        .navigation-right a.inscription {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 24px;
+            width: 121px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.13);
+            color: white;
+            font-weight: 500;
+        }
 
-.navigation-right a.inscription:hover,
-.navigation-center a.active:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
+            .navigation-right a.inscription:hover,
+            .navigation-center a.active:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
 
 
-.navigation-center a:hover,
-.navigation-right a:hover,
-.navigation-center a.active {
-    color: white;
-    font-weight: 500;
-    background: rgba(255, 255, 255, 0.13);
-}
+        .navigation-center a:hover,
+        .navigation-right a:hover,
+        .navigation-center a.active {
+            color: white;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.13);
+        }
 
 
 
@@ -369,7 +366,7 @@ footer {
         text-align: center;
     }
 
-/* À partir de 1750px */
+/* Ã€ partir de 1750px */
 @media (max-width: 1720px) {
     .parallax {
         position: relative;
@@ -810,7 +807,7 @@ div.item {
 }
 
 
-/* pour chaque élément du carousel on défitit un offset */
+/* pour chaque Ã©lÃ©ment du carousel on dÃ©fitit un offset */
 div.item:nth-of-type(1) {
     --offset: 1;
 }
