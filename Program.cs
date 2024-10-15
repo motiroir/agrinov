@@ -1,4 +1,5 @@
 using AgriNov.Models;
+using AgriNov.Models.BoxModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -26,6 +27,12 @@ app.UseAuthorization();
 using( ServiceUserAccount sUA = new ServiceUserAccount()){
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
+}
+
+using (ServiceBoxContract sBC = new ServiceBoxContract())
+{
+	sBC.CreateDeleteDatabase();
+	sBC.InitializeTable();
 }
 
 app.MapControllerRoute(
