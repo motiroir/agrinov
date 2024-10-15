@@ -16,7 +16,7 @@
 <div class="form">
     @using (Html.BeginForm("UpdateProduction", "Production", FormMethod.Post))
     {
-        <h2>Proposer une nouvelle production</h2>
+        <h2>Modifier une production</h2>
         <div class="productType">
             @Html.LabelFor(model => model.ProductType, "Type de produit")
             @foreach (ProductType value in Enum.GetValues(typeof(ProductType)))
@@ -24,7 +24,7 @@
                 <div class="form-check">
                     <label class="form-check-label">
                         @Html.RadioButtonFor(model => model.ProductType, value, new { @class = "form-check-input" })
-                        @Html.DisplayName(value.ToString())
+                        @Html.DisplayFor(model => value)
                     </label>
                 </div>
             }
@@ -50,7 +50,7 @@
                 <div class="form-check">
                     <label class="form-check-label">
                         @Html.RadioButtonFor(model => model.DeliveryFrequency, frequency, new { @class = "form-check-input" })
-                        @Html.DisplayName(frequency.ToString())
+                        @Html.DisplayFor(model => frequency)
                     </label>
                 </div>
             }

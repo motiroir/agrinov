@@ -24,7 +24,7 @@
             <div class="form-check">
                 <label class="form-check-label">
                     @Html.RadioButtonFor(model => model.ProductType, value, new { @class = "form-check-input" })
-                    @Html.DisplayName(value.ToString())
+                        @Html.DisplayFor(model => value)
                 </label>
             </div>
         }
@@ -50,7 +50,7 @@
             <div class="form-check">
                 <label class="form-check-label">
                     @Html.RadioButtonFor(model => model.DeliveryFrequency, frequency, new { @class = "form-check-input" })
-                    @Html.DisplayName(frequency.ToString())
+                        @Html.DisplayFor(model => frequency)
                 </label>
             </div>
         }
