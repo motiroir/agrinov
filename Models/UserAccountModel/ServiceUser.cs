@@ -64,6 +64,8 @@ namespace AgriNov.Models
         {
             user.UserAccount.DateLastModified = DateTime.Now;
             user.UserAccount.UserAccountLevel = UserAccountLevel.USER;
+            //_Update and track the user account that is part of user
+            _DBContext.UserAccounts.Update(user.UserAccount);
             _DBContext.Users.Add(user);
             Save();
         }
