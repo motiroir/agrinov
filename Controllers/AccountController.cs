@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AgriNov.Models;
+using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,8 +28,8 @@ namespace AgriNov.Controllers
                     return RedirectToAction("AddRegularUser", "Account");
                 case UserAccountLevel.CORPORATE:
                     return RedirectToAction("AddCorporateUser", "Account");
-                // case UserAccountLevel.SUPPLIER:
-                //     return "You want to be a supplier";
+                case UserAccountLevel.SUPPLIER:
+                    return RedirectToAction("AddSupplier","Account");
                 default:
                     return View();
             }
@@ -114,6 +115,50 @@ namespace AgriNov.Controllers
             return View(corporateUser);
         }
 
+        [Authorize(Roles = "DEFAULT")]
+        [HttpGet]
+        public IActionResult AddSupplier()
+        {
+            SupplierWithProof viewModel = new SupplierWithProof() { Supplier = new Supplier()};
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                viewModel.Supplier.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+            }
+            return View(viewModel);
+        }
 
+        [Authorize(Roles = "DEFAULT")]
+        [HttpPost]
+        public IActionResult AddSupplier(SupplierWithProof viewModel)
+        {
+            // Check if logged user id was not modified, if not proceed otherwise error.
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                UserAccount currentUserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+                if (viewModel.Supplier.UserAccount.Id.Equals(currentUserAccount.Id))
+                {
+                    viewModel.Supplier.UserAccount = currentUserAccount;
+                }
+                else
+                {
+                    return View("Error");
+                }
+            }
+            if (!ModelState.IsValid)
+            {
+                using( MemoryStream memoryStream = new MemoryStream())
+                {
+                    viewModel.PdfFile.CopyTo(memoryStream);
+                    viewModel.Supplier.ProofPdfDocument = memoryStream.ToArray();
+
+                }
+                using (IServiceSupplier serviceSupplier = new ServiceSupplier())
+                {
+                    serviceSupplier.InsertSupplier(viewModel.Supplier);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(viewModel);
+        }
     }
 }
