@@ -87,7 +87,14 @@ namespace AgriNov.Models
 
         public void UpdateActivity(Activity activity)
         {
-            throw new NotImplementedException();
+            Activity oldActivity = this.GetActivity(activity.Id);
+            if (oldActivity == null)
+            {
+                return;
+            }
+            activity.DateLastModified = DateTime.Now;
+            _DBContext.Entry(oldActivity).CurrentValues.SetValues(activity);
+            Save();
         }
 
         public void Save()
