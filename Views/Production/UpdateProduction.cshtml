@@ -1,0 +1,68 @@
+﻿@using AgriNov.Models.ProductionModel
+@model AgriNov.Models.ProductionModel.Production
+
+@{
+
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Modifier une production";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+
+}
+
+
+
+<div class="form">
+    @using (Html.BeginForm("UpdateProduction", "Production", FormMethod.Post))
+    {
+        <h2>Proposer une nouvelle production</h2>
+        <div class="productType">
+            @Html.LabelFor(model => model.ProductType, "Type de produit")
+            @foreach (ProductType value in Enum.GetValues(typeof(ProductType)))
+            {
+                <div class="form-check">
+                    <label class="form-check-label">
+                        @Html.RadioButtonFor(model => model.ProductType, value, new { @class = "form-check-input" })
+                        @Html.DisplayName(value.ToString())
+                    </label>
+                </div>
+            }
+            @Html.ValidationMessageFor(model => model.ProductType)
+        </div>
+
+        <div class="volumeDelivery">
+            @Html.LabelFor(model => model.VolumePerDelivery)
+            @Html.EditorFor(model => model.VolumePerDelivery)
+            @Html.ValidationMessageFor(model => model.VolumePerDelivery)
+        </div>
+
+        <div class="price">
+            @Html.LabelFor(model => model.Price, "Prix (en €)")
+            @Html.EditorFor(model => model.Price)
+            @Html.ValidationMessageFor(model => model.Price)
+        </div>
+
+        <div class="deliveryFrequency">
+            @Html.LabelFor(model => model.DeliveryFrequency, "Fréquence de livraison")
+            @foreach (DeliveryFrequency frequency in Enum.GetValues(typeof(DeliveryFrequency)))
+            {
+                <div class="form-check">
+                    <label class="form-check-label">
+                        @Html.RadioButtonFor(model => model.DeliveryFrequency, frequency, new { @class = "form-check-input" })
+                        @Html.DisplayName(frequency.ToString())
+                    </label>
+                </div>
+            }
+            @Html.ValidationMessageFor(model => model.DeliveryFrequency)
+        </div>
+
+        <div class="dateLimitForReview">
+            @Html.LabelFor(model => model.DateLimitForReview, "Date limite de validation de la production")
+            @Html.EditorFor(model => model.DateLimitForReview, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+            @Html.ValidationMessageFor(model => model.DateLimitForReview)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    }
+</div>
