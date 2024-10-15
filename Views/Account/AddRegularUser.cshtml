@@ -22,10 +22,9 @@
         @Html.TextBoxFor(model => model.ContactDetails.PhoneNumber, new { @class = "form-input" })
         @Html.ValidationMessageFor(model => model.ContactDetails.PhoneNumber)
 
-        @Html.LabelFor(model => model.Address.Line1)
-
         @Html.TextBoxFor(model => model.UserAccount.Id, new { @Value = @Model.UserAccount.Id, style = "display:none;"})
 
+        @Html.LabelFor(model => model.Address.Line1)
         @Html.TextBoxFor(model => model.Address.Line1, new { @class = "form-input" })
         @Html.ValidationMessageFor(model => model.Address.Line1)
 
