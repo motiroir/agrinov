@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AgriNov.Models.UserAccountModel
+namespace AgriNov.Models
 {
     public interface IServiceUser : IDisposable
     {
@@ -14,7 +14,7 @@ namespace AgriNov.Models.UserAccountModel
         User GetUserByID(string userIDStr);
         void InsertUser(User user);
         void UpdateUser(User user);
-        void DeleteUserAccount(int userID);
+        void DeleteUser(int userID);
         void Save();
     }
 }

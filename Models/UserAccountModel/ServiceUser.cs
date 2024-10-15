@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AgriNov.Models.UserAccountModel;
 
 namespace AgriNov.Models
 {
@@ -20,8 +19,9 @@ namespace AgriNov.Models
             _DBContext.Database.EnsureCreated();
         }
 
-        public void DeleteUserAccount(int userID)
+        public void DeleteUser(int userID)
         {
+            //Is cascade delete with useraccount ok?
             User user = _DBContext.Users.Find(userID);
             if (user != null)
             {
