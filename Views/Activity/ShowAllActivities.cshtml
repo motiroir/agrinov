@@ -20,7 +20,7 @@
                     <p class="activity-date">@activity.Datetime</p>
                 </div>
                 <div class="btn-div">
-                    <button class="btn-inscription">inscription</button>
+                    <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" class="btn-inscription">en savoir plus</a>
                 </div>
             </div>
         </div>

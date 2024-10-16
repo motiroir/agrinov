@@ -1,0 +1,149 @@
+﻿.activity-detail-container {
+    display: flex;
+    margin: 40px auto;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    overflow: hidden;
+    margin-top: 200px;
+    border: 1px solid black; 
+}
+
+.full-img {
+    background-color: black; 
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px; 
+    width: 50%;
+}
+
+.activity-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+    position: relative;
+}
+
+.text-content {
+    text-align: left;
+}
+
+.activity-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.activity-author,
+.activity-date {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.activity-description {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 40px;
+}
+
+.activity-number-display {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0;
+    text-align : center;
+}
+
+.number-display {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--lightViolet);
+    margin-bottom: 5px;
+}
+
+    .number-display + p {
+        font-size: 0.9rem;
+        color: #777;
+    }
+
+.btn-div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    .quantity-selector button {
+        background-color: #e0e0e0;
+        border: none;
+        padding: 5px 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .quantity-selector input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+.btn-inscription {
+    background-color: var(--lightOrange);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-inscription:hover {
+        background-color: var(--orange);
+    }
+
+.close-btn {
+    position: absolute;
+    top: 20px; /* Positionne la croix dans le coin haut droit */
+    right: 20px;
+    width: 20px; /* Taille de la croix */
+    height: 20px;
+    cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
+}
+
+    .close-btn::before,
+    .close-btn::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2px; /* Épaisseur des traits de la croix */
+        height: 100%;
+        background-color: #333; /* Couleur de la croix */
+    }
+
+    .close-btn::before {
+        transform: translate(-50%, -50%) rotate(45deg); /* Premier trait en diagonale */
+    }
+
+    .close-btn::after {
+        transform: translate(-50%, -50%) rotate(-45deg); /* Deuxième trait en diagonale */
+    }
+
+    .close-btn:hover::before,
+    .close-btn:hover::after {
+        background-color: #e67e50; /* Change la couleur au survol si tu le souhaites */
+    }

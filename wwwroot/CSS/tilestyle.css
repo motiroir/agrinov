@@ -72,11 +72,13 @@
 }
 
 .btn-div {
-    margin-top: auto; 
+    margin-top: auto;
+    margin-left:auto;
 }
 
 .btn-inscription {
-    background-color: #ff8c5f;
+    text-decoration: none;
+    background-color: var(--lightOrange);
     border: none;
     color: white;
     padding: 10px 20px;
@@ -87,5 +89,5 @@
 }
 
     .btn-inscription:hover {
-        background-color: #e67e50;
+        background-color: var(--orange);
     }
