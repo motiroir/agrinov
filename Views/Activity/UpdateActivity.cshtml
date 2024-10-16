@@ -24,6 +24,12 @@
         </div>
 
         <div>
+            @Html.LabelFor(model => model.Duration)
+            @Html.TextBoxFor(model => model.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Duration)
+        </div>
+
+        <div>
             @Html.LabelFor(model => Model.Location)
             @Html.TextBoxFor(model => Model.Location)
             @Html.ValidationMessageFor(model => Model.Location)
