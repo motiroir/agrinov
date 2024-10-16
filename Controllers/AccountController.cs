@@ -160,5 +160,58 @@ namespace AgriNov.Controllers
             }
             return View(viewModel);
         }
+
+        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE")]
+        [HttpGet]
+        public IActionResult ChangePassword(){
+            UserAccountUpdate viewModel = new UserAccountUpdate();
+            using(IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                viewModel.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+            }
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE")]
+        [HttpPost]
+        public IActionResult ChangePassword(UserAccountUpdate viewModel){
+            if(viewModel.NewPassword == viewModel.ConfirmNewPassword)
+            {
+                if(ModelState.IsValid)
+                {
+                    using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+                    {
+                        //Check if user account id or mail was not modified in the form
+                        UserAccount currentUserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+                        if (!viewModel.UserAccount.Id.Equals(currentUserAccount.Id) || viewModel.UserAccount.Mail != currentUserAccount.Mail)
+                        {
+                            return View("Error");
+                        }
+                        //Check if login is correct
+                        UserAccount userAccount = serviceUserAccount.Authenticate(currentUserAccount.Mail, viewModel.UserAccount.Password);
+                        if(userAccount != null)
+                        {
+                            serviceUserAccount.UpdateUserAccountPassword(userAccount.Id,viewModel.NewPassword);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("UserAccount.Password","Ancien mot de passe incorrect");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("NewPassword","Les mots de passe ne correspondent pas");
+            }
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "SUPPLIER,USER,CORPORATE")]
+        [HttpGet]
+        public IActionResult ChangeInfo(){
+            return View();
+        }
+
     }
 }
