@@ -1,9 +1,6 @@
+using AgriNov;
 using AgriNov.Models;
-<<<<<<< HEAD
-using AgriNov.Models.BoxModel;
-=======
 using AgriNov.Models.ProductionModel;
->>>>>>> main
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
