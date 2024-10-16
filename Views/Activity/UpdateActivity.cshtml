@@ -6,6 +6,7 @@
 }
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 
 <div class="form">
@@ -47,6 +48,6 @@
             @Html.ValidationMessageFor(model => Model.Description)
         </div>
 
-        <button type="submit" class="button-update">Valider</button>
+        <button class="orange-btn w-100">Valider</button>
     }
 </div>
