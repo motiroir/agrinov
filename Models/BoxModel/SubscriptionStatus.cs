@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgriNov.Models.BoxModel
+namespace AgriNov.Models
 {
 	public enum SubscriptionStatus
 	{

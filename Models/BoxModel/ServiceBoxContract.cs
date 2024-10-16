@@ -1,9 +1,6 @@
-﻿
-using AgriNov.Models.SharedStatus;
-using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
+﻿using AgriNov.Models;
 
-namespace AgriNov.Models.BoxModel
+namespace AgriNov.Models
 {
 	public class ServiceBoxContract : IServiceBoxContract
 	{
@@ -76,31 +73,30 @@ namespace AgriNov.Models.BoxModel
 				};
 			InsertBoxContract(boxC3);
 
-			UpdateBoxContract(0,"Contrat LVBHL", "Ce contrat comprend la livraison hebdomadaire de paniers contenant 7kg de légumes de saison et de viande.",18M, DeliveryFrequency.WEEKLY);
+			boxC1.Name = "Contrat LVHS";
+			boxC1.ContentDescription = "Ce contrat comprend la livraison hebdomadaire de paniers contenant 3kg de légumes de saison et 1kg de viande.";
+			boxC1.Price = 13M;
+
+			UpdateBoxContract(boxC1);
+
+			DeleteBoxContract(boxC3.Id);
 		}
 
 		public void InsertBoxContract(BoxContract boxContract)
 		{
-			//boxContract.Name = boxContract.Name;
-			//boxContract.ContentDescription = boxContract.ContentDescription;
-			//boxContract.Price = boxContract.Price;
-			//boxContract.DeliveryFrequency = boxContract.DeliveryFrequency;
 			_DBContext.BoxContracts.Add(boxContract);
 			Save();
 		}
 
-		public void UpdateBoxContract(int id, string name, string contentDescription, Decimal price, DeliveryFrequency deliveryFrequency)
+		public void UpdateBoxContract(BoxContract boxContract)
 		{
-			BoxContract boxContract = this.GetBoxContractByID(id);
-			if (boxContract != null)
+			BoxContract oldBoxContract = this.GetBoxContractByID(boxContract.Id);
+			if (oldBoxContract != null)
 			{
-				boxContract.Name = name;
-				boxContract.ContentDescription = contentDescription;
-				boxContract.Price = price;
-				boxContract.DeliveryFrequency = deliveryFrequency;
-				_DBContext.Entry(boxContract).State = EntityState.Modified;
+				_DBContext.Entry(oldBoxContract).CurrentValues.SetValues(boxContract);
 				Save();
 			}
+			Save();
 		}
 
 		public void Save()

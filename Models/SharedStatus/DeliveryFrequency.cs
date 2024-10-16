@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AgriNov.Models.SharedStatus{
+namespace AgriNov.Models
+{
     public enum DeliveryFrequency
     {
         [Display(Name = "Hebdomadaire")]

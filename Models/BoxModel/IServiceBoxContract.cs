@@ -1,6 +1,4 @@
-﻿using AgriNov.Models.SharedStatus;
-
-namespace AgriNov.Models.BoxModel
+﻿namespace AgriNov.Models
 {
 	public interface IServiceBoxContract : IDisposable
 	{
@@ -10,7 +8,7 @@ namespace AgriNov.Models.BoxModel
 		BoxContract GetBoxContractByID(int boxContractID);
 		BoxContract GetBoxContractByID(string boxContractIDStr);
 		void InsertBoxContract(BoxContract boxContract);
-		void UpdateBoxContract(int id, string name, string contentDescription, Decimal price, DeliveryFrequency deliveryFrequency);
+		void UpdateBoxContract(BoxContract boxContract);
 		void DeleteBoxContract(int boxContractID);
 		void Save();
 	}

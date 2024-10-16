@@ -31,7 +31,6 @@ using( ServiceUserAccount sUA = new ServiceUserAccount()){
 
 using (ServiceBoxContract sBC = new ServiceBoxContract())
 {
-	sBC.CreateDeleteDatabase();
 	sBC.InitializeTable();
 }
 

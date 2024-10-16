@@ -1,8 +1,4 @@
-﻿
-
-using AgriNov.Models.SharedStatus;
-
-namespace AgriNov.Models.BoxModel
+﻿namespace AgriNov.Models
 {
 	public class BoxContract
 	{
