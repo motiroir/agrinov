@@ -17,7 +17,7 @@
                 <div class="text-content">
                     <h2 class="activity-name">@activity.Name</h2>
                     <p class="activity-author">@activity.Location</p>
-                    <p class="activity-date">@activity.Datetime</p>
+                    <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
                 </div>
                 <div class="btn-div">
                     <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" class="btn-inscription">en savoir plus</a>

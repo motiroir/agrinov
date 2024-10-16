@@ -16,7 +16,7 @@
         <div class="text-content">
             <h2 class="activity-name">@Model.Name</h2>
             <p class="activity-author">@Model.Location</p>
-            <p class="activity-date">@Model.Datetime</p>
+            <p class="activity-date">@Model.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
             <p class="activity-description">@Model.Description</p>
             <div class="activity-number-display">
                 <div>
