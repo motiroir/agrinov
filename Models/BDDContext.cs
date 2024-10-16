@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using AgriNov.Models.ProductionModel;
+using AgriNov.Models.ProductModel;
 
 namespace AgriNov.Models
 {
@@ -11,6 +12,7 @@ namespace AgriNov.Models
         public DbSet<Supplier> Suppliers { get; set;}
         public DbSet<Production> Productions { get; set;}
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
