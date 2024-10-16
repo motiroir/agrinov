@@ -1,5 +1,9 @@
 using AgriNov.Models;
+<<<<<<< HEAD
 using AgriNov.Models.BoxModel;
+=======
+using AgriNov.Models.ProductionModel;
+>>>>>>> main
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -24,9 +28,18 @@ app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 
-using( ServiceUserAccount sUA = new ServiceUserAccount()){
+using (ServiceUserAccount sUA = new ServiceUserAccount())
+{
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
+}
+using (ServiceProduction sP = new ServiceProduction())
+{
+    sP.Initializetable();
+}
+using (ServiceActivity sA = new ServiceActivity())
+{
+    sA.InitializeTable();
 }
 
 using (ServiceBoxContract sBC = new ServiceBoxContract())

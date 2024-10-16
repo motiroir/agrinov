@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <a href="@Url.Action("boutique", "boutique")">La boutique</a>
-                <a href="@Url.Action("ateliers", "ateliers")">Les ateliers</a>
+                <a href="@Url.Action("ShowAllActivities", "Activity")">Les ateliers</a>
                 <a href="@Url.Action("recettes", "recettes")">Les recettes</a>
                 <a href="@Url.Action("contact", "contact")">Contact</a>
             </section>
@@ -49,7 +49,9 @@
 
                 <section class="footer-subsubcontainer">
                     <section class="col1">
+
                         <p class="title">Coordonnées</p>
+
                         <section class="content">
                             <p>12 rue des producteurs,<br>44190 Clisson, France</p>
                             <p>+33 2 40 00 00 00</p>
@@ -62,14 +64,16 @@
                         <section class="content">
                             <a href="#accueil">Accueil</a>
                             <a href="@Url.Action("boutique", "boutique")">La boutique</a>
-                            <a href="@Url.Action("ateliers", "ateliers")">Les ateliers</a>
+                            <a href="@Url.Action("ShowAllActivities", "Activity")">Les ateliers</a>
                             <a href="@Url.Action("recettes", "recettes")">Les recettes</a>
                             <a href="@Url.Action("contact", "contact")">Contact</a>
                         </section>
                     </section>
 
                     <section class="col3">
+
                         <p class="title">Réseaux sociaux</p>
+
                         <section class="content">
                             <img src="@Url.Content("~/img/global/facebook.png")" id="facebook" alt="Facebook">
                             <img src="@Url.Content("~/img/global/instagram.png")" id="instagram" alt="Instagram">
@@ -82,8 +86,10 @@
                 <a class="inscription-btn" href="@Url.Action("CreateAccount", "Login")">Inscription</a>
             </section>
 
+
             <img src="@Url.Content("~/img/global/line.png")" id="line" alt="Ligne séparatrice">
             <p class="copyright">Copyright &copy; 2024 agrinov - Tous droits réservés <a class="mentions-legales" href="mentions_legales/mentions_legales.html">Mentions légales</a></p>
+
         </section>
     </footer>
 

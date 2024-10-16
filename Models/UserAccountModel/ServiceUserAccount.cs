@@ -1,6 +1,7 @@
 using AgriNov.Models;
 using System.Security.Cryptography;
 using System.Text;
+using DotNetEnv;
 
 namespace AgriNov
 {
@@ -62,14 +63,14 @@ namespace AgriNov
 
         public void InitializeTable()
         {
-            UserAccount u1 = new UserAccount() { Mail = "v.gaudel@clissons.fr", Password = "isika24"};
+            UserAccount u1 = new UserAccount() { Mail = Environment.GetEnvironmentVariable("USER_MAIL_1"), Password = Environment.GetEnvironmentVariable("USER_PASSWORD_1")};
             InsertUserAccount(u1);
         }
 
         public void InsertUserAccount(UserAccount userAccount)
         {
             userAccount.Password = EncodeMD5(userAccount.Password);
-            userAccount.userAccountLevel = UserAccountLevel.DEFAULT;
+            userAccount.UserAccountLevel = UserAccountLevel.DEFAULT;
             userAccount.DateCreated = DateTime.Now;
             userAccount.DateLastModified = DateTime.Now;
             _DBContext.UserAccounts.Add(userAccount);

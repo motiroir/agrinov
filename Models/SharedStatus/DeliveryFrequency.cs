@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 using System.ComponentModel.DataAnnotations;
 
 namespace AgriNov.Models
+=======
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AgriNov.Models.ProductionModel
+>>>>>>> main
 {
     public enum DeliveryFrequency
     {

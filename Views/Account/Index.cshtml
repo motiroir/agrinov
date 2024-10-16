@@ -1,0 +1,24 @@
+@model AgriNov.Models.UserAccount;
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Votre Compte";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+
+}
+<div class="form">
+    @using (Html.BeginForm("TypeSelection", "Account", FormMethod.Post))
+    {
+        <label>Choisir votre type de compte :</label>
+        @Html.LabelFor(model => model.UserAccountLevel)
+        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.USER, new { id="user"});
+        <label for="user">Acheteur</label>
+        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.CORPORATE, new { id="corporate"})
+        <label for="corporate">Acheteur Comité d'Entreprise</label>
+        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.SUPPLIER, new { id="supplier"})
+        <label for="supplier">Fournisseur</label>
+        <button type="submit">Valider</button>
+    }
+</div>
