@@ -1,7 +1,92 @@
-div.form {
-    margin-top: 200px;
+.form {
+    max-width: 600px;
+    margin: 200px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-input[type="radio"]{
-    display: flex;
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
 }
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+input[type="radio"] {
+    display: block;
+}
+
+button[type="submit"] {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #d15150;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button[type="submit"]:hover {
+        background-color: #F96B6A;
+    }
+
+.validation-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Flexbox */
+.productType,
+.deliveryFrequency {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.dateLimitForReview {
+    margin-bottom: 20px;
+}
+
+

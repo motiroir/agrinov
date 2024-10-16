@@ -1,0 +1,28 @@
+﻿@model List<AgriNov.Models.Activity>
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Toutes les activités";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/tilestyle.css">
+}
+
+<div class="all-tiles-box">
+    @foreach (AgriNov.Models.Activity activity in Model)
+    {
+        <div class="activity-tile">
+            <div class="preview-img"></div>
+            <div class="tile-content">
+                <div class="text-content">
+                    <h2 class="activity-name">@activity.Name</h2>
+                    <p class="activity-author">@activity.Location</p>
+                    <p class="activity-date">@activity.Datetime</p>
+                </div>
+                <div class="btn-div">
+                    <button class="btn-inscription">inscription</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

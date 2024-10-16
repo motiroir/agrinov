@@ -1,4 +1,5 @@
 using AgriNov.Models;
+using AgriNov.Models.ProductionModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -23,9 +24,18 @@ app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 
-using( ServiceUserAccount sUA = new ServiceUserAccount()){
+using (ServiceUserAccount sUA = new ServiceUserAccount())
+{
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
+}
+using (ServiceProduction sP = new ServiceProduction())
+{
+    sP.Initializetable();
+}
+using (ServiceActivity sA = new ServiceActivity())
+{
+    sA.InitializeTable();
 }
 
 app.MapControllerRoute(
