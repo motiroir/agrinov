@@ -44,5 +44,8 @@ namespace AgriNov.Models.ProductionModel
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
 
+        public Season Season { get; set; }
+        public Stock Stock { get; set; }
+        
     }
 }

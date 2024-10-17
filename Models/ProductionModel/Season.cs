@@ -9,12 +9,11 @@ namespace AgriNov.Models.ProductionModel
         public Seasons Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public ICollection<Stock> Stocks { get; set; }
-        public ICollection<BoxSubscription> BoxSubscriptions { get; set; }
+        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<BoxSubscription> BoxSubscriptions { get; set; }
 
-        public Season(int id, Years year, Seasons name)
+        public Season(Years year, Seasons name)
         {
-            Id = id;
             Year = year;
             Name = name;
 
