@@ -11,8 +11,8 @@
         public DateTime EndingDate { get; set; }
         public DateTime SaleStartingDate { get; set; }
         public DateTime SaleEndingDate { get; set; }
-        public ICollection<BoxContractSubscription> BoxContractSubscriptions { get; } = new List<BoxContractSubscription>();
         public int NumberOfBCS { get; set; }
+        public ICollection<BoxSubscription> BoxContractSubscriptions { get; } = new List<BoxSubscription>();
 
     }
 

@@ -2,11 +2,11 @@
 
 namespace AgriNov.Models
 {
-	public class ServiceBoxContract : IServiceBoxContract
+	public class ServiceBoxSubscription : IServiceBoxSubscription
 	{
 		private BDDContext _DBContext;
 
-		public ServiceBoxContract()
+		public ServiceBoxSubscription()
 		{
 			_DBContext = new BDDContext();
 		}
@@ -22,7 +22,7 @@ namespace AgriNov.Models
 			for (int i = 0; i < boxContract.NumberOfBCS; i++)
 			{
 
-				BoxContractSubscription bcs = new BoxContractSubscription()
+				BoxSubscription bcs = new BoxSubscription()
 				{
 					StartingDate = boxContract.StartingDate,
 					EndingDate = boxContract.EndingDate,
@@ -39,7 +39,7 @@ namespace AgriNov.Models
 		}
 
         // Function to generate the number of boxes for one subscription depending on the frequency
-        public void GenerateBoxes(BoxContractSubscription subscription, DeliveryFrequency frequency)
+        public void GenerateBoxes(BoxSubscription subscription, DeliveryFrequency frequency)
 		{
             // while currentDate <= subscription.EndingDate, we add a new box to subscription
             // current date start to subscription.StartingDate and we increment +7, +14 days or 1 month depending of frequency
@@ -76,8 +76,20 @@ namespace AgriNov.Models
 
         public void DeleteBoxContract(int boxContractID)
 		{
-			BoxContract boxContract = _DBContext.BoxContracts.Find(boxContractID);
-			if (boxContract != null)
+            BoxContract boxContract = _DBContext.BoxContracts.Find(boxContractID);
+
+            // We first delete associated Boxes and ContractSubscriptions
+            foreach (BoxSubscription subscription in boxContract.BoxContractSubscriptions.ToList())
+            {
+                foreach (Box box in subscription.Boxes.ToList())
+                {
+                    subscription.Boxes.Remove(box);
+                }
+
+                boxContract.BoxContractSubscriptions.Remove(subscription);
+            }
+
+            if (boxContract != null)
 			{
 				_DBContext.BoxContracts.Remove(boxContract);
 				Save();

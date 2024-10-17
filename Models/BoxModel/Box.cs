@@ -4,7 +4,7 @@
 	{
 		public DateTime DatePickUp { get; set; }
 		public BoxStatus Status { get; set; }
-        public BoxContractSubscription BoxContractSubscription { get; set; } = null!;
+        public BoxSubscription BoxContractSubscription { get; set; } = null!;
 
     }
 }

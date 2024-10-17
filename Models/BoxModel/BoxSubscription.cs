@@ -1,6 +1,6 @@
 ﻿namespace AgriNov.Models
 {
-	public class BoxContractSubscription
+	public class BoxSubscription
 	{
 		public int Id { get; set; }
 		public DateTime StartingDate { get; set; }
