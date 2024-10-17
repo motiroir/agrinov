@@ -29,7 +29,7 @@ namespace AgriNov.Controllers
                 case UserAccountLevel.CORPORATE:
                     return RedirectToAction("AddCorporateUser", "Account");
                 case UserAccountLevel.SUPPLIER:
-                    return RedirectToAction("AddSupplier","Account");
+                    return RedirectToAction("AddSupplier", "Account");
                 default:
                     return View();
             }
@@ -119,7 +119,7 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult AddSupplier()
         {
-            SupplierWithProof viewModel = new SupplierWithProof() { Supplier = new Supplier()};
+            SupplierWithProof viewModel = new SupplierWithProof() { Supplier = new Supplier() };
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 viewModel.Supplier.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
@@ -146,7 +146,7 @@ namespace AgriNov.Controllers
             }
             if (!ModelState.IsValid)
             {
-                using( MemoryStream memoryStream = new MemoryStream())
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
                     viewModel.PdfFile.CopyTo(memoryStream);
                     viewModel.Supplier.ProofPdfDocument = memoryStream.ToArray();
@@ -161,23 +161,25 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE")]
+        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
         [HttpGet]
-        public IActionResult ChangePassword(){
+        public IActionResult ChangePassword()
+        {
             UserAccountUpdate viewModel = new UserAccountUpdate();
-            using(IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 viewModel.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
             return View(viewModel);
         }
 
-        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE")]
+        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
         [HttpPost]
-        public IActionResult ChangePassword(UserAccountUpdate viewModel){
-            if(viewModel.NewPassword == viewModel.ConfirmNewPassword)
+        public IActionResult ChangePassword(UserAccountUpdate viewModel)
+        {
+            if (viewModel.NewPassword == viewModel.ConfirmNewPassword)
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
                     {
@@ -189,28 +191,72 @@ namespace AgriNov.Controllers
                         }
                         //Check if login is correct
                         UserAccount userAccount = serviceUserAccount.Authenticate(currentUserAccount.Mail, viewModel.UserAccount.Password);
-                        if(userAccount != null)
+                        if (userAccount != null)
                         {
-                            serviceUserAccount.UpdateUserAccountPassword(userAccount.Id,viewModel.NewPassword);
+                            serviceUserAccount.UpdateUserAccountPassword(userAccount.Id, viewModel.NewPassword);
                         }
                         else
                         {
-                            ModelState.AddModelError("UserAccount.Password","Ancien mot de passe incorrect");
+                            ModelState.AddModelError("UserAccount.Password", "Ancien mot de passe incorrect");
                         }
                     }
                 }
             }
             else
             {
-                ModelState.AddModelError("NewPassword","Les mots de passe ne correspondent pas");
+                ModelState.AddModelError("NewPassword", "Les mots de passe ne correspondent pas");
             }
             return View(viewModel);
         }
 
-        [Authorize(Roles = "SUPPLIER,USER,CORPORATE")]
+        [Authorize(Roles = "SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
         [HttpGet]
-        public IActionResult ChangeInfo(){
-            return View();
+        public IActionResult ChangeInfo()
+        {
+            UserAccountInfoUpdate viewModel = new UserAccountInfoUpdate();
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDEager(HttpContext.User.Identity.Name);
+                viewModel.UserAccountId = currentAccount.Id;
+                viewModel.UserAccountLevel = currentAccount.UserAccountLevel;
+                // Assign data to viewModel depending on the type of account
+                if (currentAccount.UserAccountLevel == UserAccountLevel.USER || currentAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER || currentAccount.UserAccountLevel == UserAccountLevel.ADMIN)
+                {
+                    viewModel.User = currentAccount.User;
+                    viewModel.Address = currentAccount.User.Address;
+                    viewModel.ContactDetails = currentAccount.User.ContactDetails;
+                }
+                if (currentAccount.UserAccountLevel == UserAccountLevel.CORPORATE)
+                {
+                    viewModel.CorporateUser = currentAccount.CorporateUser;
+                    viewModel.Address = currentAccount.CorporateUser.Address;
+                    viewModel.ContactDetails = currentAccount.CorporateUser.ContactDetails;
+                    viewModel.CompanyDetails = currentAccount.CorporateUser.CompanyDetails;
+                }
+                if (currentAccount.UserAccountLevel == UserAccountLevel.SUPPLIER)
+                {
+                    viewModel.Supplier = currentAccount.Supplier;
+                    viewModel.Address = currentAccount.Supplier.Address;
+                    viewModel.ContactDetails = currentAccount.Supplier.ContactDetails;
+                    viewModel.CompanyDetails = currentAccount.Supplier.CompanyDetails;
+                }
+            }
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult DownloadPdf(int supplierId)
+        {
+            byte[] pdfBinaryData;
+            using(IServiceSupplier serviceSupplier = new ServiceSupplier())
+            {
+                pdfBinaryData = serviceSupplier.GetSupplierByID(supplierId).ProofPdfDocument;
+            }
+            if(pdfBinaryData == null || pdfBinaryData.Length == 0)
+            {
+                return NotFound();
+            }
+            return File(pdfBinaryData,"application/pdf","justificatif");
         }
 
     }
