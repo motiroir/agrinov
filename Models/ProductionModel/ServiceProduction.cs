@@ -1,4 +1,7 @@
 ﻿
+using AgriNov.Models.SharedStatus;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 namespace AgriNov.Models.ProductionModel
 {
     public class ServiceProduction : IServiceProduction
@@ -24,6 +27,8 @@ namespace AgriNov.Models.ProductionModel
                 this._DBContext.Productions.Remove(production);
             }
             this.Save();
+
+            UpdateStockQuantity(production);
         }
 
         public void Dispose()
@@ -73,6 +78,8 @@ namespace AgriNov.Models.ProductionModel
             production.DateLastModified = DateTime.Now;
             _DBContext.Productions.Add(production);
             Save();
+
+            UpdateStockQuantity(production);
         }
 
         public void Save()
@@ -89,6 +96,42 @@ namespace AgriNov.Models.ProductionModel
             }
             newProduction.DateLastModified = DateTime.Now;
             _DBContext.Entry(oldProduction).CurrentValues.SetValues(newProduction);
+            Save();
+
+            UpdateStockQuantity(newProduction);
+        }
+
+        private void UpdateStockQuantity(Production production)
+        {
+            Stock stock = _DBContext.Stocks
+                .FirstOrDefault(s => s.Season.Name == production.Seasons && s.ProductType == production.ProductType);
+
+            if (stock != null)
+            {
+                stock.TotalQuantity = _DBContext.Productions
+                    .Where(p => p.Seasons == production.Seasons && p.ProductType == production.ProductType)
+                    .Sum(p => p.VolumePerDelivery * (int)p.DeliveryFrequency); 
+
+                Save();
+            } else
+            {
+                InsertStock(production);
+            }
+        }
+        public void InsertStock(Production production)
+        {
+            Season Season = _DBContext.Seasons
+                .FirstOrDefault(s => s.Name == production.Seasons && s.Year == production.Years);
+
+            // insert a new season if season is null
+
+            Stock stock = new Stock()
+            {
+                ProductType = production.ProductType,
+                Season = Season
+            };
+
+            _DBContext.Stocks.Add(stock);
             Save();
         }
     }

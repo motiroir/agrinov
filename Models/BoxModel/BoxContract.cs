@@ -1,4 +1,6 @@
-﻿namespace AgriNov.Models
+﻿using AgriNov.Models.ProductionModel;
+
+namespace AgriNov.Models
 {
 	public class BoxContract
 	{

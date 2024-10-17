@@ -39,10 +39,10 @@ using (ServiceActivity sA = new ServiceActivity())
     sA.InitializeTable();
 }
 
-using (ServiceBoxSubscription sBC = new ServiceBoxSubscription())
-{
-	sBC.InitializeTable();
-}
+//using (ServiceBoxSubscription sBC = new ServiceBoxSubscription())
+//{
+//	sBC.InitializeTable();
+//}
 
 app.MapControllerRoute(
         name: "default",

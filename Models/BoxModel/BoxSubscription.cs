@@ -8,7 +8,7 @@ namespace AgriNov.Models
 	{
 		public int Id { get; set; }
         public BoxSize BoxSize { get; set; }
-        public List<ProductType> ProductTypes { get; set; } = null!;
+        //public List<ProductType> ProductTypes { get; set; } = null!;
         public DeliveryFrequency DeliveryFrequency { get; set; }
 		public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
