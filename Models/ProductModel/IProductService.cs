@@ -1,6 +1,6 @@
 ﻿using AgriNov.Models.ProductionModel;
 
-namespace AgriNov.Models.ProductModel
+namespace AgriNov.Models
 {
     public interface IProductService : IDisposable
     {

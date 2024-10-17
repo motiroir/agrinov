@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AgriNov.Models.ProductModel
+namespace AgriNov.Models
 {
     public class Product
     {

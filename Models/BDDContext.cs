@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using AgriNov.Models.ProductionModel;
-using AgriNov.Models.ProductModel;
+
 
 namespace AgriNov.Models
 {

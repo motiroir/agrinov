@@ -1,5 +1,5 @@
 ﻿
-namespace AgriNov.Models.ProductModel
+namespace AgriNov.Models
 {
     public class ProductService : IProductService
     {
@@ -103,6 +103,11 @@ namespace AgriNov.Models.ProductModel
             // Ne changez pas ce code. Placez le code de nettoyage dans la méthode 'Dispose(bool disposing)'
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        internal object GetProduct()
+        {
+            throw new NotImplementedException();
         }
     }
 

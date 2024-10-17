@@ -1,6 +1,5 @@
 using AgriNov.Models;
 using AgriNov.Models.ProductionModel;
-using AgriNov.Models.ProductModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -8,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login/Login");
+builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build();
 
