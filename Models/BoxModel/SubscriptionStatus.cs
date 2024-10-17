@@ -4,14 +4,11 @@ namespace AgriNov.Models
 {
 	public enum SubscriptionStatus
 	{
-		[Display(Name = "En cours d'édition")]
+        [Display(Name = "À venir")]
+        FUTURE,
+
+        [Display(Name = "En cours")]
 		IN_PROGRESS,
-
-		[Display(Name = "En vente")]
-		FOR_SALE,
-
-        [Display(Name = "Vendu")]
-        SOLD,
 
         [Display(Name = "Terminé")]
         FINISHED
