@@ -6,7 +6,5 @@ namespace AgriNov.ViewModels
     {
         public Activity Activity {  get; set; }
         public string OrganizerName { get; set; }
-
-
     }
 }

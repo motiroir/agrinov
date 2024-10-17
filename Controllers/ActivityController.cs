@@ -84,15 +84,13 @@ namespace AgriNov.Controllers
                 Activity activity = sA.GetActivity(id);
                 ActivityViewModel aVM = new ActivityViewModel();
                 aVM.Activity = activity;
-                string organizerRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value; 
+
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    UserAccount organizer = sUA.GetUserAccountByID(organizerRole);
-
+                    UserAccount organizer = sUA.GetUserAccountByIDEager(activity.OrganizerId);
+                    aVM.OrganizerName = sUA.GetUserFullName(organizer);
                 }
-
-                aVM.OrganizerName = null;
-                return View(activity);
+                return View(aVM);
             }
         }
     }
