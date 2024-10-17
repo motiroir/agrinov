@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="~/CSS/formstyle.css">
 
 }
-<p>@Model.UserAccountLevel.ToString()</p>
 <div class="form">
     @using (Html.BeginForm("ChangeInfo", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.TextBoxFor(model => model.UserAccountId, new { @Value = @Model.UserAccountId, style = "display:none;" })
-
+        @Html.TextBoxFor(model => model.UserAccountLevel, new { @Value = @Model.UserAccountLevel, style = "display:none;" })
+       
         <div>
             @Html.LabelFor(model => model.ContactDetails.Name)
             @Html.TextBoxFor(model => model.ContactDetails.Name, new { @class = "form-input" })
@@ -50,7 +50,7 @@
             @Html.ValidationMessageFor(model => model.Address.City)
         </div>
 
-        if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER)
+        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER)
         {
             <div>
                 @Html.LabelFor(model => model.CompanyDetails.CompanyName)
@@ -63,7 +63,7 @@
                 @Html.ValidationMessageFor(model => model.CompanyDetails.SiretNumber)
             </div>
         }
-        if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.CORPORATE)
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.CORPORATE)
         {
             <div>
                 @Html.LabelFor(model => model.CorporateUser.MaxBoxContractSubscription)
@@ -76,11 +76,13 @@
                 @Html.ValidationMessageFor(model => model.CorporateUser.MaxActivitiesSignUp)
             </div>
         }
-        if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
         {
+             @Html.TextBoxFor(model => model.Supplier.Id, new { @Value = @Model.Supplier.Id, style = "display:none;" })
+
             <div>
                 @Html.LabelFor(model => model.PdfFile)
-                <a href=@Url.Action("DownloadPdf","Account",new { @pdfBinaryData = @Model.Supplier.Id })>Download PDF</a>
+                <a href="@Url.Action("DownloadPdf","Account",new { supplierId = Model.Supplier.Id })" target="_blank" rel="noreferrer noopener">Download PDF</a>
                 @Html.TextBoxFor(model => model.PdfFile, new { type = "file", accept = "application/pdf" })
             </div>
         }
@@ -88,3 +90,4 @@
 
     }
 </div>
+<a href="@Url.Action("Index", "MyAccount")" class="action">Revenir à mon compte</a>

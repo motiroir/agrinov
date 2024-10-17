@@ -25,7 +25,7 @@ namespace AgriNov.Controllers
                     using (ServiceUserAccount sUA = new ServiceUserAccount())
                     {
                         sUA.InsertUserAccount(viewModel.UserAccount);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "MyAccount");
                     }
                 }
             }
@@ -69,7 +69,7 @@ namespace AgriNov.Controllers
                         ClaimsPrincipal userPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
                         HttpContext.SignInAsync(userPrincipal);
-                        return RedirectToAction("Index","Account"); 
+                        return RedirectToAction("Index","MyAccount"); 
                     }
                     else
                     {

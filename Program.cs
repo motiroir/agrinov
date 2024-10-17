@@ -6,7 +6,13 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login/Login");
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+    options => 
+    {
+        options.LoginPath = "/Login/Login";
+        options.AccessDeniedPath = "/Login/Login";
+    }
+    );
 
 var app = builder.Build();
 
