@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.Intrinsics.X86;
 
 namespace AgriNov.Models
 {
@@ -192,6 +193,42 @@ namespace AgriNov.Models
         {
             string passwordWithSalt = "Authentication" + password + "Hash";
             return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(passwordWithSalt)));
+        }
+
+        public string GetUserFullName(UserAccount user)
+        {
+            if (user.UserAccountLevel.ToString() == "USER")
+            {
+                string lastName = user.User.ContactDetails.Name;
+                string firstName = user.User.ContactDetails.FirstName;
+                return firstName + " " + lastName;
+            }
+            if (user.UserAccountLevel.ToString() == "CORPORATE")
+            {
+                string lastName = user.CorporateUser.ContactDetails.Name;
+                string firstName = user.CorporateUser.ContactDetails.FirstName;
+                return firstName + " " + lastName;
+            }
+            if (user.UserAccountLevel.ToString() == "SUPPLIER")
+            {
+                string lastName = user.Supplier.ContactDetails.Name;
+                string firstName = user.Supplier.ContactDetails.FirstName;
+                return firstName + " " + lastName;
+            }
+            /*Activate when volunteer and admin class created
+             * if (user.UserAccountLevel.ToString() == "VOLUNTEER")
+            {
+                string lastName = user.Volunteer.ContactDetails.Name;
+                string firstName = user.Volunteer.ContactDetails.FirstName;
+                return firstName + lastName;
+            }
+            if (user.UserAccountLevel.ToString() == "ADMIN")
+            {
+                string lastName = user.Admin.ContactDetails.Name;
+                string firstName = user.Admin.ContactDetails.FirstName;
+                return firstName + lastName;
+            }*/
+            return null;
         }
     }
 }

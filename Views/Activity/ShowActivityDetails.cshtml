@@ -1,4 +1,4 @@
-﻿@model AgriNov.Models.Activity
+﻿@model AgriNov.ViewModels.ActivityViewModel
 
 @{
     Layout = "_BaseLayout";
@@ -14,21 +14,22 @@
             <div class="close-btn"></div>
         </a>
         <div class="text-content">
-            <h2 class="activity-name">@Model.Name</h2>
-            <p class="activity-author">@Model.Location</p>
-            <p class="activity-date">@Model.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
-            <p class="activity-description">@Model.Description</p>
+            <h2 class="activity-name">@Model.Activity.Name</h2>
+            <p class="activity-author">@Model.Activity.Location</p>
+            <p class="activity-date">@Model.Activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
+            <p class="activity-date">Proposé par @Model.OrganizerName</p>
+            <p class="activity-description">@Model.Activity.Description</p>
             <div class="activity-number-display">
                 <div>
-                    <p class="number-display">@Model.Duration h</p>
+                    <p class="number-display">@Model.Activity.Duration h</p>
                     <p>Durée de l'atelier</p>
                 </div>
                 <div>
-                    <p class="number-display">@Model.MaxParticipants</p>
+                    <p class="number-display">@Model.Activity.MaxParticipants</p>
                     <p>Places restantes</p>
                 </div>
                 <div>
-                    <p class="number-display">@Model.MaxInvitesPerPerson</p>
+                    <p class="number-display">@Model.Activity.MaxInvitesPerPerson</p>
                     <p>Invité(s) possible</p>
                 </div>
             </div>
@@ -36,7 +37,7 @@
         <div class="btn-div">
             <div class="quantity-selector">
                 <button class="minus">-</button>
-                <input type="text" value="1" min="1" max="@(@Model.MaxInvitesPerPerson + 1)">
+                <input type="text" value="1" min="1" max="@(@Model.Activity.MaxInvitesPerPerson + 1)">
                 <button class="plus">+</button>
             </div>
             <button class="btn-inscription">inscription</button>
