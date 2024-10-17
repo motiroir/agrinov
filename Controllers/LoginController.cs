@@ -39,7 +39,7 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            UserAccountConnexion viewModel = new UserAccountConnexion() { IsAuthenticated = HttpContext.User.Identity.IsAuthenticated };
+            UserAccountLogin viewModel = new UserAccountLogin() { IsAuthenticated = HttpContext.User.Identity.IsAuthenticated };
             if (viewModel.IsAuthenticated)
             {
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
@@ -51,7 +51,7 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserAccountConnexion viewModel)
+        public IActionResult Login(UserAccountLogin viewModel)
         {
             if (ModelState.IsValid)
             {

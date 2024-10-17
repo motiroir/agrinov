@@ -7,6 +7,10 @@ using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using AgriNov.Models.SharedStatus;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 
 
@@ -85,6 +89,8 @@ namespace AgriNov.Controllers
 
             return View(production);
         }
+
+        
 
 
     }

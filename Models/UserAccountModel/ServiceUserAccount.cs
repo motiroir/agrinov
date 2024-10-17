@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 using DotNetEnv;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgriNov.Models
 {
@@ -49,12 +50,27 @@ namespace AgriNov.Models
             return this._DBContext.UserAccounts.Find(userAccountID);
         }
 
+        public UserAccount GetUserAccountByIDEager(int userAccountID)
+        {
+            return this._DBContext.UserAccounts.Include("User").Include("CorporateUser").Include("Supplier").FirstOrDefault(u => u.Id == userAccountID);
+        }
+
         public UserAccount GetUserAccountByID(string userAccountIDStr)
         {
             int id;
             if (int.TryParse(userAccountIDStr, out id))
             {
                 return this.GetUserAccountByID(id);
+            }
+            return null;
+        }
+
+        public UserAccount GetUserAccountByIDEager(string userAccountIDStr)
+        {
+            int id;
+            if (int.TryParse(userAccountIDStr, out id))
+            {
+                return this.GetUserAccountByIDEager(id);
             }
             return null;
         }
@@ -66,8 +82,70 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            UserAccount u1 = new UserAccount() { Mail = Environment.GetEnvironmentVariable("USER_MAIL_1"), Password = Environment.GetEnvironmentVariable("USER_PASSWORD_1")};
+            UserAccount u1 = new UserAccount() { Mail = Environment.GetEnvironmentVariable("USER_MAIL_1"), Password = Environment.GetEnvironmentVariable("USER_PASSWORD_1") };
             InsertUserAccount(u1);
+            UserAccount u2 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_2"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_2")
+            };
+            InsertUserAccount(u2);
+
+            UserAccount u3 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_3"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_3")
+            };
+            InsertUserAccount(u3);
+
+            UserAccount u4 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_4"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_4")
+            };
+            InsertUserAccount(u4);
+
+            UserAccount u5 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_5"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_5")
+            };
+            InsertUserAccount(u5);
+
+            UserAccount u6 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_6"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_6")
+            };
+            InsertUserAccount(u6);
+
+            UserAccount u7 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_7"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_7")
+            };
+            InsertUserAccount(u7);
+
+            UserAccount u8 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_8"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_8")
+            };
+            InsertUserAccount(u8);
+
+            UserAccount u9 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_9"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_9")
+            };
+            InsertUserAccount(u9);
+
+            UserAccount u10 = new UserAccount()
+            {
+                Mail = Environment.GetEnvironmentVariable("USER_MAIL_10"),
+                Password = Environment.GetEnvironmentVariable("USER_PASSWORD_10")
+            };
+            InsertUserAccount(u10);
         }
 
         public void InsertUserAccount(UserAccount userAccount)
@@ -85,7 +163,8 @@ namespace AgriNov.Models
             _DBContext.SaveChanges();
         }
 
-        public void UpdateUserAccountPassword(int userAccountID, string password){
+        public void UpdateUserAccountPassword(int userAccountID, string password)
+        {
             UserAccount oldUser = this.GetUserAccountByID(userAccountID);
             string newEncryptedPassword = EncodeMD5(password);
             if (oldUser == null)

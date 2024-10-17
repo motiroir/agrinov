@@ -1,0 +1,90 @@
+@model AgriNov.ViewModels.UserAccountInfoUpdate
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Changement des informations du compte";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+
+}
+<p>@Model.UserAccountLevel.ToString()</p>
+<div class="form">
+    @using (Html.BeginForm("ChangeInfo", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.TextBoxFor(model => model.UserAccountId, new { @Value = @Model.UserAccountId, style = "display:none;" })
+
+        <div>
+            @Html.LabelFor(model => model.ContactDetails.Name)
+            @Html.TextBoxFor(model => model.ContactDetails.Name, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.ContactDetails.Name)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.ContactDetails.FirstName)
+            @Html.TextBoxFor(model => model.ContactDetails.FirstName, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.ContactDetails.FirstName)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.ContactDetails.PhoneNumber)
+            @Html.TextBoxFor(model => model.ContactDetails.PhoneNumber, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.ContactDetails.PhoneNumber)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Address.Line1)
+            @Html.TextBoxFor(model => model.Address.Line1, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.Address.Line1)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Address.Line2)
+            @Html.TextBoxFor(model => model.Address.Line2, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.Address.Line2)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Address.PostCode)
+            @Html.TextBoxFor(model => model.Address.PostCode, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.Address.PostCode)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Address.City)
+            @Html.TextBoxFor(model => model.Address.City, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.Address.City)
+        </div>
+
+        if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER)
+        {
+            <div>
+                @Html.LabelFor(model => model.CompanyDetails.CompanyName)
+                @Html.TextBoxFor(model => model.CompanyDetails.CompanyName, new { @class = "form-input" })
+                @Html.ValidationMessageFor(model => model.CompanyDetails.CompanyName)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.CompanyDetails.SiretNumber)
+                @Html.TextBoxFor(model => model.CompanyDetails.SiretNumber, new { @class = "form-input" })
+                @Html.ValidationMessageFor(model => model.CompanyDetails.SiretNumber)
+            </div>
+        }
+        if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.CORPORATE)
+        {
+            <div>
+                @Html.LabelFor(model => model.CorporateUser.MaxBoxContractSubscription)
+                @Html.TextBoxFor(model => model.CorporateUser.MaxBoxContractSubscription, new { @class = "form-input" })
+                @Html.ValidationMessageFor(model => model.CorporateUser.MaxBoxContractSubscription)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.CorporateUser.MaxActivitiesSignUp)
+                @Html.TextBoxFor(model => model.CorporateUser.MaxActivitiesSignUp, new { @class = "form-input" })
+                @Html.ValidationMessageFor(model => model.CorporateUser.MaxActivitiesSignUp)
+            </div>
+        }
+        if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
+        {
+            <div>
+                @Html.LabelFor(model => model.PdfFile)
+                <a href=@Url.Action("DownloadPdf","Account",new { @pdfBinaryData = @Model.Supplier.Id })>Download PDF</a>
+                @Html.TextBoxFor(model => model.PdfFile, new { type = "file", accept = "application/pdf" })
+            </div>
+        }
+        <button type="submit" class="button-add">Modifier</button>
+
+    }
+</div>

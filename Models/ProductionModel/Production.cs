@@ -9,7 +9,7 @@ namespace AgriNov.Models.ProductionModel
         public int Id { get; set; }
 
         [Required]
-        [DisplayName("Quantité (arrondir au kg)")]
+        [DisplayName("Quantité (au kg / Litres / Pièces)")]
         [Range(1, int.MaxValue, ErrorMessage = "Le volume doit être supérieur à 0.")]
         public int VolumePerDelivery { get; set; }
 
@@ -28,6 +28,14 @@ namespace AgriNov.Models.ProductionModel
         [Required]
         [DisplayName("Type de produit")]
         public ProductType ProductType { get; set; }
+
+        [Required]
+        [DisplayName("Saison assginée")]
+        public Seasons Seasons { get; set; }
+
+        [Required]
+        [DisplayName("Année assginée")]
+        public Years Years { get; set; }
 
         [Required]
         [DisplayName("Fréquence de livraison")]

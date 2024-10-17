@@ -51,7 +51,43 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            throw new NotImplementedException();
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                // Corporate User c9
+                Address a9 = new Address() { Line1 = "Etage 27", Line2 = "Avenue Thiers", City = "Nantes", PostCode = "44000" };
+                ContactDetails c9 = new ContactDetails() { Name = "Dupont", FirstName = "Sacha", PhoneNumber = "0674453281" };
+                CompanyDetails cd9 = new CompanyDetails() { CompanyName = "Total Energies", SiretNumber = "0145675432075411" };
+                CorporateUser cu9 = new CorporateUser() { UserAccount = serviceUserAccount.GetUserAccountByID(9), Address = a9, ContactDetails = c9, CompanyDetails = cd9 };
+                InsertCorporateUser(cu9);
+
+                // Corporate User cu10
+                Address a10 = new Address()
+                {
+                    Line1 = "Bureau 15",
+                    Line2 = "Boulevard Victor Hugo",
+                    City = "Paris",
+                    PostCode = "75008"
+                };
+                ContactDetails c10 = new ContactDetails()
+                {
+                    Name = "Perrin",
+                    FirstName = "François",
+                    PhoneNumber = "0654321890"
+                };
+                CompanyDetails cd10 = new CompanyDetails()
+                {
+                    CompanyName = "BNP Paribas",
+                    SiretNumber = "98765432100123"
+                };
+                CorporateUser cu10 = new CorporateUser()
+                {
+                    UserAccount = serviceUserAccount.GetUserAccountByID(10),
+                    Address = a10,
+                    ContactDetails = c10,
+                    CompanyDetails = cd10
+                };
+                InsertCorporateUser(cu10);
+            }
         }
 
         public void InsertCorporateUser(CorporateUser corporateUser)

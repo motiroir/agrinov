@@ -29,6 +29,18 @@ using (ServiceUserAccount sUA = new ServiceUserAccount())
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
 }
+using(IServiceUser sU = new ServiceUser())
+{
+    sU.InitializeTable();
+}
+using(IServiceSupplier sP = new ServiceSupplier())
+{
+    sP.InitializeTable();
+}
+using(IServiceCorporateUser sCU = new ServiceCorporateUser())
+{
+    sCU.InitializeTable();
+}
 using (ServiceProduction sP = new ServiceProduction())
 {
     sP.Initializetable();

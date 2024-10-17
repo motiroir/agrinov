@@ -59,6 +59,8 @@ namespace AgriNov.Models.ProductionModel
                 VolumePerDelivery = 50,
                 Price = 150,
                 DeliveryFrequency = DeliveryFrequency.MONTHLY,
+                Seasons = SharedStatus.Seasons.WINTER,
+                Years = SharedStatus.Years._2024,
                 DateLimitForReview = new DateTime(2024,11,01) 
             };
             InsertProduction(p1);
