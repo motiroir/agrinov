@@ -244,19 +244,56 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
+        [HttpPost]
+        public IActionResult ChangeInfo(UserAccountInfoUpdate viewModel)
+        {
+            // Assign data from viewModel depending on the type of account
+            if (viewModel.UserAccountLevel == UserAccountLevel.USER || viewModel.UserAccountLevel == UserAccountLevel.VOLUNTEER || viewModel.UserAccountLevel == UserAccountLevel.ADMIN)
+            {
+                User updatedUser = null;
+                using(IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+                {
+                    updatedUser = serviceUserAccount.GetUserAccountByIDEager(viewModel.UserAccountId).User;
+                }
+                updatedUser.Address = viewModel.Address;
+                updatedUser.ContactDetails = viewModel.ContactDetails;
+                using(IServiceUser serviceUser = new ServiceUser())
+                {
+                    serviceUser.UpdateUser(updatedUser);
+                }
+                return RedirectToAction("Index","Home");
+            }
+            if (viewModel.UserAccountLevel == UserAccountLevel.CORPORATE)
+            {
+               
+            }
+            if (viewModel.UserAccountLevel == UserAccountLevel.SUPPLIER)
+            {
+                
+            }
+
+            return View(viewModel);
+        }
+
         [HttpGet]
+        [Authorize("SUPPLIER,ADMIN")]
         public IActionResult DownloadPdf(int supplierId)
         {
-            byte[] pdfBinaryData;
-            using(IServiceSupplier serviceSupplier = new ServiceSupplier())
+            byte[] pdfBinaryData = null;
+            using (IServiceSupplier serviceSupplier = new ServiceSupplier())
             {
-                pdfBinaryData = serviceSupplier.GetSupplierByID(supplierId).ProofPdfDocument;
+                Supplier currentSupplier = serviceSupplier.GetSupplierByID(supplierId);
+                if (currentSupplier.ProofPdfDocument != null)
+                {
+                    pdfBinaryData = currentSupplier.ProofPdfDocument;
+                }
             }
-            if(pdfBinaryData == null || pdfBinaryData.Length == 0)
+            if (pdfBinaryData == null || pdfBinaryData.Length == 0)
             {
                 return NotFound();
             }
-            return File(pdfBinaryData,"application/pdf","justificatif");
+            return File(pdfBinaryData, "application/pdf", "justificatif");
         }
 
     }

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/CSS/formstyle.css">
 
 }
+<p>@Model.UserAccountLevel.ToString()</p>
 <div class="form">
     @using (Html.BeginForm("ChangeInfo", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {

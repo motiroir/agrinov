@@ -145,7 +145,10 @@ namespace AgriNov.Models
 
         public void UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            user.UserAccount.DateLastModified = DateTime.Now;
+            _DBContext.UserAccounts.Update(user.UserAccount);
+            _DBContext.Users.Update(user);
+            Save();
         }
 
 
