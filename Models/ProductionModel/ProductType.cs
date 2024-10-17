@@ -10,8 +10,11 @@ namespace AgriNov.Models.ProductionModel
         [Display(Name = "Fruits")]
         FRUITS,
 
-        [Display(Name = "Oeufs et Produits Laitiers")]
-        EGGS_AND_DAIRY,
+        [Display(Name = "Oeufs")]
+        EGGS,
+
+        [Display(Name = "Laitages")]
+        DAYRIS,
 
         [Display(Name = "Poissons")]
         FISH,
