@@ -6,6 +6,7 @@
 }
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 
 <div class="form">
@@ -21,6 +22,12 @@
             @Html.LabelFor(model => Model.Datetime)
             @Html.EditorFor(model => Model.Datetime, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
             @Html.ValidationMessageFor(model => Model.Datetime)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Duration)
+            @Html.TextBoxFor(model => model.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Duration)
         </div>
 
         <div>
@@ -47,6 +54,6 @@
             @Html.ValidationMessageFor(model => Model.Description)
         </div>
 
-        <button type="submit" class="button-update">Valider</button>
+        <button class="orange-btn w-100">Valider</button>
     }
 </div>

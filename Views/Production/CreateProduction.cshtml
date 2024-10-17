@@ -7,7 +7,9 @@
 }
 
 @section ExtraStyle {
+   
     <link rel="stylesheet" href="~/CSS/formstyle.css" />
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
 }
 
 <div class="form">
@@ -61,6 +63,6 @@
             @Html.ValidationMessageFor(model => model.DateLimitForReview)
         </div>
 
-        <button type="submit" class="btn btn-primary">Créer</button>
+        <button type="submit" class="orange-btn">Créer</button>
     }
 </div>

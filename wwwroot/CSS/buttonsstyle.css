@@ -1,0 +1,29 @@
+﻿/* Colors */
+:root {
+    --darkViolet: #31152E;
+    --lightViolet: #6A2041;
+    --paleRed: #9C3344;
+    --orangeRed: #D15150;
+    --orange: #EB7051;
+    --lightOrange: #FE9E55;
+    --headerParagraph: #CBA8C7;
+    --contentParagraph: #2C2C2C;
+    --ghDarkBg: linear-gradient(180deg, #FFFFFF 0%, #CBA8C7 100%);
+    --ghLightBg: linear-gradient(180deg, #000000 0%, #464545 100%);
+    --transparentBg: rgba(21, 9, 20, 0.5);
+}
+
+.orange-btn {
+    background-color: var(--orange);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.orange-btn:hover {
+   background-color: #e67e50;
+}

@@ -73,5 +73,14 @@ namespace AgriNov.Controllers
                 return View(activities);
             }
         }
+
+        public IActionResult ShowActivityDetails(int id)
+        {
+            using (ServiceActivity sA = new ServiceActivity())
+            {
+                Activity activity = sA.GetActivity(id);
+                return View(activity);
+            }
+        }
     }
 }
