@@ -14,12 +14,23 @@ namespace AgriNov.Controllers
     public class AccountController : Controller
     {
         [Authorize(Roles = "DEFAULT")]
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult TypeSelection()
         {
+            UserAccount currentUserAccount;
+            using(IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                currentUserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+            }
+            if(currentUserAccount.UserId != null || currentUserAccount.SupplierId != null || currentUserAccount.CorporateUserId != null)
+            {
+                return View("Error");
+            }
             return View();
         }
 
         [Authorize(Roles = "DEFAULT")]
+        [HttpPost]
         public IActionResult TypeSelection(UserAccount userAccount)
         {
             switch (userAccount.UserAccountLevel)
@@ -43,6 +54,10 @@ namespace AgriNov.Controllers
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 user.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+            }
+            if(user.UserAccount.UserId != null || user.UserAccount.SupplierId != null || user.UserAccount.CorporateUserId != null)
+            {
+                return View("Error");
             }
             return View(user);
         }
@@ -69,7 +84,7 @@ namespace AgriNov.Controllers
                 using (IServiceUser serviceUser = new ServiceUser())
                 {
                     serviceUser.InsertUser(user);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "MyAccount");
                 }
             }
             return View(user);
@@ -83,6 +98,10 @@ namespace AgriNov.Controllers
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 corporateUser.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+            }
+            if(corporateUser.UserAccount.UserId != null || corporateUser.UserAccount.SupplierId != null || corporateUser.UserAccount.CorporateUserId != null)
+            {
+                return View("Error");
             }
             return View(corporateUser);
         }
@@ -109,7 +128,7 @@ namespace AgriNov.Controllers
                 using (IServiceCorporateUser serviceCorporateUser = new ServiceCorporateUser())
                 {
                     serviceCorporateUser.InsertCorporateUser(corporateUser);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "MyAccount");
                 }
             }
             return View(corporateUser);
@@ -123,6 +142,10 @@ namespace AgriNov.Controllers
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 viewModel.Supplier.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
+            }
+             if(viewModel.Supplier.UserAccount.UserId != null || viewModel.Supplier.UserAccount.SupplierId != null || viewModel.Supplier.UserAccount.CorporateUserId != null)
+            {
+                return View("Error");
             }
             return View(viewModel);
         }
@@ -155,13 +178,13 @@ namespace AgriNov.Controllers
                 using (IServiceSupplier serviceSupplier = new ServiceSupplier())
                 {
                     serviceSupplier.InsertSupplier(viewModel.Supplier);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "MyAccount");
                 }
             }
             return View(viewModel);
         }
 
-        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
+        [Authorize]
         [HttpGet]
         public IActionResult ChangePassword()
         {
@@ -173,7 +196,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "DEFAULT,SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
+        [Authorize]
         [HttpPost]
         public IActionResult ChangePassword(UserAccountUpdate viewModel)
         {
@@ -209,7 +232,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
+        [Authorize]
         [HttpGet]
         public IActionResult ChangeInfo()
         {
@@ -244,7 +267,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize(Roles = "SUPPLIER,USER,CORPORATE,ADMIN,VOLUNTEER")]
+        [Authorize]
         [HttpPost]
         public IActionResult ChangeInfo(UserAccountInfoUpdate viewModel)
         {

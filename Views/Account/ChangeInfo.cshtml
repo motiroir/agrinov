@@ -50,7 +50,7 @@
             @Html.ValidationMessageFor(model => model.Address.City)
         </div>
 
-        if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER)
+        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER)
         {
             <div>
                 @Html.LabelFor(model => model.CompanyDetails.CompanyName)
@@ -63,7 +63,7 @@
                 @Html.ValidationMessageFor(model => model.CompanyDetails.SiretNumber)
             </div>
         }
-        if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.CORPORATE)
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.CORPORATE)
         {
             <div>
                 @Html.LabelFor(model => model.CorporateUser.MaxBoxContractSubscription)
@@ -76,7 +76,7 @@
                 @Html.ValidationMessageFor(model => model.CorporateUser.MaxActivitiesSignUp)
             </div>
         }
-        if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
         {
              @Html.TextBoxFor(model => model.Supplier.Id, new { @Value = @Model.Supplier.Id, style = "display:none;" })
 
@@ -90,3 +90,4 @@
 
     }
 </div>
+<a href="@Url.Action("Index", "MyAccount")" class="action">Revenir à mon compte</a>
