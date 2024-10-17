@@ -5,13 +5,11 @@ namespace AgriNov.Models.ProductModel
     public interface IProductService : IDisposable
     {
         void CreateDeleteDatabase();
-        void Initializetable();
+        void InitializeTable();
 
         List<Product> GetProducts();
 
         Product GetProductByID(int ProductID);
-
-        Product GetProductByID(string ProductID);
 
         void InsertProduct(Product product);
 

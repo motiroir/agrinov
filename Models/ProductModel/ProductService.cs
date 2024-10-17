@@ -3,18 +3,33 @@ namespace AgriNov.Models.ProductModel
 {
     public class ProductService : IProductService
     {
+
+        private BDDContext _DBContext;
         private bool disposedValue;
 
+        public ProductService()
+        {
+            _DBContext = new BDDContext();
+        }
         public void CreateDeleteDatabase()
         {
-            throw new NotImplementedException();
-        }
+            _DBContext.Database.EnsureDeleted();
+            _DBContext.Database.EnsureCreated();
 
-        public void DeleteProduct(int ProductID)
+        }
+        public void DeleteProduct(int id)
         {
             throw new NotImplementedException();
         }
+        public Product GetProduct(int id)
+        {
+            return this._DBContext.Products.Find(id);
+        }
 
+        public List<Product> GetAllProduct()
+        {
+            return _DBContext.Products.ToList();
+        }
         public Product GetProductByID(int ProductID)
         {
             throw new NotImplementedException();
@@ -30,11 +45,22 @@ namespace AgriNov.Models.ProductModel
             throw new NotImplementedException();
         }
 
-        public void Initializetable()
+        public void InitializeTable()
         {
-            throw new NotImplementedException();
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Pot de miel moyen",
+                Category = "Miel",
+                CreationDate = new DateTime(2024, 12, 12),
+                Price = 3,
+                ExpirationDate = new DateTime(2024, 12, 12),
+                Description = "azaz",
+                Stock = 10
+            });
+            
+            _DBContext.SaveChanges();
         }
-
+         
         public void InsertProduct(Product product)
         {
             throw new NotImplementedException();
@@ -79,4 +105,5 @@ namespace AgriNov.Models.ProductModel
             GC.SuppressFinalize(this);
         }
     }
+
 }

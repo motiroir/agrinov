@@ -1,5 +1,6 @@
 using AgriNov.Models;
 using AgriNov.Models.ProductionModel;
+using AgriNov.Models.ProductModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -37,9 +38,16 @@ using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
 }
-
-app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+using (ProductService pS = new ProductService())
+{
+    pS.InitializeTable();
+}using (ProductService pS = new ProductService())
+   
+    
+    
+    
+    app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
