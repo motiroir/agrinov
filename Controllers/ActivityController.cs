@@ -78,12 +78,26 @@ namespace AgriNov.Controllers
             }
         }
 
-        public IActionResult ShowActivityDetails(int id)
+        public IActionResult ShowMyActivities()
         {
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+            ActivityViewModel aVM = new ActivityViewModel();
+            using (ServiceActivity sA = new ServiceActivity())
+            {
+                //get a list of activities organized by user
+                aVM.ActivitiesByOrganizer = sA.GetActivitiesByOrganizer(userId);
+                //get a list of activities booked by user
+                aVM.ActivitiesBookedByUser = sA.GetActivitiesByUserBooking(userId);
+            }
+            return View(aVM);
+        }
+
+        public IActionResult ShowActivityDetails(int id, string returnUrl = null)
+        {
+            ActivityViewModel aVM = new ActivityViewModel();
             using (ServiceActivity sA = new ServiceActivity())
             {
                 Activity activity = sA.GetActivity(id);
-                ActivityViewModel aVM = new ActivityViewModel();
                 aVM.Activity = activity;
 
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
@@ -91,8 +105,9 @@ namespace AgriNov.Controllers
                     UserAccount organizer = sUA.GetUserAccountByIDEager(activity.OrganizerId);
                     aVM.OrganizerName = sUA.GetUserFullName(organizer);
                 }
-                return View(aVM);
             }
+            Console.WriteLine(returnUrl);
+            return View(aVM);
         }
 
         [HttpPost]

@@ -1,4 +1,5 @@
 using AgriNov.Models;
+using AgriNov.Models.ActivityModel;
 using AgriNov.Models.ProductionModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -54,6 +55,10 @@ using (ServiceProduction sP = new ServiceProduction())
 using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
+}
+using(ServiceBooking sB = new ServiceBooking())
+{
+    sB.InitializeTable();
 }
 
 app.MapControllerRoute(
