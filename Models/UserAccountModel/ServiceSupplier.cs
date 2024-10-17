@@ -165,7 +165,10 @@ namespace AgriNov.Models
 
         public void UpdateSupplier(Supplier supplier)
         {
-            throw new NotImplementedException();
+            supplier.UserAccount.DateLastModified = DateTime.Now;
+            _DBContext.UserAccounts.Update(supplier.UserAccount);
+            _DBContext.Suppliers.Update(supplier);
+            Save();
         }
     }
 }

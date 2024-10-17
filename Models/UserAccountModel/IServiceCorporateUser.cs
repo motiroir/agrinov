@@ -13,7 +13,7 @@ namespace AgriNov.Models
         CorporateUser GetCorporateUserByID(int corporateUserID);
         CorporateUser GetCorporateUserByID(string corporateUserIDStr);
         void InsertCorporateUser(CorporateUser corporateUser);
-        void UpdateCorporateUser(CorporateUser corporate);
+        void UpdateCorporateUser(CorporateUser corporateUser);
         void DeleteCorporateUser(int corporateUserID);
         void Save();
     }

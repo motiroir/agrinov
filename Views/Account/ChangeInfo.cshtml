@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="~/CSS/formstyle.css">
 
 }
-<p>@Model.UserAccountLevel.ToString()</p>
 <div class="form">
     @using (Html.BeginForm("ChangeInfo", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.TextBoxFor(model => model.UserAccountId, new { @Value = @Model.UserAccountId, style = "display:none;" })
-
+        @Html.TextBoxFor(model => model.UserAccountLevel, new { @Value = @Model.UserAccountLevel, style = "display:none;" })
+       
         <div>
             @Html.LabelFor(model => model.ContactDetails.Name)
             @Html.TextBoxFor(model => model.ContactDetails.Name, new { @class = "form-input" })
@@ -78,9 +78,11 @@
         }
         if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
         {
+             @Html.TextBoxFor(model => model.Supplier.Id, new { @Value = @Model.Supplier.Id, style = "display:none;" })
+
             <div>
                 @Html.LabelFor(model => model.PdfFile)
-                <a href=@Url.Action("DownloadPdf","Account",new { @pdfBinaryData = @Model.Supplier.Id })>Download PDF</a>
+                <a href="@Url.Action("DownloadPdf","Account",new { supplierId = Model.Supplier.Id })" target="_blank" rel="noreferrer noopener">Download PDF</a>
                 @Html.TextBoxFor(model => model.PdfFile, new { type = "file", accept = "application/pdf" })
             </div>
         }

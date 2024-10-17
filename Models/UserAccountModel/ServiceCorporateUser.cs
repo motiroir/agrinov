@@ -105,9 +105,12 @@ namespace AgriNov.Models
             _DBContext.SaveChanges();
         }
 
-        public void UpdateCorporateUser(CorporateUser corporate)
+        public void UpdateCorporateUser(CorporateUser corporateUser)
         {
-            throw new NotImplementedException();
+            corporateUser.UserAccount.DateLastModified = DateTime.Now;
+            _DBContext.UserAccounts.Update(corporateUser.UserAccount);
+            _DBContext.CorporateUsers.Update(corporateUser);
+            Save();
         }
     }
 }
