@@ -1,28 +1,51 @@
 .form {
-    max-width: 600px;
+    max-width: 800px;
     margin: 200px auto;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    box-shadow: var(--lightOrange) 3px 3px, var(--orangeRed) 6px 6px,var(--paleRed) 9px 9px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-h2 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+
+.form fieldset {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border: none;
 }
 
-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-}
+    .form .fieldsets-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+        .form .fieldsets-container fieldset {
+            flex: 1;
+        }
+
+    .form .production-description {
+        margin: 10px;
+    }
+
+
+    .form .button-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
 
 .form-check {
     margin-bottom: 10px;
+}
+
+.form-control {
+    resize: none;
 }
 
 .form-check-label {
@@ -37,23 +60,56 @@ label {
     margin-right: 10px;
 }
 
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin: 20px 20px;
+    display: block;
+}
+
+label {
+    font-family:'Comfortaa';
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+
 input[type="text"],
 input[type="number"],
 input[type="date"],
 select {
+    margin-bottom: 10px;
+    margin-top: 5px;
     width: 100%;
-    padding: 8px;
+    padding: 10px;
+    border: 1px solid #EABAAA;
+    border-radius: 5px;
+    background-color: #FFF6F3;
+    color: #333;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     box-sizing: border-box;
-    margin-bottom: 15px;
+    box-shadow: rgba(209, 81, 80, 1) 0px 1px;
 }
 
-input[type="radio"] {
-    display: block;
+form input[type="text"],
+form input[type="date"],
+form input[type="number"],
+form input[type="file"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #EABAAA;
+    border-radius: 5px ;
+    background-color: #FFF6F3;
+    color: #333;
+    font-size: 16px;
+    box-sizing: border-box;
+    box-shadow: rgba(209, 81, 80, 1) 0px 1px;
 }
-
 
 
 .validation-error {
@@ -62,18 +118,4 @@ input[type="radio"] {
     margin-top: 5px;
 }
 
-/* Flexbox */
-.productType,
-.deliveryFrequency {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
 
-.dateLimitForReview {
-    margin-bottom: 20px;
-}
-
-.w-100 {
-    width: 100%;
-}
