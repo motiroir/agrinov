@@ -1,4 +1,5 @@
 ﻿using AgriNov.Models;
+using AgriNov.Models.ActivityModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -93,5 +94,28 @@ namespace AgriNov.Controllers
                 return View(aVM);
             }
         }
+
+        [HttpPost]
+        public IActionResult BookActivity(Activity activity)
+        {
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+            using (ServiceBooking sB = new ServiceBooking())
+            {
+                if (!sB.CanUserBookActivity(userId, activity.Id))
+                {
+                    //put a message to indicate that actvity's already been booked by user ? 
+                }
+                if (!sB.IsActivityFull(activity.Id))
+                {
+                    //put a message to indicate that activity's already full ? Maybe juste make the button unclickable ? 
+                }
+
+                sB.InsertBooking(userId, activity.Id);
+                //show message success on booking ! + redirect to my bookings
+            }
+            return RedirectToAction("ShowAllActivities", "Activity");
+        }
+
+
     }
 }
