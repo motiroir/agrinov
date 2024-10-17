@@ -1,5 +1,7 @@
 ﻿using AgriNov.Models;
+using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AgriNov.Controllers
 {
@@ -24,8 +26,9 @@ namespace AgriNov.Controllers
             {
                 using(ServiceActivity sA = new ServiceActivity()) 
                 {
+                    activity.OrganizerId = Int32.Parse(HttpContext.User.Identity.Name);
                     sA.InsertActivity(activity);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ShowAllActivities", "Activity");
                 }
             }
             return View();
@@ -58,7 +61,7 @@ namespace AgriNov.Controllers
                     using (ServiceActivity sA = new ServiceActivity())
                     {
                         sA.UpdateActivity(activity);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("ShowAllActivities", "Activity");
                     }
                 }
             }
@@ -79,6 +82,16 @@ namespace AgriNov.Controllers
             using (ServiceActivity sA = new ServiceActivity())
             {
                 Activity activity = sA.GetActivity(id);
+                ActivityViewModel aVM = new ActivityViewModel();
+                aVM.Activity = activity;
+                string organizerRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value; 
+                using (ServiceUserAccount sUA = new ServiceUserAccount())
+                {
+                    UserAccount organizer = sUA.GetUserAccountByID(organizerRole);
+
+                }
+
+                aVM.OrganizerName = null;
                 return View(activity);
             }
         }

@@ -485,3 +485,4 @@ $RECYCLE.BIN/
 *.swp
 AgriNov.sln
 web.config
+/ViewModels/Class.cs
