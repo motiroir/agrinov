@@ -15,6 +15,8 @@
     {
         <h2>Créer un nouveau contrat</h2>
 
+        <div class="form-content">
+        <div class="form-left-content">
         <div>
             @Html.LabelFor(model => model.BoxContract.ProductType, new { @class = "control-label" })
             @Html.DropDownListFor(model => model.BoxContract.ProductType, new SelectList(Model.ProductOptions, "Value", "Text"), "Sélectionnez un type de produit", new { @class = "form-control" })
@@ -35,17 +37,28 @@
 
         <div>
             @Html.LabelFor(model => model.BoxContract.Price)
-            @Html.TextBoxFor(model => model.BoxContract.Price, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.TextBoxFor(model => model.BoxContract.Price, new { @type = "number", @min = "1", @step = "1", @class = "form-control" })
             @Html.ValidationMessageFor(model => model.BoxContract.Price)
         </div>
 
         <div>
             @Html.LabelFor(model => model.BoxContract.MaxSubscriptions)
-            @Html.TextBoxFor(model => model.BoxContract.MaxSubscriptions, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.TextBoxFor(model => model.BoxContract.MaxSubscriptions, new { @type = "number", @min = "1", @step = "1", @class = "form-control" })
             @Html.ValidationMessageFor(model => model.BoxContract.MaxSubscriptions)
         </div>
-
-
-        <button type="submit" class="orange-btn w-100">Valider</button>
+        </div>
+        <div class="form-right-content">
+                <div>
+                    @Html.LabelFor(model => model.GlobalStock)
+                    <div>@Model.GlobalStock</div>
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.QuantityPerBox)
+                    <div>@Model.QuantityPerBox</div>
+                </div>
+                <button type="submit" name="action" value="calculate" class="orange-btn w-100">Calculer</button>
+        </div>
+        </div>
+        <button type="submit" name="action" value="validate" class="orange-btn w-100">Valider</button>
     }
 </div>

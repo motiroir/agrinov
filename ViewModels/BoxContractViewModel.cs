@@ -7,6 +7,7 @@ namespace AgriNov.ViewModels
     public class BoxContractViewModel
     {
         public BoxContract BoxContract { get; set; }
+        public Production Production { get; set; }
         public List<SelectListItem> YearOptions { get; set; }
         public List<SelectListItem> ProductOptions { get; set; }
         public List<SelectListItem> SeasonOptions { get; set; }
@@ -14,5 +15,7 @@ namespace AgriNov.ViewModels
         public Years Years { get; set; }         
         public ProductType ProductType { get; set; } 
         public Seasons Seasons { get; set; }
+        public int GlobalStock { get; internal set; }
+        public int QuantityPerBox { get; internal set; }
     }
 }

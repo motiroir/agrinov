@@ -22,17 +22,156 @@ namespace AgriNov.Models.ProductionModel
 
         public void Initializetable()
         {
-            Production p1 = new Production()
+            var productions = new List<Production>
+    {
+        new Production
+        {
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 50,
+            Price = 150,
+            DeliveryFrequency = DeliveryFrequency.MONTHLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            DateLimitForReview = new DateTime(2024, 11, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 20,
+            Price = 70,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            DateLimitForReview = new DateTime(2024, 11, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.FRUITS,
+            VolumePerDelivery = 30,
+            Price = 100,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            DateLimitForReview = new DateTime(2024, 11, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.EGGS,
+            VolumePerDelivery = 20,
+            Price = 200,
+            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            DateLimitForReview = new DateTime(2024, 11, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.DAYRIS,
+            VolumePerDelivery = 25,
+            Price = 180,
+            DeliveryFrequency = DeliveryFrequency.MONTHLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            DateLimitForReview = new DateTime(2024, 11, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.FISH,
+            VolumePerDelivery = 15,
+            Price = 220,
+            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            DateLimitForReview = new DateTime(2024, 11, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.MEAT,
+            VolumePerDelivery = 40,
+            Price = 250,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            DateLimitForReview = new DateTime(2024, 11, 01)
+        },
+
+        new Production
+        {
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 60,
+            Price = 160,
+            DeliveryFrequency = DeliveryFrequency.MONTHLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2025,
+            DateLimitForReview = new DateTime(2025, 5, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 100,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2025,
+            DateLimitForReview = new DateTime(2025, 5, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.FRUITS,
+            VolumePerDelivery = 40,
+            Price = 120,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2025,
+            DateLimitForReview = new DateTime(2025, 5, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.EGGS,
+            VolumePerDelivery = 30,
+            Price = 200,
+            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2025,
+            DateLimitForReview = new DateTime(2025, 5, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.DAYRIS,
+            VolumePerDelivery = 35,
+            Price = 180,
+            DeliveryFrequency = DeliveryFrequency.MONTHLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2025,
+            DateLimitForReview = new DateTime(2025, 5, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.FISH,
+            VolumePerDelivery = 25,
+            Price = 220,
+            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2025,
+            DateLimitForReview = new DateTime(2025, 5, 01)
+        },
+        new Production
+        {
+            ProductType = ProductType.MEAT,
+            VolumePerDelivery = 50,
+            Price = 250,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2025,
+            DateLimitForReview = new DateTime(2025, 5, 01)
+        }
+    };
+
+            
+            foreach (var production in productions)
             {
-                ProductType = ProductType.VEGETABLES,
-                VolumePerDelivery = 50,
-                Price = 150,
-                DeliveryFrequency = DeliveryFrequency.MONTHLY,
-                Seasons = Seasons.WINTER,
-                Years = Years._2024,
-                DateLimitForReview = new DateTime(2024, 11, 01)
-            };
-            InsertProduction(p1);
+                InsertProduction(production);
+            }
         }
 
         public void DeleteProduction(int productionID)
@@ -99,6 +238,32 @@ namespace AgriNov.Models.ProductionModel
 
         }
 
+        public int CalculateStock(ProductType productType, Seasons seasons, Years years)
+        {
+            List<Production> productions = _DBContext.Productions
+                .Where(p => p.ProductType == productType &&
+                            p.Seasons == seasons &&
+                            p.Years == years)
+                .ToList();
+
+            int stock = productions.Sum(p => p.VolumePerDelivery * GetNumberOfDelivery(p.DeliveryFrequency));
+
+            return stock;
+        }
+        public int GetNumberOfDelivery(DeliveryFrequency frequency)
+        {
+            switch (frequency)
+            {
+                case DeliveryFrequency.WEEKLY:
+                    return 13; 
+                case DeliveryFrequency.BIWEEKLY:
+                    return 6; 
+                case DeliveryFrequency.MONTHLY:
+                    return 3; 
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(frequency), frequency, "Frequency is not recognized");
+            }
+        }
 
     }
 }

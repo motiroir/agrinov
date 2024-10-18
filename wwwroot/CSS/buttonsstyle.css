@@ -27,3 +27,11 @@
 .orange-btn:hover {
    background-color: #e67e50;
 }
+
+.w-100{
+    width: 100%;
+}
+
+.w-30 {
+    width: 30%;
+}

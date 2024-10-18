@@ -28,6 +28,7 @@ namespace AgriNov.Models
 
         [Required]
         [DisplayName("Nombre maximum d'abonnements")]
+        [Range(1, int.MaxValue, ErrorMessage = "Le nombre d'abonnements doit être supérieur à 0.")]
         public int MaxSubscriptions { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }

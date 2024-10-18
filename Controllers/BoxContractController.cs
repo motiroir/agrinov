@@ -4,6 +4,8 @@ using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Diagnostics;
 
 namespace AgriNov.Controllers
 {
@@ -50,21 +52,45 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBoxContract(BoxContractViewModel viewModel)
+        public IActionResult CreateBoxContract(BoxContractViewModel viewModel, string action)
         {
             viewModel.YearOptions = GetEnumSelectListInt<Years>();
             viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
             viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
 
-            if (ModelState.IsValid)
+            if (action == "calculate")
             {
-                using (ServiceBoxContract sBC = new ServiceBoxContract())
+                using (ServiceProduction sP = new ServiceProduction())
                 {
-                    sBC.InsertBoxContract(viewModel.BoxContract);
-                    return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+                    Debug.WriteLine($"ProductType: {viewModel.ProductType}, Seasons: {viewModel.Seasons}, Years: {viewModel.BoxContract.Years}");
+                    int stock = sP.CalculateStock(viewModel.BoxContract.ProductType, viewModel.BoxContract.Seasons, viewModel.BoxContract.Years);
+                    
+
+                    Debug.WriteLine($"Stock calculé: {stock}");
+                    int quantityPerBox = (int)((stock / viewModel.BoxContract.MaxSubscriptions)/13);
+
+                    viewModel.GlobalStock = stock;
+                    viewModel.QuantityPerBox = quantityPerBox;
+
+                    Debug.WriteLine($"GlobalStock: {viewModel.GlobalStock}, QuantityPerBox: {viewModel.QuantityPerBox}");
+
+                }
+
+                return View(viewModel);
+            }
+
+            else if (action == "validate")
+            {
+                if (ModelState.IsValid)
+                {
+                    using (ServiceBoxContract sBC = new ServiceBoxContract())
+                    {
+                        sBC.InsertBoxContract(viewModel.BoxContract);
+                        return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+                    }
                 }
             }
-            
+
             return View(viewModel);
         }
 
