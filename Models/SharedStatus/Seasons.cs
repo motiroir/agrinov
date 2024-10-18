@@ -4,16 +4,16 @@ namespace AgriNov.Models.SharedStatus
 {
     public enum Seasons
     {
-        [Display(Name ="Printemps")]
-        SPRING,
+        
+        Printemps,
 
-        [Display(Name = "Eté")]
-        SUMMER,
+       
+        Eté,
 
-        [Display(Name = "Automne")]
-        AUTUMN,
+       
+        Automne,
 
-        [Display(Name = "Hiver")]
-        WINTER,
+      
+        Hiver,
     }
 }

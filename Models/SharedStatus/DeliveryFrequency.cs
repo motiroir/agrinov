@@ -4,13 +4,13 @@ namespace AgriNov.Models.ProductionModel
 {
     public enum DeliveryFrequency
     {
-        [Display(Name = "Hebdomadaire")]
-        WEEKLY,
+        
+        Hebdomadaire,
 
-        [Display(Name = "Bihebdomadaire")]
-        BIWEEKLY,
+      
+        Bihebdomadaire,
 
-        [Display(Name = "Mensuelle")]
-        MONTHLY
+        
+        Mensuelle
     }
 }
