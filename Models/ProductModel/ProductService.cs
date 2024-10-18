@@ -63,7 +63,8 @@ namespace AgriNov.Models
          
         public void InsertProduct(Product product)
         {
-            throw new NotImplementedException();
+            _DBContext.Products.Add(product);
+                _DBContext.SaveChanges();
         }
 
         public void Save()
