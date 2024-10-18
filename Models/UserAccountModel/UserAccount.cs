@@ -30,6 +30,5 @@ namespace AgriNov.Models
         public int? SupplierId {get; set;}
         public Supplier Supplier {get; set;}
 
-        public virtual ICollection<BoxSubscription> BoxSubscriptions { get; set; }
     }
 }

@@ -13,13 +13,7 @@ namespace AgriNov.Models
         public DbSet<Supplier> Suppliers { get; set;}
         public DbSet<Production> Productions { get; set;}
         public DbSet<Activity> Activities { get; set; }
-
-
-        public DbSet<Box> Boxes { get; set; }
-        public DbSet<BoxSubscription> BoxSubscriptions { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<Season> Seasons { get; set; }
-        public DbSet<WeeklyStock> WeeklyStocks { get; set; }
+        public DbSet<BoxContract> BoxContracts { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

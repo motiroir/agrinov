@@ -1,4 +1,4 @@
-﻿namespace AgriNov.Models.SharedStatus
+﻿namespace AgriNov.Models
 {
     public enum Years
     {

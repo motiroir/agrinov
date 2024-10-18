@@ -1,20 +1,36 @@
 ﻿using AgriNov.Models.ProductionModel;
+using AgriNov.Models.SharedStatus;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace AgriNov.Models
 {
 	public class BoxContract
 	{
 		public int Id { get; set; }
-		public string Name { get; set; }
-		public string ContentDescription { get; set; }
-		public decimal Price { get; set; }
-		public DeliveryFrequency DeliveryFrequency { get; set; }
-        public DateTime StartingDate { get; set; }
-        public DateTime EndingDate { get; set; }
-        public DateTime SaleStartingDate { get; set; }
-        public DateTime SaleEndingDate { get; set; }
-        public int NumberOfBCS { get; set; }
-        public ICollection<BoxSubscription> BoxContractSubscriptions { get; } = new List<BoxSubscription>();
+
+        [Required]
+        [DisplayName("Type de produit")]
+        public ProductType ProductType { get; set; }
+
+        [Required]
+        [DisplayName("Saison assginée")]
+        public Seasons Seasons { get; set; }
+
+        [Required]
+        [DisplayName("Année assginée")]
+        public Years Years { get; set; }
+
+        [Required]
+        [DisplayName("Prix")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0.")]
+        public decimal Price { get; set; }
+
+        [Required]
+        [DisplayName("Nombre maximum d'abonnements")]
+        public int MaxSubscriptions { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateLastModified { get; set; }
 
     }
 

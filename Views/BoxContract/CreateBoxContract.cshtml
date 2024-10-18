@@ -1,0 +1,51 @@
+﻿﻿@using AgriNov.Models.ProductionModel
+@model AgriNov.ViewModels.BoxContractViewModel
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Créer un contrat";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+
+}
+<div class="form">
+    @using (Html.BeginForm("CreateBoxContract", "BoxContract", FormMethod.Post))
+    {
+        <h2>Créer un nouveau contrat</h2>
+
+        <div>
+            @Html.LabelFor(model => model.BoxContract.ProductType, new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.BoxContract.ProductType, new SelectList(Model.ProductOptions, "Value", "Text"), "Sélectionnez un type de produit", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BoxContract.ProductType, "", new { @class = "text-danger" })
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.BoxContract.Years, new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.BoxContract.Years, new SelectList(Model.YearOptions, "Value", "Text"), "Sélectionnez une année", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BoxContract.Years, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BoxContract.Seasons, new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.BoxContract.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text"), "Sélectionnez une saison", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BoxContract.Seasons, "", new { @class = "text-danger" })
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.BoxContract.Price)
+            @Html.TextBoxFor(model => model.BoxContract.Price, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BoxContract.Price)
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.BoxContract.MaxSubscriptions)
+            @Html.TextBoxFor(model => model.BoxContract.MaxSubscriptions, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BoxContract.MaxSubscriptions)
+        </div>
+
+
+        <button type="submit" class="orange-btn w-100">Valider</button>
+    }
+</div>

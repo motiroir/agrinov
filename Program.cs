@@ -38,11 +38,12 @@ using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
 }
+using (ServiceBoxContract bC = new ServiceBoxContract())
+{
+    bC.InitializeTable();
+}
 
-//using (ServiceBoxSubscription sBC = new ServiceBoxSubscription())
-//{
-//	sBC.InitializeTable();
-//}
+
 
 app.MapControllerRoute(
         name: "default",
