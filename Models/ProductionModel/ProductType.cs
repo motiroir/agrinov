@@ -4,19 +4,22 @@ namespace AgriNov.Models.ProductionModel
 {
     public enum ProductType
     {
-        [Display(Name = "Légumes")]
-        VEGETABLES,
+       
+        Légumes,
 
-        [Display(Name = "Fruits")]
-        FRUITS,
+        
+        Fruits,
 
-        [Display(Name = "Oeufs et Produits Laitiers")]
-        EGGS_AND_DAIRY,
+        
+        Oeufs,
 
-        [Display(Name = "Poissons")]
-        FISH,
+        
+        Laitages,
 
-        [Display(Name = "Viandes")]
-        MEAT
+        
+        Poissons,
+
+        Viandes,
+       
     }
 }

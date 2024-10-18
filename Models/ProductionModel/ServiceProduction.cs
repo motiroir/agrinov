@@ -55,10 +55,13 @@ namespace AgriNov.Models.ProductionModel
         {
             Production p1 = new Production() 
             { 
-                ProductType = ProductType.VEGETABLES,
+                ProductType = ProductType.Légumes,
+                Description = null,
                 VolumePerDelivery = 50,
                 Price = 150,
-                DeliveryFrequency = DeliveryFrequency.MONTHLY,
+                DeliveryFrequency = DeliveryFrequency.Mensuelle,
+                Seasons = SharedStatus.Seasons.Hiver,
+                Years = SharedStatus.Years._2024,
                 DateLimitForReview = new DateTime(2024,11,01) 
             };
             InsertProduction(p1);

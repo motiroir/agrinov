@@ -6,8 +6,17 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login/Login");
+
 builder.Services.AddScoped<ProductService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+    options => 
+    {
+        options.LoginPath = "/Login/Login";
+        options.AccessDeniedPath = "/Login/Login";
+    }
+    );
+
 
 var app = builder.Build();
 
@@ -30,6 +39,18 @@ using (ServiceUserAccount sUA = new ServiceUserAccount())
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
 }
+using(IServiceUser sU = new ServiceUser())
+{
+    sU.InitializeTable();
+}
+using(IServiceSupplier sP = new ServiceSupplier())
+{
+    sP.InitializeTable();
+}
+using(IServiceCorporateUser sCU = new ServiceCorporateUser())
+{
+    sCU.InitializeTable();
+}
 using (ServiceProduction sP = new ServiceProduction())
 {
     sP.Initializetable();
@@ -41,7 +62,7 @@ using (ServiceActivity sA = new ServiceActivity())
 using (ProductService pS = new ProductService())
 {
     pS.InitializeTable();
-}using (ProductService pS = new ProductService())
+}
    
     
     

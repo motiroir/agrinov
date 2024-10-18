@@ -25,6 +25,12 @@
         </div>
 
         <div>
+            @Html.LabelFor(model => model.Duration)
+            @Html.TextBoxFor(model => model.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Duration)
+        </div>
+
+        <div>
             @Html.LabelFor(model => model.Location)
             @Html.TextBoxFor(model => model.Location)
             @Html.ValidationMessageFor(model => model.Location)
@@ -35,7 +41,7 @@
             @Html.TextBoxFor(model => model.MaxParticipants, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
             @Html.ValidationMessageFor(model => model.MaxParticipants)
         </div>
-
+        
         <div>
             @Html.LabelFor(model => model.MaxInvitesPerPerson)
             @Html.TextBoxFor(model => model.MaxInvitesPerPerson, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })

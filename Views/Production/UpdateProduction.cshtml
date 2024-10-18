@@ -1,4 +1,5 @@
 ﻿@using AgriNov.Models.ProductionModel
+@using AgriNov.Models.SharedStatus
 @model AgriNov.Models.ProductionModel.Production
 
 @{
@@ -8,6 +9,7 @@
 }
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
 
 }
 
@@ -16,53 +18,68 @@
 <div class="form">
     @using (Html.BeginForm("UpdateProduction", "Production", FormMethod.Post))
     {
-        <h2>Modifier une production</h2>
-        <div class="productType">
-            @Html.LabelFor(model => model.ProductType, "Type de produit")
-            @foreach (ProductType value in Enum.GetValues(typeof(ProductType)))
-            {
-                <div class="form-check">
-                    <label class="form-check-label">
-                        @Html.RadioButtonFor(model => model.ProductType, value, new { @class = "form-check-input" })
-                        @Html.DisplayFor(model => value)
-                    </label>
+
+
+        <h2>Modifier une proposition de production</h2>
+
+        <div class="fieldsets-container">
+            
+            <fieldset>
+                <div class="productType">
+                    @Html.LabelFor(model => model.ProductType, "Type de produit")
+                    @Html.DropDownListFor(model => model.ProductType, new SelectList(Enum.GetValues(typeof(ProductType)).Cast<ProductType>().Select(v => new { Value = (int)v, Text = v.ToString() }), "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProductType)
                 </div>
-            }
-            @Html.ValidationMessageFor(model => model.ProductType)
-        </div>
 
-        <div class="volumeDelivery">
-            @Html.LabelFor(model => model.VolumePerDelivery)
-            @Html.EditorFor(model => model.VolumePerDelivery)
-            @Html.ValidationMessageFor(model => model.VolumePerDelivery)
-        </div>
-
-        <div class="price">
-            @Html.LabelFor(model => model.Price, "Prix (en €)")
-            @Html.EditorFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)
-        </div>
-
-        <div class="deliveryFrequency">
-            @Html.LabelFor(model => model.DeliveryFrequency, "Fréquence de livraison")
-            @foreach (DeliveryFrequency frequency in Enum.GetValues(typeof(DeliveryFrequency)))
-            {
-                <div class="form-check">
-                    <label class="form-check-label">
-                        @Html.RadioButtonFor(model => model.DeliveryFrequency, frequency, new { @class = "form-check-input" })
-                        @Html.DisplayFor(model => frequency)
-                    </label>
+                <div class="volumeDelivery">
+                    @Html.LabelFor(model => model.VolumePerDelivery)
+                    @Html.EditorFor(model => model.VolumePerDelivery)
+                    @Html.ValidationMessageFor(model => model.VolumePerDelivery)
                 </div>
-            }
-            @Html.ValidationMessageFor(model => model.DeliveryFrequency)
+
+                <div class="price">
+                    @Html.LabelFor(model => model.Price, "Prix /kg /L /piece (en €)")
+                    @Html.EditorFor(model => model.Price)
+                    @Html.ValidationMessageFor(model => model.Price)
+                </div>
+
+                <div class="deliveryFrequency">
+                    @Html.LabelFor(model => model.DeliveryFrequency, "Fréquence de Livraison")
+                    @Html.DropDownListFor(model => model.DeliveryFrequency, new SelectList(Enum.GetValues(typeof(DeliveryFrequency)).Cast<DeliveryFrequency>().Select(v => new { Value = (int)v, Text = v.ToString() }), "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DeliveryFrequency)
+
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="seasons">
+                    @Html.LabelFor(model => model.Seasons, "Saison assignée")
+                    @Html.DropDownListFor(model => model.Seasons, new SelectList(Enum.GetValues(typeof(Seasons)).Cast<Seasons>().Select(v => new { Value = (int)v, Text = v.ToString() }), "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Seasons)
+
+                </div>
+
+                <div class="years">
+                    @Html.LabelFor(model => model.Years, "Année assignée")
+                    @Html.DropDownListFor(model => model.Years, new SelectList(Enum.GetValues(typeof(Years)).Cast<Years>().Select(v => new { Value = (int)v, Text = (int)v }), "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Years)
+
+                </div>
+
+                <div class="dateLimitForReview">
+                    @Html.LabelFor(model => model.DateLimitForReview, "Date limite de validation de la production")
+                    @Html.EditorFor(model => model.DateLimitForReview, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DateLimitForReview)
+                </div>
+            </fieldset>
+        </div>
+        <div class="production-description">
+            @Html.LabelFor(model => model.Description, "Description des produits si besoin")
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "10", @cols = "100" })
+            @Html.ValidationMessageFor(model => model.Description)
         </div>
 
-        <div class="dateLimitForReview">
-            @Html.LabelFor(model => model.DateLimitForReview, "Date limite de validation de la production")
-            @Html.EditorFor(model => model.DateLimitForReview, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.DateLimitForReview)
+        <div class="button-container">
+            <button type="submit" class="orange-btn">Créer</button>
         </div>
-
-        <button type="submit" class="btn btn-primary">Modifier</button>
     }
 </div>

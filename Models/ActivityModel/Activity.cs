@@ -18,7 +18,7 @@ namespace AgriNov.Models
         [DisplayName("Nombre de participants maximum")]
         public int MaxParticipants { get; set; }
         [Required]
-        [DisplayName("Nombre d'invités par participants")]
+        [DisplayName("Nombre d'invités par participant")]
         public int MaxInvitesPerPerson { get; set; }
         [Required]
         [DisplayName("Titre")]
@@ -27,8 +27,11 @@ namespace AgriNov.Models
         [MaxLength(500)]
         [MinLength(20, ErrorMessage ="Veuillez décrire l'atelier")]
         public string Description { get; set; }
+        [DisplayName("Durée de l'atelier (en heure)")]
+        public int Duration { get; set; }
         public ValidationStatus ValidationStatus { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
+        public int OrganizerId { get; set; }
     }
 }

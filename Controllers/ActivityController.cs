@@ -1,5 +1,8 @@
 ﻿using AgriNov.Models;
+using AgriNov.Models.ActivityModel;
+using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AgriNov.Controllers
 {
@@ -24,8 +27,9 @@ namespace AgriNov.Controllers
             {
                 using(ServiceActivity sA = new ServiceActivity()) 
                 {
+                    activity.OrganizerId = Int32.Parse(HttpContext.User.Identity.Name);
                     sA.InsertActivity(activity);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("ShowAllActivities", "Activity");
                 }
             }
             return View();
@@ -58,7 +62,7 @@ namespace AgriNov.Controllers
                     using (ServiceActivity sA = new ServiceActivity())
                     {
                         sA.UpdateActivity(activity);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("ShowAllActivities", "Activity");
                     }
                 }
             }
@@ -73,5 +77,45 @@ namespace AgriNov.Controllers
                 return View(activities);
             }
         }
+
+        public IActionResult ShowActivityDetails(int id)
+        {
+            using (ServiceActivity sA = new ServiceActivity())
+            {
+                Activity activity = sA.GetActivity(id);
+                ActivityViewModel aVM = new ActivityViewModel();
+                aVM.Activity = activity;
+
+                using (ServiceUserAccount sUA = new ServiceUserAccount())
+                {
+                    UserAccount organizer = sUA.GetUserAccountByIDEager(activity.OrganizerId);
+                    aVM.OrganizerName = sUA.GetUserFullName(organizer);
+                }
+                return View(aVM);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult BookActivity(Activity activity)
+        {
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+            using (ServiceBooking sB = new ServiceBooking())
+            {
+                if (!sB.CanUserBookActivity(userId, activity.Id))
+                {
+                    //put a message to indicate that actvity's already been booked by user ? 
+                }
+                if (!sB.IsActivityFull(activity.Id))
+                {
+                    //put a message to indicate that activity's already full ? Maybe juste make the button unclickable ? 
+                }
+
+                sB.InsertBooking(userId, activity.Id);
+                //show message success on booking ! + redirect to my bookings
+            }
+            return RedirectToAction("ShowAllActivities", "Activity");
+        }
+
+
     }
 }
