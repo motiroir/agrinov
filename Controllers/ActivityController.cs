@@ -2,7 +2,6 @@
 using AgriNov.Models.ActivityModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace AgriNov.Controllers
 {
@@ -69,12 +68,19 @@ namespace AgriNov.Controllers
             return View(activity);
         }
 
+        public IActionResult ActivityDashboard(string activeTab = "ShowAllActivities")
+        {
+            ViewData["ActiveTab"]=activeTab;
+            return View();
+        }
+
         public IActionResult ShowAllActivities()
         {
+            ActivityViewModel aVM = new ActivityViewModel();
             using (ServiceActivity sA = new ServiceActivity())
             {
-                List<Activity> activities = sA.GetAllActivities();
-                return View(activities);
+                aVM.AllActivities = sA.GetAllActivities();
+                return View(aVM);
             }
         }
 

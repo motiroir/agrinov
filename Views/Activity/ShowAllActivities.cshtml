@@ -1,4 +1,4 @@
-﻿@model List<AgriNov.Models.Activity>
+﻿@model AgriNov.ViewModels.ActivityViewModel
 
 @{
     Layout = "_BaseLayout";
@@ -10,7 +10,7 @@
 }
 
 <div class="all-tiles-box">
-    @foreach (AgriNov.Models.Activity activity in Model)
+    @foreach (AgriNov.Models.Activity activity in Model.AllActivities)
     {
         <div class="activity-tile">
             <div class="preview-img"></div>
