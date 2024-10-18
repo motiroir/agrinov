@@ -95,6 +95,7 @@ namespace AgriNov.Controllers
         public IActionResult ShowActivityDetails(int id, string returnUrl = null)
         {
             ActivityViewModel aVM = new ActivityViewModel();
+            //getting the activity info + organizer name
             using (ServiceActivity sA = new ServiceActivity())
             {
                 Activity activity = sA.GetActivity(id);
@@ -106,6 +107,12 @@ namespace AgriNov.Controllers
                     aVM.OrganizerName = sUA.GetUserFullName(organizer);
                 }
             }
+            // getting number booking left
+            using(ServiceBooking sB = new ServiceBooking())
+            {
+                aVM.NbBookingsLeft = sB.NbBookingsLeft(id);
+            }
+
             Console.WriteLine(returnUrl);
             return View(aVM);
         }
