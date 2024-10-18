@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion/Inscription</title>
+    <link rel="stylesheet" href="~/CSS/globalstyle.css">
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/loginstyle.css">
+</head>
+<html>
+
+<body>
+    <div class="panel">
+        <div id="left-form" class="active-form">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            {
+                <input type="text">
+            }
+            <button class="switch-button" onclick="changeForm('right-form')">Switch</button>
+        </div>
+
+        <div id="right-form" class="inactive-form">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            {
+                <input type="text">
+            }
+            <button class="switch-button" onclick="changeForm('left-form')">Switch</button>
+        </div>
+    </div>
+
+    <script>
+        function changeForm() {
+            // Get the two form elements
+            var leftForm = document.getElementById("left-form");
+            var rightForm = document.getElementById("right-form");
+
+            // Toggle classes between active and inactive
+            if (leftForm.classList.contains("active-form")) {
+                leftForm.classList.remove("active-form");
+                leftForm.classList.add("inactive-form");
+
+                rightForm.classList.remove("inactive-form");
+                rightForm.classList.add("active-form");
+            } else {
+                leftForm.classList.remove("inactive-form");
+                leftForm.classList.add("active-form");
+
+                rightForm.classList.remove("active-form");
+                rightForm.classList.add("inactive-form");
+            }
+        }
+    </script>
+</body>
+
+</html>

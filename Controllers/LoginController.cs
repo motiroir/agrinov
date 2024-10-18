@@ -9,6 +9,12 @@ namespace AgriNov.Controllers
 
     public class LoginController : Controller
     {
+        [HttpGet]
+        public IActionResult LoginWithSignUpSlide()
+        {
+            return View();
+        }
+
 		[HttpGet]
         public IActionResult CreateAccount()
         {
