@@ -13,5 +13,6 @@ namespace AgriNov.Models.ProductionModel
 
         [Display(Name = "Mensuelle")]
         MONTHLY
+
     }
 }

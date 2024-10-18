@@ -1,5 +1,6 @@
 using AgriNov;
 using AgriNov.Models;
+using AgriNov.Models.ActivityModel;
 using AgriNov.Models.ProductionModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -7,7 +8,13 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = "/Login/Login");
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+    options => 
+    {
+        options.LoginPath = "/Login/Login";
+        options.AccessDeniedPath = "/Login/Login";
+    }
+    );
 
 var app = builder.Build();
 
@@ -30,6 +37,18 @@ using (ServiceUserAccount sUA = new ServiceUserAccount())
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
 }
+using(IServiceUser sU = new ServiceUser())
+{
+    sU.InitializeTable();
+}
+using(IServiceSupplier sP = new ServiceSupplier())
+{
+    sP.InitializeTable();
+}
+using(IServiceCorporateUser sCU = new ServiceCorporateUser())
+{
+    sCU.InitializeTable();
+}
 using (ServiceProduction sP = new ServiceProduction())
 {
     sP.Initializetable();
@@ -43,6 +62,10 @@ using (ServiceBoxContract bC = new ServiceBoxContract())
     bC.InitializeTable();
 }
 
+using(ServiceBooking sB = new ServiceBooking())
+{
+    sB.InitializeTable();
+}
 
 
 app.MapControllerRoute(

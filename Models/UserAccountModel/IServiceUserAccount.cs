@@ -7,6 +7,8 @@ namespace AgriNov.Models
         List<UserAccount> GetUserAccounts();
         UserAccount GetUserAccountByID(int userAccountID);
         UserAccount GetUserAccountByID(string userAccountIDStr);
+          UserAccount GetUserAccountByIDEager(int userAccountID);
+        UserAccount GetUserAccountByIDEager(string userAccountIDStr);
         void InsertUserAccount(UserAccount userAccount);
         void UpdateUserAccountPassword(int userAccountID, string password);
         void UpdateUserAccountExceptPassword(UserAccount userAccount);

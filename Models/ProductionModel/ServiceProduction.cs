@@ -71,7 +71,6 @@ namespace AgriNov.Models.ProductionModel
             return _DBContext.Productions.ToList();
         }
 
-
         public void InsertProduction(Production production)
         {
             production.ValidationStatus = SharedStatus.ValidationStatus.WAITING;

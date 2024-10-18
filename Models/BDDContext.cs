@@ -1,5 +1,6 @@
 using AgriNov.Models.ProductionModel;
 using Microsoft.EntityFrameworkCore;
+using AgriNov.Models.ActivityModel;
 
 
 namespace AgriNov.Models
@@ -13,7 +14,11 @@ namespace AgriNov.Models
         public DbSet<Supplier> Suppliers { get; set;}
         public DbSet<Production> Productions { get; set;}
         public DbSet<Activity> Activities { get; set; }
+
         public DbSet<BoxContract> BoxContracts { get; set; }
+
+
+        public DbSet<Booking> Bookings { get; set;}
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

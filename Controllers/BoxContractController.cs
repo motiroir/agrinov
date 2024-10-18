@@ -17,7 +17,7 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult CreateBoxContract()
         {
-            var viewModel = new BoxContractViewModel
+            BoxContractViewModel viewModel = new BoxContractViewModel
             {
                 YearOptions = Enum.GetValues(typeof(Years))
                     .Cast<Years>()
@@ -80,7 +80,7 @@ namespace AgriNov.Controllers
                 }
             }
             
-            return View();
+            return View(viewModel);
         }
 
         public IActionResult ShowAllBoxContracts()

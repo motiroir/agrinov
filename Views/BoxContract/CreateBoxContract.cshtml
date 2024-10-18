@@ -27,7 +27,7 @@
             @Html.ValidationMessageFor(model => model.BoxContract.Years, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group">
+        <div>
             @Html.LabelFor(model => model.BoxContract.Seasons, new { @class = "control-label" })
             @Html.DropDownListFor(model => model.BoxContract.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text"), "Sélectionnez une saison", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.BoxContract.Seasons, "", new { @class = "text-danger" })

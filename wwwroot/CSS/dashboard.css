@@ -1,0 +1,19 @@
+.action-choice {
+    margin-top: 200px;
+}
+.action {
+    background-color: var(--orange); 
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 20px; 
+    cursor: pointer;
+    font-size: 0.9rem; 
+    text-decoration: none; 
+    display: inline-block; 
+    transition: background-color 0.3s ease; 
+}
+
+.action:hover {
+    background-color: #e67e50;
+}

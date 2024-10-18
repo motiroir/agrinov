@@ -1,5 +1,6 @@
 ﻿@using AgriNov.Models.ProductionModel
-@model AgriNov.Models.ProductionModel.Production
+@using AgriNov.Models.SharedStatus
+@model AgriNov.ViewModels.ProductionViewModel
 
 @{
 
@@ -17,53 +18,65 @@
 <div class="form">
     @using (Html.BeginForm("UpdateProduction", "Production", FormMethod.Post))
     {
-        <h2>Modifier une production</h2>
-        <div class="productType">
-            @Html.LabelFor(model => model.ProductType, "Type de produit")
-            @foreach (ProductType value in Enum.GetValues(typeof(ProductType)))
-            {
-                <div class="form-check">
-                    <label class="form-check-label">
-                        @Html.RadioButtonFor(model => model.ProductType, value, new { @class = "form-check-input" })
-                        @Html.DisplayFor(model => value)
-                    </label>
+
+
+        <h2>Modifier une proposition de production</h2>
+        <input type="hidden" asp-for="Production.Id" />
+        <div class="fieldsets-container">
+            
+            <fieldset>
+                <div class="productType">
+                    @Html.LabelFor(model => model.Production.ProductType, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.Production.ProductType, new SelectList(Model.ProductOptions, "Value", "Text"), "Sélectionnez un type de produit", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Production.ProductType, "", new { @class = "text-danger" })
                 </div>
-            }
-            @Html.ValidationMessageFor(model => model.ProductType)
-        </div>
 
-        <div class="volumeDelivery">
-            @Html.LabelFor(model => model.VolumePerDelivery)
-            @Html.EditorFor(model => model.VolumePerDelivery)
-            @Html.ValidationMessageFor(model => model.VolumePerDelivery)
-        </div>
-
-        <div class="price">
-            @Html.LabelFor(model => model.Price, "Prix (en €)")
-            @Html.EditorFor(model => model.Price)
-            @Html.ValidationMessageFor(model => model.Price)
-        </div>
-
-        <div class="deliveryFrequency">
-            @Html.LabelFor(model => model.DeliveryFrequency, "Fréquence de livraison")
-            @foreach (DeliveryFrequency frequency in Enum.GetValues(typeof(DeliveryFrequency)))
-            {
-                <div class="form-check">
-                    <label class="form-check-label">
-                        @Html.RadioButtonFor(model => model.DeliveryFrequency, frequency, new { @class = "form-check-input" })
-                        @Html.DisplayFor(model => frequency)
-                    </label>
+                <div class="volumeDelivery">
+                    @Html.LabelFor(model => model.Production.VolumePerDelivery)
+                    @Html.EditorFor(model => model.Production.VolumePerDelivery)
+                    @Html.ValidationMessageFor(model => model.Production.VolumePerDelivery)
                 </div>
-            }
-            @Html.ValidationMessageFor(model => model.DeliveryFrequency)
+
+                <div class="price">
+                    @Html.LabelFor(model => model.Production.Price, "Prix /kg /L /piece (en €)")
+                    @Html.EditorFor(model => model.Production.Price)
+                    @Html.ValidationMessageFor(model => model.Production.Price)
+                </div>
+
+                <div class="deliveryFrequency">
+                    @Html.LabelFor(model => model.Production.DeliveryFrequency, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.Production.DeliveryFrequency, new SelectList(Model.DeliveryFrequencyOptions, "Value", "Text"), "Sélectionnez un fréquence de livraison", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Production.DeliveryFrequency, "", new { @class = "text-danger" })
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="seasons">
+                    @Html.LabelFor(model => model.Production.Seasons, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.Production.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text"), "Sélectionnez une saison", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Production.Seasons, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="years">
+                    @Html.LabelFor(model => model.Production.Years, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.Production.Years, new SelectList(Model.YearOptions, "Value", "Text"), "Sélectionnez une année", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Production.Years, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="dateLimitForReview">
+                    @Html.LabelFor(model => model.Production.DateLimitForReview, "Date limite de validation de la production")
+                    @Html.EditorFor(model => model.Production.DateLimitForReview, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.Production.DateLimitForReview)
+                </div>
+            </fieldset>
+        </div>
+        <div class="production-description">
+            @Html.LabelFor(model => model.Production.Description, "Description des produits si besoin")
+            @Html.TextAreaFor(model => model.Production.Description, new { @class = "form-control", @rows = "10", @cols = "100" })
+            @Html.ValidationMessageFor(model => model.Production.Description)
         </div>
 
-        <div class="dateLimitForReview">
-            @Html.LabelFor(model => model.DateLimitForReview, "Date limite de validation de la production")
-            @Html.EditorFor(model => model.DateLimitForReview, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.DateLimitForReview)
+        <div class="button-container">
+            <button type="submit" class="orange-btn">Modifier</button>
         </div>
-
-        <button type="submit" class="orange-btn">Modifier</button>
     }
 </div>
