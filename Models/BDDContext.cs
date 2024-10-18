@@ -13,6 +13,8 @@ namespace AgriNov.Models
         public DbSet<Production> Productions { get; set;}
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Booking> Bookings { get; set;}
+        public DbSet<MemberShipFee> MembershipFees {get; set;}
+        public DbSet<ShoppingCartItem> ShoppingCartItems {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

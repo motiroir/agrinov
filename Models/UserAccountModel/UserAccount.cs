@@ -30,5 +30,7 @@ namespace AgriNov.Models
         public CorporateUser CorporateUser {get; set;}
         public int? SupplierId {get; set;}
         public Supplier Supplier {get; set;}
+
+        public ICollection<MemberShipFee> MembershipFees { get; } = new List<MemberShipFee>();
     }
 }
