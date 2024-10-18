@@ -11,8 +11,8 @@ namespace AgriNov.ViewModels
         public List<SelectListItem> ProductOptions { get; set; }
         public List<SelectListItem> SeasonOptions { get; set; }
 
-        public int Year { get; set; }         
+        public Years Years { get; set; }         
         public ProductType ProductType { get; set; } 
-        public Seasons Season { get; set; }
+        public Seasons Seasons { get; set; }
     }
 }

@@ -14,32 +14,35 @@ namespace AgriNov.Controllers
             return View();
         }
 
+        private List<SelectListItem> GetEnumSelectListString<T>() where T : Enum
+        {
+            return Enum.GetValues(typeof(T))
+                .Cast<T>()
+                .Select(e => new SelectListItem
+                {
+                    Value = ((int)(object)e).ToString(),
+                    Text = e.GetDisplayName()
+                }).ToList();
+        }
+        private List<SelectListItem> GetEnumSelectListInt<T>() where T : Enum
+        {
+            return Enum.GetValues(typeof(T))
+                .Cast<T>()
+                .Select(e => new SelectListItem
+                {
+                    Value = ((int)(object)e).ToString(),
+                    Text = ((int)(object)e).ToString()
+                }).ToList();
+        }
+
         [HttpGet]
         public IActionResult CreateBoxContract()
         {
             BoxContractViewModel viewModel = new BoxContractViewModel
             {
-                YearOptions = Enum.GetValues(typeof(Years))
-                    .Cast<Years>()
-                    .Select(e => new SelectListItem
-                    {
-                        Value = ((int)e).ToString(),
-                        Text = ((int)e).ToString()
-                    }).ToList(),
-                ProductOptions = Enum.GetValues(typeof(ProductType))
-                    .Cast<ProductType>()
-                    .Select(e => new SelectListItem
-                    {
-                        Value = ((int)e).ToString(),
-                        Text = e.GetDisplayName()
-                    }).ToList(),
-                SeasonOptions = Enum.GetValues(typeof(Seasons))
-                    .Cast<Seasons>()
-                    .Select(e => new SelectListItem
-                    {
-                        Value = e.ToString(),
-                        Text = e.GetDisplayName()
-                    }).ToList(),
+                YearOptions = GetEnumSelectListInt<Years>(),
+                ProductOptions = GetEnumSelectListString<ProductType>(),
+                SeasonOptions = GetEnumSelectListString<Seasons>(),
                 BoxContract = new BoxContract()
             };
 
@@ -49,27 +52,9 @@ namespace AgriNov.Controllers
         [HttpPost]
         public IActionResult CreateBoxContract(BoxContractViewModel viewModel)
         {
-            viewModel.YearOptions = Enum.GetValues(typeof(Years))
-                .Cast<Years>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = ((int)e).ToString()
-                }).ToList();
-            viewModel.ProductOptions = Enum.GetValues(typeof(ProductType))
-                    .Cast<ProductType>()
-                    .Select(e => new SelectListItem
-                    {
-                        Value = ((int)e).ToString(),
-                        Text = e.GetDisplayName()
-                    }).ToList();
-            viewModel.SeasonOptions = Enum.GetValues(typeof(Seasons))
-                .Cast<Seasons>()
-                .Select(e => new SelectListItem
-                {
-                    Value = e.ToString(),
-                    Text = e.GetDisplayName()
-                }).ToList();
+            viewModel.YearOptions = GetEnumSelectListInt<Years>();
+            viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
+            viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
 
             if (ModelState.IsValid)
             {
@@ -88,7 +73,16 @@ namespace AgriNov.Controllers
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
                 List<BoxContract> boxContracts = sBC.GetAllBoxContracts();
-                return View(boxContracts);
+                var viewModel = boxContracts.Select(boxContract => new BoxContractViewModel
+                {
+                    BoxContract = boxContract,
+                    ProductOptions = GetEnumSelectListString<ProductType>(),
+                    SeasonOptions = GetEnumSelectListString<Seasons>(),
+                    ProductType = boxContract.ProductType,
+                    Seasons = boxContract.Seasons,
+                }).ToList();
+
+                return View(viewModel);
             }
         }
     }

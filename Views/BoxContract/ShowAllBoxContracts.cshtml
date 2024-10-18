@@ -1,4 +1,5 @@
-﻿@model List<AgriNov.Models.BoxContract>
+﻿@model List<AgriNov.ViewModels.BoxContractViewModel>
+@using AgriNov.Models
 
 @{
     Layout = "_BaseLayout";
@@ -21,15 +22,15 @@
             </tr>
         </thead>
         <tbody>
-    @foreach (AgriNov.Models.BoxContract boxContract in Model)
+            @foreach (var boxContractViewModel in Model)
     {
-        <tr>
-            <td>@boxContract.Seasons</td>
-            <td>@((int)boxContract.Years)</td>
-            <td>@boxContract.ProductType</td>
-            <td>@boxContract.Price.ToString("F2")</td>
-            <td>@boxContract.MaxSubscriptions</td>
-        </tr>
+                <tr>
+                    <td>@boxContractViewModel.Seasons.GetDisplayName()</td>
+                    <td>@((int)boxContractViewModel.BoxContract.Years)</td>
+                    <td>@boxContractViewModel.ProductType.GetDisplayName()</td> 
+                    <td>@boxContractViewModel.BoxContract.Price.ToString("F2")</td>
+                    <td>@boxContractViewModel.BoxContract.MaxSubscriptions</td>
+                </tr>
     }
         </tbody>
 </table>
