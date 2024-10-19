@@ -48,5 +48,6 @@ namespace AgriNov.Models.ProductionModel
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
 
+        
     }
 }

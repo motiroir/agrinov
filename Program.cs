@@ -1,3 +1,4 @@
+using AgriNov;
 using AgriNov.Models;
 using AgriNov.Models.ActivityModel;
 using AgriNov.Models.ProductionModel;
@@ -56,6 +57,11 @@ using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
 }
+using (ServiceBoxContract bC = new ServiceBoxContract())
+{
+    bC.InitializeTable();
+}
+
 using(ServiceBooking sB = new ServiceBooking())
 {
     sB.InitializeTable();
@@ -68,6 +74,7 @@ using(IServiceShoppingCartItem sSCI = new ServiceShoppingCartItem())
 {
     sSCI.InitializeTable();
 }
+
 app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");

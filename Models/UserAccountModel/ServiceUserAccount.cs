@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AgriNov.Models;
 using System.Security.Cryptography;
 using System.Text;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.Intrinsics.X86;
 
-namespace AgriNov.Models
+namespace AgriNov
 {
     public class ServiceUserAccount : IServiceUserAccount
     {
