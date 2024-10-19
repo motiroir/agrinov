@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="~/CSS/tablestyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
+
+
 <div class="table-title">
 <h1>Table des contrats paniers</h1>
 </div>
@@ -29,11 +31,14 @@
             @foreach (var boxContractViewModel in Model)
     {
                 <tr>
-                    <td>@boxContractViewModel.Seasons.GetDisplayName()</td>
-                    <td>@((int)boxContractViewModel.BoxContract.Years)</td>
-                    <td>@boxContractViewModel.ProductType.GetDisplayName()</td> 
+                    <td>@boxContractViewModel.BoxContract.Seasons.GetDisplayName()</td>
+                    <td>@boxContractViewModel.BoxContract.Years.GetDisplayName()</td>
+                    <td>@boxContractViewModel.BoxContract.ProductType.GetDisplayName()</td>
                     <td>@boxContractViewModel.BoxContract.Price.ToString("F2")</td>
                     <td>@boxContractViewModel.BoxContract.MaxSubscriptions</td>
+                    <td class="radio-btn-td">
+                        <input class="radio-btn" type="radio" name="selectedBoxContractId" value="@boxContractViewModel.BoxContract.Id" />
+                    </td>
                 </tr>
     }
         </tbody>
@@ -42,9 +47,11 @@
 
 
 </div>
-
-<div class="btn-container">
-    <button type="submit" name="action" value="add" class="orange-btn w-30">Ajouter</button>
-    <button type="submit" name="action" value="delete" class="orange-btn w-30">Supprimer</button>
-    <button type="submit" name="action" value="update" class="orange-btn w-30">Modifier</button>
-</div>
+@using (Html.BeginForm("ShowAllBoxContracts", "BoxContract", FormMethod.Post))
+{
+    <div class="btn-container">
+        <button type="submit" name="action" value="add" class="orange-btn w-30">Ajouter</button>
+        <button type="submit" name="action" value="delete" class="orange-btn w-30">Supprimer</button>
+        <button type="submit" name="action" value="update" class="orange-btn w-30">Modifier</button>
+    </div>
+}

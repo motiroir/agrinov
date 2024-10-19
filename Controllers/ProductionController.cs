@@ -24,17 +24,7 @@ namespace AgriNov.Controllers
                     Text = e.GetDisplayName()
                 }).ToList();
         }
-        private List<SelectListItem> GetEnumSelectListInt<T>() where T : Enum
-        {
-            return Enum.GetValues(typeof(T))
-                .Cast<T>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)(object)e).ToString(),
-                    Text = ((int)(object)e).ToString()
-                }).ToList();
-        }
-
+        
         public IActionResult Index()
         {
             return View();
@@ -45,7 +35,7 @@ namespace AgriNov.Controllers
         {
             ProductionViewModel viewModel = new ProductionViewModel
             {
-                YearOptions = GetEnumSelectListInt<Years>(),
+                YearOptions = GetEnumSelectListString<Years>(),
                 ProductOptions = GetEnumSelectListString<ProductType>(),
                 SeasonOptions = GetEnumSelectListString<Seasons>(),
                 DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
@@ -59,7 +49,7 @@ namespace AgriNov.Controllers
         [HttpPost]
         public IActionResult CreateProduction(ProductionViewModel viewModel)
         {
-            viewModel.YearOptions = GetEnumSelectListInt<Years>();
+            viewModel.YearOptions = GetEnumSelectListString<Years>();
             viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
             viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
             viewModel.DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>();
@@ -89,7 +79,7 @@ namespace AgriNov.Controllers
                     ProductionViewModel viewModel = new ProductionViewModel
                     {
                         Production = oldProduction,
-                        YearOptions = GetEnumSelectListInt<Years>(),
+                        YearOptions = GetEnumSelectListString<Years>(),
                         ProductOptions = GetEnumSelectListString<ProductType>(),
                         SeasonOptions = GetEnumSelectListString<Seasons>(),
                         DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>()
@@ -114,9 +104,7 @@ namespace AgriNov.Controllers
         {
             viewModel.Production.Id = id;
 
-            Production newProduction = viewModel.Production;
-
-            viewModel.YearOptions = GetEnumSelectListInt<Years>();
+            viewModel.YearOptions = GetEnumSelectListString<Years>();
             viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
             viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
             viewModel.DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>();

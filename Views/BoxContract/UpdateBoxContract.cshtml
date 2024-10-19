@@ -1,4 +1,5 @@
 ﻿﻿@using AgriNov.Models.ProductionModel
+@using System.Globalization
 @model AgriNov.ViewModels.BoxContractViewModel
 
 @{
@@ -14,18 +15,18 @@
 <a href="@Url.Action("ShowAllBoxContracts", "BoxContract")" class="return-link">< Retour à la liste des contrats</a>
 
 <div class="form">
-    @using (Html.BeginForm("CreateBoxContract", "BoxContract", FormMethod.Post))
+    @using (Html.BeginForm("UpdateBoxContract", "BoxContract", FormMethod.Post))
     {
-        <h2>Créer un nouveau contrat</h2>
+        <h2>Modifier le contrat</h2>
 
         <div class="form-content">
             <div class="form-subcontent">
-        <div class="form-left-content">
+                <div class="form-left-content">
                     <div>
                         @Html.LabelFor(model => model.ProductType, new { @class = "control-label" })
                         @Html.DropDownListFor(
                                  model => model.ProductType,
-                                 new SelectList(Model.ProductOptions, "Value", "Text",0),
+                                 new SelectList(Model.ProductOptions, "Value", "Text", 0),
                                  new { @class = "form-control" }
                                  )
                         @Html.ValidationMessageFor(model => model.ProductType, null, new { @class = " validation-error" })
@@ -41,31 +42,31 @@
                         @Html.LabelFor(model => model.Seasons, new { @class = "control-label" })
                         @Html.DropDownListFor(
                                  model => model.Seasons,
-                                 new SelectList(Model.SeasonOptions, "Value", "Text",0),
+                                 new SelectList(Model.SeasonOptions, "Value", "Text", 0),
                                  new { @class = "form-control" }
                                  )
                         @Html.ValidationMessageFor(model => model.Seasons, null, new { @class = " validation-error" })
                     </div>
 
-        
-        </div>
-        <div class="form-right-content">
-                <div>
-                        <span>Stock total (kg/l/pièce)</span>
-                    <div class="text-area">@Model.GlobalStock</div>
-                </div>
-                <div>
-                        <span>Quantité par panier (kg/l/pièce)</span>
-                    <div class ="text-area">@Model.QuantityPerBox</div>
-                </div>
-                <button type="submit" name="action" value="calculate" class="lightOrange-btn w-100">Calculer</button>
-        </div>
 
-        </div>
-            <div>
-                @Html.LabelFor(model => model.BoxContract.Price)
-                @Html.TextBoxFor(model => model.BoxContract.Price, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BoxContract.Price, null, new { @class = " validation-error" })
+                </div>
+                <div class="form-right-content">
+                    <div>
+                        <span>Stock total (kg/l/pièce)</span>
+                        <div class="text-area">@Model.GlobalStock</div>
+                    </div>
+                    <div>
+                        <span>Quantité par panier (kg/l/pièce)</span>
+                        <div class="text-area">@Model.QuantityPerBox</div>
+                    </div>
+                    <button type="submit" name="action" value="calculate" class="lightOrange-btn w-100">Calculer</button>
+                </div>
+
+            </div>
+            <div class="price">
+                @Html.LabelFor(model => model.BoxContract.Price, "Prix /kg /L /piece (en €)")
+                @Html.EditorFor(model => model.BoxContract.Price)
+                @Html.ValidationMessageFor(model => model.BoxContract.Price)
             </div>
 
             <div>

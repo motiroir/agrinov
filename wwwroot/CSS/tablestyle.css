@@ -1,5 +1,10 @@
 ﻿.table-title {
     margin-top: 200px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .table-container {
@@ -48,9 +53,9 @@ tbody tr {
     display: table;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: #FFF0E4;
-}
+    tbody tr:nth-child(odd) {
+        background-color: antiquewhite;
+    }
 
 tbody tr:nth-child(even) {
     background-color: #FFD5B5;
@@ -66,10 +71,15 @@ td {
 
 th {
     width: 9.5%;
+    padding-right: 8px;
 }
 
 td {
     width: 10%;
+}
+
+tbody tr:hover {
+    background-color: #FFF4EE;
 }
 
 .btn-container {
@@ -79,4 +89,8 @@ td {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.radio-btn-td, .radio-btn {
+    display: none;
 }

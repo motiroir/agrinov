@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Diagnostics;
+using static System.Collections.Specialized.BitVector32;
 
 namespace AgriNov.Controllers
 {
@@ -26,23 +27,14 @@ namespace AgriNov.Controllers
                     Text = e.GetDisplayName()
                 }).ToList();
         }
-        private List<SelectListItem> GetEnumSelectListInt<T>() where T : Enum
-        {
-            return Enum.GetValues(typeof(T))
-                .Cast<T>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)(object)e).ToString(),
-                    Text = ((int)(object)e).ToString()
-                }).ToList();
-        }
+        
 
         [HttpGet]
         public IActionResult CreateBoxContract()
         {
             BoxContractViewModel viewModel = new BoxContractViewModel
             {
-                YearOptions = GetEnumSelectListInt<Years>(),
+                YearOptions = GetEnumSelectListString<Years>(),
                 ProductOptions = GetEnumSelectListString<ProductType>(),
                 SeasonOptions = GetEnumSelectListString<Seasons>(),
                 BoxContract = new BoxContract()
@@ -54,29 +46,28 @@ namespace AgriNov.Controllers
         [HttpPost]
         public IActionResult CreateBoxContract(BoxContractViewModel viewModel, string action)
         {
-            viewModel.YearOptions = GetEnumSelectListInt<Years>();
+            viewModel.YearOptions = GetEnumSelectListString<Years>();
             viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
             viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
 
             if (action == "calculate")
             {
-                using (ServiceProduction sP = new ServiceProduction())
+                if (ModelState.IsValid)
                 {
-                    Debug.WriteLine($"ProductType: {viewModel.ProductType}, Seasons: {viewModel.Seasons}, Years: {viewModel.BoxContract.Years}");
-                    int stock = sP.CalculateStock(viewModel.BoxContract.ProductType, viewModel.BoxContract.Seasons, viewModel.BoxContract.Years);
-                    
+                    using (ServiceProduction sP = new ServiceProduction())
+                    {
+                        int stock = sP.CalculateStock(viewModel.ProductType, viewModel.Seasons, viewModel.Years);
 
-                    Debug.WriteLine($"Stock calculé: {stock}");
-                    int quantityPerBox = (int)((stock / viewModel.BoxContract.MaxSubscriptions)/13);
+                        int quantityPerBox = (int)((stock / viewModel.BoxContract.MaxSubscriptions) / 13);
 
-                    viewModel.GlobalStock = stock;
-                    viewModel.QuantityPerBox = quantityPerBox;
+                        viewModel.GlobalStock = stock;
+                        viewModel.QuantityPerBox = quantityPerBox;
 
-                    Debug.WriteLine($"GlobalStock: {viewModel.GlobalStock}, QuantityPerBox: {viewModel.QuantityPerBox}");
-
+                        return View(viewModel);
+                    }
                 }
+                
 
-                return View(viewModel);
             }
 
             else if (action == "validate")
@@ -85,6 +76,9 @@ namespace AgriNov.Controllers
                 {
                     using (ServiceBoxContract sBC = new ServiceBoxContract())
                     {
+                        viewModel.BoxContract.ProductType = viewModel.ProductType;
+                        viewModel.BoxContract.Seasons = viewModel.Seasons;
+                        viewModel.BoxContract.Years = viewModel.Years;
                         sBC.InsertBoxContract(viewModel.BoxContract);
                         return RedirectToAction("ShowAllBoxContracts", "BoxContract");
                     }
@@ -110,6 +104,119 @@ namespace AgriNov.Controllers
 
                 return View(viewModel);
             }
+        }
+
+
+        [HttpPost]
+        public IActionResult ShowAllBoxContracts(BoxContractViewModel viewModel, string action, int selectedBoxContractId)
+        {
+
+            switch (action)
+            {
+                case "add":
+                    return RedirectToAction("CreateBoxContract", "BoxContract");
+
+                case "delete":
+                    // popup : are you sure ?
+                    // delete message
+                    return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+
+                case "update":
+                    return UpdateBoxContract(selectedBoxContractId);
+
+                default:
+                    return View(viewModel);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult UpdateBoxContract(int id)
+        {
+            using (ServiceBoxContract sBC = new ServiceBoxContract())
+            {
+                if (id > 0)
+                {
+                    BoxContract oldBoxContract = sBC.GetBoxContractById(id);
+
+                    if (oldBoxContract != null)
+                    {
+                        BoxContractViewModel viewModel = new BoxContractViewModel
+                        {
+                            BoxContract = oldBoxContract,
+                            ProductType = oldBoxContract.ProductType,
+                            Years = oldBoxContract.Years,
+                            Seasons = oldBoxContract.Seasons,
+                            YearOptions = GetEnumSelectListString<Years>(),
+                            ProductOptions = GetEnumSelectListString<ProductType>(),
+                            SeasonOptions = GetEnumSelectListString<Seasons>(),
+                        };
+
+                        return View(viewModel);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateBoxContract(string action, int id, BoxContractViewModel viewModel)
+        {
+            viewModel.BoxContract.Id = id;
+
+            viewModel.YearOptions = GetEnumSelectListString<Years>();
+            viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
+            viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
+
+            if (action == "calculate")
+            {
+                if (ModelState.IsValid)
+                {
+                    using (ServiceProduction sP = new ServiceProduction())
+                    {
+                        int stock = sP.CalculateStock(viewModel.ProductType, viewModel.Seasons, viewModel.Years);
+
+                        int quantityPerBox = (int)((stock / viewModel.BoxContract.MaxSubscriptions) / 13);
+
+                        viewModel.GlobalStock = stock;
+                        viewModel.QuantityPerBox = quantityPerBox;
+
+                        return View(viewModel);
+                    }
+                }
+
+
+            }
+
+            else if (action == "validate")
+            {
+                if (ModelState.IsValid)
+                {
+                    if (id > 0)
+                    {
+                        using (ServiceBoxContract sBC = new ServiceBoxContract())
+                        {
+                            viewModel.BoxContract.DateLastModified = DateTime.Now;
+                            viewModel.BoxContract.ProductType = viewModel.ProductType;
+                            viewModel.BoxContract.Seasons = viewModel.Seasons;
+                            viewModel.BoxContract.Years = viewModel.Years;
+
+                            sBC.UpdateBoxContract(viewModel.BoxContract);
+
+                            return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+                        }
+                    }
+                    return View(viewModel);
+                }
+            }
+            return View(viewModel);
         }
     }
 }

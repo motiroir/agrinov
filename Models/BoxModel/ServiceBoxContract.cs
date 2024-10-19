@@ -60,7 +60,7 @@ namespace AgriNov.Models
             return _DBContext.BoxContracts.ToList();
         }
 
-        public BoxContract GetBoxContract(int id)
+        public BoxContract GetBoxContractById(int id)
         {
             return this._DBContext.BoxContracts.Find(id);
         }
@@ -73,9 +73,17 @@ namespace AgriNov.Models
             Save();
         }
 
-        public void UpdateBoxContract(BoxContract boxContract)
+        public void UpdateBoxContract(BoxContract newBoxContract)
         {
-            throw new NotImplementedException();
+            BoxContract oldBoxContract = GetBoxContractById(newBoxContract.Id);
+            if (oldBoxContract == null)
+            {
+                return;
+            }
+            newBoxContract.DateLastModified = DateTime.Now;
+
+            _DBContext.Entry(oldBoxContract).CurrentValues.SetValues(newBoxContract);
+            Save();
         }
 
         public void DeleteBoxContracty(int id)

@@ -5,7 +5,7 @@
         void CreateDeleteDatabase();
         void InitializeTable();
         List<BoxContract> GetAllBoxContracts();
-        BoxContract GetBoxContract(int id);
+        BoxContract GetBoxContractById(int id);
         void InsertBoxContract(BoxContract boxContract);
         void UpdateBoxContract(BoxContract boxContract);
         void DeleteBoxContracty(int id);
