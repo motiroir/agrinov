@@ -10,7 +10,7 @@ namespace AgriNov.Models
         void InitializeTable();
         ShoppingCart GetShoppingCartForUserAccount(string userAccountIdStr);
         ShoppingCart GetShoppingCartForUserAccount(int userAccountId);
-        void InsertShoppingCart(ShoppingCart shoppingCart);
+        //No need to insert directly a shopping cart, it is done when a new one is created with an user account
         void Save();
 
     }

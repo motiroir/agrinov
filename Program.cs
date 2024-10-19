@@ -66,13 +66,13 @@ using(ServiceBooking sB = new ServiceBooking())
 {
     sB.InitializeTable();
 }
+using(IServiceShoppingCart sSC = new ServiceShoppingCart())
+{
+    sSC.InitializeTable();
+}
 using(IServiceMemberShipFee sMB = new ServiceMemberShipFee())
 {
     sMB.InitializeTable();
-}
-using(IServiceShoppingCartItem sSCI = new ServiceShoppingCartItem())
-{
-    sSCI.InitializeTable();
 }
 
 app.MapControllerRoute(

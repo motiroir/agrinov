@@ -10,10 +10,8 @@ namespace AgriNov.Controllers
 {
     public class ProductionController : Controller
     {
-
-        private readonly BDDContext _DBContext;
         private readonly ServiceProduction sP = new ServiceProduction();
-
+        
         private List<SelectListItem> GetEnumSelectListString<T>() where T : Enum
         {
             return Enum.GetValues(typeof(T))

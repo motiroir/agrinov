@@ -20,4 +20,5 @@ namespace AgriNov.Models
             EndDate = StartDate.AddYears(1);
         }
     }
+    
 }

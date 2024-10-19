@@ -1,9 +1,7 @@
 using AgriNov.Models;
 using System.Security.Cryptography;
 using System.Text;
-using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.X86;
 
 namespace AgriNov
 {
@@ -154,6 +152,9 @@ namespace AgriNov
             userAccount.DateLastModified = DateTime.Now;
             _DBContext.UserAccounts.Add(userAccount);
             Save();
+            //Each UserAccount need one ShoppingCart, but the UserAccountId needs to be generated first
+            userAccount.ShoppingCart = new ShoppingCart();
+            UpdateUserAccountExceptPassword(userAccount);
         }
 
         public void Save()

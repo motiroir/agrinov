@@ -8,7 +8,6 @@ namespace AgriNov.Models
     public interface IServiceShoppingCartItem : IDisposable
     {
         void InitializeTable();
-        void InsertShoppingCartItem(ShoppingCartItem shoppingCartItem);
         void Save();
 
     }
