@@ -98,3 +98,11 @@ tbody tr:hover {
 tbody tr.selected {
     background-color: #FFF4EE;
 }
+
+
+
+.checkbox-td input[type="checkbox"] {
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5); 
+    accent-color: #EB7051; 
+}

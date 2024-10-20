@@ -43,7 +43,12 @@
     background-color: #FFB57C;
 }
 
-.w-100{
+
+.rounded {
+    --_bdrs: 50%;
+}
+
+.w-100 {
     width: 100%;
 }
 
