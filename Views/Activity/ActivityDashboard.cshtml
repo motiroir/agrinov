@@ -31,6 +31,18 @@
         </div>
 
         <div id="tab-content">
+            @if (ViewData["ActiveTab"].ToString() == "ShowAllActivities")
+            {
+                @await Html.PartialAsync("ShowAllActivities", Model)
+            }
+            else if (ViewData["ActiveTab"].ToString() == "ShowMyActivities")
+            {
+                @await Html.PartialAsync("ShowMyActivities", Model)
+            }
+            else if (ViewData["ActiveTab"].ToString() == "CreateActivity")
+            {
+                @await Html.PartialAsync("CreateActivity", Model)
+            }
         </div>
     </div>
 </div>

@@ -9,51 +9,59 @@
         <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 
 }
-<div class="form">
+<div class="form-no-shadow">
     @using (Html.BeginForm("CreateActivity", "Activity", FormMethod.Post))
     {
-        <div>
-            @Html.LabelFor(model => model.Activity.Name)
-            @Html.TextBoxFor(model => model.Activity.Name)
-            @Html.ValidationMessageFor(model => model.Activity.Name)
-        </div>
+        <div class="fieldsets-container">
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.Activity.Name)
+                    @Html.TextBoxFor(model => model.Activity.Name)
+                    @Html.ValidationMessageFor(model => model.Activity.Name)
+                </div>
 
-        <div>
-            @Html.LabelFor(model => model.Activity.Datetime)
-            @Html.EditorFor(model => model.Activity.Datetime, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-            @Html.ValidationMessageFor(model => model.Activity.Datetime)
-        </div>
+                <div>
+                    @Html.LabelFor(model => model.Activity.Datetime)
+                    @Html.EditorFor(model => model.Activity.Datetime, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.Activity.Datetime)
+                </div>
 
-        <div>
-            @Html.LabelFor(model => model.Activity.Duration)
-            @Html.TextBoxFor(model => model.Activity.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Activity.Duration)
-        </div>
+                <div>
+                    @Html.LabelFor(model => model.Activity.Duration)
+                    @Html.TextBoxFor(model => model.Activity.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Activity.Duration)
+                </div>
+            </fieldset>
 
-        <div>
-            @Html.LabelFor(model => model.Activity.Location)
-            @Html.TextBoxFor(model => model.Activity.Location)
-            @Html.ValidationMessageFor(model => model.Activity.Location)
-        </div>
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.Activity.Location)
+                    @Html.TextBoxFor(model => model.Activity.Location)
+                    @Html.ValidationMessageFor(model => model.Activity.Location)
+                </div>
 
-        <div>
-            @Html.LabelFor(model => model.Activity.MaxParticipants)
-            @Html.TextBoxFor(model => model.Activity.MaxParticipants, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Activity.MaxParticipants)
-        </div>
+                <div>
+                    @Html.LabelFor(model => model.Activity.MaxParticipants)
+                    @Html.TextBoxFor(model => model.Activity.MaxParticipants, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Activity.MaxParticipants)
+                </div>
         
-        <div>
-            @Html.LabelFor(model => model.Activity.MaxInvitesPerPerson)
-            @Html.TextBoxFor(model => model.Activity.MaxInvitesPerPerson, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Activity.MaxInvitesPerPerson)
+                <div>
+                    @Html.LabelFor(model => model.Activity.MaxInvitesPerPerson)
+                    @Html.TextBoxFor(model => model.Activity.MaxInvitesPerPerson, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Activity.MaxInvitesPerPerson)
+                </div>
+            </fieldset>
         </div>
 
-        <div>
+        <div class="production-description">
             @Html.LabelFor(model => model.Activity.Description)
             @Html.TextAreaFor(model => model.Activity.Description, new { @class = "form-control", @rows = "5", @cols = "50" })
             @Html.ValidationMessageFor(model => model.Activity.Description)
         </div>
 
+        <div class="button-container">
             <button class="orange-btn w-100">Valider</button>
+        </div>
     }
 </div>
