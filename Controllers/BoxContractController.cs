@@ -32,6 +32,7 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult CreateBoxContract()
         {
+            ViewBag.ContractExists = false;
             BoxContractViewModel viewModel = new BoxContractViewModel
             {
                 YearOptions = GetEnumSelectListString<Years>(),
@@ -46,6 +47,7 @@ namespace AgriNov.Controllers
         [HttpPost]
         public IActionResult CreateBoxContract(BoxContractViewModel viewModel, string action)
         {
+            ViewBag.ContractExists = false;
             viewModel.YearOptions = GetEnumSelectListString<Years>();
             viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
             viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
@@ -63,6 +65,7 @@ namespace AgriNov.Controllers
                         viewModel.GlobalStock = stock;
                         viewModel.QuantityPerBox = quantityPerBox;
 
+                        ViewBag.ContractExists = false;
                         return View(viewModel);
                     }
                 }
@@ -76,11 +79,22 @@ namespace AgriNov.Controllers
                 {
                     using (ServiceBoxContract sBC = new ServiceBoxContract())
                     {
-                        viewModel.BoxContract.ProductType = viewModel.ProductType;
-                        viewModel.BoxContract.Seasons = viewModel.Seasons;
-                        viewModel.BoxContract.Years = viewModel.Years;
-                        sBC.InsertBoxContract(viewModel.BoxContract);
-                        return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+                        bool contractExists = sBC.ContractExist(viewModel.ProductType, viewModel.Seasons, viewModel.Years);
+
+
+                        if (!contractExists)
+                        {
+                            viewModel.BoxContract.ProductType = viewModel.ProductType;
+                            viewModel.BoxContract.Seasons = viewModel.Seasons;
+                            viewModel.BoxContract.Years = viewModel.Years;
+                            sBC.InsertBoxContract(viewModel.BoxContract);
+                            return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+                        }
+                        else
+                        {
+                            ViewBag.ContractExists = true;
+                            return View(viewModel);
+                        }
                     }
                 }
             }
@@ -132,6 +146,8 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult UpdateBoxContract(int id)
         {
+            ViewBag.ContractExists = false;
+
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
                 if (id > 0)
@@ -169,6 +185,7 @@ namespace AgriNov.Controllers
         [HttpPost]
         public IActionResult UpdateBoxContract(string action, int id, BoxContractViewModel viewModel)
         {
+            ViewBag.ContractExists = false;
             viewModel.BoxContract.Id = id;
 
             viewModel.YearOptions = GetEnumSelectListString<Years>();
@@ -179,6 +196,8 @@ namespace AgriNov.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    
+                        
                     using (ServiceProduction sP = new ServiceProduction())
                     {
                         int stock = sP.CalculateStock(viewModel.ProductType, viewModel.Seasons, viewModel.Years);
@@ -188,11 +207,12 @@ namespace AgriNov.Controllers
                         viewModel.GlobalStock = stock;
                         viewModel.QuantityPerBox = quantityPerBox;
 
+                        ViewBag.ContractExists = false;
                         return View(viewModel);
-                    }
+                    }   
+                        
+                    
                 }
-
-
             }
 
             else if (action == "validate")
@@ -203,14 +223,24 @@ namespace AgriNov.Controllers
                     {
                         using (ServiceBoxContract sBC = new ServiceBoxContract())
                         {
-                            viewModel.BoxContract.DateLastModified = DateTime.Now;
-                            viewModel.BoxContract.ProductType = viewModel.ProductType;
-                            viewModel.BoxContract.Seasons = viewModel.Seasons;
-                            viewModel.BoxContract.Years = viewModel.Years;
+                            bool contractExists = sBC.ContractExist(id, viewModel.ProductType, viewModel.Seasons, viewModel.Years);
 
-                            sBC.UpdateBoxContract(viewModel.BoxContract);
+                            if (!contractExists)
+                            {
+                                viewModel.BoxContract.DateLastModified = DateTime.Now;
+                                viewModel.BoxContract.ProductType = viewModel.ProductType;
+                                viewModel.BoxContract.Seasons = viewModel.Seasons;
+                                viewModel.BoxContract.Years = viewModel.Years;
 
-                            return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+                                sBC.UpdateBoxContract(viewModel.BoxContract);
+
+                                return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+                            }
+                            else
+                            {
+                                ViewBag.ContractExists = true;
+                                return View(viewModel);
+                            }
                         }
                     }
                     return View(viewModel);
@@ -218,5 +248,47 @@ namespace AgriNov.Controllers
             }
             return View(viewModel);
         }
+
+
+
+        [HttpPost]
+        public IActionResult UpdateForSaleStatus(int id, bool forSale)
+        {
+            Debug.WriteLine(id);
+
+            using (ServiceBoxContract sBC = new ServiceBoxContract())
+            {
+                var boxContract = sBC.GetBoxContractById(id);
+                if (boxContract != null)
+                {
+                    
+                    if (boxContract.ForSale)
+                    {
+                        boxContract.ForSale = false;
+                    }
+                    else
+                    {
+                        boxContract.ForSale = true;
+                    }
+                    Debug.WriteLine(boxContract.ForSale);
+                    sBC.UpdateBoxContract(boxContract); 
+                }
+            }
+
+            return RedirectToAction("ShowAllBoxContracts", "BoxContract");
+        }
+
+
+        [HttpDelete]
+        public IActionResult DeleteBoxContract(int id)
+        {
+            using (ServiceBoxContract sBC = new ServiceBoxContract())
+            {
+                sBC.DeleteBoxContract(id);
+                return Ok();
+            }
+        }
+
+
     }
 }

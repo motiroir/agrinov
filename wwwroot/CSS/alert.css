@@ -1,0 +1,57 @@
+﻿#popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.popup-content p {
+    margin-top: 50px;
+}
+
+.popup-content {
+    position:relative;
+    margin:300px auto;
+    height:20%;
+    width:20%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    position:absolute;
+    top: 5px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+.close-button:hover {
+    color: red;
+}
+
+#confirmDelete {
+    padding: 10px 20px;
+    margin: 5px;
+    margin-top: 30px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--orange);
+    color: white;
+    border-radius: 5px;
+}
+
+#confirmDelete:hover {
+    background-color: #e67e50;
+}

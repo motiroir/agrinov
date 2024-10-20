@@ -8,11 +8,15 @@
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/tablestyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+    <link rel="stylesheet" href="~/CSS/alert.css">
 }
 
-
-<div class="table-title">
-<h1>Table des contrats paniers</h1>
+<div id="popup">
+    <div class="popup-content">
+        <span class="close-button">&times;</span>
+        <p>Voulez-vous vraiment supprimer ce contrat ?</p>
+        <button id="confirmDelete">Oui</button>
+    </div>
 </div>
 
 <div class="table-container">
@@ -25,22 +29,30 @@
                 <th>Type de produit</th>
                 <th>Prix (en €)</th>
                 <th>Nombre maximum d'abonnements</th>
+                <th>Mettre en ligne</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var boxContractViewModel in Model)
-    {
-                <tr>
+            {
+                <tr data-id="@boxContractViewModel.BoxContract.Id" onclick="selectRow(this, @boxContractViewModel.BoxContract.ForSale.ToString().ToLower());">
                     <td>@boxContractViewModel.BoxContract.Seasons.GetDisplayName()</td>
                     <td>@boxContractViewModel.BoxContract.Years.GetDisplayName()</td>
                     <td>@boxContractViewModel.BoxContract.ProductType.GetDisplayName()</td>
                     <td>@boxContractViewModel.BoxContract.Price.ToString("F2")</td>
                     <td>@boxContractViewModel.BoxContract.MaxSubscriptions</td>
-                    <td class="radio-btn-td">
-                        <input class="radio-btn" type="radio" name="selectedBoxContractId" value="@boxContractViewModel.BoxContract.Id" />
+                    <td class="checkbox-td">
+                        @using (Html.BeginForm("UpdateForSaleStatus", "BoxContract", FormMethod.Post, new { id = "form_" + boxContractViewModel.BoxContract.Id }))
+                        {
+                            <input type="hidden" name="id" value="@boxContractViewModel.BoxContract.Id" />
+                            <input type="checkbox"
+                                   name="forSale"
+                            @(boxContractViewModel.BoxContract.ForSale ? "checked" : "")
+                                   onchange="updateForSaleStatus(this);" />
+                        }
                     </td>
                 </tr>
-    }
+            }
         </tbody>
 </table>
 
@@ -51,7 +63,11 @@
 {
     <div class="btn-container">
         <button type="submit" name="action" value="add" class="orange-btn w-30">Ajouter</button>
-        <button type="submit" name="action" value="delete" class="orange-btn w-30">Supprimer</button>
-        <button type="submit" name="action" value="update" class="orange-btn w-30">Modifier</button>
+        <button type="button" name="action" value="delete" class="orange-btn w-30" id="deleteButton" disabled>Supprimer</button>
+        <button type="button" name="action" value="update" class="orange-btn w-30" id="updateButton" disabled>Modifier</button>
     </div>
+}
+
+@section Scripts {
+    <script src="~/scripts/table-control.js"></script>
 }

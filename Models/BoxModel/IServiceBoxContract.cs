@@ -1,4 +1,6 @@
-﻿namespace AgriNov.Models
+﻿using AgriNov.Models.ProductionModel;
+
+namespace AgriNov.Models
 {
 	public interface IServiceBoxContract : IDisposable
 	{
@@ -8,7 +10,9 @@
         BoxContract GetBoxContractById(int id);
         void InsertBoxContract(BoxContract boxContract);
         void UpdateBoxContract(BoxContract boxContract);
-        void DeleteBoxContracty(int id);
+        void DeleteBoxContract(int id);
+        bool ContractExist(int Id, ProductType productType, Seasons season, Years year);
+        bool ContractExist(ProductType productType, Seasons season, Years year);
         void Save();
     }
 }

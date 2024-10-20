@@ -8,8 +8,15 @@
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/formstyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+    <link rel="stylesheet" href="~/CSS/alert.css">
 }
 
+<div id="popup">
+    <div class="popup-content">
+        <span class="close-button">&times;</span>
+        <p>Le contrat existe déjà et ne peut pas être ajouté une seconde fois.</p>
+    </div>
+</div>
 
 <a href="@Url.Action("ShowAllBoxContracts", "BoxContract")" class="return-link">< Retour à la liste des contrats</a>
 
@@ -23,11 +30,7 @@
         <div class="form-left-content">
                     <div>
                         @Html.LabelFor(model => model.ProductType, new { @class = "control-label" })
-                        @Html.DropDownListFor(
-                                 model => model.ProductType,
-                                 new SelectList(Model.ProductOptions, "Value", "Text",0),
-                                 new { @class = "form-control" }
-                                 )
+                        @Html.DropDownListFor(model => model.ProductType, new SelectList(Model.ProductOptions, "Value", "Text", 0), new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.ProductType, null, new { @class = " validation-error" })
                     </div>
 
@@ -39,11 +42,7 @@
 
                     <div>
                         @Html.LabelFor(model => model.Seasons, new { @class = "control-label" })
-                        @Html.DropDownListFor(
-                                 model => model.Seasons,
-                                 new SelectList(Model.SeasonOptions, "Value", "Text",0),
-                                 new { @class = "form-control" }
-                                 )
+                        @Html.DropDownListFor(model => model.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text", 0), new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Seasons, null, new { @class = " validation-error" })
                     </div>
 
@@ -77,3 +76,8 @@
         <button type="submit" name="action" value="validate" class="orange-btn w-100">Valider</button>
     }
 </div>
+
+<script>
+    var contractExists = '@ViewBag.ContractExists'.toLowerCase();
+</script>
+<script src="~/scripts/alert.js"></script>
