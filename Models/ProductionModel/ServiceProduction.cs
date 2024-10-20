@@ -1,4 +1,8 @@
 ﻿
+using AgriNov.Models.SharedStatus;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 namespace AgriNov.Models.ProductionModel
 {
     public class ServiceProduction : IServiceProduction
@@ -16,6 +20,21 @@ namespace AgriNov.Models.ProductionModel
             _DBContext.Database.EnsureCreated();
         }
 
+        public void Initializetable()
+        {
+            Production p1 = new Production()
+            {
+                ProductType = ProductType.VEGETABLES,
+                VolumePerDelivery = 50,
+                Price = 150,
+                DeliveryFrequency = DeliveryFrequency.MONTHLY,
+                Seasons = Seasons.WINTER,
+                Years = Years._2024,
+                DateLimitForReview = new DateTime(2024, 11, 01)
+            };
+            InsertProduction(p1);
+        }
+
         public void DeleteProduction(int productionID)
         {
             Production production = _DBContext.Productions.Find(productionID);
@@ -24,6 +43,7 @@ namespace AgriNov.Models.ProductionModel
                 this._DBContext.Productions.Remove(production);
             }
             this.Save();
+
         }
 
         public void Dispose()
@@ -51,22 +71,6 @@ namespace AgriNov.Models.ProductionModel
             return _DBContext.Productions.ToList();
         }
 
-        public void Initializetable()
-        {
-            Production p1 = new Production() 
-            { 
-                ProductType = ProductType.Légumes,
-                Description = null,
-                VolumePerDelivery = 50,
-                Price = 150,
-                DeliveryFrequency = DeliveryFrequency.Mensuelle,
-                Seasons = SharedStatus.Seasons.Hiver,
-                Years = SharedStatus.Years._2024,
-                DateLimitForReview = new DateTime(2024,11,01) 
-            };
-            InsertProduction(p1);
-        }
-
         public void InsertProduction(Production production)
         {
             production.ValidationStatus = SharedStatus.ValidationStatus.WAITING;
@@ -89,8 +93,12 @@ namespace AgriNov.Models.ProductionModel
                 return;
             }
             newProduction.DateLastModified = DateTime.Now;
+
             _DBContext.Entry(oldProduction).CurrentValues.SetValues(newProduction);
             Save();
+
         }
+
+
     }
 }

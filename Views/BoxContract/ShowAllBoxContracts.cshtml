@@ -1,0 +1,37 @@
+﻿@model List<AgriNov.Models.BoxContract>
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Tous les ateliers";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/tablestyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+<div class="table-container">
+
+<table>
+        <thead>
+            <tr>
+                <th>Saison</th>
+                <th>Année</th>
+                <th>Type de produit</th>
+                <th>Prix (en €)</th>
+                <th>Nombre maximum d'abonnements</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (AgriNov.Models.BoxContract boxContract in Model)
+    {
+        <tr>
+            <td>@boxContract.Seasons</td>
+            <td>@((int)boxContract.Years)</td>
+            <td>@boxContract.ProductType</td>
+            <td>@boxContract.Price.ToString("F2")</td>
+            <td>@boxContract.MaxSubscriptions</td>
+        </tr>
+    }
+        </tbody>
+</table>
+
+</div>
