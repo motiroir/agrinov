@@ -1,12 +1,11 @@
 ﻿using AgriNov.Models;
-
+using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgriNov.Controllers
 {
     public class ProductController : Controller
     {
-
         public IActionResult CreateProduct()
         {
             return View();
@@ -63,17 +62,17 @@ namespace AgriNov.Controllers
        
         public IActionResult DeleteProduct(int id)
         {
-                         return View();
-         
+            return View();
         }
 
        public IActionResult ShowAllProducts()
         {
-            // Assuming you have a ProductService that fetches the products from a data source
-            List<Product> products = Product.GetProduct();
-
-            // Passing the list of products to the view
-            return View(products);
+            ProductViewModel pVM = new ProductViewModel();
+            using(ProductService sP = new ProductService())
+            {
+                pVM.AllProducts = sP.GetProducts();
+            }
+            return View(pVM);
         }
     }
 }

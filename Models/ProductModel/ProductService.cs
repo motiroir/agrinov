@@ -33,22 +33,7 @@ namespace AgriNov.Models
         {
             return this._DBContext.Products.Find(id);
         }
-
-        public List<Product> GetAllProduct()
-        {
-            return _DBContext.Products.ToList();
-        }
-        public Product GetProductByID(int ProductID)
-        {
-            return _DBContext.Products.Find(ProductID);
-        }
-
-        public Product GetProductByID(string ProductID)
-        {
-            return _DBContext.Products.Find(ProductID);
-        }
-
-        public List<Product> GetProducts    ()
+        public List<Product> GetProducts()
         {
             return _DBContext.Products.ToList();
         }
@@ -64,7 +49,6 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2024, 12, 12),
                 Description = "azaz",
                 Stock = 10,
-                
             
             });
             
@@ -74,7 +58,7 @@ namespace AgriNov.Models
         public void InsertProduct(Product product)
         {
             _DBContext.Products.Add(product);
-                _DBContext.SaveChanges();
+            _DBContext.SaveChanges();
         }
 
         public void Save()

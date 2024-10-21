@@ -9,13 +9,13 @@ namespace AgriNov.Models
 
         List<Product> GetProducts();
 
-        Product GetProductByID(int ProductID);
+        Product GetProduct(int id);
 
         void InsertProduct(Product product);
 
         void UpdateProduct(Product product);
 
-        void DeleteProduct(int ProductID);
+        void DeleteProduct(int productId);
 
         void Save();
 
