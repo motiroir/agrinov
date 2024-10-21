@@ -124,8 +124,8 @@ namespace AgriNov.Models
             using(IProductService sP = new ProductService())
             {
                 p1 = sP.GetProductByID(1);
-                p2 = sP.GetProductByID(1);
-                p3 = sP.GetProductByID(1);
+                p2 = sP.GetProductByID(2);
+                p3 = sP.GetProductByID(3);
 
             }
             AddProductToShoppingCart(p1, 2, 1);
