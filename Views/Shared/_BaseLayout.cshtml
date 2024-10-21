@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
+    <link rel="icon" type="image/x-icon" href="~/img/global/Logo.ico">
     <link rel="stylesheet" href="@Url.Content("~/CSS/globalstyle.css")">
     @RenderSection("ExtraStyle", required: false)
 </head>
@@ -26,7 +27,7 @@
                     </div>
                 </div>
                 <a href="@Url.Action("boutique", "boutique")">La boutique</a>
-                <a href="@Url.Action("ShowAllActivities", "Activity")">Les ateliers</a>
+                <a href="@Url.Action("ActivityDashboard", "Activity")">Les ateliers</a>
                 <a href="@Url.Action("recettes", "recettes")">Les recettes</a>
                 <a href="@Url.Action("contact", "contact")">Contact</a>
             </section>
@@ -94,5 +95,6 @@
     </footer>
 
     @RenderSection("Scripts", required: false)
+    
 </body>
 </html>

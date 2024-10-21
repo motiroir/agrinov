@@ -1,16 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace AgriNov.Models.ProductionModel
+
 {
     public enum DeliveryFrequency
     {
-        
-        Hebdomadaire,
+        [Display(Name = "Hebdomadaire")]
+        WEEKLY,
 
-      
-        Bihebdomadaire,
+        [Display(Name = "Bihebdomadaire")]
+        BIWEEKLY,
 
-        
-        Mensuelle
+        [Display(Name = "Mensuelle")]
+        MONTHLY
+
     }
 }

@@ -1,0 +1,57 @@
+﻿@model AgriNov.ViewModels.ActivityViewModel
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Mes ateliers";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/userliststyle.css">
+}
+<div class="activities-section">
+    <h3>Les ateliers dont je suis l'organisateur(rice)</h3>
+    <div class="activity-organized">
+        @foreach (AgriNov.Models.Activity activity in Model.ActivitiesByOrganizer)
+        {
+            <div class="activity-detail-container">
+                <div class="full-img"></div>
+                <div class="activity-content">
+                    <div class="text-content">
+                        <h2 class="activity-name">@activity.Name</h2>
+                        <p class="activity-author">@activity.Location</p>
+                        <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p class="activity-description">@activity.Description</p>
+                    </div>
+                    <div class="btn-div">
+                        <a class="btn-inscription">annuler</a>
+                        <a href="@Url.Action("UpdateActivity", "Activity", new { id = @activity.Id })" class="btn-inscription">modifier</a>
+                        <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" type="submit" class="btn-inscription">voir les détails</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="activities-section">
+    <h3>Les activitiés auxquelles je me suis inscrit(e)</h3>
+    <div class="activity-organized">
+        @foreach (AgriNov.Models.Activity activity in Model.ActivitiesBookedByUser)
+        {
+            <div class="activity-detail-container">
+                <div class="full-img"></div>
+                <div class="activity-content">
+                    <div class="text-content">
+                        <h2 class="activity-name">@activity.Name</h2>
+                        <p class="activity-author">@activity.Location</p>
+                        <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p class="activity-description">@activity.Description</p>
+                    </div>
+                    <div class="btn-div">
+                        <button type="submit" class="btn-inscription">inscription</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/scripts/quantity-selector.js"></script>

@@ -1,4 +1,6 @@
+using AgriNov;
 using AgriNov.Models;
+using AgriNov.Models.ActivityModel;
 using AgriNov.Models.ProductionModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -59,6 +61,7 @@ using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
 }
+
 using (ProductService pS = new ProductService())
 {
     pS.InitializeTable();
@@ -67,8 +70,20 @@ using (ProductService pS = new ProductService())
     
     
     
-    app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+using (ServiceBoxContract bC = new ServiceBoxContract())
+{
+    bC.InitializeTable();
+}
+
+using(ServiceBooking sB = new ServiceBooking())
+{
+    sB.InitializeTable();
+}
+
+
+app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

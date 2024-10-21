@@ -2,7 +2,6 @@
 using AgriNov.Models.ActivityModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace AgriNov.Controllers
 {
@@ -15,9 +14,9 @@ namespace AgriNov.Controllers
             return View();
         }
 
-        public IActionResult CreateActivity()
+        public IActionResult CreateActivity(ActivityViewModel aVM)
         {
-            return View();
+            return View(aVM);
         }
 
         [HttpPost]
@@ -29,10 +28,16 @@ namespace AgriNov.Controllers
                 {
                     activity.OrganizerId = Int32.Parse(HttpContext.User.Identity.Name);
                     sA.InsertActivity(activity);
-                    return RedirectToAction("ShowAllActivities", "Activity");
+                    return RedirectToAction("ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" });
                 }
             }
-            return View();
+            ActivityViewModel aVM = new ActivityViewModel();
+            //update the activity info to aVM that will be sent back to ActivityDashboard so that errors will be displayed
+            aVM.Activity = activity;  
+            ViewData["ActiveTab"] = "CreateActivity";
+            return View("ActivityDashboard", aVM);  
+        
+
         }
 
         public IActionResult UpdateActivity(int id)
@@ -46,7 +51,6 @@ namespace AgriNov.Controllers
                     {
                         return View(oldActivity);
                     }
-
                 }
             }
             return View("Error");
@@ -61,29 +65,52 @@ namespace AgriNov.Controllers
                 {
                     using (ServiceActivity sA = new ServiceActivity())
                     {
+                        activity.OrganizerId = Int32.Parse(HttpContext.User.Identity.Name);
                         sA.UpdateActivity(activity);
-                        return RedirectToAction("ShowAllActivities", "Activity");
+                        return RedirectToAction("ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" });
                     }
                 }
             }
             return View(activity);
         }
 
-        public IActionResult ShowAllActivities()
+        public IActionResult ActivityDashboard(string activeTab = "ShowAllActivities")
         {
+            ActivityViewModel aVM = new ActivityViewModel();
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+
             using (ServiceActivity sA = new ServiceActivity())
             {
-                List<Activity> activities = sA.GetAllActivities();
-                return View(activities);
+                // getting all activities in viewmodel
+                aVM.AllActivities = sA.GetAllActivities();
+
+                //get a list of activities organized by user
+                aVM.ActivitiesByOrganizer = sA.GetActivitiesByOrganizer(userId);
+                //get a list of activities booked by user
+                aVM.ActivitiesBookedByUser = sA.GetActivitiesByUserBooking(userId);
             }
+
+            ViewData["ActiveTab"]=activeTab;
+            return View(aVM);
         }
 
-        public IActionResult ShowActivityDetails(int id)
+        public IActionResult ShowAllActivities(ActivityViewModel aVM)
         {
+             return View(aVM);
+        }
+
+        public IActionResult ShowMyActivities(ActivityViewModel aVM)
+        {
+            return View(aVM);
+        }
+
+        public IActionResult ShowActivityDetails(int id, string returnUrl = null)
+        {
+            ActivityViewModel aVM = new ActivityViewModel();
+            //getting the activity info + organizer name
             using (ServiceActivity sA = new ServiceActivity())
             {
                 Activity activity = sA.GetActivity(id);
-                ActivityViewModel aVM = new ActivityViewModel();
                 aVM.Activity = activity;
 
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
@@ -91,8 +118,15 @@ namespace AgriNov.Controllers
                     UserAccount organizer = sUA.GetUserAccountByIDEager(activity.OrganizerId);
                     aVM.OrganizerName = sUA.GetUserFullName(organizer);
                 }
-                return View(aVM);
             }
+            // getting number booking left
+            using(ServiceBooking sB = new ServiceBooking())
+            {
+                aVM.NbBookingsLeft = sB.NbBookingsLeft(id);
+            }
+
+            Console.WriteLine(returnUrl);
+            return View(aVM);
         }
 
         [HttpPost]
@@ -113,7 +147,7 @@ namespace AgriNov.Controllers
                 sB.InsertBooking(userId, activity.Id);
                 //show message success on booking ! + redirect to my bookings
             }
-            return RedirectToAction("ShowAllActivities", "Activity");
+            return RedirectToAction("ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" });
         }
 
 

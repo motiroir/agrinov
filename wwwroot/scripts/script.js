@@ -1,4 +1,4 @@
-// Effet de parallax
+// Parallax
 let bg = document.getElementById('bg')
 let montagnes = document.getElementById('montagnes')
 let arbres3 = document.getElementById('arbres3')
@@ -45,8 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextButton = document.getElementById('next');
 
     let currentPosition = 5;
-
-    // Fonction pour mettre à jour le carousel en fonction de la position sélectionnée
+    
     const updateCarousel = (position) => {
         items.forEach((item) => {
             item.style.filter = 'blur(5px)'; 
@@ -86,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPosition = position;
     };
 
-    // Mise à jour initiale
     updateCarousel(currentPosition);
 
     radios.forEach((radio) => {
@@ -96,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Event pour les flèches
     prevButton.addEventListener('click', () => {
         if (currentPosition > 1) {
             currentPosition--;

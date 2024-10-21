@@ -9,6 +9,20 @@
             _DBContext = new BDDContext();
         }
 
+        public void InitializeTable()
+        {
+            InsertBooking(1,1);
+            InsertBooking(1,2);
+            InsertBooking(2,3);
+            InsertBooking(4,1);
+            InsertBooking(4,3);
+            InsertBooking(5,1);
+            InsertBooking(5,2);
+            InsertBooking(2,5);
+            InsertBooking(2,4);
+            InsertBooking(2,12);
+        }
+
         public void InsertBooking(int userAccountId, int activityId)
         {
             Booking booking = new Booking() { ActivityId = activityId, UserAccountId = userAccountId, DateReserved = DateTime.Now};
@@ -43,6 +57,14 @@
                 Activity activity = sA.GetActivity(activityId);
                 return activity.MaxParticipants-nbCurrentBooking;
             }
+        }
+
+        public List<int> GetActivitiesIdByUserId(int userId)
+        {
+            return _DBContext.Bookings
+                .Where(booking => booking.UserAccountId == userId)
+                .Select(booking => booking.ActivityId)
+                .ToList();
         }
 
         public void Dispose()

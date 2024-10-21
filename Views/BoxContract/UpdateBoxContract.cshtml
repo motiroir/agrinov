@@ -1,0 +1,86 @@
+﻿﻿@using AgriNov.Models.ProductionModel
+@using System.Globalization
+@model AgriNov.ViewModels.BoxContractViewModel
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Créer un contrat";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+    <link rel="stylesheet" href="~/CSS/alert.css">
+}
+
+<div id="popup">
+    <div class="popup-content">
+        <span class="close-button">&times;</span>
+        <p>Le contrat existe déjà et ne peut pas être ajouté une seconde fois.</p>
+    </div>
+</div>
+
+<a href="@Url.Action("ShowAllBoxContracts", "BoxContract")" class="return-link">< Retour à la liste des contrats</a>
+
+<div class="form">
+    @using (Html.BeginForm("UpdateBoxContract", "BoxContract", FormMethod.Post))
+    {
+        
+
+        <h2>Modifier le contrat</h2>
+
+        <div class="form-content">
+            <div class="form-subcontent">
+                <div class="form-left-content">
+                    <div>
+                        @Html.LabelFor(model => model.ProductType, new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.ProductType, new SelectList(Model.ProductOptions, "Value", "Text", 0), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProductType, null, new { @class = " validation-error" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(model => model.Years, new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Years, new SelectList(Model.YearOptions, "Value", "Text", 0), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Years, null, new { @class = " validation-error" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(model => model.Seasons, new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text", 0), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Seasons, null, new { @class = " validation-error" })
+                    </div>
+
+
+                </div>
+                <div class="form-right-content">
+                    <div>
+                        <span>Stock total (kg/l/pièce)</span>
+                        <div class="text-area">@Model.GlobalStock</div>
+                    </div>
+                    <div>
+                        <span>Quantité par panier (kg/l/pièce)</span>
+                        <div class="text-area">@Model.QuantityPerBox</div>
+                    </div>
+                    <button type="submit" name="action" value="calculate" class="lightOrange-btn w-100">Calculer</button>
+                </div>
+
+            </div>
+            <div class="price">
+                @Html.LabelFor(model => model.BoxContract.Price, "Prix /kg /L /piece (en €)")
+                @Html.EditorFor(model => model.BoxContract.Price)
+                @Html.ValidationMessageFor(model => model.BoxContract.Price)
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.BoxContract.MaxSubscriptions)
+                @Html.TextBoxFor(model => model.BoxContract.MaxSubscriptions, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BoxContract.MaxSubscriptions, null, new { @class = " validation-error" })
+            </div>
+        </div>
+        <button type="submit" name="action" value="validate" class="orange-btn w-100">Valider</button>
+    }
+</div>
+
+<script>
+    var contractExists = '@ViewBag.ContractExists'.toLowerCase();
+</script>
+<script src="~/scripts/alert.js"></script>
