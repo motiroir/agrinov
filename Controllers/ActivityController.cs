@@ -32,7 +32,7 @@ namespace AgriNov.Controllers
                 }
             }
             ActivityViewModel aVM = new ActivityViewModel();
-            //update the activity info to aVM that will be sent back to ActivityDashboard so that errors will be displayed
+            //update the activity info to aVM that will be given to ActivityDashboard so that errors will be displayed
             aVM.Activity = activity;  
             ViewData["ActiveTab"] = "CreateActivity";
             return View("ActivityDashboard", aVM);  
