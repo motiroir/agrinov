@@ -27,7 +27,7 @@
             <fieldset>
                 <div class="productType">
                     @Html.LabelFor(model => model.Production.ProductType, new { @class = "control-label" })
-                    @Html.DropDownListFor(model => model.Production.ProductType, new SelectList(Model.ProductOptions, "Value", "Text"), "Sélectionnez un type de produit", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Production.ProductType, new SelectList(Model.ProductOptions, "Value", "Text", 0), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Production.ProductType, "", new { @class = "text-danger" })
                 </div>
 
@@ -45,20 +45,20 @@
 
                 <div class="deliveryFrequency">
                     @Html.LabelFor(model => model.Production.DeliveryFrequency, new { @class = "control-label" })
-                    @Html.DropDownListFor(model => model.Production.DeliveryFrequency, new SelectList(Model.DeliveryFrequencyOptions, "Value", "Text"), "Sélectionnez un fréquence de livraison", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Production.DeliveryFrequency, new SelectList(Model.DeliveryFrequencyOptions, "Value", "Text", 0),new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Production.DeliveryFrequency, "", new { @class = "text-danger" })
                 </div>
             </fieldset>
             <fieldset>
                 <div class="seasons">
                     @Html.LabelFor(model => model.Production.Seasons, new { @class = "control-label" })
-                    @Html.DropDownListFor(model => model.Production.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text"), "Sélectionnez une saison", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Production.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text",0), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Production.Seasons, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="years">
                     @Html.LabelFor(model => model.Production.Years, new { @class = "control-label" })
-                    @Html.DropDownListFor(model => model.Production.Years, new SelectList(Model.YearOptions, "Value", "Text"), "Sélectionnez une année", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Production.Years, new SelectList(Model.YearOptions, "Value", "Text",0), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Production.Years, "", new { @class = "text-danger" })
                 </div>
 
