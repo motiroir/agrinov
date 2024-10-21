@@ -8,29 +8,23 @@ namespace AgriNov.Models
 	public class BoxContract
 	{
 		public int Id { get; set; }
-
-        [Required]
-        [DisplayName("Type de produit")]
         public ProductType ProductType { get; set; }
-
-        [Required]
-        [DisplayName("Saison assginée")]
         public Seasons Seasons { get; set; }
-
-        [Required]
-        [DisplayName("Année assginée")]
         public Years Years { get; set; }
 
         [Required]
-        [DisplayName("Prix")]
+        [DisplayName("Prix (en €)")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0.")]
         public decimal Price { get; set; }
 
         [Required]
         [DisplayName("Nombre maximum d'abonnements")]
+        [Range(1, int.MaxValue, ErrorMessage = "Le nombre d'abonnements doit être supérieur à 0.")]
         public int MaxSubscriptions { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
+
+        public bool ForSale { get; set; }
 
     }
 

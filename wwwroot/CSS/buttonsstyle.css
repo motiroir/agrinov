@@ -27,3 +27,32 @@
 .orange-btn:hover {
    background-color: #e67e50;
 }
+
+.lightOrange-btn {
+    background-color: var(--lightOrange);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.lightOrange-btn:hover {
+    background-color: #FFB57C;
+}
+
+
+.rounded {
+    --_bdrs: 50%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-30 {
+    width: 30%;
+}
+

@@ -24,7 +24,7 @@ else{
             @Html.PasswordFor(model => model.UserAccount.Password)
             @Html.ValidationMessageFor(model => model.UserAccount.Password)
 
-            <button type="submit" class="button-add">Connexion</button>
+            <button type="button" class="btn-small orange-btn" style="padding: 5px 10px; font-size: 12px;" onclick="window.location.href='@Url.Action("Index", "Home")';">Retour</button>
         }
     </div>
 }
