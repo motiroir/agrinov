@@ -1,0 +1,60 @@
+﻿@model AgriNov.ViewModels.UserAccountInfoUpdate
+  
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Dashboard";
+}
+
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/dashboard.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
+}
+
+<div class="common-view">
+
+<div class="profile-pic">
+
+
+
+
+
+</div>
+
+
+<div class="profile-infos">
+    <div>
+        <h4>Nom :</h4>
+         <h4>@Model.ContactDetails.Name</h4>
+    </div>
+
+    <div> 
+        <h4>Prenom :</h4>
+            <h4>@Model.ContactDetails.FirstName</h4>
+        
+    </div>
+
+    <div>
+        <h4>Numero de telephone : </h4>
+            <h4>@Model.ContactDetails.PhoneNumber</h4>
+
+    </div>
+
+    <div>
+        <h4>Adresse : </h4>
+            <h4>@Model.Address.Line2 ,</h4>
+            <h4>@Model.Address.Line1 ,</h4>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
