@@ -26,6 +26,9 @@
     padding: 40px;
     position: relative;
 }
+.space-evenly {
+    justify-content: space-evenly;
+}
 
 .text-content {
     text-align: left;
@@ -54,6 +57,12 @@
 .activity-number-display {
     display: flex;
     justify-content: space-between;
+    margin: 40px 0;
+    text-align: center;
+}
+.activity-number-display-evenly {
+    display: flex;
+    justify-content: space-evenly;
     margin: 40px 0;
     text-align: center;
 }

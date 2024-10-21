@@ -58,8 +58,9 @@ namespace AgriNov.Models
                 CreationDate = DateTime.Now,
                 Price = 3,
                 ExpirationDate = new DateTime(2024, 12, 12),
-                Description = "azaz",
+                Description = "Pot de miel aux fleurs d'acacia",
                 Stock = 10,
+                SupplierId = 1,
             });
 
             _DBContext.Products.Add(new Product()
@@ -71,6 +72,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2025, 1, 30),
                 Description = "Pâtes 100% blé entier pour des repas sains",
                 Stock = 50,
+                SupplierId = 1,
             });
 
             _DBContext.Products.Add(new Product()
@@ -82,6 +84,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2026, 5, 15),
                 Description = "Huile d'olive de première pression à froid",
                 Stock = 20,
+                SupplierId= 1,
             });
 
             _DBContext.Products.Add(new Product()
@@ -93,6 +96,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2025, 8, 12),
                 Description = "Vinaigre balsamique de Modène",
                 Stock = 30,
+                SupplierId = 3,
             });
 
             _DBContext.Products.Add(new Product()
@@ -104,6 +108,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2024, 11, 10),
                 Description = "Café moulu biologique pour un goût riche",
                 Stock = 15,
+                SupplierId = 2,
             });
 
             _DBContext.Products.Add(new Product()
@@ -115,6 +120,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2025, 4, 18),
                 Description = "Thé vert matcha en poudre",
                 Stock = 8,
+                SupplierId = 4,
             });
 
             _DBContext.Products.Add(new Product()
@@ -126,6 +132,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2025, 9, 30),
                 Description = "Riz basmati à grains longs et parfumé",
                 Stock = 25,
+                SupplierId = 3,
             });
 
             _DBContext.Products.Add(new Product()
@@ -137,6 +144,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2026, 3, 15),
                 Description = "Sel de mer naturel pour assaisonner vos plats",
                 Stock = 40,
+                SupplierId = 2,
             });
 
             _DBContext.Products.Add(new Product()
@@ -148,6 +156,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2025, 6, 20),
                 Description = "Confiture artisanale de fraises",
                 Stock = 12,
+                SupplierId = 3,
             });
 
             _DBContext.Products.Add(new Product()
@@ -159,6 +168,7 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2025, 1, 1),
                 Description = "Cacao en poudre non sucré pour pâtisserie",
                 Stock = 20,
+                SupplierId = 4,
             });
 
             _DBContext.SaveChanges();
@@ -166,6 +176,7 @@ namespace AgriNov.Models
 
         public void InsertProduct(Product product)
         {
+            product.CreationDate = DateTime.Now;
             _DBContext.Products.Add(product);
             _DBContext.SaveChanges();
         }

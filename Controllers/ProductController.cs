@@ -16,6 +16,8 @@ namespace AgriNov.Controllers
         {
             if (ModelState.IsValid)
             {
+                int userId = int.Parse(HttpContext.User.Identity.Name);
+                product.SupplierId= userId;
                 using (ProductService sP = new ProductService())
                 {
                     sP.InsertProduct(product);
@@ -24,7 +26,6 @@ namespace AgriNov.Controllers
             }
             return View(product);
         }
-
 
         public IActionResult UpdateProduct(int id)
         {
@@ -41,7 +42,6 @@ namespace AgriNov.Controllers
             }
             return View("Error");
         }
-
 
         [HttpPost]
         public IActionResult UpdateProduct(Product product)
@@ -101,9 +101,14 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToCart()
+        public IActionResult AddToCart(Product product)
         {
-            return View();
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+            using (ServiceShoppingCart sSC = new ServiceShoppingCart())
+            {
+                sSC.AddProductToShoppingCart(product, 1, userId);
+            }
+            return RedirectToAction("Index", "ShoppingCart");
         }
     }
 }
