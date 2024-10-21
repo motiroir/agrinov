@@ -21,9 +21,9 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            MemberShipFee m1 = new MemberShipFee() {UserAccountId = 1, Price = 10};
+            MemberShipFee m1 = new MemberShipFee() {UserAccountId = 1, Temp = true};
             InsertMembershipFee(m1);
-            MemberShipFee m2 = new MemberShipFee() {UserAccountId = 2, Price = 10};
+            MemberShipFee m2 = new MemberShipFee() {UserAccountId = 2, Temp = true};
             InsertMembershipFee(m2);
 
         }

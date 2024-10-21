@@ -193,6 +193,16 @@ namespace AgriNov
             return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(passwordWithSalt)));
         }
 
+        public bool CheckIfMemberShipValid(int userAccountID)
+        {
+            DateTime currentDate = DateTime.Now;
+            MemberShipFee memberShipFee = _DBContext.MembershipFees.Where(fee => (fee.UserAccountId == userAccountID && fee.Temp == true)).OrderByDescending(fee => fee.EndDate).FirstOrDefault();
+            if(memberShipFee == null || DateTime.Compare(memberShipFee.EndDate, currentDate) < 0){
+                return false;
+            }
+            return true;
+        }
+
         public string GetUserFullName(UserAccount user)
         {
             if (user.UserAccountLevel.ToString() == "USER")

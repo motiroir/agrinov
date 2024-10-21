@@ -8,7 +8,7 @@ namespace AgriNov.Models
 {
     public class ServiceShoppingCart : IServiceShoppingCart
     {
-         private BDDContext _DBContext;
+        private BDDContext _DBContext;
 
         public ServiceShoppingCart()
         {
@@ -31,13 +31,13 @@ namespace AgriNov.Models
 
         public ShoppingCart GetShoppingCartForUserAccount(int userAccountId)
         {
-            throw new NotImplementedException();
+            return _DBContext.ShoppingCarts.Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.MemberShipFee).FirstOrDefault(s => s.UserAccountId == userAccountId);
         }
 
         public void AddShoppingCartItemToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
         {
             ShoppingCart shoppingCart = _DBContext.ShoppingCarts.Include("ShoppingCartItems").FirstOrDefault(s => s.UserAccountId == shoppingCartId);
-            if(shoppingCart != null)
+            if (shoppingCart != null)
             {
                 shoppingCart.ShoppingCartItems.Add(shoppingCartItem);
                 Save();
@@ -46,22 +46,43 @@ namespace AgriNov.Models
 
         public void AddMemberShipFeeToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
         {
+            //shoppingCartId = userAccountId
             //Check if user already has a valid membership fee, in that case, return and don't add to shopping cart
-            //TODO
+            using (IServiceUserAccount sUA = new ServiceUserAccount())
+            {
+                if (sUA.CheckIfMemberShipValid(shoppingCartId))
+                {
+                    return;
+                }
+            }
             //UserACcountId and ShoppingCartId share the same Id
-            MemberShipFee m = new MemberShipFee() {UserAccountId = shoppingCartId};
+            MemberShipFee m = new MemberShipFee() { UserAccountId = shoppingCartId };
             // We could compute different membershipfees here depending on user account
-            shoppingCartItem.MemberShipFee = m; 
+            shoppingCartItem.MemberShipFee = m;
             //Quantity must be set after setting MemberShipFee, otherwise the total price can't be computed
             shoppingCartItem.Quantity = 1;
 
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
 
+        public bool IsAMemberShipFeeInTheCart(int userAccountId)
+        {
+            ShoppingCart sC = GetShoppingCartForUserAccount(userAccountId);
+            if(sC != null && sC.ShoppingCartItems.Any()){
+                foreach(ShoppingCartItem item in sC.ShoppingCartItems)
+                {
+                    if(item.MemberShipFee != null){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public void InitializeTable()
         {
             AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
+            AddMemberShipFeeToShoppingCart(3, new ShoppingCartItem());
         }
 
         public void Save()
