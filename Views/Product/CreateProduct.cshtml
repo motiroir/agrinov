@@ -35,12 +35,12 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Description, "Description du produit")
                     @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, maxlength = 500 })
-                    <span class="character-count">500 caractères restants</span>
+                    
                 </div>
             </fieldset>
         </div>
 
-        <div class="btn-container">
+        <div class="button-container">
             <input type="submit" value="Créer" class="orange-btn w-50" /> 
             <a href="@Url.Action("Index", "Home")" class="orange-btn w-50">Retour</a>
         </div>
