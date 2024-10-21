@@ -23,13 +23,19 @@ namespace AgriNov.Models
         public UserAccountLevel UserAccountLevel { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
-
-        public int? UserId {get; set;}
-        public User User {get; set;}
-        public int? CorporateUserId {get; set;}
-        public CorporateUser CorporateUser {get; set;}
-        public int? SupplierId {get; set;}
-        public Supplier Supplier {get; set;}
+        //Optional One-To-One RelationShip w/ navigation
+        public int? UserId { get; set; }
+        public User User { get; set; }
+        //Optional One-To-One RelationShip w/ navigation
+        public int? CorporateUserId { get; set; }
+        public CorporateUser CorporateUser { get; set; }
+        //Optional One-To-One RelationShip w/navigation
+        public int? SupplierId { get; set; }
+        public Supplier Supplier { get; set; }
+        //One-To-One RelationShip
+        public ShoppingCart ShoppingCart {get; set;}
+        //One-To-Many RelationShip
+        public ICollection<MemberShipFee> MembershipFees { get; } = new List<MemberShipFee>();
 
     }
 }

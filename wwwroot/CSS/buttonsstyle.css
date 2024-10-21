@@ -15,6 +15,7 @@
 
 .orange-btn {
     background-color: var(--orange);
+    text-decoration: none;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -22,6 +23,8 @@
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
+    display:flex;
+    justify-content:center;
 }
 
 .orange-btn:hover {
@@ -50,6 +53,9 @@
 
 .w-100 {
     width: 100%;
+}
+.w-50 {
+    width: 50%;
 }
 
 .w-30 {
