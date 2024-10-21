@@ -73,7 +73,7 @@ namespace AgriNov.Models.ProductionModel
 
         public void InsertProduction(Production production)
         {
-            production.ValidationStatus = SharedStatus.ValidationStatus.WAITING;
+            production.ValidationStatus = ValidationStatus.WAITING;
             production.DateCreated = DateTime.Now;
             production.DateLastModified = DateTime.Now;
             _DBContext.Productions.Add(production);

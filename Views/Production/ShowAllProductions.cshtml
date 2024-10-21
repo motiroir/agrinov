@@ -1,0 +1,68 @@
+﻿@using AgriNov.Models.ProductionModel
+@using AgriNov.Models.SharedStatus
+@using AgriNov.ViewModels
+
+@model List<AgriNov.ViewModels.ProductionViewModel>
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Toutes les productions";
+}
+
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/tablestyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+
+<div class="table-container">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Saison</th>
+                <th>Année</th>
+                <th>Fournisseur</th>
+                <th>Type de produit</th>
+                <th>Description</th>
+                <th>Volume par livraison</th>
+                <th>Prix (en €)</th>
+                <th>Fréquence de Livraison</th>
+                <th>Etat Proposition</th>
+                <th>Validation</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AgriNov.ViewModels.ProductionViewModel production in Model)
+            {
+                <tr>
+                    <td>@production.SeasonOptions</td>
+                    <td>@production.YearOptions</td>
+                    <td>@production.Production.Id</td>
+                    <td>@production.Production.ProductType</td>
+                    <td>@production.Production.Description</td>
+                    <td>@production.Production.VolumePerDelivery</td>
+                    <td>@production.Production.Price.ToString("F2")</td>
+                    <td>@production.Production.DeliveryFrequency</td>
+                                      
+                  @using (Html.BeginForm("UpdateProductionValidation", "Production", FormMethod.Post))
+                        {
+                    <td>
+                          @Html.DropDownListFor(
+                              model => production.Production.ValidationStatus,
+                              new SelectList(Model.ValidationStatusOptions, "Value", "Text"),
+                              new { @class = "form-control" }
+                          )
+                    </td>
+                    <td>
+                            <button type="submit" class="orange-btn">Valider</button>
+                    </td>
+                  }
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
