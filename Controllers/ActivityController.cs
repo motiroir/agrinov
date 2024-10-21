@@ -1,14 +1,14 @@
 ﻿using AgriNov.Models;
 using AgriNov.Models.ActivityModel;
 using AgriNov.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgriNov.Controllers
 {
+    [Authorize]
     public class ActivityController : Controller
     {
-
-
         public IActionResult Index()
         {
             return View();
@@ -32,7 +32,7 @@ namespace AgriNov.Controllers
                 }
             }
             ActivityViewModel aVM = new ActivityViewModel();
-            //update the activity info to aVM that will be sent back to ActivityDashboard so that errors will be displayed
+            //update the activity info to aVM that will be given to ActivityDashboard so that errors will be displayed
             aVM.Activity = activity;  
             ViewData["ActiveTab"] = "CreateActivity";
             return View("ActivityDashboard", aVM);  
