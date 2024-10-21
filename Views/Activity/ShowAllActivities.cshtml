@@ -1,4 +1,4 @@
-﻿@model List<AgriNov.Models.Activity>
+﻿@model AgriNov.ViewModels.ActivityViewModel
 
 @{
     Layout = "_BaseLayout";
@@ -10,7 +10,7 @@
 }
 
 <div class="all-tiles-box">
-    @foreach (AgriNov.Models.Activity activity in Model)
+    @foreach (AgriNov.Models.Activity activity in Model.AllActivities)
     {
         <div class="activity-tile">
             <div class="preview-img"></div>
@@ -21,7 +21,7 @@
                     <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
                 </div>
                 <div class="btn-div">
-                    <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = activity.Id, returnUrl = "ShowAllActivities"})" class="btn-inscription">en savoir plus</a>
+                    <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = activity.Id, returnUrl = "ActivityDashboard"})" class="btn-inscription">en savoir plus</a>
                 </div>
             </div>
         </div>

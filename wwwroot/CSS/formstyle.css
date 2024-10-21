@@ -11,34 +11,41 @@
     gap: 20px;
 }
 
-
-.form fieldset {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-        border: none;
+.form-no-shadow {
+    margin: 100px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-    .form .fieldsets-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
+fieldset {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: none;
+}
+
+.fieldsets-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+    .fieldsets-container fieldset {
+        flex: 1;
     }
 
-        .form .fieldsets-container fieldset {
-            flex: 1;
-        }
-
-    .form .production-description {
-        margin: 10px;
-    }
+.production-description {
+    margin: 10px;
+}
 
 
-    .form .button-container {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 20px;
-    }
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
 
 .form-check {
     margin-bottom: 10px;
@@ -60,15 +67,6 @@
     margin-right: 10px;
 }
 
-
-h2 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin: 20px 20px;
-    display: block;
-}
-
 label {
     font-family:'Comfortaa';
     display: block;
@@ -76,7 +74,13 @@ label {
     margin-bottom: 8px;
     color: #333;
 }
-
+.form h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin: 20px 20px;
+    display: block;
+}
 
 input[type="text"],
 input[type="number"],
