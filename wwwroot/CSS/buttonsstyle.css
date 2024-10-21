@@ -62,3 +62,6 @@
     width: 30%;
 }
 
+.button-container{
+    gap: 20px;
+}
