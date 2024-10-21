@@ -13,6 +13,7 @@ namespace AgriNov.Models
         void UpdateUserAccountPassword(int userAccountID, string password);
         void UpdateUserAccountExceptPassword(UserAccount userAccount);
         void DeleteUserAccount(int userAccountID);
+        public bool CheckIfMemberShipValid(int userAccountID);
         UserAccount Authenticate(string mail, string password);
         void Save();
     }

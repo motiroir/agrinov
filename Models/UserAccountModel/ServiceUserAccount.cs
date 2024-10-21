@@ -1,9 +1,7 @@
 using AgriNov.Models;
 using System.Security.Cryptography;
 using System.Text;
-using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.X86;
 
 namespace AgriNov
 {
@@ -154,6 +152,9 @@ namespace AgriNov
             userAccount.DateLastModified = DateTime.Now;
             _DBContext.UserAccounts.Add(userAccount);
             Save();
+            //Each UserAccount need one ShoppingCart, but the UserAccountId needs to be generated first
+            userAccount.ShoppingCart = new ShoppingCart();
+            UpdateUserAccountExceptPassword(userAccount);
         }
 
         public void Save()
@@ -190,6 +191,21 @@ namespace AgriNov
         {
             string passwordWithSalt = "Authentication" + password + "Hash";
             return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(passwordWithSalt)));
+        }
+
+        public bool CheckIfMemberShipValid(int userAccountID)
+        {
+            UserAccount userAccount = _DBContext.UserAccounts.FirstOrDefault(u => u.Id == userAccountID);
+            if(userAccount != null &&( userAccount.UserAccountLevel == UserAccountLevel.ADMIN || userAccount.UserAccountLevel == UserAccountLevel.SUPPLIER || userAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER))
+            {
+                return true;
+            }
+            DateTime currentDate = DateTime.Now;
+            MemberShipFee memberShipFee = _DBContext.MembershipFees.Where(fee => (fee.UserAccountId == userAccountID && fee.Temp == true)).OrderByDescending(fee => fee.EndDate).FirstOrDefault();
+            if(memberShipFee == null || DateTime.Compare(memberShipFee.EndDate, currentDate) < 0){
+                return false;
+            }
+            return true;
         }
 
         public string GetUserFullName(UserAccount user)

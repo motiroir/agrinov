@@ -76,6 +76,7 @@
 
 .form .button-container {
     display: flex;
+    gap: 40px;
     justify-content: flex-end;
     margin-top: 20px;
 }

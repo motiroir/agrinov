@@ -1,0 +1,66 @@
+@using AgriNov.Models
+@model AgriNov.Models.ShoppingCart
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Mon panier";
+}
+@section ExtraStyle {
+    <style>
+        .cart {
+            margin-top: 200px;
+        }
+    </style>
+}
+<div class="cart">
+        <h2>Votre panier</h2>
+        @if (Model.ShoppingCartItems.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Objet</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ShoppingCartItem item in Model.ShoppingCartItems)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.MemberShipFee != null)
+                                {
+                                    @("Cotisation annuelle")
+                                }
+                                else
+                                {
+                                    <span>Other Item</span>
+                                }
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td>
+                                @if (item.MemberShipFee != null)
+                                {
+                                    @item.MemberShipFee.Price.ToString("C")
+                                }
+                                else
+                                {
+                                    @("Other Item Price")
+                                }
+                            </td>
+                            <td>@item.Total.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div>
+                <strong>Total:</strong> @Model.Total.ToString("C")
+            </div>
+        }
+        else
+        {
+            <p>Votre panier est vide</p>
+        }
+</div>
