@@ -122,7 +122,7 @@ namespace AgriNov.Models
             Product p1;
             Product p2;
             Product p3;
-            using(IProductService sP = new ProductService())
+            using(ProductService sP = new ProductService())
             {
                 p1 = sP.GetProductByID(1);
                 p2 = sP.GetProductByID(2);

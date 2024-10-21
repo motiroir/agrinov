@@ -29,9 +29,19 @@ namespace AgriNov.Models
              }
              this.Save();*/
         }
-        public Product GetProduct(int id)
+        public Product GetProductByID(int ProductID)
         {
-            return this._DBContext.Products.Find(id);
+            return _DBContext.Products.Find(ProductID);
+        }
+
+        public Product GetProductByID(string ProductIDStr)
+        {
+            int id;
+            if(int.TryParse(ProductIDStr, out id))
+            {
+                return this.GetProductByID(id);
+            }
+            return null;
         }
 
         public List<Product> GetProducts()

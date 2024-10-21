@@ -9,7 +9,7 @@ namespace AgriNov.Models
 
         List<Product> GetProducts();
 
-        Product GetProduct(int id);
+        Product GetProductByID(int id);
 
         void InsertProduct(Product product);
 

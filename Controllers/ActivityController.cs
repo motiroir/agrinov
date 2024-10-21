@@ -125,7 +125,6 @@ namespace AgriNov.Controllers
                 aVM.NbBookingsLeft = sB.NbBookingsLeft(id);
             }
 
-            Console.WriteLine(returnUrl);
             return View(aVM);
         }
 

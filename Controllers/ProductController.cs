@@ -32,14 +32,14 @@ namespace AgriNov.Controllers
             {
                 using (ProductService sP = new ProductService())
                 {
-                    Product oldProduct = sP.GetProduct(id);
+                    Product oldProduct = sP.GetProductByID(id);
                     if (oldProduct != null)
                     {
                         return View(oldProduct);
                     }
                 }
             }
-            return View("NotFound");
+            return View("Error");
         }
 
 
@@ -53,7 +53,7 @@ namespace AgriNov.Controllers
                     using (ProductService sP = new ProductService())
                     {
                         sP.UpdateProduct(product);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("ProductDashboard", "Product");
                     }
                 }
             }
@@ -65,14 +65,45 @@ namespace AgriNov.Controllers
             return View();
         }
 
-       public IActionResult ShowAllProducts()
+       public IActionResult ShowAllProducts(ProductViewModel pVM)
+        {
+            return View(pVM);
+        }
+
+        public IActionResult ProductDashboard(string activeTab = "ShowAllProducts")
         {
             ProductViewModel pVM = new ProductViewModel();
-            using(ProductService sP = new ProductService())
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+
+            using (ProductService sP = new ProductService())
             {
+                // getting all products in viewmodel
                 pVM.AllProducts = sP.GetProducts();
+
+            }
+
+            ViewData["ActiveTab"] = activeTab;
+            return View(pVM);
+        }
+
+        public IActionResult ShowProductDetails(int id)
+        {
+            ProductViewModel pVM = new ProductViewModel();
+            using (ProductService sP= new ProductService())
+            {
+                pVM.Product = sP.GetProductByID(id);
+            }
+            if (pVM.Product == null)
+            {
+                return View("Error"); 
             }
             return View(pVM);
+        }
+
+        [HttpPost]
+        public IActionResult AddToCart()
+        {
+            return View();
         }
     }
 }
