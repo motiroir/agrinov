@@ -1,14 +1,14 @@
 ﻿using AgriNov.Models;
 using AgriNov.Models.ActivityModel;
 using AgriNov.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgriNov.Controllers
 {
+    [Authorize]
     public class ActivityController : Controller
     {
-
-
         public IActionResult Index()
         {
             return View();
