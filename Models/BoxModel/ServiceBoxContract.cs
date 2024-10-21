@@ -1,5 +1,6 @@
 ﻿using AgriNov.Models;
 using AgriNov.Models.ProductionModel;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace AgriNov.Models
@@ -60,7 +61,7 @@ namespace AgriNov.Models
             return _DBContext.BoxContracts.ToList();
         }
 
-        public BoxContract GetBoxContract(int id)
+        public BoxContract GetBoxContractById(int id)
         {
             return this._DBContext.BoxContracts.Find(id);
         }
@@ -69,18 +70,46 @@ namespace AgriNov.Models
         {
             boxContract.DateCreated = DateTime.Now;
             boxContract.DateLastModified = DateTime.Now;
+            boxContract.ForSale = false;
             _DBContext.BoxContracts.Add(boxContract);
             Save();
         }
 
-        public void UpdateBoxContract(BoxContract boxContract)
+        public void UpdateBoxContract(BoxContract newBoxContract)
         {
-            throw new NotImplementedException();
+            BoxContract oldBoxContract = GetBoxContractById(newBoxContract.Id);
+            if (oldBoxContract == null)
+            {
+                return;
+            }
+            newBoxContract.DateLastModified = DateTime.Now;
+
+            _DBContext.Entry(oldBoxContract).CurrentValues.SetValues(newBoxContract);
+            Save();
         }
 
-        public void DeleteBoxContracty(int id)
+        public void DeleteBoxContract(int id)
         {
-            throw new NotImplementedException();
+            BoxContract boxContract = _DBContext.BoxContracts.Find(id);
+            if (boxContract != null)
+            {
+                this._DBContext.BoxContracts.Remove(boxContract);
+            }
+            this.Save();
+
         }
+
+        public bool ContractExist(int Id, ProductType productType, Seasons season, Years year)
+        {
+            return _DBContext.BoxContracts
+                .Any(bc => bc.ProductType == productType && bc.Seasons == season && bc.Years == year && bc.Id != Id);
+        }
+
+        public bool ContractExist(ProductType productType, Seasons season, Years year)
+        {
+            return _DBContext.BoxContracts
+                .Any(bc => bc.ProductType == productType && bc.Seasons == season && bc.Years == year);
+        }
+
     }
 }

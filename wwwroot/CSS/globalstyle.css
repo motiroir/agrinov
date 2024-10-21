@@ -1,5 +1,16 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+﻿@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter_18pt-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('/fonts/Comfortaa-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
 
 * {
     margin: 0;
@@ -900,7 +911,24 @@ input[type="radio"] {
     background-color: var(--orangeRed);
 }
 
+.return-link {
+    position:fixed;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1vw;
+    line-height: 110%;
+    height: 20px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--orangeRed);
+    margin-left: 100px;
+    top:100px;
+}
 
+.return-link:hover {
+    text-decoration: underline;
+}
 
 
 /* ------------------------------------------------------- */
