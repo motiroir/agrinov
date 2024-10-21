@@ -33,9 +33,9 @@
                                 {
                                     @("Cotisation annuelle")
                                 }
-                                else
+                                else if(item.Product != null)
                                 {
-                                    <span>Other Item</span>
+                                    @item.Product.Name
                                 }
                             </td>
                             <td>@item.Quantity</td>
@@ -44,9 +44,9 @@
                                 {
                                     @item.MemberShipFee.Price.ToString("C")
                                 }
-                                else
+                                else if(item.Product != null)
                                 {
-                                    @("Other Item Price")
+                                    @item.Product.Price.ToString("C")
                                 }
                             </td>
                             <td>@item.Total.ToString("C")</td>

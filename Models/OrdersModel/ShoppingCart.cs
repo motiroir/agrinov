@@ -11,13 +11,23 @@ namespace AgriNov.Models
     {
         //One-to-One relationship, Shared Primary Key
         [Key, ForeignKey("UserAccount")]
-        public int UserAccountId {get; set;}
-        public UserAccount UserAccount {get; set;}
+        public int UserAccountId { get; set; }
+        public UserAccount UserAccount { get; set; }
         // Nabigation property to the ShoppingCartItems
-        public ICollection<ShoppingCartItem> ShoppingCartItems {get;} = new List<ShoppingCartItem>();
+        public ICollection<ShoppingCartItem> ShoppingCartItems { get; } = new List<ShoppingCartItem>();
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
         public decimal Total { get; private set; }
 
+        public ShoppingCart()
+        {
+            CalculateTotal();
+        }
+
+        public void CalculateTotal()
+        {
+            // Sum the Total of each ShoppingCartItem in the collection
+            Total = ShoppingCartItems.Sum(item => item.Total);
+        }
     }
 }

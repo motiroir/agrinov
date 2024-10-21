@@ -22,17 +22,18 @@ namespace AgriNov.Models
         public void DeleteProduct(int id)
         {
             throw new NotImplementedException();
-           /* Product product = _DBContext.Products.Find( id);
-            if (product != null)
-            {
-                this._DBContext.Products.Remove(product);
-            }
-            this.Save();*/
+            /* Product product = _DBContext.Products.Find( id);
+             if (product != null)
+             {
+                 this._DBContext.Products.Remove(product);
+             }
+             this.Save();*/
         }
         public Product GetProduct(int id)
         {
             return this._DBContext.Products.Find(id);
         }
+
         public List<Product> GetProducts()
         {
             return _DBContext.Products.ToList();
@@ -49,12 +50,110 @@ namespace AgriNov.Models
                 ExpirationDate = new DateTime(2024, 12, 12),
                 Description = "azaz",
                 Stock = 10,
-            
             });
-            
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Pâtes de blé entier",
+                Category = "Pâtes",
+                CreationDate = DateTime.Now,
+                Price = 2.5,
+                ExpirationDate = new DateTime(2025, 1, 30),
+                Description = "Pâtes 100% blé entier pour des repas sains",
+                Stock = 50,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Huile d'olive extra vierge",
+                Category = "Huiles",
+                CreationDate = DateTime.Now,
+                Price = 7.5,
+                ExpirationDate = new DateTime(2026, 5, 15),
+                Description = "Huile d'olive de première pression à froid",
+                Stock = 20,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Vinaigre balsamique",
+                Category = "Vinaigres",
+                CreationDate = DateTime.Now,
+                Price = 4,
+                ExpirationDate = new DateTime(2025, 8, 12),
+                Description = "Vinaigre balsamique de Modène",
+                Stock = 30,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Café moulu bio",
+                Category = "Cafés",
+                CreationDate = DateTime.Now,
+                Price = 6,
+                ExpirationDate = new DateTime(2024, 11, 10),
+                Description = "Café moulu biologique pour un goût riche",
+                Stock = 15,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Thé vert Matcha",
+                Category = "Thés",
+                CreationDate = DateTime.Now,
+                Price = 9,
+                ExpirationDate = new DateTime(2025, 4, 18),
+                Description = "Thé vert matcha en poudre",
+                Stock = 8,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Riz basmati",
+                Category = "Céréales",
+                CreationDate = DateTime.Now,
+                Price = 3,
+                ExpirationDate = new DateTime(2025, 9, 30),
+                Description = "Riz basmati à grains longs et parfumé",
+                Stock = 25,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Sel de mer",
+                Category = "Épices",
+                CreationDate = DateTime.Now,
+                Price = 2,
+                ExpirationDate = new DateTime(2026, 3, 15),
+                Description = "Sel de mer naturel pour assaisonner vos plats",
+                Stock = 40,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Confiture de fraises",
+                Category = "Confitures",
+                CreationDate = DateTime.Now,
+                Price = 3.5,
+                ExpirationDate = new DateTime(2025, 6, 20),
+                Description = "Confiture artisanale de fraises",
+                Stock = 12,
+            });
+
+            _DBContext.Products.Add(new Product()
+            {
+                Name = "Cacao en poudre",
+                Category = "Cacaos",
+                CreationDate = DateTime.Now,
+                Price = 4,
+                ExpirationDate = new DateTime(2025, 1, 1),
+                Description = "Cacao en poudre non sucré pour pâtisserie",
+                Stock = 20,
+            });
+
             _DBContext.SaveChanges();
         }
-         
+
         public void InsertProduct(Product product)
         {
             _DBContext.Products.Add(product);
@@ -69,7 +168,8 @@ namespace AgriNov.Models
         public void UpdateProduct(Product product)
         {
             Product oldProduct = _DBContext.Products.Find(product.Id);
-            if (oldProduct != null) {
+            if (oldProduct != null)
+            {
                 oldProduct.Name = product.Name;
                 oldProduct.Price = product.Price;
                 oldProduct.CreationDate = product.CreationDate;
@@ -79,17 +179,17 @@ namespace AgriNov.Models
                 oldProduct.Category = product.Category;
                 _DBContext.SaveChanges();
 
-               
+
 
                 // faire tous les attributs du formulaire
                 // oldproduct.  
-              
+
 
 
 
             }
-         
-            
+
+
         }
 
         protected virtual void Dispose(bool disposing)
@@ -122,8 +222,8 @@ namespace AgriNov.Models
         }
 
         //internal object GetProduct(int id)
-        
-           //return _DBContext.Products.Find(id);
-        }
+
+        //return _DBContext.Products.Find(id);
     }
+}
 

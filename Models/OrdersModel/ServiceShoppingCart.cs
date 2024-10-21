@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace AgriNov.Models
 
         public ShoppingCart GetShoppingCartForUserAccount(int userAccountId)
         {
-            return _DBContext.ShoppingCarts.Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.MemberShipFee).FirstOrDefault(s => s.UserAccountId == userAccountId);
+            return _DBContext.ShoppingCarts.Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.MemberShipFee).Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.Product).FirstOrDefault(s => s.UserAccountId == userAccountId);
         }
 
         public void AddShoppingCartItemToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
@@ -40,6 +41,7 @@ namespace AgriNov.Models
             if (shoppingCart != null)
             {
                 shoppingCart.ShoppingCartItems.Add(shoppingCartItem);
+                shoppingCart.CalculateTotal();
                 Save();
             }
         }
@@ -54,6 +56,11 @@ namespace AgriNov.Models
                 {
                     return;
                 }
+            }
+            //If there's already a membershipfee in the cart, return
+            if(IsAMemberShipFeeInTheCart(shoppingCartId))
+            {
+                return;
             }
             //UserACcountId and ShoppingCartId share the same Id
             MemberShipFee m = new MemberShipFee() { UserAccountId = shoppingCartId };
@@ -78,11 +85,56 @@ namespace AgriNov.Models
             }
             return false;
         }
+
+        public void AddProductToShoppingCart(Product product, int quantity, int shoppingCartId)
+        {
+            // if product already in shopping cart
+            ShoppingCart sC = GetShoppingCartForUserAccount(shoppingCartId);
+            if(sC != null && sC.ShoppingCartItems.Any()){
+                foreach(ShoppingCartItem item in sC.ShoppingCartItems)
+                {
+                    if(item.Product != null && item.Product.Id == product.Id){
+                        //Updating shopping cart item
+                        item.Quantity = quantity;
+                        UpdateShoppingCartItem(item);
+                        return;
+                    }
+                }
+            }
+            // if product not already in shopping cart
+            ShoppingCartItem shoppingCartItem = new ShoppingCartItem() {Product = product};
+            shoppingCartItem.Quantity = quantity;
+            AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
+        }
+
+        public void UpdateShoppingCartItem(ShoppingCartItem shoppingCartItem)
+        {
+            ShoppingCartItem oldShoppingCartItem = _DBContext.ShoppingCartItems.FirstOrDefault(sCI => sCI.Id == shoppingCartItem.Id);
+            _DBContext.Entry(oldShoppingCartItem).CurrentValues.SetValues(shoppingCartItem);
+            Save();
+        }
+
         public void InitializeTable()
         {
             AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(3, new ShoppingCartItem());
+            Product p1;
+            Product p2;
+            Product p3;
+            using(IProductService sP = new ProductService())
+            {
+                p1 = sP.GetProductByID(1);
+                p2 = sP.GetProductByID(2);
+                p3 = sP.GetProductByID(3);
+
+            }
+            AddProductToShoppingCart(p1, 2, 1);
+            AddProductToShoppingCart(p1,1,1);
+            AddProductToShoppingCart(p2,1,2);
+            AddProductToShoppingCart(p3,1,2);
+            AddProductToShoppingCart(p3,1,3);
+
         }
 
         public void Save()
