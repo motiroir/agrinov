@@ -41,6 +41,7 @@ namespace AgriNov.Models
             if (shoppingCart != null)
             {
                 shoppingCart.ShoppingCartItems.Add(shoppingCartItem);
+                shoppingCart.CalculateTotal();
                 Save();
             }
         }
@@ -132,6 +133,8 @@ namespace AgriNov.Models
             AddProductToShoppingCart(p1,1,1);
             AddProductToShoppingCart(p2,1,2);
             AddProductToShoppingCart(p3,1,2);
+            AddProductToShoppingCart(p3,1,3);
+
         }
 
         public void Save()

@@ -24,7 +24,7 @@ namespace AgriNov.Models
             CalculateTotal();
         }
 
-        private void CalculateTotal()
+        public void CalculateTotal()
         {
             // Sum the Total of each ShoppingCartItem in the collection
             Total = ShoppingCartItems.Sum(item => item.Total);
