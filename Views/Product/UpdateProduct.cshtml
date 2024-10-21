@@ -1,0 +1,59 @@
+﻿@model AgriNov.Models.Product
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Mettre à jour un produit";
+}
+
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
+}
+
+<div class="form">
+    @using (Html.BeginForm("UpdateProduct", "Product", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken() <!-- Ensure Anti-forgery token for security -->
+
+        <h2>Modifier une commande de Produit</h2>
+
+        <div class="fieldsets-container">
+
+            <fieldset>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, "Nom du produit")
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                   
+                </div>
+
+                <div class="price">
+                    @Html.LabelFor(model => model.Price, "Prix en €")
+                    @Html.EditorFor(model => model.Price)
+                    
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreationDate, "Date de création")
+                    @Html.TextBoxFor(model => model.CreationDate, new { @class = "form-control", type = "date", value = DateTime.Now.ToString("yyyy-MM-dd") })
+                  
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Stock, "Quantité")
+                    @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", type = "number", min = "0" })
+                </div>
+
+
+                <div class="product-description">
+                    @Html.LabelFor(model => model.Description, "Details des produits")
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @rows = "10", @cols = "100" })
+                   
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" class="orange-btn">Mettre à jour</button>
+                </div>
+            </fieldset>
+        </div>
+    }
+</div>
+Key Fixes:

@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ProductService>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     options => 
     {
@@ -15,6 +18,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Login/Login";
     }
     );
+
 
 var app = builder.Build();
 
@@ -57,6 +61,15 @@ using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
 }
+
+using (ProductService pS = new ProductService())
+{
+    pS.InitializeTable();
+}
+   
+    
+    
+    
 using (ServiceBoxContract bC = new ServiceBoxContract())
 {
     bC.InitializeTable();
@@ -79,5 +92,6 @@ using(IServiceShoppingCart sSC = new ServiceShoppingCart())
 app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

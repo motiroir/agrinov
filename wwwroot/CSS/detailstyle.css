@@ -11,10 +11,10 @@
 }
 
 .full-img {
-    background-color: black; 
+    background-color: black;
     background-size: cover;
     background-position: center;
-    border-radius: 15px; 
+    border-radius: 15px;
     width: 50%;
 }
 
@@ -55,7 +55,7 @@
     display: flex;
     justify-content: space-between;
     margin: 40px 0;
-    text-align : center;
+    text-align: center;
 }
 
 .number-display {
@@ -145,5 +145,5 @@
 
     .close-btn:hover::before,
     .close-btn:hover::after {
-        background-color: #e67e50; 
+        background-color: #e67e50;
     }
