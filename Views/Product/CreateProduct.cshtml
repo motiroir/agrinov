@@ -1,0 +1,48 @@
+﻿@model AgriNov.Models.Product
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Ajouter un nouveau produit";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css" />
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
+}
+<div class="form">
+    @using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post))
+    {
+        <h2>Ajouter un nouveau produit</h2>
+        <div class="fieldsets-container">
+            <fieldset>
+                <div class="form-group">
+                    <label>@Html.LabelFor(model => model.Name, "Nom du produit")</label>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                </div>
+                <div class="price">
+                    @Html.LabelFor(model => model.Price, "Prix en €")
+                    @Html.EditorFor(model => model.Price)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Stock, "Quantité")
+                    @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", type = "number", min = "0" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreationDate, "Date de création")
+                    @Html.TextBoxFor(model => model.CreationDate, new { @class = "form-control", type = "date", value = DateTime.Now.ToString("yyyy-MM-dd") })
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, "Description du produit")
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, maxlength = 500 })
+                    <span class="character-count">500 caractères restants</span>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="button-container">
+            <input type="submit" value="Créer" class="orange-btn" />
+            <a href="@Url.Action("Index", "Product")" class="orange-btn">Retour</a>
+        </div>
+    }
+</div>

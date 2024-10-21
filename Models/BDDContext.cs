@@ -13,9 +13,16 @@ namespace AgriNov.Models
         public DbSet<CorporateUser> CorporateUsers {get; set;}
         public DbSet<Supplier> Suppliers { get; set;}
         public DbSet<Production> Productions { get; set;}
-        public DbSet<Activity> Activities { get; set; }
+
+
+        public DbSet<Activity>Activities { get; set; }
+        public DbSet<Product> Products { get; set; }
+
+       
+
 
         public DbSet<BoxContract> BoxContracts { get; set; }
+
 
 
         public DbSet<Booking> Bookings { get; set;}

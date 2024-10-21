@@ -4,16 +4,19 @@ namespace AgriNov.Models
 {
     public enum Seasons
     {
+        [Display(Name = "Sélectionnez une saison")]
+        None = 0,
+
         [Display(Name ="Printemps")]
-        SPRING,
+        SPRING = 1,
 
         [Display(Name = "Eté")]
-        SUMMER,
+        SUMMER = 2,
 
         [Display(Name = "Automne")]
-        AUTUMN,
+        AUTUMN = 3,
 
         [Display(Name = "Hiver")]
-        WINTER,
+        WINTER = 4,
     }
 }
