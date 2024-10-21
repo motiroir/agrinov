@@ -61,6 +61,7 @@ namespace AgriNov.Models
         public void InitializeTable()
         {
             AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
+            AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
         }
 
         public void Save()
