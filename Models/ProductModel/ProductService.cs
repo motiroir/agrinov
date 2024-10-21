@@ -1,4 +1,6 @@
 ﻿
+using AgriNov.Models.ProductionModel;
+
 namespace AgriNov.Models
 {
     public class ProductService : IProductService
@@ -20,6 +22,12 @@ namespace AgriNov.Models
         public void DeleteProduct(int id)
         {
             throw new NotImplementedException();
+           /* Product product = _DBContext.Products.Find( id);
+            if (product != null)
+            {
+                this._DBContext.Products.Remove(product);
+            }
+            this.Save();*/
         }
         public Product GetProduct(int id)
         {
@@ -32,17 +40,17 @@ namespace AgriNov.Models
         }
         public Product GetProductByID(int ProductID)
         {
-            throw new NotImplementedException();
+            return _DBContext.Products.Find(ProductID);
         }
 
         public Product GetProductByID(string ProductID)
         {
-            throw new NotImplementedException();
+            return _DBContext.Products.Find(ProductID);
         }
 
-        public List<Product> GetProducts()
+        public List<Product> GetProducts    ()
         {
-            throw new NotImplementedException();
+            return _DBContext.Products.ToList();
         }
 
         public void InitializeTable()
@@ -51,11 +59,13 @@ namespace AgriNov.Models
             {
                 Name = "Pot de miel moyen",
                 Category = "Miel",
-                CreationDate = new DateTime(2024, 12, 12),
+                CreationDate = DateTime.Now,
                 Price = 3,
                 ExpirationDate = new DateTime(2024, 12, 12),
                 Description = "azaz",
-                Stock = 10
+                Stock = 10,
+                
+            
             });
             
             _DBContext.SaveChanges();
@@ -74,7 +84,28 @@ namespace AgriNov.Models
 
         public void UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            Product oldProduct = _DBContext.Products.Find(product.Id);
+            if (oldProduct != null) {
+                oldProduct.Name = product.Name;
+                oldProduct.Price = product.Price;
+                oldProduct.CreationDate = product.CreationDate;
+                oldProduct.ExpirationDate = product.ExpirationDate;
+                oldProduct.Description = product.Description;
+                oldProduct.Stock = product.Stock;
+                oldProduct.Category = product.Category;
+                _DBContext.SaveChanges();
+
+               
+
+                // faire tous les attributs du formulaire
+                // oldproduct.  
+              
+
+
+
+            }
+         
+            
         }
 
         protected virtual void Dispose(bool disposing)
@@ -106,10 +137,9 @@ namespace AgriNov.Models
             GC.SuppressFinalize(this);
         }
 
-        internal object GetProduct()
-        {
-            throw new NotImplementedException();
+        //internal object GetProduct(int id)
+        
+           //return _DBContext.Products.Find(id);
         }
     }
 
-}

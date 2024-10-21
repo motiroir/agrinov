@@ -12,6 +12,74 @@
 }
 
 
+
+.fieldsets-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.price {
+    margin-bottom: 15px;
+}
+
+    .price label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .price input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.character-count {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
 .form fieldset {
         display: flex;
         flex-direction: column;
@@ -115,7 +183,111 @@ form textarea {
 .validation-error {
     color: red;
     font-size: 12px;
-    margin-top: 5px;
+    margin-top: 5px
+    /* Style pour la grille de produits */
+    .products-grid
+
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.product-details > div {
+    margin-bottom: 15px;
+}
+
+.product-details label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.product-details h3 {
+    margin: 0;
+    color: #333;
+}
+
+.product-details p {
+    margin: 0;
+    color: #666;
+}
+
+/* Style pour le contrôle de quantité */
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.quantity-input {
+    width: 60px;
+    text-align: center;
+    margin: 0 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .quantity-btn:hover {
+        background: #e0e0e0;
+    }
+
+/* Style pour les boutons d'action */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+    flex: 1;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.delete-btn {
+    background: #f44336;
+    color: white;
+}
+
+.form-footer {
+    margin-top: 20px;
+    padding: 0 20px;
+}
 }
 
 

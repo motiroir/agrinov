@@ -1,38 +1,48 @@
 ﻿@model AgriNov.Models.Product
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Ajouter un nouveau produit";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css" />
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
+}
+<div class="form">
+    @using (Html.BeginForm("CreateProduct", "Product", FormMethod.Post))
+    {
+        <h2>Ajouter un nouveau produit</h2>
+        <div class="fieldsets-container">
+            <fieldset>
+                <div class="form-group">
+                    <label>@Html.LabelFor(model => model.Name, "Nom du produit")</label>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                </div>
+                <div class="price">
+                    @Html.LabelFor(model => model.Price, "Prix en €")
+                    @Html.EditorFor(model => model.Price)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Stock, "Quantité")
+                    @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", type = "number", min = "0" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreationDate, "Date de création")
+                    @Html.TextBoxFor(model => model.CreationDate, new { @class = "form-control", type = "date", value = DateTime.Now.ToString("yyyy-MM-dd") })
+                </div>
+            </fieldset>
 
-<div class="container">
-    <h1>Create Product</h1>
-
-    <form asp-action="Create" asp-controller="Product" method="post" class="form">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="form-group">
-            <label asp-for="Nom" class="control-label"></label>
-            <input asp-for="Nom" class="form-control" />
-            <span asp-validation-for="Nom" class="text-danger"></span>
+            <fieldset>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, "Description du produit")
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, maxlength = 500 })
+                    <span class="character-count">500 caractères restants</span>
+                </div>
+            </fieldset>
         </div>
 
-        <div class="form-group">
-            <label asp-for="Description" class="control-label"></label>
-            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
+        <div class="button-container">
+            <input type="submit" value="Créer" class="orange-btn" />
+            <a href="@Url.Action("Index", "Product")" class="orange-btn">Retour</a>
         </div>
-
-        <div class="form-group">
-            <label asp-for="DateDeCreation" class="control-label"></label>
-            <input asp-for="DateDeCreation" type="date" class="form-control" />
-            <span asp-validation-for="DateDeCreation" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Prix" class="control-label"></label>
-            <input asp-for="Prix" type="number" step="0.01" class="form-control" />
-            <span asp-validation-for="Prix" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary">Create</button>
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-        </div>
-    </form>
+    }
 </div>

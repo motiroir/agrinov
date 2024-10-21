@@ -8,10 +8,10 @@ namespace AgriNov.Controllers
     {
 
         public IActionResult CreateProduct()
-         {
-             return View();
-         }
-       
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult CreateProduct(Product product)
         {
@@ -26,7 +26,7 @@ namespace AgriNov.Controllers
             return View(product);
         }
 
-     
+
         public IActionResult UpdateProduct(int id)
         {
             if (id > 0)
@@ -40,10 +40,10 @@ namespace AgriNov.Controllers
                     }
                 }
             }
-            return View("not found");
+            return View("NotFound");
         }
 
-   
+
         [HttpPost]
         public IActionResult UpdateProduct(Product product)
         {
@@ -59,6 +59,21 @@ namespace AgriNov.Controllers
                 }
             }
             return View(product);
+        }
+       
+        public IActionResult DeleteProduct(int id)
+        {
+                         return View();
+         
+        }
+
+       public IActionResult ShowAllProducts()
+        {
+            // Assuming you have a ProductService that fetches the products from a data source
+            List<Product> products = Product.GetProduct();
+
+            // Passing the list of products to the view
+            return View(products);
         }
     }
 }
