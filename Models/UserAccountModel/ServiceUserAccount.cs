@@ -195,6 +195,11 @@ namespace AgriNov
 
         public bool CheckIfMemberShipValid(int userAccountID)
         {
+            UserAccount userAccount = _DBContext.UserAccounts.FirstOrDefault(u => u.Id == userAccountID);
+            if(userAccount != null &&( userAccount.UserAccountLevel == UserAccountLevel.ADMIN || userAccount.UserAccountLevel == UserAccountLevel.SUPPLIER || userAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER))
+            {
+                return true;
+            }
             DateTime currentDate = DateTime.Now;
             MemberShipFee memberShipFee = _DBContext.MembershipFees.Where(fee => (fee.UserAccountId == userAccountID && fee.Temp == true)).OrderByDescending(fee => fee.EndDate).FirstOrDefault();
             if(memberShipFee == null || DateTime.Compare(memberShipFee.EndDate, currentDate) < 0){
