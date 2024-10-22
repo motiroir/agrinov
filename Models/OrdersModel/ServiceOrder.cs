@@ -88,5 +88,20 @@ namespace AgriNov.Models
         {
             throw new NotImplementedException();
         }
+
+        public List<Order> GetAllOrders()
+        {
+            throw new NotImplementedException();
+        }
+        public List<Order> GetAllOrdersForUserAccount(int userAccountId)
+        {
+            throw new NotImplementedException();
+
+        }
+        public List<Order> GetAllOrdersForUserAccount(string userAccountIdStr)
+        {
+            throw new NotImplementedException();
+
+        }
     }
 }

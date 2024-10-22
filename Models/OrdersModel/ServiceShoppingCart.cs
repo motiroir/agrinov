@@ -90,15 +90,24 @@ namespace AgriNov.Models
                 {
                     if (item.Product != null && item.Product.Id == productId)
                     {
-                        //Updating shopping cart item
-                        item.Quantity = quantity;
-                        using (IProductService sP = new ProductService())
+                        if(quantity > 0)
                         {
-                            item.Total = sP.GetProductByID(productId).Price * item.Quantity;
+                            //Updating shopping cart item
+                            item.Quantity = quantity;
+                            using (IProductService sP = new ProductService())
+                            {
+                                item.Total = sP.GetProductByID(productId).Price * item.Quantity;
+                            }
+                            item.DateLastModified = DateTime.Now;
+                            UpdateShoppingCartItem(item);
+                            return;
                         }
-                        item.DateLastModified = DateTime.Now;
-                        UpdateShoppingCartItem(item);
-                        return;
+                        else
+                        {
+                            _DBContext.ShoppingCartItems.Remove(item);
+                            Save();
+                            return;
+                        }
                     }
                 }
             }

@@ -45,13 +45,18 @@ namespace AgriNov.Controllers
             {
                 for (int i = 0; i < currentShoppingCart.ShoppingCartItems.Count; i++)
                 {
-                    if (currentShoppingCart.ShoppingCartItems[i].Product != null || currentShoppingCart.ShoppingCartItems[i].Quantity != shoppingCart.ShoppingCartItems[i].Quantity)
+                    //checking if product quantity was changed for a shoppingcartitem
+                    if (currentShoppingCart.ShoppingCartItems[i].Product != null && currentShoppingCart.ShoppingCartItems[i].Quantity != shoppingCart.ShoppingCartItems[i].Quantity)
                     {
-                        sSC.AddProductToShoppingCart(currentShoppingCart.ShoppingCartItems[i].Product.Id, shoppingCart.ShoppingCartItems[i].Quantity, currentShoppingCart.UserAccountId);
+                        //Ignore Change if input superior to product stock
+                        if (!(shoppingCart.ShoppingCartItems[i].Quantity > currentShoppingCart.ShoppingCartItems[i].Product.Stock))
+                        {
+                            sSC.AddProductToShoppingCart(currentShoppingCart.ShoppingCartItems[i].Product.Id, shoppingCart.ShoppingCartItems[i].Quantity, currentShoppingCart.UserAccountId);
+                        }
                     }
                 }
             }
-            return RedirectToAction("Index", "ShoppingCart");
+            return RedirectToAction("Index","ShoppingCart");
         }
 
         [Authorize]
@@ -71,22 +76,22 @@ namespace AgriNov.Controllers
             payment.Date = DateTime.Now;
             // to implement online payment, check if payment online and redirect before setting to true
             payment.Received = true;
-            using(IServiceOrder sO = new ServiceOrder())
+            using (IServiceOrder sO = new ServiceOrder())
             {
-                sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name,payment);
+                sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name, payment);
             }
-            return RedirectToAction("Index","ShoppingCart");
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         [Authorize]
         [HttpGet]
         public IActionResult EmptyCart()
         {
-            using(IServiceShoppingCart sSC = new ServiceShoppingCart())
+            using (IServiceShoppingCart sSC = new ServiceShoppingCart())
             {
                 sSC.EmptyShoppingCartExceptMemberShipFee(HttpContext.User.Identity.Name);
             }
-            return RedirectToAction("Index","ShoppingCart");
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
 
