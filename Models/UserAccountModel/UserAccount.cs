@@ -36,6 +36,8 @@ namespace AgriNov.Models
         public ShoppingCart ShoppingCart {get; set;}
         //One-To-Many RelationShip
         public ICollection<MemberShipFee> MembershipFees { get; } = new List<MemberShipFee>();
+        //One-To-Many Relationship
+        public ICollection<Order> Orders {get; set;} = new List<Order>();
 
     }
 }
