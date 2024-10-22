@@ -11,7 +11,7 @@ namespace AgriNov.Models
         public int Quantity { get; set;}
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
-        public decimal Total { get; private set; }
+        public decimal Total { get; set; }
         // Relationship to the Order
         public int OrderId {get; set;}
         public Order Order {get; set;}
@@ -23,5 +23,9 @@ namespace AgriNov.Models
         public int? ProductId {get; set;}
         public Product Product {get; set;}
 
+        public OrderItem()
+        {
+            DateCreated = DateTime.Now;
+        }
     }
 }

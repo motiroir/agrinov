@@ -8,7 +8,7 @@ namespace AgriNov.Models
     public interface IServiceOrder : IDisposable
     {
         void InitializeTable();
-        void SaveShoppingCartAsAnOrder(ShoppingCart shoppingCart);
+        void SaveShoppingCartAsAnOrder(int shoppingCartId);
         void UpdateOrder(Order order);
         void Save();
     }

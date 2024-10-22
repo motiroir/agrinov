@@ -12,9 +12,15 @@ namespace AgriNov.Models
         public ICollection<OrderItem> OrderItems {get; }= new List<OrderItem>();
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
-        public decimal Total { get; private set; }
+        public decimal Total { get; set; }
         public bool WasDelivered {get; set;}
         public Payment Payment {get; set;}
+
+        public Order()
+        {
+            DateCreated = DateTime.Now;
+            WasDelivered = false;
+        }
     }
 
 }

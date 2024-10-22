@@ -14,6 +14,7 @@ namespace AgriNov.Models
         public void AddProductToShoppingCart(int productId, int quantity, int shoppingCartId);
         public void AddMemberShipFeeToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem);
         //No need to insert directly a shopping cart, it is done when a new one is created with an user account
+        public void EmptyShoppingCart(int shoppingCartId);
         void Save();
 
     }
