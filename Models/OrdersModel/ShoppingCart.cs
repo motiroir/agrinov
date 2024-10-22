@@ -21,7 +21,7 @@ namespace AgriNov.Models
 
         public ShoppingCart()
         {
-            CalculateTotal();
+            //CalculateTotal();
         }
 
         public void CalculateTotal()

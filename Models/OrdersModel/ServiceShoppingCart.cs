@@ -42,6 +42,7 @@ namespace AgriNov.Models
             {
                 shoppingCart.ShoppingCartItems.Add(shoppingCartItem);
                 shoppingCart.CalculateTotal();
+                shoppingCart.DateLastModified = DateTime.Now;
                 Save();
             }
         }
@@ -58,7 +59,7 @@ namespace AgriNov.Models
                 }
             }
             //If there's already a membershipfee in the cart, return
-            if(IsAMemberShipFeeInTheCart(shoppingCartId))
+            if (IsAMemberShipFeeInTheCart(shoppingCartId))
             {
                 return;
             }
@@ -75,10 +76,12 @@ namespace AgriNov.Models
         public bool IsAMemberShipFeeInTheCart(int userAccountId)
         {
             ShoppingCart sC = GetShoppingCartForUserAccount(userAccountId);
-            if(sC != null && sC.ShoppingCartItems.Any()){
-                foreach(ShoppingCartItem item in sC.ShoppingCartItems)
+            if (sC != null && sC.ShoppingCartItems.Any())
+            {
+                foreach (ShoppingCartItem item in sC.ShoppingCartItems)
                 {
-                    if(item.MemberShipFee != null){
+                    if (item.MemberShipFee != null)
+                    {
                         return true;
                     }
                 }
@@ -86,24 +89,35 @@ namespace AgriNov.Models
             return false;
         }
 
-        public void AddProductToShoppingCart(Product product, int quantity, int shoppingCartId)
+        public void AddProductToShoppingCart(int productId, int quantity, int shoppingCartId)
         {
             // if product already in shopping cart
             ShoppingCart sC = GetShoppingCartForUserAccount(shoppingCartId);
-            if(sC != null && sC.ShoppingCartItems.Any()){
-                foreach(ShoppingCartItem item in sC.ShoppingCartItems)
+            if (sC != null && sC.ShoppingCartItems.Any())
+            {
+                foreach (ShoppingCartItem item in sC.ShoppingCartItems)
                 {
-                    if(item.Product != null && item.Product.Id == product.Id){
+                    if (item.Product != null && item.Product.Id == productId)
+                    {
                         //Updating shopping cart item
                         item.Quantity = quantity;
+                        using (IProductService sP = new ProductService())
+                        {
+                            item.Total = sP.GetProductByID(productId).Price * item.Quantity;
+                        }
+                        item.DateLastModified = DateTime.Now;
                         UpdateShoppingCartItem(item);
                         return;
                     }
                 }
             }
             // if product not already in shopping cart
-            ShoppingCartItem shoppingCartItem = new ShoppingCartItem() {Product = product};
+            ShoppingCartItem shoppingCartItem = new ShoppingCartItem() { ProductId = productId };
             shoppingCartItem.Quantity = quantity;
+            using (IProductService sP = new ProductService())
+            {
+                shoppingCartItem.Total = sP.GetProductByID(productId).Price * shoppingCartItem.Quantity;
+            }
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
 
@@ -119,21 +133,12 @@ namespace AgriNov.Models
             AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(3, new ShoppingCartItem());
-            Product p1;
-            Product p2;
-            Product p3;
-            using(IProductService sP = new ProductService())
-            {
-                p1 = sP.GetProductByID(1);
-                p2 = sP.GetProductByID(2);
-                p3 = sP.GetProductByID(3);
 
-            }
-            AddProductToShoppingCart(p1, 2, 1);
-            AddProductToShoppingCart(p1,1,1);
-            AddProductToShoppingCart(p2,1,2);
-            AddProductToShoppingCart(p3,1,2);
-            AddProductToShoppingCart(p3,1,3);
+            AddProductToShoppingCart(1, 2, 1);
+            AddProductToShoppingCart(1, 3, 1);
+            AddProductToShoppingCart(1, 1, 2);
+            AddProductToShoppingCart(2, 1, 2);
+            AddProductToShoppingCart(3, 1, 3);
 
         }
 

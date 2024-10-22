@@ -8,20 +8,10 @@ namespace AgriNov.Models
     public class ShoppingCartItem
     {
         public int Id { get; set; }
-        private int _quantity;
-        public int Quantity
-        {
-            get { return _quantity; }
-            set
-            {
-                _quantity = value;
-                UpdateTotal();
-                DateLastModified = DateTime.Now;
-            }
-        }
+        public int Quantity { get; set;}
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
-        public decimal Total { get; private set; }
+        public decimal Total { get; set; }
         // Relationship to the ShoppingCart
         public int ShoppingCartId {get; set;}
         public ShoppingCart ShoppingCart {get; set;}
@@ -38,19 +28,5 @@ namespace AgriNov.Models
             DateCreated = DateTime.Now;
         }
 
-        private void UpdateTotal()
-        {
-            if (MemberShipFee != null)
-            {
-                Total = _quantity * MemberShipFee.Price;
-            }
-            else if(Product != null)
-            {
-                Total = (decimal)(_quantity * Product.Price);
-            }
-            else {
-                Total = 0;
-            }
-        }
     }
 }
