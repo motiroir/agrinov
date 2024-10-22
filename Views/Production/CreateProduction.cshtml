@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
 }
 
+<a href="@Url.Action("SupShowAllProductions", "Production")" class="return-link">< Retour à la liste des productions</a>
+
 <div class="form">
     @using (Html.BeginForm("CreateProduction", "Production", FormMethod.Post))
     {
@@ -81,4 +83,5 @@
             <button type="submit" class="orange-btn">Créer</button>
         </div>
     }
+
 </div>

@@ -34,7 +34,7 @@ namespace AgriNov.Models
         public ProductType ProductType { get; set; }
 
         [MaxLength(500)]
-        [MinLength(20, ErrorMessage = "Veuillez décrire le type de produit si besoin")]
+        
         public string Description { get; set; }
 
         [Required]
@@ -51,6 +51,8 @@ namespace AgriNov.Models
 
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
+
+        public int SupplierId { get; set; }
 
         
     }
