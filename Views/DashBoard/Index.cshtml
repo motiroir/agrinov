@@ -7,115 +7,7 @@
 }
 
 @section ExtraStyle {
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        .account-container {
-            max-width: 1455px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        .account-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .profile-section {
-            display: flex;
-            gap: 20px;
-            flex-grow: 1;
-        }
-
-        .profile-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: #f5f5f5;
-            overflow: hidden;
-        }
-
-            .profile-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-        .profile-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .info-row {
-            display: flex;
-            gap: 5px;
-        }
-
-        .info-label {
-            color: #666;
-            min-width: 100px;
-        }
-
-        .info-value {
-            color: #333;
-        }
-
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .action-btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-
-            .action-btn:hover {
-                background-color: #ff5252;
-            }
-
-        .management-section {
-            margin-top: 2px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .management-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 4px 4px 0 #ff6b6b;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            color: #333;
-        }
-
-            .management-card:hover {
-                transform: translate(2px, 2px);
-                box-shadow: 2px 2px 0 #ff6b6b;
-            }
-    </style>
+    <link rel="stylesheet" href="~/CSS/dashboard.css" />
 }
 
 <div class="account-container">
@@ -131,15 +23,15 @@
                     <span class="info-value">@Model.ContactDetails.Name</span>
                 </div>
 
-                <span class="info-label">PhoneNumbe:</span>
+                <span class="info-label">Numéro de Téléphone:</span>
                 <span class="info-value">@Model.ContactDetails.PhoneNumber</span>
             </div>
 
-                <div class="info-row">
+            <div class="info-row">
                     <span class="info-label">Prénom :</span>
                     <span class="info-value">@Model.ContactDetails.FirstName</span>
-                </div>
-                <div class="info-row">
+            </div>
+            <div class="info-row">
                     <span class="info-label">Adresse :</span>
                     <span class="info-value">@Model.Address.Line1</span>
                     @if (!string.IsNullOrEmpty(Model.Address.Line2))
@@ -147,42 +39,57 @@
                     {
                         <span class="info-value">@Model.Address.Line2</span>
                     }
-                </div>
-                <div class="info-row">
+            </div>
+            <div class="info-row">
                     <span class="info-label">Ville :</span>
                     <span class="info-value">@Model.Address.City</span>
-                </div>
             </div>
-        </div>
-
-        <div class="action-buttons">
-            @Html.ActionLink("modifier mes informations", "ChangeInfo", "Account", null, new { @class = "action-btn" })
-            @Html.ActionLink("modifier mon mot de passe", "ChangePassword", "Account", null, new { @class = "action-btn" })
         </div>
     </div>
 
+    <div class="action-buttons">
+            @Html.ActionLink("modifier mes informations", "ChangeInfo", "Account", null, new { @class = "action-btn" })
+            @Html.ActionLink("modifier mon mot de passe", "ChangePassword", "Account", null, new { @class = "action-btn" })
+    </div>
+    
+
     
     <div class="management-section">
-        @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
-        @Html.ActionLink("Gérer les utilisateurs", "GetUserAccountByIDEager", "Account", null, new { @class = "management-card" })
-
-
-
-        {
-            @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
-            @Html.ActionLink("Gérer les utilisateurs", "GetUserAccountByIDEager", "Account", null, new { @class = "management-card" })
-        }
-
-
-
-
-
-
-
-
-
-
         
 
+            @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN)
+            {
+                @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
+                @Html.ActionLink("Gérer les utilisateurs", "GetUserAccountByIDEager", "Account", null, new { @class = "management-card" })
+                
+            }
+            
+            @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER 
+                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.CORPORATE
+                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER)
+            {
+                @Html.ActionLink("Faire une proposition de Productions", "CreateProduction", "Production", null, new { @class = "management-card" })
+                @Html.ActionLink("Gérer les productions", "SupShowAllProductions", "Production", null, new { @class = "management-card" })
+                @Html.ActionLink("Faire une proposition de Produits", "CreateProduct", "Product", null, new { @class = "management-card" })
+            }
+
+            @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN)
+            {
+
+                @Html.ActionLink("Gérer les proposions de Productions", "ShowAllProductions", "Production", null, new { @class = "management-card" })
+                @Html.ActionLink("Gérer les produits", "ShowAllProducts", "Product", null, new { @class = "management-card" })
+            }
+             
+             
+            @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.SUPPLIER)
+            {
+                @Html.ActionLink("Voir mes commandes", "Index", "Home", null, new { @class = "management-card" })
+
+                @Html.ActionLink("La Boutique", "ProductDashboard", "Product", null, new { @class = "management-card" })
+
+                
+            }
+                @Html.ActionLink("Les Ateliers", "ActivityDashboard", "Activity", null, new { @class = "management-card" })
+        
     </div>
 </div>

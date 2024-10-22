@@ -1,102 +1,107 @@
-﻿/* Layout */
-.dashboard {
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 5%;
+    padding: 0;
+}
+
+.account-container {
     max-width: 1455px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
 }
 
-/* Profile Container */
-.profile-container {
-    background-color: #fff;
+.account-card {
+    background: white;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    padding: 24px;
-    margin-bottom: 24px;
-}
-
-.profile-header {
+    padding: 20px;
     display: flex;
-    gap: 24px;
+    justify-content: space-between;
     align-items: flex-start;
 }
 
-/* Profile Avatar */
-.profile-avatar {
+.profile-section {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.profile-image {
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    background-color: #f5f5f5;
     overflow: hidden;
-    flex-shrink: 0;
 }
 
-.profile-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+    .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-/* Profile Details */
-.profile-details {
-    flex: 1;
-}
-
-.detail-item {
-    display: flex;
-    margin-bottom: 12px;
-}
-
-.detail-item label {
-    width: 120px;
-    color: #666;
-    font-weight: 500;
-}
-
-.detail-item span {
-    color: #333;
-}
-
-/* Profile Actions */
-.profile-actions {
+.profile-info {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
-.btn-primary {
-    background-color: #ff6b6b;
-    color: white;
+.info-row {
+    display: flex;
+    gap: 5px;
+}
+
+.info-label {
+    color: #666;
+    min-width: 100px;
+}
+
+.info-value {
+    color: #333;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-btn {
     padding: 8px 16px;
     border-radius: 4px;
-    text-decoration: none;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    cursor: pointer;
     text-align: center;
-    transition: background-color 0.3s;
+    text-decoration: none;
 }
 
-.btn-primary:hover {
-    background-color: #ff5252;
-}
+    .action-btn:hover {
+        background-color: #ff5252;
+    }
 
-/* Action Cards */
-.action-cards {
+.management-section {
+    margin-top: 2px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-top: 24px;
+    gap: 20px;
 }
 
-.action-card {
-    background-color: #fff;
-    padding: 24px;
+.management-card {
+    background: white;
+    padding: 20px;
     border-radius: 8px;
     text-align: center;
+    box-shadow: 4px 4px 0 #ff6b6b;
+    cursor: pointer;
+    transition: all 0.2s;
     text-decoration: none;
     color: #333;
-    font-weight: 500;
-    box-shadow: 4px 4px 0 #ff6b6b;
-    transition: all 0.2s ease;
 }
 
-.action-card:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #ff6b6b;
-}
+    .management-card:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 #ff6b6b;
+    }
