@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AgriNov.Models;
+using AgriNov.Models.ProductionModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,11 @@ namespace AgriNov.Controllers
         public IActionResult TypeSelection()
         {
             UserAccount currentUserAccount;
-            using(IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 currentUserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-            if(currentUserAccount.UserId != null || currentUserAccount.SupplierId != null || currentUserAccount.CorporateUserId != null)
+            if (currentUserAccount.UserId != null || currentUserAccount.SupplierId != null || currentUserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -55,7 +56,7 @@ namespace AgriNov.Controllers
             {
                 user.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-            if(user.UserAccount.UserId != null || user.UserAccount.SupplierId != null || user.UserAccount.CorporateUserId != null)
+            if (user.UserAccount.UserId != null || user.UserAccount.SupplierId != null || user.UserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -99,7 +100,7 @@ namespace AgriNov.Controllers
             {
                 corporateUser.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-            if(corporateUser.UserAccount.UserId != null || corporateUser.UserAccount.SupplierId != null || corporateUser.UserAccount.CorporateUserId != null)
+            if (corporateUser.UserAccount.UserId != null || corporateUser.UserAccount.SupplierId != null || corporateUser.UserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -143,7 +144,7 @@ namespace AgriNov.Controllers
             {
                 viewModel.Supplier.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-             if(viewModel.Supplier.UserAccount.UserId != null || viewModel.Supplier.UserAccount.SupplierId != null || viewModel.Supplier.UserAccount.CorporateUserId != null)
+            if (viewModel.Supplier.UserAccount.UserId != null || viewModel.Supplier.UserAccount.SupplierId != null || viewModel.Supplier.UserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -331,7 +332,7 @@ namespace AgriNov.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles="SUPPLIER,ADMIN")]
+        [Authorize(Roles = "SUPPLIER,ADMIN")]
         public IActionResult DownloadPdf(int supplierId)
         {
             byte[] pdfBinaryData = null;
@@ -348,6 +349,22 @@ namespace AgriNov.Controllers
                 return NotFound();
             }
             return File(pdfBinaryData, "application/pdf", "justificatif");
+        }
+
+        //[Authorize(Roles = "ADMIN")]
+        public IActionResult ShowAllUserAccounts()
+        {
+            using (ServiceUserAccount sUA = new ServiceUserAccount())
+            {
+                List<UserAccount> userAccounts = sUA.GetUserAccounts();
+                List<UserAccountViewModel> viewModel = userAccounts.Select(userAccount => new UserAccountViewModel
+                {
+                        UserAccount = userAccount,
+                  
+                }).ToList();
+
+                return View(viewModel);
+            }
         }
 
     }

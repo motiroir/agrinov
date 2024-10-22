@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var boxContractViewModel in Model)
+            @foreach (AgriNov.ViewModels.BoxContractViewModel boxContractViewModel in Model)
             {
                 <tr data-id="@boxContractViewModel.BoxContract.Id" onclick="selectRow(this, @boxContractViewModel.BoxContract.ForSale.ToString().ToLower());">
                     <td>@boxContractViewModel.BoxContract.Seasons.GetDisplayName()</td>

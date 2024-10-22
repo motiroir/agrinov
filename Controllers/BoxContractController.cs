@@ -107,7 +107,7 @@ namespace AgriNov.Controllers
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
                 List<BoxContract> boxContracts = sBC.GetAllBoxContracts();
-                var viewModel = boxContracts.Select(boxContract => new BoxContractViewModel
+                List<BoxContractViewModel> viewModel = boxContracts.Select(boxContract => new BoxContractViewModel
                 {
                     BoxContract = boxContract,
                     ProductOptions = GetEnumSelectListString<ProductType>(),
