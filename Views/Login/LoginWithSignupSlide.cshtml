@@ -1,54 +1,73 @@
+@model AgriNov.ViewModels.LoginWithSignup
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion/Inscription</title>
-    <link rel="stylesheet" href="~/CSS/globalstyle.css">
+    <title>S'identifier</title>
+    @* <link rel="stylesheet" href="~/CSS/globalstyle.css"> *@
     <link rel="stylesheet" href="~/CSS/formstyle.css">
     <link rel="stylesheet" href="~/CSS/loginstyle.css">
 </head>
 <html>
 
 <body>
-    <div class="panel">
-        <div id="left-form" class="active-form">
-            <div id="form-fields">
-                <h2>Se connecter</h2>
-                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-                {
-                    <input type="text">
-                    <input type="text">
-                    <button type="submit" class="form-button">Connexion</button>
+    <a href="@Url.Action("Index", "Home")" class="return-link">Retour à l'accueil</a>
+    @if (!Model.UserAccountLogin.IsAuthenticated)
+    {
+        <div class="panel">
+            <div id="left-form" class="active-form">
+                <div id="form-fields">
+                    <h2>Se connecter</h2>
+                    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                    {
+                        @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Mail)
+                        @Html.TextBoxFor(model => model.UserAccountLogin.UserAccount.Mail)
+                        @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Mail)
 
-                }
+                        @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Password)
+                        @Html.PasswordFor(model => model.UserAccountLogin.UserAccount.Password)
+                        @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Password)
+
+                        <button type="submit" class="form-button">Connexion</button>
+
+                    }
+                </div>
+                <div id="form-text">
+                    <h2>Bon retour!</h2>
+                    <p>Pour rester connecté avec nous veuillez vous connecter avec vos identifiants</p>
+                    <button class="switch-button" onclick="changeForm('right-form')">Connexion</button>
+                </div>
             </div>
-            <div id="form-text">
-                <h2>Bon retour!</h2>
-                <p>Pour rester connecté avec nous veuillez vous connecter avec vos identifiants</p>
-                <button class="switch-button" onclick="changeForm('right-form')">Connexion</button>
+
+            <div id="right-form" class="inactive-form">
+                <div id="form-fields">
+                    @using (Html.BeginForm("CreateAccount", "Login", FormMethod.Post))
+                    {
+                        @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Mail)
+                        @Html.TextBoxFor(model => model.UserAccountCreation.UserAccount.Mail)
+                        @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Mail)
+
+                        @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Password)
+                        @Html.PasswordFor(model => model.UserAccountCreation.UserAccount.Password)
+                        @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Password)
+
+                        @Html.LabelFor(model => model.UserAccountCreation.ConfirmPassword)
+                        @Html.PasswordFor(model => model.UserAccountCreation.ConfirmPassword)
+                        @Html.ValidationMessageFor(model => model.UserAccountCreation.ConfirmPassword)
+                        <button type="submit" class="form-button">Inscription</button>
+                    }
+                </div>
+                <div id="form-text">
+                    <h3>Bienvenue!</h3>
+                    <p>Entrez vos informations personnnelles et commencez votre voyage avec nous</p>
+                    <button class="switch-button" onclick="changeForm('left-form')">Inscription</button>
+                </div>
             </div>
         </div>
-
-        <div id="right-form" class="inactive-form">
-            <div id="form-fields">
-                @using (Html.BeginForm("CreateAccount", "Login", FormMethod.Post))
-                {
-                    <input type="text">
-                    <input type="text">
-                    <input type="text">
-                    <button type="submit" class="form-button">Inscription</button>
-                }
-            </div>
-            <h3>Bienvenue!</h3>
-            <p>Entrez vos informations personnnelles et commencez votre voyage avec nous</p>
-            <div id="form-text">
-                <button class="switch-button" onclick="changeForm('left-form')">Inscription</button>
-            </div>
-        </div>
-    </div>
-
+    }
     <script>
         function changeForm() {
             // Get the two form elements

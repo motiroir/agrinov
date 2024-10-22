@@ -12,7 +12,16 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult LoginWithSignUpSlide()
         {
-            return View();
+            LoginWithSignup viewModel = new LoginWithSignup() { UserAccountLogin = new UserAccountLogin(), UserAccountCreation = new UserAccountCreation()};
+            viewModel.UserAccountLogin.IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+            if (viewModel.UserAccountLogin.IsAuthenticated)
+            {
+                using (ServiceUserAccount sUA = new ServiceUserAccount())
+                {
+                    viewModel.UserAccountLogin.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
+                }
+            }
+            return View(viewModel);
         }
 
 		[HttpGet]
