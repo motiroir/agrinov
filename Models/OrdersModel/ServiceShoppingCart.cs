@@ -146,6 +146,7 @@ namespace AgriNov.Models
             List<ShoppingCartItem> shoppingCartItems = _DBContext.ShoppingCartItems.Where(item => item.ShoppingCartId == shoppingCartId).ToList();
             _DBContext.ShoppingCartItems.RemoveRange(shoppingCartItems);
             Save();
+            //Set ShoppingCartTotal to 2
         }
 
         public void Save()
