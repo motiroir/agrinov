@@ -1,0 +1,68 @@
+﻿@using AgriNov.Models
+@using AgriNov.ViewModels
+
+@model List<AgriNov.ViewModels.ProductionViewModel>
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Toutes les productions";
+}
+
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/tablestyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+
+<div class="table-container-production">
+    <table style="--colNbr:9">
+        <thead>
+            <tr>
+                <th>Saison</th>
+                <th>Année</th>
+                <th>Fournisseur</th>
+                <th>Type de produit</th>
+                <th>Description</th>
+                <th>Volume par livraison</th>
+                <th>Prix (en €)</th>
+                <th>Fréquence de Livraison</th>
+                <th>Etat Proposition</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var production in Model)
+            {
+                <tr data-id="@production.Production.Id" onclick="selectRow(this);">
+                    
+
+                        <td>@production.SeasonOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Seasons).ToString())?.Text</td>
+                        <td>@production.YearOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Years).ToString())?.Text</td>
+                        <td>@production.Production.CompanyName</td>
+                        <td>@production.Production.ProductType.GetDisplayName()</td>
+                        <td>@production.Production.Description</td>
+                        <td>@production.Production.VolumePerDelivery</td>
+                        <td>@production.Production.Price.ToString("F2")</td>
+                        <td>@production.Production.DeliveryFrequency.GetDisplayName()</td>
+                        <td>@production.Production.ValidationStatus.GetDisplayName()</td>
+                        
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@using (Html.BeginForm("SupShowAllProductions", "Production", FormMethod.Post))
+{
+    <div class="btn-container">
+        <button type="submit" name="action" value="add" class="orange-btn w-30">Ajouter</button>
+      
+        <button type="button" name="action" value="update" class="orange-btn w-30" id="updateButton" disabled>Modifier</button>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/scripts/table-control-production.js"></script>
+}

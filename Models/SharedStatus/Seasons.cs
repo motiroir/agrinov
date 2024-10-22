@@ -1,19 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgriNov.Models.SharedStatus
+namespace AgriNov.Models
 {
     public enum Seasons
     {
-        
-        Printemps,
+        [Display(Name = "Sélectionnez une saison")]
+        None = 0,
 
-       
-        Eté,
+        [Display(Name ="Printemps")]
+        SPRING = 1,
 
-       
-        Automne,
+        [Display(Name = "Eté")]
+        SUMMER = 2,
 
-      
-        Hiver,
+        [Display(Name = "Automne")]
+        AUTUMN = 3,
+
+        [Display(Name = "Hiver")]
+        WINTER = 4,
     }
 }

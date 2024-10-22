@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using AgriNov.Models;
+﻿using AgriNov.Models;
 using AgriNov.Models.ProductionModel;
+using AgriNov.Models.SharedStatus;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using AgriNov.Models.SharedStatus;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
+using System.Diagnostics;
+using System.Runtime.Intrinsics.X86;
 
 
 
@@ -18,43 +13,82 @@ namespace AgriNov.Controllers
 {
     public class ProductionController : Controller
     {
-
-        private readonly BDDContext _DBContext;
         private readonly ServiceProduction sP = new ServiceProduction();
-
-        [HttpGet]
-        public IActionResult CreateProduction()
+        
+        private List<SelectListItem> GetEnumSelectListString<T>() where T : Enum
+        {
+            return Enum.GetValues(typeof(T))
+                .Cast<T>()
+                .Select(e => new SelectListItem
+                {
+                    Value = ((int)(object)e).ToString(),
+                    Text = e.GetDisplayName()
+                }).ToList();
+        }
+        
+        public IActionResult Index()
         {
             return View();
         }
 
-
-        [HttpPost]
-        public IActionResult CreateProduction(Production production)
+        [HttpGet]
+        public IActionResult CreateProduction()
         {
-            if (ModelState.IsValid)
+            ProductionViewModel viewModel = new ProductionViewModel
             {
-                
-                    this.sP.InsertProduction(production);
-                    return RedirectToAction("Index", "Home");
-                
+                YearOptions = GetEnumSelectListString<Years>(),
+                ProductOptions = GetEnumSelectListString<ProductType>(),
+                SeasonOptions = GetEnumSelectListString<Seasons>(),
+                DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
+                ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>(),
+                Production = new Production()
+            };
 
-            }
-
-            return View(production);
+            return View(viewModel);
         }
 
-        [HttpGet]
+
+        [HttpPost]
+        public IActionResult CreateProduction(ProductionViewModel viewModel)
+        {
+            viewModel.YearOptions = GetEnumSelectListString<Years>();
+            viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
+            viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
+            viewModel.DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>();
+            viewModel.ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>();
+           
+
+            if (ModelState.IsValid)
+            {
+                using (ServiceProduction sP = new ServiceProduction())
+                {
+                    
+                    sP.InsertProduction(viewModel.Production);
+                    return RedirectToAction("SupShowAllProductions", "Production");
+                }
+            }
+
+            return View(viewModel);
+        }
+
         public IActionResult UpdateProduction(int id)
         {
             if (id > 0)
             {
-               
-                Production production = sP.GetProductions().FirstOrDefault(production => production.Id == id);
+                Production oldProduction = sP.GetProductionByID(id);
 
-                if (production != null)
+                if (oldProduction != null)
                 {
-                    return View(production);
+                    ProductionViewModel viewModel = new ProductionViewModel
+                    {
+                        Production = oldProduction,
+                        YearOptions = GetEnumSelectListString<Years>(),
+                        ProductOptions = GetEnumSelectListString<ProductType>(),
+                        SeasonOptions = GetEnumSelectListString<Seasons>(),
+                        DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>()
+                    };
+
+                    return View(viewModel);
                 }
                 else
                 {
@@ -69,29 +103,159 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProduction(int id, Production production)
+        public IActionResult UpdateProduction(int id, ProductionViewModel viewModel)
         {
-            if (id != production.Id)
+            viewModel.Production.Id = id;
+
+            viewModel.YearOptions = GetEnumSelectListString<Years>();
+            viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
+            viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
+            viewModel.DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>();
+
+
+            if (ModelState.IsValid)
+            {
+                if (id > 0)
+                {
+                    using (ServiceProduction sP = new ServiceProduction())
+                    {
+                        viewModel.Production.DateLastModified = DateTime.Now;
+                      
+                        sP.UpdateProduction(viewModel.Production);
+
+                        return RedirectToAction("SupShowAllProductions", "Production");
+                    }
+                }
+                return View(viewModel);
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult UpdateProductionValidation(int id)
+        {
+            
+            if (id <= 0)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            
+            var oldProduction = sP.GetProductionByID(id);
+
+            
+            if (oldProduction == null)
             {
-                
-                production.DateLastModified = DateTime.Now;
-
-                this.sP.UpdateProduction(production);
-                this.sP.Save();
-
-                return RedirectToAction("Index", "Home");
+                return NotFound();
             }
 
-            return View(production);
+           
+            var viewModel = new ProductionViewModel
+            {
+                Production = oldProduction,
+                YearOptions = GetEnumSelectListString<Years>(),
+                ProductOptions = GetEnumSelectListString<ProductType>(),
+                SeasonOptions = GetEnumSelectListString<Seasons>(),
+                DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
+                ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>()
+            };
+
+          
+            return View(viewModel);
         }
 
-        
+        [HttpPost]
+        public IActionResult UpdateProductionValidation(int id, ProductionViewModel viewModel)
+        {
+          
+            if (viewModel == null || viewModel.Production == null)
+            {
+                return BadRequest("Données de production invalides.");
+            }
+
+           
+            var productionToUpdate = sP.GetProductionByID(id);
+            if (productionToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            
+             
+            productionToUpdate.ValidationStatus = viewModel.Production.ValidationStatus;
+            productionToUpdate.DateLastModified = DateTime.Now;
+
+            sP.UpdateProduction(productionToUpdate);
+
+            return RedirectToAction("ShowAllProductions", "Production");
+        }
 
 
+        public IActionResult ShowAllProductions()
+        {
+                using (ServiceProduction sP = new ServiceProduction())
+                {
+                   
+                    List<Production> productions = sP.GetProductions();
+
+                    
+                    List<ProductionViewModel> viewModelList = productions.Select(p => new ProductionViewModel
+                    {
+                        Production = p,
+                        YearOptions = GetEnumSelectListString<Years>(),
+                        ProductOptions = GetEnumSelectListString<ProductType>(),
+                        SeasonOptions = GetEnumSelectListString<Seasons>(),
+                        DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
+                        ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>(),
+                        ValidationStatus = p.ValidationStatus
+
+                    }).ToList();
+
+                    return View(viewModelList); 
+                }
+            
+        }
+
+        public IActionResult SupShowAllProductions()
+        {
+            using (ServiceProduction sP = new ServiceProduction())
+            {
+                
+                List<Production> productions = sP.GetProductions();
+                List<ProductionViewModel> viewModelList = productions.Select(p => new ProductionViewModel
+                {
+                    Production = p,
+                    YearOptions = GetEnumSelectListString<Years>(),
+                    ProductOptions = GetEnumSelectListString<ProductType>(),
+                    SeasonOptions = GetEnumSelectListString<Seasons>(),
+                    DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
+                    ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>(),
+                    ValidationStatus = p.ValidationStatus
+
+                }).ToList();
+                
+                return View(viewModelList); 
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult SupShowAllProductions(ProductionViewModel viewModel, string action, int selectedProductionId)
+        {
+
+            switch (action)
+            {
+                case "add":
+                    return RedirectToAction("CreateProduction", "Production");
+
+                
+                case "update":
+                    return UpdateProduction(selectedProductionId);
+
+                default:
+                    return View(viewModel);
+            }
+        }
     }
 }

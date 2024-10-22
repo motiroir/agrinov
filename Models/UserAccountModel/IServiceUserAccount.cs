@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace AgriNov.Models
 {
     public interface IServiceUserAccount : IDisposable
@@ -18,7 +13,9 @@ namespace AgriNov.Models
         void UpdateUserAccountPassword(int userAccountID, string password);
         void UpdateUserAccountExceptPassword(UserAccount userAccount);
         void DeleteUserAccount(int userAccountID);
+        public bool CheckIfMemberShipValid(int userAccountID);
         UserAccount Authenticate(string mail, string password);
+        public List<UserAccount> GetUserAccountsFull();
         void Save();
     }
 }

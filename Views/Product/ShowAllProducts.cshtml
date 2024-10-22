@@ -1,0 +1,31 @@
+﻿@model AgriNov.ViewModels.ProductViewModel
+@{
+    Layout = "_BaseLayout";
+
+    ViewBag.Title = "Liste des produits";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/tilestyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+
+<div class="all-tiles-box">
+    @foreach (AgriNov.Models.Product product in Model.AllProducts)
+    {
+        <div class="activity-tile">
+            <div class="preview-img"></div>
+            <div class="tile-content">
+                <div class="text-content">
+                    <h3 class="activity-name">@product.Name</h3>
+                    <p class="activity-author">Nom du producteur</p>
+                    <p class="activity-author">@product.Description</p>
+                    <p class="price">@product.Price.ToString("C")</p>
+                </div>
+                <div class="btn-div">
+                    <a href="@Url.Action("ShowProductDetails", "Product", new { id = product.Id})" class="btn-inscription">en savoir plus</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

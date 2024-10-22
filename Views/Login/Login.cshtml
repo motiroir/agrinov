@@ -6,6 +6,7 @@
 }
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 
 }
 @if(Model.IsAuthenticated){
@@ -24,7 +25,10 @@ else{
             @Html.PasswordFor(model => model.UserAccount.Password)
             @Html.ValidationMessageFor(model => model.UserAccount.Password)
 
-            <button type="submit" class="button-add">Connexion</button>
+            <div class="button-container">
+                <button type="button" class="orange-btn" onclick="window.location.href='@Url.Action("Index", "Home")';">Retour</button>
+                <button type="submit" class="orange-btn">Se connecter</button>
+            </div>
         }
     </div>
 }

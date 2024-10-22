@@ -1,4 +1,6 @@
+using AgriNov;
 using AgriNov.Models;
+using AgriNov.Models.ActivityModel;
 using AgriNov.Models.ProductionModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -6,6 +8,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ProductService>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     options => 
     {
@@ -13,6 +18,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/Login/Login";
     }
     );
+
 
 var app = builder.Build();
 
@@ -56,8 +62,36 @@ using (ServiceActivity sA = new ServiceActivity())
     sA.InitializeTable();
 }
 
+using (ProductService pS = new ProductService())
+{
+    pS.InitializeTable();
+}
+    
+using (ServiceBoxContract bC = new ServiceBoxContract())
+{
+    bC.InitializeTable();
+}
+
+using(ServiceBooking sB = new ServiceBooking())
+{
+    sB.InitializeTable();
+}
+using(IServiceMemberShipFee sMB = new ServiceMemberShipFee())
+{
+    sMB.InitializeTable();
+}
+using(IServiceShoppingCart sSC = new ServiceShoppingCart())
+{
+    sSC.InitializeTable();
+}
+using(IServiceOrder sO = new ServiceOrder())
+{
+    sO.InitializeTable();
+}
+
 app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

@@ -1,4 +1,6 @@
 ﻿
+using AgriNov.Models.ActivityModel;
+
 namespace AgriNov.Models
 {
     public class ServiceActivity : IServiceActivity
@@ -29,6 +31,26 @@ namespace AgriNov.Models
         public List<Activity> GetAllActivities()
         {
             return _DBContext.Activities.ToList();
+        }
+
+        public List<Activity> GetActivitiesByOrganizer(int organizerId)
+        {
+            return _DBContext.Activities.Where(activity => activity.OrganizerId == organizerId).ToList();
+        }
+
+        public List<Activity> GetActivitiesByUserBooking(int userId)
+        {
+            using (ServiceBooking sB =  new ServiceBooking())
+            {
+                List<int> activitiesId = sB.GetActivitiesIdByUserId(userId);
+                List<Activity> activities = new List<Activity>();
+                foreach (int activityId in activitiesId)
+                {
+                    Activity activity = GetActivity(activityId);
+                    activities.Add(activity);
+                }
+                return activities;
+            }
         }
 
         public void InitializeTable()

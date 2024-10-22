@@ -1,0 +1,48 @@
+﻿@model AgriNov.ViewModels.ActivityViewModel
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Les ateliers";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/tabstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+<div class="full-tab-navigation-div">
+    <div class="activity-header">
+        <h2>les ateliers</h2>
+        <div class="underline" id="underline-1"></div>
+        <div class="underline" id="underline-2"></div>
+        <div class="underline" id="underline-3"></div>
+    </div>
+
+    <div class="tab-view">
+        <div class="tabs">
+            <a href="@Url.Action("ActivityDashboard", new { activeTab = "ShowAllActivities" })"
+               class="tab-link @(ViewData["ActiveTab"].ToString() == "ShowAllActivities" ? "active" : "")"
+               data-target="all-workshops">tous les ateliers</a>
+
+            <a href="@Url.Action("ActivityDashboard", new { activeTab = "ShowMyActivities" })"
+               class="tab-link @(ViewData["ActiveTab"].ToString() == "ShowMyActivities" ? "active" : "")"
+               data-target="my-workshops">mes ateliers</a>
+
+            <a href="@Url.Action("ActivityDashboard", new { activeTab = "CreateActivity" })"
+               class="tab-link @(ViewData["ActiveTab"].ToString() == "CreateActivity" ? "active" : "")"
+               data-target="propose-workshop">proposer un atelier</a>
+        </div>
+
+        <div id="tab-content">
+            @if (ViewData["ActiveTab"].ToString() == "ShowAllActivities")
+            {
+                @await Html.PartialAsync("ShowAllActivities", Model)
+            }
+            else if (ViewData["ActiveTab"].ToString() == "ShowMyActivities")
+            {
+                @await Html.PartialAsync("ShowMyActivities", Model)
+            }
+            else if (ViewData["ActiveTab"].ToString() == "CreateActivity")
+            {
+                @await Html.PartialAsync("CreateActivity", Model)
+            }
+        </div>
+    </div>
+</div>

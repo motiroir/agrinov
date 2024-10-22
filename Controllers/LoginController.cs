@@ -75,6 +75,15 @@ namespace AgriNov.Controllers
                         ClaimsPrincipal userPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
                         HttpContext.SignInAsync(userPrincipal);
+                        if(!sUA.CheckIfMemberShipValid(userAccount.Id))
+                        {
+                            using(IServiceShoppingCart sSC = new ServiceShoppingCart())
+                            {
+                                if(!sSC.IsAMemberShipFeeInTheCart(userAccount.Id)){
+                                    sSC.AddMemberShipFeeToShoppingCart(userAccount.Id, new ShoppingCartItem());
+                                }
+                            }
+                        }
                         return RedirectToAction("Index","MyAccount"); 
                     }
                     else
@@ -90,7 +99,7 @@ namespace AgriNov.Controllers
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync();
-            return Redirect("/Login/Login");
+            return Redirect("/Home/Index");
         }
 
     }
