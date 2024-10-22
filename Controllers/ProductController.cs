@@ -101,12 +101,16 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToCart(Product product)
+        public IActionResult AddToCart(Product product, int quantity)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
+            if (quantity <= 0 || quantity > product.Stock)
+            {
+                return RedirectToAction("ShowProductDetails", "Product", new { productId = product.Id });
+            }
             using (ServiceShoppingCart sSC = new ServiceShoppingCart())
             {
-                sSC.AddProductToShoppingCart(product, 1, userId);
+                sSC.AddProductToShoppingCart(product.Id, quantity, userId);
             }
             return RedirectToAction("Index", "ShoppingCart");
         }

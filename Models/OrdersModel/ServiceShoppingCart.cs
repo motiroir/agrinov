@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
+using AgriNov.Models.ProductionModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgriNov.Models
@@ -42,6 +43,11 @@ namespace AgriNov.Models
             {
                 shoppingCart.ShoppingCartItems.Add(shoppingCartItem);
                 shoppingCart.CalculateTotal();
+                /*_DBContext.Entry(shoppingCartItem).State = EntityState.Added;
+                if (shoppingCartItem.Product != null)
+                {
+                    _DBContext.Entry(shoppingCartItem.Product).State = EntityState.Detached;
+                }*/
                 Save();
             }
         }
@@ -86,14 +92,14 @@ namespace AgriNov.Models
             return false;
         }
 
-        public void AddProductToShoppingCart(Product product, int quantity, int shoppingCartId)
+        public void AddProductToShoppingCart(int productId, int quantity, int shoppingCartId)
         {
             // if product already in shopping cart
             ShoppingCart sC = GetShoppingCartForUserAccount(shoppingCartId);
             if(sC != null && sC.ShoppingCartItems.Any()){
                 foreach(ShoppingCartItem item in sC.ShoppingCartItems)
                 {
-                    if(item.Product != null && item.Product.Id == product.Id){
+                    if(item.Product != null && item.Product.Id == productId){
                         //Updating shopping cart item
                         item.Quantity = quantity;
                         UpdateShoppingCartItem(item);
@@ -102,7 +108,7 @@ namespace AgriNov.Models
                 }
             }
             // if product not already in shopping cart
-            ShoppingCartItem shoppingCartItem = new ShoppingCartItem() {Product = product};
+            ShoppingCartItem shoppingCartItem = new ShoppingCartItem() { ProductId = productId };
             shoppingCartItem.Quantity = quantity;
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
@@ -129,11 +135,11 @@ namespace AgriNov.Models
                 p3 = sP.GetProductByID(3);
 
             }
-            AddProductToShoppingCart(p1, 2, 1);
-            AddProductToShoppingCart(p1,1,1);
-            AddProductToShoppingCart(p2,1,2);
-            AddProductToShoppingCart(p3,1,2);
-            AddProductToShoppingCart(p3,1,3);
+            AddProductToShoppingCart(1, 2, 1);
+            AddProductToShoppingCart(1,1,1);
+            AddProductToShoppingCart(2,1,2);
+            AddProductToShoppingCart(3,1,2);
+            AddProductToShoppingCart(3,1,3);
 
         }
 
