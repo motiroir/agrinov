@@ -20,8 +20,7 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            SaveShoppingCartAsAnOrder(2);
-            SaveShoppingCartAsAnOrder(2);
+            SaveShoppingCartAsAnOrder(1, null);
         }
 
         public void Save()
@@ -29,7 +28,17 @@ namespace AgriNov.Models
             _DBContext.SaveChanges();
         }
 
-        public void SaveShoppingCartAsAnOrder(int shoppingCartId)
+        public void SaveShoppingCartAsAnOrder(string shoppingCartIdStr, Payment payment)
+        {
+            int id;
+            if (int.TryParse(shoppingCartIdStr, out id))
+            {
+                SaveShoppingCartAsAnOrder(id, payment);
+            }
+            return;
+        }
+
+        public void SaveShoppingCartAsAnOrder(int shoppingCartId, Payment payment)
         {
             //Get Shopping Cart
             ShoppingCart shoppingCart;
@@ -42,7 +51,7 @@ namespace AgriNov.Models
                     return;
                 }
                 // Copy it to order and order item
-                Order order = new Order() { UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total };
+                Order order = new Order() { UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total , Payment = payment};
                 foreach (ShoppingCartItem item in shoppingCart.ShoppingCartItems)
                 {
                     OrderItem oItem = new OrderItem()

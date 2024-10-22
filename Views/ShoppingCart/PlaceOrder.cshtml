@@ -1,0 +1,27 @@
+@model AgriNov.Models.Payment
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Payer ma commande";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css" />
+    <style>
+        .cart {
+            margin-top: 200px;
+        }
+        input[type="radio"] {display: block}
+    </style>
+}
+<div>
+    @using(Html.BeginForm("PlaceOrder", "ShoppingCart", FormMethod.Post))
+    {
+        <label>Choisir votre mode de paiement : </label>
+        @Html.RadioButtonFor(model => model.PaymentType, AgriNov.Models.PaymentType.CARD, new { id="card"})
+        <label for="card">Paiement en ligne par carte bancaire</label>
+         @Html.RadioButtonFor(model => model.PaymentType, AgriNov.Models.PaymentType.CASH, new { id="cash"})
+        <label for="cash">Paiement sur place en espèces</label>
+         @Html.RadioButtonFor(model => model.PaymentType, AgriNov.Models.PaymentType.CHECK, new { id="check"})
+        <label for="check">Paiement sur place en chèque</label>
+        <button type="submit">Valider</button>
+    }
+</div>

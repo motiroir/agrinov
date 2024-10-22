@@ -129,7 +129,7 @@ namespace AgriNov.Models
             {
                 return 0;
             }
-            ShoppingCartItem productItem = cart.ShoppingCartItems.FirstOrDefault(item => item.Product !=null && item.Product.Id == productId);
+            ShoppingCartItem productItem = cart.ShoppingCartItems.FirstOrDefault(item => item.Product != null && item.Product.Id == productId);
             return productItem != null ? productItem.Quantity : 0;
         }
 
@@ -145,12 +145,42 @@ namespace AgriNov.Models
             AddProductToShoppingCart(2, 1, 2);
             AddProductToShoppingCart(3, 1, 3);
         }
-        public void EmptyShoppingCart(int shoppingCartId){
+
+        //Do not call when order was not placed, this would remove membership fee
+        public void EmptyShoppingCart(int shoppingCartId)
+        {
             List<ShoppingCartItem> shoppingCartItems = _DBContext.ShoppingCartItems.Where(item => item.ShoppingCartId == shoppingCartId).ToList();
             _DBContext.ShoppingCartItems.RemoveRange(shoppingCartItems);
             Save();
-            //Set ShoppingCartTotal to 2
+            //Set ShoppingCartTotal to 0
+            ShoppingCart shoppingCart = _DBContext.ShoppingCarts.FirstOrDefault(sc => sc.UserAccountId == shoppingCartId);
+            shoppingCart.CalculateTotal();
+            shoppingCart.DateLastModified = DateTime.Now;
+            Save();
         }
+
+        public void EmptyShoppingCartExceptMemberShipFee(string shoppingCartIdStr)
+        {
+            int id;
+            if (int.TryParse(shoppingCartIdStr, out id))
+            {
+                EmptyShoppingCartExceptMemberShipFee(id);
+            }
+            return;
+        }
+
+        public void EmptyShoppingCartExceptMemberShipFee(int shoppingCartId)
+        {
+            List<ShoppingCartItem> shoppingCartItems = _DBContext.ShoppingCartItems.Where(item => (item.ShoppingCartId == shoppingCartId && item.MemberShipFeeId == null)).ToList();
+            _DBContext.ShoppingCartItems.RemoveRange(shoppingCartItems);
+            Save();
+            //Set ShoppingCartTotal to 0
+            ShoppingCart shoppingCart = _DBContext.ShoppingCarts.FirstOrDefault(sc => sc.UserAccountId == shoppingCartId);
+            shoppingCart.CalculateTotal();
+            shoppingCart.DateLastModified = DateTime.Now;
+            Save();
+        }
+
 
         public void Save()
         {
