@@ -4,13 +4,11 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
 namespace AgriNov.Models
 {
     public class ServiceShoppingCart : IServiceShoppingCart
     {
         private BDDContext _DBContext;
-
         public ServiceShoppingCart()
         {
             _DBContext = new BDDContext();
@@ -19,7 +17,6 @@ namespace AgriNov.Models
         {
             _DBContext.Dispose();
         }
-
         public ShoppingCart GetShoppingCartForUserAccount(string userAccountIdStr)
         {
             int id;
@@ -29,12 +26,10 @@ namespace AgriNov.Models
             }
             return null;
         }
-
         public ShoppingCart GetShoppingCartForUserAccount(int userAccountId)
         {
             return _DBContext.ShoppingCarts.Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.MemberShipFee).Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.Product).FirstOrDefault(s => s.UserAccountId == userAccountId);
         }
-
         public void AddShoppingCartItemToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
         {
             ShoppingCart shoppingCart = _DBContext.ShoppingCarts.Include("ShoppingCartItems").FirstOrDefault(s => s.UserAccountId == shoppingCartId);
@@ -46,7 +41,6 @@ namespace AgriNov.Models
                 Save();
             }
         }
-
         public void AddMemberShipFeeToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
         {
             //shoppingCartId = userAccountId
@@ -69,10 +63,8 @@ namespace AgriNov.Models
             shoppingCartItem.MemberShipFee = m;
             //Quantity must be set after setting MemberShipFee, otherwise the total price can't be computed
             shoppingCartItem.Quantity = 1;
-
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
-
         public bool IsAMemberShipFeeInTheCart(int userAccountId)
         {
             ShoppingCart sC = GetShoppingCartForUserAccount(userAccountId);
@@ -88,7 +80,6 @@ namespace AgriNov.Models
             }
             return false;
         }
-
         public void AddProductToShoppingCart(int productId, int quantity, int shoppingCartId)
         {
             // if product already in shopping cart
@@ -120,7 +111,6 @@ namespace AgriNov.Models
             }
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
-
         public void UpdateShoppingCartItem(ShoppingCartItem shoppingCartItem)
         {
             ShoppingCartItem oldShoppingCartItem = _DBContext.ShoppingCartItems.FirstOrDefault(sCI => sCI.Id == shoppingCartItem.Id);
@@ -128,20 +118,29 @@ namespace AgriNov.Models
             Save();
         }
 
+        public int GetQuantityByProductInCart(int productId, int userId)
+        {
+            ShoppingCart cart = GetShoppingCartForUserAccount(userId);
+            if (cart == null)
+            {
+                return 0;
+            }
+            ShoppingCartItem productItem = cart.ShoppingCartItems.FirstOrDefault(item => item.Product !=null && item.Product.Id == productId);
+            return productItem != null ? productItem.Quantity : 0;
+        }
+
+
         public void InitializeTable()
         {
             AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(3, new ShoppingCartItem());
-
             AddProductToShoppingCart(1, 2, 1);
             AddProductToShoppingCart(1, 3, 1);
             AddProductToShoppingCart(1, 1, 2);
             AddProductToShoppingCart(2, 1, 2);
             AddProductToShoppingCart(3, 1, 3);
-
         }
-
         public void EmptyShoppingCart(int shoppingCartId){
             List<ShoppingCartItem> shoppingCartItems = _DBContext.ShoppingCartItems.Where(item => item.ShoppingCartId == shoppingCartId).ToList();
             _DBContext.ShoppingCartItems.RemoveRange(shoppingCartItems);
