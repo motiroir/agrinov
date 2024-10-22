@@ -15,7 +15,7 @@ namespace AgriNov.Models
 
         [Required(ErrorMessage = "Veuillez indiquer un prix")]
         [DisplayName("Prix (en €)")]
-        [Range(0.01, decimal.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0")]
         public decimal Price { get; set; }
         public DateTime CreationDate { get; set; }
         [Required(ErrorMessage = "Veuillez indiquer une date d'expiration")]

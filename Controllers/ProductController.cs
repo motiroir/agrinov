@@ -106,7 +106,7 @@ namespace AgriNov.Controllers
             int userId = int.Parse(HttpContext.User.Identity.Name);
             using (ServiceShoppingCart sSC = new ServiceShoppingCart())
             {
-                sSC.AddProductToShoppingCart(product, 1, userId);
+                sSC.AddProductToShoppingCart(product.Id, 1, userId);
             }
             return RedirectToAction("Index", "ShoppingCart");
         }
