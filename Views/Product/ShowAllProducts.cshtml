@@ -1,97 +1,31 @@
-﻿@model IEnumerable<AgriNov.Models.Product>
+﻿@model AgriNov.ViewModels.ProductViewModel
 @{
     Layout = "_BaseLayout";
 
     ViewBag.Title = "Liste des produits";
 }
 @section ExtraStyle {
-    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/tilestyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 
-<div class="form products-grid">
-    @foreach (var product in Model)
-
+<div class="all-tiles-box">
+    @foreach (AgriNov.Models.Product product in Model.AllProducts)
     {
-        <div class="product-card">
-            <div class="product-details">
-                <div>
-                    <label>Nom</label>
-                    <h3>@product.Name</h3>
+        <div class="activity-tile">
+            <div class="preview-img"></div>
+            <div class="tile-content">
+                <div class="text-content">
+                    <h3 class="activity-name">@product.Name</h3>
+                    <p class="activity-author">Nom du producteur</p>
+                    <p class="activity-author">@product.Description</p>
+                    <p class="price">@product.Price.ToString("C")</p>
                 </div>
-
-                <div>
-                    <label>Catégorie</label>
-                    <p>@product.Category</p>
+                <div class="btn-div">
+                    <a href="@Url.Action("ShowProductDetails", "Product", new { id = product.Id})" class="btn-inscription">en savoir plus</a>
                 </div>
-
-                <div>
-                    <label>Description</label>
-                    <p>@product.Description</p>
-                </div>
-
-                <div>
-                    <label>Prix</label>
-                    <p>@product.Price.ToString("C")</p>
-                </div>
-
-                <div>
-                    <label>Stock</label>
-                    <p>@product.Stock unités</p>
-                </div>
-
-                @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
-
-                {
-                    @Html.Hidden("Id", product.Id)
-                    <div class="quantity-control">
-                        <label>Quantité</label>
-                        <div class="quantity-wrapper">
-                            <button type="button" class="quantity-btn minus">-</button>
-                            <input type="number" name="quantity" value="1" min="1" max="@product.Stock" class="quantity-input">
-                            <button type="button" class="quantity-btn plus">+</button>
-                        </div>
-                    </div>
-
-                    <div class="button-group">
-                        <button type="submit" class="orange-btn w-100">Ajouter au panier</button>
-
-                        
-                          
-                    </div>
-                }
             </div>
         </div>
     }
 </div>
 
-<div class="form-footer">
-    @Html.ActionLink("Ajouter un nouveau produit", "CreateProduct", "Product", null, new { @class = "orange-btn w-100" })
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Gestion des boutons moins
-        document.querySelectorAll('.minus').forEach(button => {
-            button.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('input');
-                const value = parseInt(input.value);
-                if (value > 1) {
-                    input.value = value - 1;
-                }
-            });
-        });
-
-        // Gestion des boutons plus
-        document.querySelectorAll('.plus').forEach(button => {
-            button.addEventListener('click', function() {
-                const input = this.parentElement.querySelector('input');
-                const value = parseInt(input.value);
-                const max = parseInt(input.getAttribute('max'));
-                if (value < max) {
-                    input.value = value + 1;
-                }
-            });
-        });
-    });
-</script>

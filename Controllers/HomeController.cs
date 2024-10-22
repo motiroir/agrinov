@@ -16,5 +16,10 @@ namespace AgriNov.Controllers
             return View();
         }
 
+        public IActionResult LegalNotice()
+        {
+            return View();
+        }
+
     }
 }

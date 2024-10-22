@@ -91,3 +91,9 @@
     .btn-inscription:hover {
         background-color: var(--orange);
     }
+
+.price {
+    font-family: 'Comfortaa';
+    font-size: 1.2rem;
+    font-weight: 600;
+}

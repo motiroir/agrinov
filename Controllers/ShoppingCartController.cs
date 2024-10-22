@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AgriNov.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,6 +12,7 @@ namespace AgriNov.Controllers
 {
     public class ShoppingCartController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
             ShoppingCart currentShoppingCart;

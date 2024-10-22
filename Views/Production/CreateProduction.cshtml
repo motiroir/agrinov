@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
 }
 
+<a href="@Url.Action("SupShowAllProductions", "Production")" class="return-link">< Retour à la liste des productions</a>
+
 <div class="form">
     @using (Html.BeginForm("CreateProduction", "Production", FormMethod.Post))
     {
@@ -46,6 +48,12 @@
                 </div>
             </fieldset>
             <fieldset>
+                <div class="companyName">
+                    @Html.LabelFor(model => model.Production.CompanyName, "Nom du Fournisseur", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Production.CompanyName)
+                    @Html.ValidationMessageFor(model => model.Production.CompanyName)
+                </div>
+
                 <div class="seasons">
                     @Html.LabelFor(model => model.Production.Seasons, new { @class = "control-label" })
                     @Html.DropDownListFor(model => model.Production.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text", 0), new { @class = "form-control" })
@@ -75,4 +83,5 @@
             <button type="submit" class="orange-btn">Créer</button>
         </div>
     }
+
 </div>

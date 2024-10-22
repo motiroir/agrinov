@@ -1,0 +1,48 @@
+﻿@model AgriNov.ViewModels.ProductViewModel
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = @Model.Product.Name;
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/detailstyle.css">
+}
+<div class="activity-detail-container">
+    <div class="full-img"></div>
+    <div class="activity-content">
+        <a href="@Url.Action("ProductDashboard", "Product")">
+            <div class="close-btn"></div>
+        </a>
+        <div class="text-content">
+            <h2 class="activity-name">@Model.Product.Name</h2>
+            <p class="activity-author">Nom du producteur</p>
+            <p class="activity-date">@Model.Product.Category</p>
+            <p class="activity-description">@Model.Product.Description</p>
+            <div class="activity-number-display-evenly">
+                <div>
+                    <p class="number-display">@Model.Product.Price.ToString("C")</p>
+                    <p>Prix à l'unité</p>
+                </div>
+                <div>
+                    <p class="number-display">@Model.Product.Stock</p>
+                    <p>Stock restant</p>
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("AddToCart", "Product", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.Product.Id)
+            @Html.HiddenFor(model => model.Product.Stock)
+            <div class="btn-div">
+                <div class="quantity-selector">
+                    <button type="button" class="minus">-</button>
+                    <input type="text" name="quantity" value="@Model.QuantityByProductInCart" min="1" max="@Model.Product.Stock">
+                    <button type="button" class="plus">+</button>
+                </div>
+                <button type="submit" class="btn-inscription">ajouter</button>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/scripts/quantity-selector.js"></script>
