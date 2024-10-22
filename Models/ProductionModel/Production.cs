@@ -1,12 +1,16 @@
-﻿using AgriNov.Models.SharedStatus;
+﻿using AgriNov.Models.ProductionModel;
+using AgriNov.Models.SharedStatus;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AgriNov.Models.ProductionModel
+namespace AgriNov.Models
 {
     public class Production
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage ="Le nom de Fournisseur est requis.")]
+        public string CompanyName { get; set; }
 
         [Required]
         [DisplayName("Quantité (au kg / Litre / Pièce)")]
@@ -30,7 +34,7 @@ namespace AgriNov.Models.ProductionModel
         public ProductType ProductType { get; set; }
 
         [MaxLength(500)]
-        [MinLength(20, ErrorMessage = "Veuillez décrire le type de produit si besoin")]
+        
         public string Description { get; set; }
 
         [Required]
@@ -47,6 +51,8 @@ namespace AgriNov.Models.ProductionModel
 
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
+
+        public int SupplierId { get; set; }
 
         
     }

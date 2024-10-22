@@ -1,6 +1,7 @@
 ﻿using AgriNov.Models.ProductionModel;
 using AgriNov.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using AgriNov.Models.SharedStatus;
 
 namespace AgriNov.ViewModels
 {
@@ -11,10 +12,18 @@ namespace AgriNov.ViewModels
         public List<SelectListItem> ProductOptions { get; set; }
         public List<SelectListItem> SeasonOptions { get; set; }
         public List<SelectListItem> DeliveryFrequencyOptions { get; set; }
+        public List<SelectListItem> ValidationStatusOptions { get; set; }
+
+        public List<Production> ViewModelList { get; set; }
+
 
         public int Year { get; set; }
         public ProductType ProductType { get; set; }
         public Seasons Season { get; set; }
         public DeliveryFrequency DeliveryFrequency { get; set; }
+
+        public ValidationStatus ValidationStatus { get; set; }
+
+     
     }
 }
