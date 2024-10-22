@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
-using AgriNov.Models.ProductionModel;
 using Microsoft.EntityFrameworkCore;
-
 namespace AgriNov.Models
 {
     public class ServiceShoppingCart : IServiceShoppingCart
     {
         private BDDContext _DBContext;
-
         public ServiceShoppingCart()
         {
             _DBContext = new BDDContext();
@@ -20,7 +17,6 @@ namespace AgriNov.Models
         {
             _DBContext.Dispose();
         }
-
         public ShoppingCart GetShoppingCartForUserAccount(string userAccountIdStr)
         {
             int id;
@@ -30,12 +26,10 @@ namespace AgriNov.Models
             }
             return null;
         }
-
         public ShoppingCart GetShoppingCartForUserAccount(int userAccountId)
         {
             return _DBContext.ShoppingCarts.Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.MemberShipFee).Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.Product).FirstOrDefault(s => s.UserAccountId == userAccountId);
         }
-
         public void AddShoppingCartItemToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
         {
             ShoppingCart shoppingCart = _DBContext.ShoppingCarts.Include("ShoppingCartItems").FirstOrDefault(s => s.UserAccountId == shoppingCartId);
@@ -43,15 +37,10 @@ namespace AgriNov.Models
             {
                 shoppingCart.ShoppingCartItems.Add(shoppingCartItem);
                 shoppingCart.CalculateTotal();
-                /*_DBContext.Entry(shoppingCartItem).State = EntityState.Added;
-                if (shoppingCartItem.Product != null)
-                {
-                    _DBContext.Entry(shoppingCartItem.Product).State = EntityState.Detached;
-                }*/
+                shoppingCart.DateLastModified = DateTime.Now;
                 Save();
             }
         }
-
         public void AddMemberShipFeeToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
         {
             //shoppingCartId = userAccountId
@@ -64,7 +53,7 @@ namespace AgriNov.Models
                 }
             }
             //If there's already a membershipfee in the cart, return
-            if(IsAMemberShipFeeInTheCart(shoppingCartId))
+            if (IsAMemberShipFeeInTheCart(shoppingCartId))
             {
                 return;
             }
@@ -74,34 +63,40 @@ namespace AgriNov.Models
             shoppingCartItem.MemberShipFee = m;
             //Quantity must be set after setting MemberShipFee, otherwise the total price can't be computed
             shoppingCartItem.Quantity = 1;
-
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
-
         public bool IsAMemberShipFeeInTheCart(int userAccountId)
         {
             ShoppingCart sC = GetShoppingCartForUserAccount(userAccountId);
-            if(sC != null && sC.ShoppingCartItems.Any()){
-                foreach(ShoppingCartItem item in sC.ShoppingCartItems)
+            if (sC != null && sC.ShoppingCartItems.Any())
+            {
+                foreach (ShoppingCartItem item in sC.ShoppingCartItems)
                 {
-                    if(item.MemberShipFee != null){
+                    if (item.MemberShipFee != null)
+                    {
                         return true;
                     }
                 }
             }
             return false;
         }
-
         public void AddProductToShoppingCart(int productId, int quantity, int shoppingCartId)
         {
             // if product already in shopping cart
             ShoppingCart sC = GetShoppingCartForUserAccount(shoppingCartId);
-            if(sC != null && sC.ShoppingCartItems.Any()){
-                foreach(ShoppingCartItem item in sC.ShoppingCartItems)
+            if (sC != null && sC.ShoppingCartItems.Any())
+            {
+                foreach (ShoppingCartItem item in sC.ShoppingCartItems)
                 {
-                    if(item.Product != null && item.Product.Id == productId){
+                    if (item.Product != null && item.Product.Id == productId)
+                    {
                         //Updating shopping cart item
                         item.Quantity = quantity;
+                        using (IProductService sP = new ProductService())
+                        {
+                            item.Total = sP.GetProductByID(productId).Price * item.Quantity;
+                        }
+                        item.DateLastModified = DateTime.Now;
                         UpdateShoppingCartItem(item);
                         return;
                     }
@@ -110,39 +105,29 @@ namespace AgriNov.Models
             // if product not already in shopping cart
             ShoppingCartItem shoppingCartItem = new ShoppingCartItem() { ProductId = productId };
             shoppingCartItem.Quantity = quantity;
+            using (IProductService sP = new ProductService())
+            {
+                shoppingCartItem.Total = sP.GetProductByID(productId).Price * shoppingCartItem.Quantity;
+            }
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
-
         public void UpdateShoppingCartItem(ShoppingCartItem shoppingCartItem)
         {
             ShoppingCartItem oldShoppingCartItem = _DBContext.ShoppingCartItems.FirstOrDefault(sCI => sCI.Id == shoppingCartItem.Id);
             _DBContext.Entry(oldShoppingCartItem).CurrentValues.SetValues(shoppingCartItem);
             Save();
         }
-
         public void InitializeTable()
         {
             AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
             AddMemberShipFeeToShoppingCart(3, new ShoppingCartItem());
-            Product p1;
-            Product p2;
-            Product p3;
-            using(ProductService sP = new ProductService())
-            {
-                p1 = sP.GetProductByID(1);
-                p2 = sP.GetProductByID(2);
-                p3 = sP.GetProductByID(3);
-
-            }
             AddProductToShoppingCart(1, 2, 1);
-            AddProductToShoppingCart(1,1,1);
-            AddProductToShoppingCart(2,1,2);
-            AddProductToShoppingCart(3,1,2);
-            AddProductToShoppingCart(3,1,3);
-
+            AddProductToShoppingCart(1, 3, 1);
+            AddProductToShoppingCart(1, 1, 2);
+            AddProductToShoppingCart(2, 1, 2);
+            AddProductToShoppingCart(3, 1, 3);
         }
-
         public void Save()
         {
             _DBContext.SaveChanges();

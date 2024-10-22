@@ -1,0 +1,126 @@
+﻿/* H1 Heading */
+h1 {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3vw;
+    line-height: 110%;
+    /* or 100px */
+    display: flex;
+    align-items: center;
+    text-transform: lowercase;
+}
+
+/* H2 Heading */
+h2 {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5vw;
+    line-height: 110%;
+    /* or 94px */
+    display: flex;
+    align-items: center;
+    text-transform: lowercase;
+    margin:20px auto;
+}
+
+
+/* P2 Paragraph medium */
+p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9vw;
+    line-height: 150%;
+    /* or 30px */
+    align-items: center;
+    color: var(--contentParagraph);
+}
+
+
+
+/* Style général */
+body {
+    font-family: Inter, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #FFF4EE;
+}
+/* Header */
+header {
+    height: 200px;
+    background-color: var(--darkViolet);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+header .title {
+    text-align: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #FFFFFF 0%, #CBA8C7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.return {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1vw;
+    line-height: 110%;
+    height: 20px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--orangeRed);
+}
+
+.return:hover {
+    text-decoration: underline;
+}
+
+/* Main content */
+main {
+    max-width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+
+
+/* Footer */
+footer {
+    height: 100px;
+    background-color: var(--darkViolet);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+    footer p {
+        font-family: 'Comfortaa';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 0.8vw;
+        line-height: 110%;
+        margin: 0;
+        color: #967A93;
+        justify-content: center;
+    }
