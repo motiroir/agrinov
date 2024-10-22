@@ -36,7 +36,7 @@
             <div class="btn-div">
                 <div class="quantity-selector">
                     <button type="button" class="minus">-</button>
-                    <input type="text" name="quantity" value="0" min="1" max="@(@Model.Product.Stock)">
+                    <input type="text" name="quantity" value="@Model.QuantityByProductInCart" min="1" max="@Model.Product.Stock">
                     <button type="button" class="plus">+</button>
                 </div>
                 <button type="submit" class="btn-inscription">ajouter</button>

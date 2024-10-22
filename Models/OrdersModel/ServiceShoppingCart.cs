@@ -117,6 +117,19 @@ namespace AgriNov.Models
             _DBContext.Entry(oldShoppingCartItem).CurrentValues.SetValues(shoppingCartItem);
             Save();
         }
+
+        public int GetQuantityByProductInCart(int productId, int userId)
+        {
+            ShoppingCart cart = GetShoppingCartForUserAccount(userId);
+            if (cart == null)
+            {
+                return 0;
+            }
+            ShoppingCartItem productItem = cart.ShoppingCartItems.FirstOrDefault(item => item.Product !=null && item.Product.Id == productId);
+            return productItem != null ? productItem.Quantity : 0;
+        }
+
+
         public void InitializeTable()
         {
             AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());

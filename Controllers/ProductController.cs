@@ -88,10 +88,15 @@ namespace AgriNov.Controllers
 
         public IActionResult ShowProductDetails(int id)
         {
+            int userId = int.Parse(HttpContext.User.Identity.Name);
             ProductViewModel pVM = new ProductViewModel();
             using (ProductService sP= new ProductService())
             {
                 pVM.Product = sP.GetProductByID(id);
+            }
+            using(ServiceShoppingCart sSC = new ServiceShoppingCart())
+            {
+                pVM.QuantityByProductInCart = sSC.GetQuantityByProductInCart(id, userId);
             }
             if (pVM.Product == null)
             {
@@ -106,13 +111,13 @@ namespace AgriNov.Controllers
             int userId = int.Parse(HttpContext.User.Identity.Name);
             if (quantity <= 0 || quantity > product.Stock)
             {
-                return RedirectToAction("ShowProductDetails", "Product", new { productId = product.Id });
+                return RedirectToAction("ShowProductDetails", "Product", new { id = product.Id });
             }
             using (ServiceShoppingCart sSC = new ServiceShoppingCart())
             {
                 sSC.AddProductToShoppingCart(product.Id, quantity, userId);
             }
-            return RedirectToAction("Index", "ShoppingCart");
+            return RedirectToAction("ProductDashboard", "Product");
         }
     }
 }
