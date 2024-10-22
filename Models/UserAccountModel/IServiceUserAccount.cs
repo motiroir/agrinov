@@ -15,6 +15,7 @@ namespace AgriNov.Models
         void DeleteUserAccount(int userAccountID);
         public bool CheckIfMemberShipValid(int userAccountID);
         UserAccount Authenticate(string mail, string password);
+        public List<UserAccount> GetUserAccountsFull();
         void Save();
     }
 }

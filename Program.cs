@@ -84,7 +84,10 @@ using(IServiceShoppingCart sSC = new ServiceShoppingCart())
 {
     sSC.InitializeTable();
 }
-
+using(IServiceOrder sO = new ServiceOrder())
+{
+    sO.InitializeTable();
+}
 
 app.MapControllerRoute(
         name: "default",

@@ -76,6 +76,11 @@ namespace AgriNov
             return _DBContext.UserAccounts.ToList();
         }
 
+        public List<UserAccount> GetUserAccountsFull()
+        {
+            return _DBContext.UserAccounts.Include("User").Include("CorporateUser").Include("Supplier").ToList();
+        }
+
         public void InitializeTable()
         {
             UserAccount u1 = new UserAccount() { Mail = Environment.GetEnvironmentVariable("USER_MAIL_1"), Password = Environment.GetEnvironmentVariable("USER_PASSWORD_1") };
