@@ -93,7 +93,7 @@ namespace AgriNov.Controllers
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync();
-            return Redirect("/Login/Login");
+            return Redirect("/Home/Index");
         }
 
     }
