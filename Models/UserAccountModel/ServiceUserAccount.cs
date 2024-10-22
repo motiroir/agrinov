@@ -206,7 +206,7 @@ namespace AgriNov
                 return true;
             }
             DateTime currentDate = DateTime.Now;
-            MemberShipFee memberShipFee = _DBContext.MembershipFees.Where(fee => (fee.UserAccountId == userAccountID && fee.Temp == true)).OrderByDescending(fee => fee.EndDate).FirstOrDefault();
+            MemberShipFee memberShipFee = _DBContext.MembershipFees.Where(fee => (fee.UserAccountId == userAccountID && fee.WasPaid == true)).OrderByDescending(fee => fee.EndDate).FirstOrDefault();
             if(memberShipFee == null || DateTime.Compare(memberShipFee.EndDate, currentDate) < 0){
                 return false;
             }
