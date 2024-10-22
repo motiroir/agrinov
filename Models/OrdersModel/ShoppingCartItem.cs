@@ -29,6 +29,10 @@ namespace AgriNov.Models
         public int? MemberShipFeeId { get; set; }
         public MemberShipFee MemberShipFee { get; set; }
 
+        //Optional relationship
+        public int? ProductId {get; set;}
+        public Product Product {get; set;}
+
         public ShoppingCartItem()
         {
             DateCreated = DateTime.Now;
@@ -40,8 +44,11 @@ namespace AgriNov.Models
             {
                 Total = _quantity * MemberShipFee.Price;
             }
-            else
+            else if(Product != null)
             {
+                Total = (decimal)(_quantity * Product.Price);
+            }
+            else {
                 Total = 0;
             }
         }

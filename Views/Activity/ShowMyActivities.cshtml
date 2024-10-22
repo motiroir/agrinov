@@ -46,7 +46,7 @@
                         <p class="activity-description">@activity.Description</p>
                     </div>
                     <div class="btn-div">
-                        <button type="submit" class="btn-inscription">inscription</button>
+                            <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" type="submit" class="btn-inscription">voir les détails</a>
                     </div>
                 </div>
             </div>

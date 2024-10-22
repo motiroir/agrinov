@@ -14,35 +14,43 @@
         <div class="fieldsets-container">
             <fieldset>
                 <div class="form-group">
-                    <label>@Html.LabelFor(model => model.Name, "Nom du produit")</label>
+                    @Html.LabelFor(model => model.Name)
                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name)
                 </div>
                 <div class="price">
-                    @Html.LabelFor(model => model.Price, "Prix en €")
+                    @Html.LabelFor(model => model.Price)
                     @Html.EditorFor(model => model.Price)
+                    @Html.ValidationMessageFor(model => model.Price)
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Stock, "Quantité")
-                    @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", type = "number", min = "0" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CreationDate, "Date de création")
-                    @Html.TextBoxFor(model => model.CreationDate, new { @class = "form-control", type = "date", value = DateTime.Now.ToString("yyyy-MM-dd") })
+                <div class="price">
+                    @Html.LabelFor(model => model.Category)
+                    @Html.EditorFor(model => model.Category)
+                    @Html.ValidationMessageFor(model => model.Category)
                 </div>
             </fieldset>
-
             <fieldset>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Description, "Description du produit")
-                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, maxlength = 500 })
-                    
+                    @Html.LabelFor(model => model.Stock)
+                    @Html.TextBoxFor(model => model.Stock, new { @class = "form-control", type = "number", min = "0" })
+                    @Html.ValidationMessageFor(model => model.Stock)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ExpirationDate)
+                    @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.ExpirationDate)
                 </div>
             </fieldset>
         </div>
 
+        <div class="production-description">
+            @Html.LabelFor(model => model.Description, "Description du produit")
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 5, maxlength = 500 })
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
         <div class="button-container">
-            <input type="submit" value="Créer" class="orange-btn w-50" /> 
-            <a href="@Url.Action("Index", "Home")" class="orange-btn w-50">Retour</a>
+            <input type="submit" value="Créer" class="orange-btn w-50" />
         </div>
     }
 </div>

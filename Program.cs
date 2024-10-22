@@ -66,9 +66,6 @@ using (ProductService pS = new ProductService())
 {
     pS.InitializeTable();
 }
-   
-    
-    
     
 using (ServiceBoxContract bC = new ServiceBoxContract())
 {
