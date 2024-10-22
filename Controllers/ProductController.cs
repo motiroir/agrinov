@@ -1,4 +1,5 @@
 ﻿using AgriNov.Models;
+using AgriNov.Models.ProductionModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,11 +76,15 @@ namespace AgriNov.Controllers
             ProductViewModel pVM = new ProductViewModel();
             int userId = int.Parse(HttpContext.User.Identity.Name);
 
+            // getting all products in viewmodel
             using (ProductService sP = new ProductService())
             {
-                // getting all products in viewmodel
                 pVM.AllProducts = sP.GetProducts();
-
+            }
+            // getting all box contracts in viewmodel
+            using (ServiceBoxContract sBC = new ServiceBoxContract())
+            {
+                pVM.AllBoxContracts = sBC.GetAllBoxContracts();
             }
 
             ViewData["ActiveTab"] = activeTab;
@@ -119,5 +124,15 @@ namespace AgriNov.Controllers
             }
             return RedirectToAction("ProductDashboard", "Product");
         }
+
+        public IActionResult ShowMyBox(ProductViewModel pVM)
+        {
+            using (ServiceBoxContract sBC = new ServiceBoxContract())
+            {
+                pVM.AllBoxContracts = sBC.GetAllBoxContracts();
+                return View(pVM);
+            }
+        }
+
     }
 }
