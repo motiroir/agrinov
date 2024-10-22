@@ -116,6 +116,10 @@ namespace AgriNov.Models
             ShoppingCartItem oldShoppingCartItem = _DBContext.ShoppingCartItems.FirstOrDefault(sCI => sCI.Id == shoppingCartItem.Id);
             _DBContext.Entry(oldShoppingCartItem).CurrentValues.SetValues(shoppingCartItem);
             Save();
+            ShoppingCart shoppingCart = _DBContext.ShoppingCarts.FirstOrDefault(sc => sc.UserAccountId == oldShoppingCartItem.ShoppingCartId);
+            shoppingCart.CalculateTotal();
+            shoppingCart.DateLastModified = DateTime.Now;
+            Save();
         }
 
         public int GetQuantityByProductInCart(int productId, int userId)

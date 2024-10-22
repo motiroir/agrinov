@@ -14,7 +14,7 @@ namespace AgriNov.Models
         public int UserAccountId { get; set; }
         public UserAccount UserAccount { get; set; }
         // Nabigation property to the ShoppingCartItems
-        public ICollection<ShoppingCartItem> ShoppingCartItems { get; } = new List<ShoppingCartItem>();
+        public List<ShoppingCartItem> ShoppingCartItems { get; } = new List<ShoppingCartItem>();
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
         public decimal Total { get; private set; }
