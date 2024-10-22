@@ -30,6 +30,7 @@ thead {
     table-layout: fixed;
     background-color: #EB7051;
     color: #ffffff;
+    margin-right: 17px;
 }
 
 tbody {
@@ -83,6 +84,7 @@ tbody tr:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    
 }
 
 .checkbox {
@@ -105,4 +107,32 @@ tbody tr.selected {
     transform: scale(1.5);
     -webkit-transform: scale(1.5); 
     accent-color: #EB7051; 
+}
+
+table thead th,
+table tbody td {
+    width: calc(100%/var(--colNbr));
+}
+
+.table-container-production {
+    margin: 150px auto;
+    margin-bottom: 0px;
+    width: 1350px;
+    height: 650px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: var(--lightOrange) 3px 3px, var(--orangeRed) 6px 6px, var(--paleRed) 9px 9px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-container-production {
+    
+    border : none;
+    display: flex;
+    flex-direction: row;
+    margin : 10px auto auto 20px 
 }

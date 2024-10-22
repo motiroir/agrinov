@@ -50,6 +50,12 @@
                 </div>
             </fieldset>
             <fieldset>
+                <div class="companyName">
+                    @Html.LabelFor(model => model.Production.CompanyName, "Nom du Fournisseur", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Production.CompanyName)
+                    @Html.ValidationMessageFor(model => model.Production.CompanyName)
+                </div>
+
                 <div class="seasons">
                     @Html.LabelFor(model => model.Production.Seasons, new { @class = "control-label" })
                     @Html.DropDownListFor(model => model.Production.Seasons, new SelectList(Model.SeasonOptions, "Value", "Text",0), new { @class = "form-control" })

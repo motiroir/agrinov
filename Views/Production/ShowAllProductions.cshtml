@@ -1,5 +1,4 @@
-﻿@using AgriNov.Models.ProductionModel
-@using AgriNov.Models.SharedStatus
+﻿@using AgriNov.Models
 @using AgriNov.ViewModels
 
 @model List<AgriNov.ViewModels.ProductionViewModel>
@@ -10,13 +9,13 @@
 }
 
 @section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
     <link rel="stylesheet" href="~/CSS/tablestyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 
-<div class="table-container">
-
-    <table>
+<div class="table-container-production">
+    <table style="--colNbr: 10">
         <thead>
             <tr>
                 <th>Saison</th>
@@ -29,40 +28,37 @@
                 <th>Fréquence de Livraison</th>
                 <th>Etat Proposition</th>
                 <th>Validation</th>
-
             </tr>
         </thead>
         <tbody>
-            @foreach (AgriNov.ViewModels.ProductionViewModel production in Model)
+            @foreach (var production in Model)
             {
                 <tr>
-                    <td>@production.SeasonOptions</td>
-                    <td>@production.YearOptions</td>
-                    <td>@production.Production.Id</td>
-                    <td>@production.Production.ProductType</td>
-                    <td>@production.Production.Description</td>
-                    <td>@production.Production.VolumePerDelivery</td>
-                    <td>@production.Production.Price.ToString("F2")</td>
-                    <td>@production.Production.DeliveryFrequency</td>
-                                      
-                  @using (Html.BeginForm("UpdateProductionValidation", "Production", FormMethod.Post))
-                        {
-                    <td>
-                          @Html.DropDownListFor(
-                              model => production.Production.ValidationStatus,
-                              new SelectList(Model.ValidationStatusOptions, "Value", "Text"),
-                              new { @class = "form-control" }
-                          )
-                    </td>
-                    <td>
+                    <!-- Inclure un formulaire pour chaque ligne de production -->
+                    @using (Html.BeginForm("UpdateProduction", "Production", FormMethod.Post))
+                    {
+                        <!-- Champ caché pour passer l'ID de la production -->
+                        @Html.HiddenFor(model => production.Production.Id)
+
+                        <td>@production.SeasonOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Seasons).ToString())?.Text</td>
+                        <td>@production.YearOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Years).ToString())?.Text</td>
+                        <td>@production.Production.CompanyName</td>
+                        <td>@production.Production.ProductType.GetDisplayName()</td>
+                        <td>@production.Production.Description</td>
+                        <td>@production.Production.VolumePerDelivery</td>
+                        <td>@production.Production.Price.ToString("F2")</td>
+                        <td>@production.Production.DeliveryFrequency.GetDisplayName()</td>
+
+                        <td>
+                            @Html.DropDownListFor(m => production.ValidationStatus, production.ValidationStatusOptions, new { @class = "form-control", @selected = production.ValidationStatus})
+                        </td>
+                        <td class="btn-container-production">
+                            <input type="hidden" name="Id" value="@production.Production.Id" />
                             <button type="submit" class="orange-btn">Valider</button>
-                    </td>
-                  }
-                    
+                        </td>
+                    }
                 </tr>
             }
         </tbody>
     </table>
-
 </div>
-

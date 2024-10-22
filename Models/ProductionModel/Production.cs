@@ -9,6 +9,9 @@ namespace AgriNov.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage ="Le nom de Fournisseur est requis.")]
+        public string CompanyName { get; set; }
+
         [Required]
         [DisplayName("Quantité (au kg / Litre / Pièce)")]
         [Range(1, int.MaxValue, ErrorMessage = "Le volume doit être supérieur à 0.")]

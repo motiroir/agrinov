@@ -54,7 +54,7 @@ namespace AgriNov.Controllers
             viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
             viewModel.DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>();
             viewModel.ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>();
-
+           
 
             if (ModelState.IsValid)
             {
@@ -68,140 +68,90 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        
+
+        [HttpGet]
         public IActionResult UpdateProduction(int id)
         {
-            if (id > 0)
-            {
-                Production oldProduction = sP.GetProductionByID(id);
-
-                if (oldProduction != null)
-                {
-                    ProductionViewModel viewModel = new ProductionViewModel
-                    {
-                        Production = oldProduction,
-                        YearOptions = GetEnumSelectListString<Years>(),
-                        ProductOptions = GetEnumSelectListString<ProductType>(),
-                        SeasonOptions = GetEnumSelectListString<Seasons>(),
-                        DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>()
-                    };
-
-                    return View(viewModel);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            else
+            // Vérifier si l'ID est valide
+            if (id <= 0)
             {
                 return NotFound();
             }
 
+            // Récupérer la production existante par son ID
+            var oldProduction = sP.GetProductionByID(id);
+
+            // Vérifier si la production existe
+            if (oldProduction == null)
+            {
+                return NotFound();
+            }
+
+            // Créer le ViewModel avec les données de la production existante
+            var viewModel = new ProductionViewModel
+            {
+                Production = oldProduction,
+                YearOptions = GetEnumSelectListString<Years>(),
+                ProductOptions = GetEnumSelectListString<ProductType>(),
+                SeasonOptions = GetEnumSelectListString<Seasons>(),
+                DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
+                ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>()
+            };
+
+            // Retourner la vue avec le ViewModel
+            return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult UpdateProduction(int id, ProductionViewModel viewModel)
         {
-            viewModel.Production.Id = id;
-
-            viewModel.YearOptions = GetEnumSelectListString<Years>();
-            viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
-            viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
-            viewModel.DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>();
-
-            
-            if (ModelState.IsValid)
+            // Vérifier si le modèle et la production sont valides
+            if (viewModel == null || viewModel.Production == null)
             {
-                if (id > 0)
-                {
-                    using (ServiceProduction sP = new ServiceProduction())
-                    {
-                        viewModel.Production.DateLastModified = DateTime.Now;
-                        
-                        sP.UpdateProduction(viewModel.Production);
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                return View(viewModel);
+                return BadRequest("Données de production invalides.");
             }
 
-            return View(viewModel);
-        }
-
-        public IActionResult ShowAllProductions()
-        {
-            using (ServiceProduction sP = new ServiceProduction())
-            {
-                List<Production> productions = sP.GetProductions();
-                return View(productions);
-            }
-        }
-
-        public IActionResult UpdateProductionValidation(int id)
-        {
-            if (id > 0)
-            {
-                Production oldProduction = sP.GetProductionByID(id);
-
-                if (oldProduction != null)
-                {
-                    ProductionViewModel viewModel = new ProductionViewModel
-                    {
-                        Production = oldProduction,
-                        YearOptions = GetEnumSelectListInt<Years>(),
-                        ProductOptions = GetEnumSelectListString<ProductType>(),
-                        SeasonOptions = GetEnumSelectListString<Seasons>(),
-                        DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
-                        ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>()
-                    };
-
-                    return View(viewModel);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            else
+            // Vérifier si l'ID correspond bien à une production existante
+            var productionToUpdate = sP.GetProductionByID(id);
+            if (productionToUpdate == null)
             {
                 return NotFound();
             }
 
+            // Mettre à jour les champs de la production
+            productionToUpdate.ValidationStatus = viewModel.Production.ValidationStatus;
+            productionToUpdate.DateLastModified = DateTime.Now;
+
+            // Sauvegarder les modifications dans la base de données
+            sP.UpdateProduction(productionToUpdate);
+
+            return RedirectToAction("ShowAllProductions", "Production");
         }
 
-        [HttpPost]
-        public IActionResult UpdateProductionValidation(int id, ProductionViewModel viewModel)
+
+        public IActionResult ShowAllProductions()
         {
-            viewModel.Production.Id = id;
-
-            Production newProduction = viewModel.Production;
-
-            viewModel.YearOptions = GetEnumSelectListInt<Years>();
-            viewModel.ProductOptions = GetEnumSelectListString<ProductType>();
-            viewModel.SeasonOptions = GetEnumSelectListString<Seasons>();
-            viewModel.DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>();
-            viewModel.ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>();
-
-
-            if (ModelState.IsValid)
-            {
-                if (id > 0)
+                using (ServiceProduction sP = new ServiceProduction())
                 {
-                    using (ServiceProduction sP = new ServiceProduction())
+                    // Récupérer la liste des productions
+                    List<Production> productions = sP.GetProductions();
+
+                    // Convertir chaque Production en ProductionViewModel
+                    List<ProductionViewModel> viewModelList = productions.Select(p => new ProductionViewModel
                     {
-                        viewModel.Production.DateLastModified = DateTime.Now;
+                        Production = p,
+                        YearOptions = GetEnumSelectListString<Years>(),
+                        ProductOptions = GetEnumSelectListString<ProductType>(),
+                        SeasonOptions = GetEnumSelectListString<Seasons>(),
+                        DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
+                        ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>(),
+                        ValidationStatus = p.ValidationStatus
 
-                        sP.UpdateProduction(viewModel.Production);
+                    }).ToList();
 
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return View(viewModelList); // Passer la liste des ProductionViewModel à la vue
                 }
-                return View(viewModel);
-            }
-
-            return View(viewModel);
+            
         }
 
     }

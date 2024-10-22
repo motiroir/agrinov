@@ -26,6 +26,7 @@ namespace AgriNov.Models.ProductionModel
     {
         new Production
         {
+            CompanyName = "La ferme des blés",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 50,
             Price = 150,
@@ -36,6 +37,7 @@ namespace AgriNov.Models.ProductionModel
         },
         new Production
         {
+            CompanyName = "La ferme des blés",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 20,
             Price = 70,
@@ -45,7 +47,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2024, 11, 01)
         },
         new Production
-        {
+        {   CompanyName = "Fruits du Pays",
             ProductType = ProductType.FRUITS,
             VolumePerDelivery = 30,
             Price = 100,
@@ -55,7 +57,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2024, 11, 01)
         },
         new Production
-        {
+        {   CompanyName = "Les Récoltes de Claire",
             ProductType = ProductType.EGGS,
             VolumePerDelivery = 20,
             Price = 200,
@@ -65,7 +67,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2024, 11, 01)
         },
         new Production
-        {
+        {   CompanyName = "Les Récoltes de Claire",
             ProductType = ProductType.DAYRIS,
             VolumePerDelivery = 25,
             Price = 180,
@@ -75,7 +77,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2024, 11, 01)
         },
         new Production
-        {
+        {   CompanyName = "Le HellFish",
             ProductType = ProductType.FISH,
             VolumePerDelivery = 15,
             Price = 220,
@@ -85,7 +87,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2024, 11, 01)
         },
         new Production
-        {
+        {   CompanyName = "La ferme des blés",
             ProductType = ProductType.MEAT,
             VolumePerDelivery = 40,
             Price = 250,
@@ -96,7 +98,7 @@ namespace AgriNov.Models.ProductionModel
         },
 
         new Production
-        {
+        {   CompanyName = "Carottes Bio",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 60,
             Price = 160,
@@ -106,7 +108,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2025, 5, 01)
         },
         new Production
-        {
+        {   CompanyName = "Carottes Bio",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 40,
             Price = 100,
@@ -116,7 +118,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2025, 5, 01)
         },
         new Production
-        {
+        {   CompanyName = "Fruits du Pays",
             ProductType = ProductType.FRUITS,
             VolumePerDelivery = 40,
             Price = 120,
@@ -126,7 +128,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2025, 5, 01)
         },
         new Production
-        {
+        {   CompanyName = "Les Récoltes de Claire",
             ProductType = ProductType.EGGS,
             VolumePerDelivery = 30,
             Price = 200,
@@ -136,7 +138,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2025, 5, 01)
         },
         new Production
-        {
+        {   CompanyName = "Les Récoltes de Claire",
             ProductType = ProductType.DAYRIS,
             VolumePerDelivery = 35,
             Price = 180,
@@ -146,7 +148,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2025, 5, 01)
         },
         new Production
-        {
+        {   CompanyName = "Le HellFish",
             ProductType = ProductType.FISH,
             VolumePerDelivery = 25,
             Price = 220,
@@ -156,7 +158,7 @@ namespace AgriNov.Models.ProductionModel
             DateLimitForReview = new DateTime(2025, 5, 01)
         },
         new Production
-        {
+        {   CompanyName = "La ferme des blés",
             ProductType = ProductType.MEAT,
             VolumePerDelivery = 50,
             Price = 250,
