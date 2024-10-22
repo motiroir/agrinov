@@ -19,6 +19,8 @@ namespace AgriNov.Models
         public DbSet<MemberShipFee> MembershipFees { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<Order> Orders {get; set;}
+        public DbSet<OrderItem> OrderItems {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
