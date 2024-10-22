@@ -1,60 +1,188 @@
-﻿@model AgriNov.ViewModels.UserAccountInfoUpdate
-  
-
+﻿@using AgriNov.Models
+@model AgriNov.ViewModels.UserAccountInfoUpdate
 @{
     Layout = "_BaseLayout";
+
     ViewBag.Title = "Dashboard";
 }
 
 @section ExtraStyle {
-    <link rel="stylesheet" href="~/CSS/dashboard.css">
-    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .account-container {
+            max-width: 1455px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .account-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .profile-section {
+            display: flex;
+            gap: 20px;
+            flex-grow: 1;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            overflow: hidden;
+        }
+
+            .profile-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .info-label {
+            color: #666;
+            min-width: 100px;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+            .action-btn:hover {
+                background-color: #ff5252;
+            }
+
+        .management-section {
+            margin-top: 2px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .management-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 4px 4px 0 #ff6b6b;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #333;
+        }
+
+            .management-card:hover {
+                transform: translate(2px, 2px);
+                box-shadow: 2px 2px 0 #ff6b6b;
+            }
+    </style>
 }
 
-<div class="common-view">
+<div class="account-container">
+    <div class="account-card">
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="~/images/default-profile.png" alt="Profile" />
+            </div>
 
-<div class="profile-pic">
+            <div class="profile-info">
+                <div class="info-row">
+                    <span class="info-label">Nom :</span>
+                    <span class="info-value">@Model.ContactDetails.Name</span>
+                </div>
 
+                <span class="info-label">PhoneNumbe:</span>
+                <span class="info-value">@Model.ContactDetails.PhoneNumber</span>
+            </div>
 
+                <div class="info-row">
+                    <span class="info-label">Prénom :</span>
+                    <span class="info-value">@Model.ContactDetails.FirstName</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Adresse :</span>
+                    <span class="info-value">@Model.Address.Line1</span>
+                    @if (!string.IsNullOrEmpty(Model.Address.Line2))
 
+                    {
+                        <span class="info-value">@Model.Address.Line2</span>
+                    }
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Ville :</span>
+                    <span class="info-value">@Model.Address.City</span>
+                </div>
+            </div>
+        </div>
 
-
-</div>
-
-
-<div class="profile-infos">
-    <div>
-        <h4>Nom :</h4>
-         <h4>@Model.ContactDetails.Name</h4>
+        <div class="action-buttons">
+            @Html.ActionLink("modifier mes informations", "ChangeInfo", "Account", null, new { @class = "action-btn" })
+            @Html.ActionLink("modifier mon mot de passe", "ChangePassword", "Account", null, new { @class = "action-btn" })
+        </div>
     </div>
 
-    <div> 
-        <h4>Prenom :</h4>
-            <h4>@Model.ContactDetails.FirstName</h4>
+    
+    <div class="management-section">
+        @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
+        @Html.ActionLink("Gérer les utilisateurs", "GetUserAccountByIDEager", "Account", null, new { @class = "management-card" })
+
+
+
+        {
+            @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
+            @Html.ActionLink("Gérer les utilisateurs", "GetUserAccountByIDEager", "Account", null, new { @class = "management-card" })
+        }
+
+
+
+
+
+
+
+
+
+
         
-    </div>
-
-    <div>
-        <h4>Numero de telephone : </h4>
-            <h4>@Model.ContactDetails.PhoneNumber</h4>
 
     </div>
-
-    <div>
-        <h4>Adresse : </h4>
-            <h4>@Model.Address.Line2 ,</h4>
-            <h4>@Model.Address.Line1 ,</h4>
-    </div>
-
 </div>
-
-
-
-
-
-
-
-
-
-</div>
-
