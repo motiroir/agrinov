@@ -78,7 +78,7 @@ namespace AgriNov.Controllers
                                 }
                             }
                         }
-                        return RedirectToAction("Index","DashBorad"); 
+                        return RedirectToAction("Index","DashBoard"); 
                     }
                     else
                     {
