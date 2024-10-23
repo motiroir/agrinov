@@ -69,7 +69,8 @@
             
             @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER 
                 && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.CORPORATE
-                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER)
+                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER
+                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
             {
                 @Html.ActionLink("Faire une proposition de production", "CreateProduction", "Production", null, new { @class = "management-card" })
                 @Html.ActionLink("Gérer les productions", "SupShowAllProductions", "Production", null, new { @class = "management-card" })
