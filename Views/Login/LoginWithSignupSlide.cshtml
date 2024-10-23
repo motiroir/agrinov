@@ -7,7 +7,7 @@
         <title>S'identifier</title>
         <link rel="stylesheet" href="~/CSS/loginstyle.css">
     </head>
-    <body>
+    <body class="@(ViewData["FromAccountCreation"] != null && (bool)ViewData["FromAccountCreation"] ? "slide" : "")">
         <a href="@Url.Action("Index", "Home")" class="return-link">Retour à l'accueil</a>
         <div class="container">
             @if(!Model.UserAccountLogin.IsAuthenticated)
@@ -65,17 +65,17 @@
             }
         </div>
     <script>
-        let signinBtn = document.querySelector('.signinBtn');
-        let signupBtn = document.querySelector('.signupBtn');
-        let body = document.querySelector('body');
+            let signinBtn = document.querySelector('.signinBtn');
+            let signupBtn = document.querySelector('.signupBtn');
+            let body = document.querySelector('body');
 
-        signupBtn.onclick = function(){
-            body.classList.add('slide');
-        }
+            signupBtn.onclick = function(){
+                body.classList.add('slide');
+            }
 
-        signinBtn.onclick = function(){
-            body.classList.remove('slide');
-        }
+            signinBtn.onclick = function(){
+                body.classList.remove('slide');
+            }
     </script>
     </body>
 </html>

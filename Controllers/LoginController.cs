@@ -21,6 +21,7 @@ namespace AgriNov.Controllers
                     viewModel.UserAccountLogin.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
                 }
             }
+            ViewData["FromAccountCreation"] = false;
             return View(viewModel);
         }
 
@@ -50,6 +51,7 @@ namespace AgriNov.Controllers
             }
             bigViewModel.UserAccountLogin = new UserAccountLogin();
             bigViewModel.UserAccountLogin.IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+            ViewData["FromAccountCreation"] = true;
             return View("LoginWithSignUpSlide", bigViewModel);
         }
 
@@ -103,6 +105,7 @@ namespace AgriNov.Controllers
                     }
                 }
             }
+            ViewData["FromAccountCreation"] = false;
             return View("LoginWithSignUpSlide",bigViewModel);
         }
 
