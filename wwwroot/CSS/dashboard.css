@@ -5,12 +5,38 @@
     margin-bottom: 1%;
 }
 
+.page-header {
+    margin:auto;
+    margin-top: 200px;
+    width: 26.5%;
+}
+
+.underline {
+    display: flex;
+    justify-content: center;
+    height: 10px;
+    margin-top: 5px;
+}
+
+#underline-1 {
+    background-color: var(--lightOrange);
+}
+
+#underline-2 {
+    background-color: var(--orange);
+}
+
+#underline-3 {
+    background-color: var(--orangeRed);
+}
+
 .account-container {
     width: 95%;
     padding: 5%;
 }
 
 .account-card {
+    margin-bottom:100px;
     background: white;
     border: 1px solid var(--orange);
     border-radius: 8px;
@@ -24,6 +50,7 @@
 .profile-section {
     display: flex;
     gap: 80px;
+    padding: 20px 0;
     
 }
 
@@ -36,11 +63,11 @@
     
 }
 
-    .profile-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .profile-info {
     display: flex;
@@ -56,11 +83,10 @@
 
 
 .action-buttons {
-    padding-top: 50px;
     display: flex;
-    justify-content:center;
-    gap : 30px;
-    padding-right : 50px;
+    padding-top: 75px;
+    gap : 40px;
+    padding-right : 80px;
 }
 
 .action-btn {
@@ -76,16 +102,16 @@
     text-decoration: none;
 }
 
-    .action-btn:hover {
-        background-color: var(--lightOrange);
-    }
+.action-btn:hover {
+    background-color: var(--lightOrange);
+}
 
 .management-section {
     margin-top: 15px;
+    margin-right : 15px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap : 15px;
-    margin-right : 15px;
+    gap : 35px;
 }
 
 .management-card {
@@ -103,7 +129,7 @@
     color: black;
 }
 
-    .management-card:hover {
-        transform: translate(2px, 2px);
-        box-shadow: var(--lightOrange) 3px 3px, var(--orangeRed) 6px 6px, var(--paleRed) 9px 9px;
-    }
+.management-card:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--lightOrange) 3px 3px, var(--orangeRed) 6px 6px, var(--paleRed) 9px 9px;
+}
