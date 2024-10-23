@@ -62,7 +62,7 @@ namespace AgriNov.Models
                 //User u1
                 ContactDetails c1 = new ContactDetails() { Name = "Gaudel", FirstName = "Vincent", PhoneNumber = "0675453231" };
                 Address a1 = new Address() { Line1 = "Apt B2", Line2 = "3 route de Paris", City = "Clissons", PostCode = "44190" };
-                User u1 = new User() { UserAccount = serviceUserAccount.GetUserAccountByID(1), ContactDetails = c1, Address = a1 };
+                User u1 = new User() { UserAccount = serviceUserAccount.GetUserAccountByID(11), ContactDetails = c1, Address = a1 };
                 InsertUser(u1);
                 // User u2
                 ContactDetails c2 = new ContactDetails() { Name = "Durand", FirstName = "Julie", PhoneNumber = "0659871234"};
@@ -75,7 +75,7 @@ namespace AgriNov.Models
                 };
                 User u2 = new User()
                 {
-                    UserAccount = serviceUserAccount.GetUserAccountByID(2),
+                    UserAccount = serviceUserAccount.GetUserAccountByID(12),
                     ContactDetails = c2,
                     Address = a2
                 };
@@ -97,7 +97,7 @@ namespace AgriNov.Models
                 };
                 User u3 = new User()
                 {
-                    UserAccount = serviceUserAccount.GetUserAccountByID(3),
+                    UserAccount = serviceUserAccount.GetUserAccountByID(13),
                     ContactDetails = c3,
                     Address = a3
                 };
@@ -119,7 +119,7 @@ namespace AgriNov.Models
                 };
                 User u4 = new User()
                 {
-                    UserAccount = serviceUserAccount.GetUserAccountByID(4),
+                    UserAccount = serviceUserAccount.GetUserAccountByID(14),
                     ContactDetails = c4,
                     Address = a4
                 };

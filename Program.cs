@@ -1,7 +1,5 @@
 using AgriNov;
 using AgriNov.Models;
-using AgriNov.Models.ActivityModel;
-using AgriNov.Models.ProductionModel;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -24,14 +22,18 @@ var app = builder.Build();
 
 Env.Load();
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+}
 
 
-app.UseRouting();
 app.UseStaticFiles();
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -52,6 +54,14 @@ using(IServiceSupplier sP = new ServiceSupplier())
 using(IServiceCorporateUser sCU = new ServiceCorporateUser())
 {
     sCU.InitializeTable();
+}
+using(IServiceAdmin sA = new ServiceAdmin())
+{
+    sA.InitializeTable();
+}
+using(IServiceVolunteer sV = new ServiceVolunteer())
+{
+    sV.InitializeTable();
 }
 using (ServiceProduction sP = new ServiceProduction())
 {

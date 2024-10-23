@@ -1,9 +1,9 @@
 ﻿
-using AgriNov.Models.SharedStatus;
+using AgriNov.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace AgriNov.Models.ProductionModel
+namespace AgriNov.Models
 {
     public class ServiceProduction : IServiceProduction
     {

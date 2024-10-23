@@ -6,9 +6,9 @@ namespace AgriNov.Models
     {
         [Display(Name = "En cours d'inscription")]
         DEFAULT,
-        [Display(Name = "Adhérant")]
+        [Display(Name = "Fournisseur")]
         SUPPLIER,
-        [Display(Name = "Utilisateur")]
+        [Display(Name = "Adhérant")]
         USER,
         [Display(Name = "Entreprise")]
         CORPORATE,

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AgriNov.Models.ProductionModel
+namespace AgriNov.Models
 
 {
     public enum DeliveryFrequency

@@ -1,6 +1,5 @@
-using AgriNov.Models.ProductionModel;
+using AgriNov.Models;
 using Microsoft.EntityFrameworkCore;
-using AgriNov.Models.ActivityModel;
 
 
 namespace AgriNov.Models
@@ -11,6 +10,8 @@ namespace AgriNov.Models
         public DbSet<User> Users { get; set;}
         public DbSet<CorporateUser> CorporateUsers {get; set;}
         public DbSet<Supplier> Suppliers { get; set;}
+        public DbSet<Admin> Admins { get; set;}
+        public DbSet<Volunteer> Volunteers { get; set;}
         public DbSet<Production> Productions { get; set;}
         public DbSet<Activity>Activities { get; set; }
         public DbSet<Product> Products { get; set; }

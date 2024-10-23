@@ -1,6 +1,6 @@
 ﻿using AgriNov.Models;
-using AgriNov.Models.ProductionModel;
 using AgriNov.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgriNov.Controllers
@@ -71,6 +71,7 @@ namespace AgriNov.Controllers
             return View(pVM);
         }
 
+        [Authorize]
         public IActionResult ProductDashboard(string activeTab = "ShowAllProducts")
         {
             ProductViewModel pVM = new ProductViewModel();

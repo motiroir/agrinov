@@ -1,5 +1,4 @@
 ﻿using AgriNov.Models;
-using AgriNov.Models.ProductionModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;

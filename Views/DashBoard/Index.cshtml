@@ -3,7 +3,7 @@
 @{
     Layout = "_BaseLayout";
 
-    ViewBag.Title = "Dashboard";
+    ViewBag.Title = "Mon compte";
 }
 
 @section ExtraStyle {
@@ -57,10 +57,11 @@
     <div class="management-section">
         
 
-            @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN)
+            @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN
+                || @Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.VOLUNTEER)
             {
                 @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
-                @Html.ActionLink("Gérer les utilisateurs", "GetUserAccountByIDEager", "Account", null, new { @class = "management-card" })
+            @Html.ActionLink("Gérer les utilisateurs", "ShowAllUserAccounts", "Account", null, new { @class = "management-card" })
                 
             }
             

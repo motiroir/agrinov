@@ -7,7 +7,7 @@ namespace AgriNov.Models
 {
     public class Volunteer : User
     {
-        public string Availabilites {get; set;}
+        public string Availabilities { get; set;}
         public double HoursWorkDone { get; set;}
     }
 }

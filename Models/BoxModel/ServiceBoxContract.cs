@@ -1,7 +1,4 @@
-﻿using AgriNov.Models;
-using AgriNov.Models.ProductionModel;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
+﻿
 
 namespace AgriNov.Models
 {
