@@ -1,4 +1,4 @@
-﻿namespace AgriNov.Models.ActivityModel
+﻿namespace AgriNov.Models
 {
     public interface IServiceBooking : IDisposable
     {

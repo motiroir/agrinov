@@ -9,6 +9,7 @@ namespace AgriNov.Models
     {
         void InitializeTable();
         void InsertMembershipFee(MemberShipFee memberShipFee);
+        void UpdateMemberShipFee(MemberShipFee memberShipFee);
         void Save();
     }
 }

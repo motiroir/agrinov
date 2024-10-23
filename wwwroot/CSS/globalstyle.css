@@ -304,6 +304,11 @@ footer {
     opacity: 1;
 }
 
+.nav-svg svg {
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
+}
+
 .nav-svg:hover svg {
     transform: scale(1.2);
     transition: transform 0.3s ease-in-out; 
@@ -936,7 +941,7 @@ input[type="radio"] {
 }
 
 .return-link {
-    position:fixed;
+    position:relative;
     font-family: 'Comfortaa';
     font-style: normal;
     font-weight: 700;
@@ -947,7 +952,7 @@ input[type="radio"] {
     text-decoration: none;
     color: var(--orangeRed);
     margin-left: 100px;
-    top:100px;
+    top:150px;
 }
 
 .return-link:hover {

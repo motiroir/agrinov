@@ -9,6 +9,8 @@ namespace AgriNov.ViewModels
     public class UserAccountInfoUpdate
     {
         public int UserAccountId {get; set;}
+        public string Mail { get; set; }
+        public string ProfilePic { get; set; }
         public UserAccountLevel UserAccountLevel {get; set;}
         public Address Address {get; set;}
         public ContactDetails ContactDetails {get; set;}

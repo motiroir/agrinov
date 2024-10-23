@@ -50,8 +50,28 @@ namespace AgriNov.Models
                 {
                     return;
                 }
+                // If product decrease stock, if membership mark as ok
+                foreach (ShoppingCartItem item in shoppingCart.ShoppingCartItems)
+                {
+                    if (item.Product != null)
+                    {
+                        using (IProductService sP = new ProductService())
+                        {
+                            item.Product.Stock -= item.Quantity;
+                            sP.UpdateProduct(item.Product);
+                        }
+                    }
+                    if (item.MemberShipFee != null)
+                    {
+                        using (IServiceMemberShipFee sMF = new ServiceMemberShipFee())
+                        {
+                            item.MemberShipFee.WasPaid = true;
+                            sMF.UpdateMemberShipFee(item.MemberShipFee);
+                        }
+                    }
+                }
                 // Copy it to order and order item
-                Order order = new Order() { UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total , Payment = payment};
+                Order order = new Order() { UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total, Payment = payment };
                 foreach (ShoppingCartItem item in shoppingCart.ShoppingCartItems)
                 {
                     OrderItem oItem = new OrderItem()

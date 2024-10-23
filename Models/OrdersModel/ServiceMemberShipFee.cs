@@ -8,7 +8,7 @@ namespace AgriNov.Models
 {
     public class ServiceMemberShipFee : IServiceMemberShipFee
     {
-         private BDDContext _DBContext;
+        private BDDContext _DBContext;
 
         public ServiceMemberShipFee()
         {
@@ -21,9 +21,9 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            MemberShipFee m1 = new MemberShipFee() {UserAccountId = 1, Temp = true};
+            MemberShipFee m1 = new MemberShipFee() { UserAccountId = 1, WasPaid = true };
             InsertMembershipFee(m1);
-            MemberShipFee m2 = new MemberShipFee() {UserAccountId = 2, Temp = true};
+            MemberShipFee m2 = new MemberShipFee() { UserAccountId = 2, WasPaid = true };
             InsertMembershipFee(m2);
 
         }
@@ -33,6 +33,18 @@ namespace AgriNov.Models
             _DBContext.MembershipFees.Add(memberShipFee);
             Save();
         }
+
+        public void UpdateMemberShipFee(MemberShipFee memberShipFee)
+        {
+            MemberShipFee oldMemberShipFee = _DBContext.MembershipFees.FirstOrDefault(m => m.Id == memberShipFee.Id);
+            if (oldMemberShipFee != null)
+            {
+                _DBContext.Entry(oldMemberShipFee).CurrentValues.SetValues(memberShipFee);
+                Save();
+            }
+            return;
+        }
+
 
         public void Save()
         {

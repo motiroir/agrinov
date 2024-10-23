@@ -1,6 +1,5 @@
-using AgriNov.Models.ProductionModel;
+using AgriNov.Models;
 using Microsoft.EntityFrameworkCore;
-using AgriNov.Models.ActivityModel;
 
 
 namespace AgriNov.Models

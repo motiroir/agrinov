@@ -1,5 +1,4 @@
-﻿
-using AgriNov.Models.ActivityModel;
+﻿using AgriNov.Models;
 
 namespace AgriNov.Models
 {
@@ -101,7 +100,7 @@ namespace AgriNov.Models
 
         public void InsertActivity(Activity activity)
         {
-            activity.ValidationStatus = SharedStatus.ValidationStatus.WAITING;
+            activity.ValidationStatus = ValidationStatus.WAITING;
             activity.DateCreated = DateTime.Now;
             activity.DateLastModified = DateTime.Now;
             _DBContext.Activities.Add(activity);

@@ -1,5 +1,4 @@
 ﻿using AgriNov.Models;
-using AgriNov.Models.ActivityModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
