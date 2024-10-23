@@ -24,11 +24,11 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-		[HttpGet]
-        public IActionResult CreateAccount()
-        {
-            return View();
-        }
+		// [HttpGet]
+        // public IActionResult CreateAccount()
+        // {
+        //     return View();
+        // }
 
         [HttpPost]
         public IActionResult CreateAccount(LoginWithSignup bigViewModel)
@@ -48,22 +48,24 @@ namespace AgriNov.Controllers
             {
                 ModelState.AddModelError("UserAccountCreation.ConfirmPassword", "Les mots de passe ne correspondent pas.");
             }
-            return View(bigViewModel);
+            bigViewModel.UserAccountLogin = new UserAccountLogin();
+            bigViewModel.UserAccountLogin.IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+            return View("LoginWithSignUpSlide", bigViewModel);
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            UserAccountLogin viewModel = new UserAccountLogin() { IsAuthenticated = HttpContext.User.Identity.IsAuthenticated };
-            if (viewModel.IsAuthenticated)
-            {
-                using (ServiceUserAccount sUA = new ServiceUserAccount())
-                {
-                    viewModel.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
-                }
-            }
-            return View(viewModel);
-        }
+        // [HttpGet]
+        // public IActionResult Login()
+        // {
+        //     UserAccountLogin viewModel = new UserAccountLogin() { IsAuthenticated = HttpContext.User.Identity.IsAuthenticated };
+        //     if (viewModel.IsAuthenticated)
+        //     {
+        //         using (ServiceUserAccount sUA = new ServiceUserAccount())
+        //         {
+        //             viewModel.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
+        //         }
+        //     }
+        //     return View(viewModel);
+        // }
 
         [HttpPost]
         public IActionResult Login(LoginWithSignup bigViewModel)
@@ -97,11 +99,11 @@ namespace AgriNov.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("UserAccount.Mail", "Identifiant et/ou mot de passe incorrect(s)");
+                        ModelState.AddModelError("UserAccountLogin.UserAccount.Mail", "Identifiant et/ou mot de passe incorrect(s)");
                     }
                 }
             }
-            return View(bigViewModel);
+            return View("LoginWithSignUpSlide",bigViewModel);
         }
 
         [HttpGet]

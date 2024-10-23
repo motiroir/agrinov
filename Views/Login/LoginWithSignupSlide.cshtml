@@ -1,122 +1,81 @@
 @model AgriNov.ViewModels.LoginWithSignup
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S'identifier</title>
-    @* <link rel="stylesheet" href="~/CSS/globalstyle.css"> *@
-    <link rel="stylesheet" href="~/CSS/formstyle.css">
-    <link rel="stylesheet" href="~/CSS/loginstyle.css">
-</head>
-<html>
-
-<body>
-    <a href="@Url.Action("Index", "Home")" class="return-link">Retour à l'accueil</a>
-    @if (!Model.UserAccountLogin.IsAuthenticated)
-    {
-        <div class="panel">
-            <div id="left-form" class="active-form">
-                <div id="form-fields">
-                    <h2>se connecter</h2>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>S'identifier</title>
+        <link rel="stylesheet" href="~/CSS/loginstyle.css">
+    </head>
+    <body>
+        <a href="@Url.Action("Index", "Home")" class="return-link">Retour à l'accueil</a>
+        <div class="container">
+            @if(!Model.UserAccountLogin.IsAuthenticated)
+            {
+            <div class="box signin">
+                <h2>bon retour !</h2>
+                <p>Pour rester connecté avec nous, veuillez vous connecter avec vos identifiants.</p>
+                <button class="signinBtn">Connexion</button>
+            </div>
+            <div class="box signup">
+                <h2>bienvenue !</h2>
+                <p>Entrez vos informations personnnelles et prenez part à l'expérience.</p>
+                <button class="signupBtn">Inscription</button>
+            </div>
+            <div class="formBx">
+                <div class="form signinform">
                     @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                     {
-                        <div>
+                        <h3>se connecter</h3>
                             @* @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Mail) *@
                             @Html.TextBoxFor(model => model.UserAccountLogin.UserAccount.Mail, new { placeholder = "Email"})
                             @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Mail)
-                        </div>
-                        <div>
+
                             @* @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Password) *@
                             @Html.PasswordFor(model => model.UserAccountLogin.UserAccount.Password, new { placeholder = "Mot de Passe"})
                             @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Password)
-                        </div>
-                        <button type="submit" class="form-button">Connexion</button>
 
+                        <input type="submit" value="Connexion">
                     }
                 </div>
-                <div id="form-text">
-                    <h2>bon retour!</h2>
-                    <p>Pour rester connecté avec nous veuillez vous connecter avec vos identifiants</p>
-                    <button class="switch-button" onclick="changeForm('right-form')">Connexion</button>
-                </div>
-            </div>
-
-            <div id="right-form" class="inactive-form">
-                <div id="form-fields">
-                    <h2>s'inscrire</h2>
+                <div class="form signupform">
                     @using (Html.BeginForm("CreateAccount", "Login", FormMethod.Post))
                     {
-                        <div>
+                        <h3>s'inscrire</h3>
                             @* @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Mail) *@
                             @Html.TextBoxFor(model => model.UserAccountCreation.UserAccount.Mail, new { placeholder = "Email"})
                             @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Mail)
-                        </div>
-                        <div>
+
                             @* @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Password) *@
                             @Html.PasswordFor(model => model.UserAccountCreation.UserAccount.Password, new { placeholder = "Mot de passe"})
                             @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Password)
-                        </div>
-                        <div>
+
                             @* @Html.LabelFor(model => model.UserAccountCreation.ConfirmPassword) *@
                             @Html.PasswordFor(model => model.UserAccountCreation.ConfirmPassword, new { placeholder = "Confirmer mot de passe"})
                             @Html.ValidationMessageFor(model => model.UserAccountCreation.ConfirmPassword)
-                        </div>
-                        <button type="submit" class="form-button">Inscription</button>
+                        
+                        <input type="submit" value="Inscription">
                     }
                 </div>
-                <div id="form-text">
-                    <h2>bienvenue!</h2>
-                    <p>Entrez vos informations personnnelles et commencez votre voyage avec nous</p>
-                    <button class="switch-button" onclick="changeForm('left-form')">Inscription</button>
-                </div>
-            </div>
+            </div> 
+            }
+            else
+            {
+                <h3>Vous êtes connecté en tant que @Model.UserAccountLogin.UserAccount.Mail</h3>
+            }
         </div>
-    }
-    else 
-    {
-        <h2>Vous êtes connecté en tant que @Model.UserAccountLogin.UserAccount.Mail</h2>
-    }
     <script>
-        function changeForm() {
-            // Get the two form elements
-            var leftForm = document.getElementById("left-form");
-            var rightForm = document.getElementById("right-form");
+        let signinBtn = document.querySelector('.signinBtn');
+        let signupBtn = document.querySelector('.signupBtn');
+        let body = document.querySelector('body');
 
-            // Toggle classes between active and inactive
-            // Le right-form devient actif
-            if (leftForm.classList.contains("active-form")) {
-                leftForm.classList.remove("active-form");
-                leftForm.classList.add("inactive-form");
+        signupBtn.onclick = function(){
+            body.classList.add('slide');
+        }
 
-                rightForm.classList.remove("inactive-form");
-                rightForm.classList.add("active-form");
-
-                leftForm.getElementByID("form-fields").style.display = "none";
-                leftForm.getElementByID("form-text").style.display = "block";
-
-                rightForm.getElementByID("form-fields").style.display = "block";
-                rightForm.getElementByID("form-text").style.display = "none";
-
-            }
-            // Le left-form devient actif
-            else {
-                leftForm.classList.remove("inactive-form");
-                leftForm.classList.add("active-form");
-
-                rightForm.classList.remove("active-form");
-                rightForm.classList.add("inactive-form");
-
-                leftForm.getElementByID("form-fields").style.display = "block";
-                leftForm.getElementByID("form-text").style.display = "none";
-
-                rightForm.getElementByID("form-fields").style.display = "none";
-                rightForm.getElementByID("form-text").style.display = "block";
-            }
+        signinBtn.onclick = function(){
+            body.classList.remove('slide');
         }
     </script>
-</body>
-
+    </body>
 </html>
