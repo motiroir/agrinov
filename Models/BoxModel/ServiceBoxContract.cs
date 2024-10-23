@@ -29,17 +29,17 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            BoxContract bc1 = new BoxContract() { ProductType = ProductType.VEGETABLES,Seasons = Seasons.SPRING, Years=Years._2024, Price= 8M, MaxSubscriptions= 20 };
-            BoxContract bc2 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 5M, MaxSubscriptions = 20 };
-            BoxContract bc3 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.SPRING, Years = Years._2024, Price = 16M, MaxSubscriptions = 20 };
-            BoxContract bc4 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.SPRING, Years = Years._2024, Price = 12M, MaxSubscriptions = 20 };
-            BoxContract bc5 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 2M, MaxSubscriptions = 20 };
+            BoxContract bc1 = new BoxContract() { ProductType = ProductType.VEGETABLES,Seasons = Seasons.SPRING, Years=Years._2024, Price= 8M, MaxSubscriptions= 20, ForSale=false };
+            BoxContract bc2 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 5M, MaxSubscriptions = 20, ForSale = false };
+            BoxContract bc3 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.SPRING, Years = Years._2024, Price = 16M, MaxSubscriptions = 20, ForSale = false };
+            BoxContract bc4 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.SPRING, Years = Years._2024, Price = 12M, MaxSubscriptions = 20, ForSale = false };
+            BoxContract bc5 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 2M, MaxSubscriptions = 20, ForSale = false };
             
-            BoxContract bc6 = new BoxContract() { ProductType = ProductType.VEGETABLES,Seasons = Seasons.AUTUMN, Years=Years._2024, Price= 8M, MaxSubscriptions= 20 };
-            BoxContract bc7 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 20 };
-            BoxContract bc8 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 20 };
-            BoxContract bc9 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 20 };
-            BoxContract bc10 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 20 };
+            BoxContract bc6 = new BoxContract() { ProductType = ProductType.VEGETABLES,Seasons = Seasons.AUTUMN, Years=Years._2024, Price= 8M, MaxSubscriptions= 20, ForSale = true };
+            BoxContract bc7 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 20, ForSale = true };
+            BoxContract bc8 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 20 , ForSale = true };
+            BoxContract bc9 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 20 , ForSale = true };
+            BoxContract bc10 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 20 , ForSale = true };
 
             InsertBoxContract(bc1);
             InsertBoxContract(bc2);
@@ -57,6 +57,10 @@ namespace AgriNov.Models
         {
             return _DBContext.BoxContracts.ToList();
         }
+        public List<BoxContract> GetAllBoxContractsToSale()
+        {
+            return _DBContext.BoxContracts.Where(bc => bc.ForSale == true).ToList();
+        }
 
         public BoxContract GetBoxContractById(int id)
         {
@@ -67,7 +71,6 @@ namespace AgriNov.Models
         {
             boxContract.DateCreated = DateTime.Now;
             boxContract.DateLastModified = DateTime.Now;
-            boxContract.ForSale = false;
             _DBContext.BoxContracts.Add(boxContract);
             Save();
         }

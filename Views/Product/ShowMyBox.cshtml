@@ -14,11 +14,10 @@
     <h3 class="status-title">les paniers disponibles à l'abonnement</h3>
     <div class="all-tiles-box">
         <div class="columns-box">
-            @foreach (AgriNov.Models.BoxContract boxContract in Model.AllBoxContracts)
+            @foreach (AgriNov.Models.BoxContract boxContract in Model.AllBoxContractsToSale)
             {
                 @using (Html.BeginForm("AddToCart", "Product", FormMethod.Post))
                 {
-
                     <div class="box-to-sell-div">
                         <div class="full-img"></div>
                         <div class="activity-content">
@@ -37,7 +36,7 @@
             }
         </div>
         <div class="columns-box">
-            @foreach (AgriNov.Models.BoxContract boxContract in Model.AllBoxContracts)
+            @foreach (AgriNov.Models.BoxContract boxContract in Model.AllBoxContractsToSale)
             {
                 <div class="box-to-sell-div">
                     <div class="full-img"></div>

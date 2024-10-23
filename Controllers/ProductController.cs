@@ -22,7 +22,7 @@ namespace AgriNov.Controllers
                 using (ProductService sP = new ProductService())
                 {
                     sP.InsertProduct(product);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
             return View(product);
@@ -54,7 +54,7 @@ namespace AgriNov.Controllers
                     using (ProductService sP = new ProductService())
                     {
                         sP.UpdateProduct(product);
-                        return RedirectToAction("ProductDashboard", "Product");
+                        return RedirectToAction("Index", "Dashboard");
                     }
                 }
             }
@@ -82,10 +82,10 @@ namespace AgriNov.Controllers
             {
                 pVM.AllProducts = sP.GetProducts();
             }
-            // getting all box contracts in viewmodel
+            // getting all box contracts to sale in viewmodel
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
-                pVM.AllBoxContracts = sBC.GetAllBoxContracts();
+                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
             }
 
             ViewData["ActiveTab"] = activeTab;
@@ -99,6 +99,7 @@ namespace AgriNov.Controllers
             using (ProductService sP= new ProductService())
             {
                 pVM.Product = sP.GetProductByID(id);
+                pVM.SupplierName = sP.GetSupplierName(pVM.Product.SupplierId);
             }
             using(ServiceShoppingCart sSC = new ServiceShoppingCart())
             {
@@ -112,7 +113,7 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToCart(Product product, int quantity)
+        public IActionResult AddProductToCart(Product product, int quantity)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
             if (quantity <= 0 || quantity > product.Stock)
@@ -125,12 +126,27 @@ namespace AgriNov.Controllers
             }
             return RedirectToAction("ProductDashboard", "Product");
         }
+        
+        [HttpPost]
+        public IActionResult AddBoxContractToCart(BoxContract boxContract, int quantity)
+        {
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+            /*if (quantity <= 0 || quantity > product.Stock)
+            {
+                return RedirectToAction("ShowProductDetails", "Product", new { id = product.Id });
+            }*/
+            using (ServiceShoppingCart sSC = new ServiceShoppingCart())
+            {
+                sSC.AddProductToShoppingCart(boxContract.Id, 1, userId);
+            }
+            return RedirectToAction("ProductDashboard", "Product", new {activeTab="ShowMyBox"});
+        }
 
         public IActionResult ShowMyBox(ProductViewModel pVM)
         {
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
-                pVM.AllBoxContracts = sBC.GetAllBoxContracts();
+                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
                 return View(pVM);
             }
         }
