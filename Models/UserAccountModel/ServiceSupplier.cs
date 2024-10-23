@@ -235,6 +235,7 @@ namespace AgriNov.Models
         {
             supplier.UserAccount.DateLastModified = DateTime.Now;
             supplier.UserAccount.UserAccountLevel = UserAccountLevel.SUPPLIER;
+            supplier.ContactDetails.Name = supplier.ContactDetails.Name.ToUpper();
             //_Update and track the user account that is part of user
             _DBContext.UserAccounts.Update(supplier.UserAccount);
             _DBContext.Suppliers.Add(supplier);

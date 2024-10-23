@@ -94,6 +94,7 @@ namespace AgriNov.Models
         {
             corporateUser.UserAccount.DateLastModified = DateTime.Now;
             corporateUser.UserAccount.UserAccountLevel = UserAccountLevel.CORPORATE;
+            corporateUser.ContactDetails.Name = corporateUser.ContactDetails.Name.ToUpper();
             //_Update and track the user account that is part of user
             _DBContext.UserAccounts.Update(corporateUser.UserAccount);
             _DBContext.CorporateUsers.Add(corporateUser);

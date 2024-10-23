@@ -311,6 +311,7 @@ namespace AgriNov.Models
         public void InsertUser(User user)
         {
             user.UserAccount.DateLastModified = DateTime.Now;
+            user.ContactDetails.Name = user.ContactDetails.Name.ToUpper();
             //_Update and track the user account that is part of user
             _DBContext.UserAccounts.Update(user.UserAccount);
             _DBContext.Users.Add(user);
