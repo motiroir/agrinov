@@ -39,5 +39,6 @@ namespace AgriNov.Models
         //One-To-Many Relationship
         public ICollection<Order> Orders {get; set;} = new List<Order>();
 
+        public string ProfilePic { get; set; }
     }
 }

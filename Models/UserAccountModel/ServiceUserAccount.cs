@@ -151,10 +151,16 @@ namespace AgriNov
 
         public void InsertUserAccount(UserAccount userAccount)
         {
+            // random picture
+            Random random = new Random();
+            int randomNumber = random.Next(1, 19);
+            userAccount.ProfilePic = "pic" + randomNumber + ".PNG";
+
             userAccount.Password = EncodeMD5(userAccount.Password);
             userAccount.UserAccountLevel = UserAccountLevel.DEFAULT;
             userAccount.DateCreated = DateTime.Now;
             userAccount.DateLastModified = DateTime.Now;
+
             _DBContext.UserAccounts.Add(userAccount);
             Save();
             //Each UserAccount need one ShoppingCart, but the UserAccountId needs to be generated first

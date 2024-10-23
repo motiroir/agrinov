@@ -6,8 +6,5 @@ namespace AgriNov.ViewModels
     {
         public UserAccount UserAccount { get; set; }
         public string ContactName { get; set; }
-
     }
-
-
 }

@@ -356,15 +356,82 @@ namespace AgriNov.Controllers
         {
             using (ServiceUserAccount sUA = new ServiceUserAccount())
             {
-                List<UserAccount> userAccounts = sUA.GetUserAccounts();
-                List<UserAccountViewModel> viewModel = userAccounts.Select(userAccount => new UserAccountViewModel
-                {
-                        UserAccount = userAccount,
-                  
-                }).ToList();
+                List<UserAccount> userAccounts = sUA.GetUserAccountsFull();
 
-                return View(viewModel);
+                List<UserAccountViewModel> viewModels = userAccounts.Select(userAccount => {
+                    var viewModel = new UserAccountViewModel
+                    {
+                        UserAccount = userAccount
+                    };
+
+                    // Vérification pour les utilisateurs, volontaires et admins
+                    if (userAccount.UserAccountLevel == UserAccountLevel.USER ||
+                        userAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER ||
+                        userAccount.UserAccountLevel == UserAccountLevel.ADMIN)
+                    {
+                        if (userAccount.User != null && userAccount.User.ContactDetails != null)
+                        {
+                            string contactName = userAccount.User.ContactDetails.Name ?? "";
+                            string contactFirstName = userAccount.User.ContactDetails.FirstName ?? "";
+                            viewModel.ContactName = $"{contactName} {contactFirstName}".Trim();
+                        }
+                    }
+                    // Vérification pour les utilisateurs "corporate"
+                    else if (userAccount.UserAccountLevel == UserAccountLevel.CORPORATE)
+                    {
+                        if (userAccount.CorporateUser != null && userAccount.CorporateUser.CompanyDetails != null)
+                        {
+                            viewModel.ContactName = userAccount.CorporateUser.CompanyDetails.CompanyName;
+                        }
+                    }
+                    // Vérification pour les fournisseurs
+                    else if (userAccount.UserAccountLevel == UserAccountLevel.SUPPLIER)
+                    {
+                        if (userAccount.Supplier != null && userAccount.Supplier.CompanyDetails != null)
+                        {
+                            viewModel.ContactName = userAccount.Supplier.CompanyDetails.CompanyName;
+                        }
+                    }
+
+                    return viewModel;
+                }).ToList();
+                return View(viewModels);
             }
+        }
+
+        public IActionResult UserDetails(int id)
+        {
+            UserAccountInfoUpdate viewModel = new UserAccountInfoUpdate();
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                viewModel.UserAccountId = id;
+                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDEager(id);
+                viewModel.Mail = currentAccount.Mail;
+                viewModel.ProfilePic = currentAccount.ProfilePic;
+                viewModel.UserAccountLevel = currentAccount.UserAccountLevel;
+                // Assign data to viewModel depending on the type of account
+                if (currentAccount.UserAccountLevel == UserAccountLevel.USER || currentAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER || currentAccount.UserAccountLevel == UserAccountLevel.ADMIN)
+                {
+                    viewModel.User = currentAccount.User;
+                    viewModel.Address = currentAccount.User.Address;
+                    viewModel.ContactDetails = currentAccount.User.ContactDetails;
+                }
+                if (currentAccount.UserAccountLevel == UserAccountLevel.CORPORATE)
+                {
+                    viewModel.CorporateUser = currentAccount.CorporateUser;
+                    viewModel.Address = currentAccount.CorporateUser.Address;
+                    viewModel.ContactDetails = currentAccount.CorporateUser.ContactDetails;
+                    viewModel.CompanyDetails = currentAccount.CorporateUser.CompanyDetails;
+                }
+                if (currentAccount.UserAccountLevel == UserAccountLevel.SUPPLIER)
+                {
+                    viewModel.Supplier = currentAccount.Supplier;
+                    viewModel.Address = currentAccount.Supplier.Address;
+                    viewModel.ContactDetails = currentAccount.Supplier.ContactDetails;
+                    viewModel.CompanyDetails = currentAccount.Supplier.CompanyDetails;
+                }
+            }
+            return View(viewModel);
         }
 
     }
