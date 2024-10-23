@@ -31,15 +31,15 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAccount(UserAccountCreation viewModel)
+        public IActionResult CreateAccount(LoginWithSignup bigViewModel)
         {
-            if (viewModel.UserAccount.Password.Equals(viewModel.ConfirmPassword))
+            if (bigViewModel.UserAccountCreation.UserAccount.Password.Equals(bigViewModel.UserAccountCreation.ConfirmPassword))
             {
                 if (ModelState.IsValid)
                 {
                     using (ServiceUserAccount sUA = new ServiceUserAccount())
                     {
-                        sUA.InsertUserAccount(viewModel.UserAccount);
+                        sUA.InsertUserAccount(bigViewModel.UserAccountCreation.UserAccount);
                         return RedirectToAction("Index", "MyAccount");
                     }
                 }
@@ -48,7 +48,7 @@ namespace AgriNov.Controllers
             {
                 ModelState.AddModelError("UserAccountCreation.ConfirmPassword", "Les mots de passe ne correspondent pas.");
             }
-            return View(viewModel);
+            return View(bigViewModel);
         }
 
         [HttpGet]
@@ -66,13 +66,13 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserAccountLogin viewModel)
+        public IActionResult Login(LoginWithSignup bigViewModel)
         {
             if (ModelState.IsValid)
             {
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    UserAccount userAccount = sUA.Authenticate(viewModel.UserAccount.Mail, viewModel.UserAccount.Password);
+                    UserAccount userAccount = sUA.Authenticate(bigViewModel.UserAccountLogin.UserAccount.Mail, bigViewModel.UserAccountLogin.UserAccount.Password);
                     if (userAccount != null)
                     {
                         List<Claim> userClaims = new List<Claim>() {
@@ -101,7 +101,7 @@ namespace AgriNov.Controllers
                     }
                 }
             }
-            return View(viewModel);
+            return View(bigViewModel);
         }
 
         [HttpGet]

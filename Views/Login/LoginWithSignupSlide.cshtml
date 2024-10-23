@@ -20,23 +20,25 @@
         <div class="panel">
             <div id="left-form" class="active-form">
                 <div id="form-fields">
-                    <h2>Se connecter</h2>
+                    <h2>se connecter</h2>
                     @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                     {
-                        @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Mail)
-                        @Html.TextBoxFor(model => model.UserAccountLogin.UserAccount.Mail)
-                        @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Mail)
-
-                        @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Password)
-                        @Html.PasswordFor(model => model.UserAccountLogin.UserAccount.Password)
-                        @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Password)
-
+                        <div>
+                            @* @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Mail) *@
+                            @Html.TextBoxFor(model => model.UserAccountLogin.UserAccount.Mail, new { placeholder = "Email"})
+                            @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Mail)
+                        </div>
+                        <div>
+                            @* @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Password) *@
+                            @Html.PasswordFor(model => model.UserAccountLogin.UserAccount.Password, new { placeholder = "Mot de Passe"})
+                            @Html.ValidationMessageFor(model => model.UserAccountLogin.UserAccount.Password)
+                        </div>
                         <button type="submit" class="form-button">Connexion</button>
 
                     }
                 </div>
                 <div id="form-text">
-                    <h2>Bon retour!</h2>
+                    <h2>bon retour!</h2>
                     <p>Pour rester connecté avec nous veuillez vous connecter avec vos identifiants</p>
                     <button class="switch-button" onclick="changeForm('right-form')">Connexion</button>
                 </div>
@@ -44,29 +46,38 @@
 
             <div id="right-form" class="inactive-form">
                 <div id="form-fields">
+                    <h2>s'inscrire</h2>
                     @using (Html.BeginForm("CreateAccount", "Login", FormMethod.Post))
                     {
-                        @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Mail)
-                        @Html.TextBoxFor(model => model.UserAccountCreation.UserAccount.Mail)
-                        @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Mail)
-
-                        @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Password)
-                        @Html.PasswordFor(model => model.UserAccountCreation.UserAccount.Password)
-                        @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Password)
-
-                        @Html.LabelFor(model => model.UserAccountCreation.ConfirmPassword)
-                        @Html.PasswordFor(model => model.UserAccountCreation.ConfirmPassword)
-                        @Html.ValidationMessageFor(model => model.UserAccountCreation.ConfirmPassword)
+                        <div>
+                            @* @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Mail) *@
+                            @Html.TextBoxFor(model => model.UserAccountCreation.UserAccount.Mail, new { placeholder = "Email"})
+                            @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Mail)
+                        </div>
+                        <div>
+                            @* @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Password) *@
+                            @Html.PasswordFor(model => model.UserAccountCreation.UserAccount.Password, new { placeholder = "Mot de passe"})
+                            @Html.ValidationMessageFor(model => model.UserAccountCreation.UserAccount.Password)
+                        </div>
+                        <div>
+                            @* @Html.LabelFor(model => model.UserAccountCreation.ConfirmPassword) *@
+                            @Html.PasswordFor(model => model.UserAccountCreation.ConfirmPassword, new { placeholder = "Confirmer mot de passe"})
+                            @Html.ValidationMessageFor(model => model.UserAccountCreation.ConfirmPassword)
+                        </div>
                         <button type="submit" class="form-button">Inscription</button>
                     }
                 </div>
                 <div id="form-text">
-                    <h3>Bienvenue!</h3>
+                    <h2>bienvenue!</h2>
                     <p>Entrez vos informations personnnelles et commencez votre voyage avec nous</p>
                     <button class="switch-button" onclick="changeForm('left-form')">Inscription</button>
                 </div>
             </div>
         </div>
+    }
+    else 
+    {
+        <h2>Vous êtes connecté en tant que @Model.UserAccountLogin.UserAccount.Mail</h2>
     }
     <script>
         function changeForm() {
