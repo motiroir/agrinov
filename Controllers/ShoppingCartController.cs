@@ -63,6 +63,8 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult PlaceOrder()
         {
+            //Check stocks before proceeding to payment
+            //TODO
             Payment payment = new Payment();
             //Select cash by default
             payment.PaymentType = PaymentType.CASH;
@@ -76,6 +78,7 @@ namespace AgriNov.Controllers
             payment.Date = DateTime.Now;
             // to implement online payment, check if payment online and redirect before setting to true
             payment.Received = true;
+            // the stocks will be decreased when writing order, so you need to be sure the payment is received
             using (IServiceOrder sO = new ServiceOrder())
             {
                 sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name, payment);

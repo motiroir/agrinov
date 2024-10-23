@@ -1,13 +1,32 @@
-﻿.activity-detail-container {
+﻿.all-tiles-box{
+    display: flex;
+}
+.columns-box{
+    width:50%;
+}
+.activity-detail-container {
+    display: flex;
+    margin: 40px auto;
+    margin-top: 200px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+    overflow: hidden;
+    border: 1px solid black;
+}
+.box-to-sell-div {
     display: flex;
     margin: 40px auto;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
+    max-width: 90%;
     overflow: hidden;
-    margin-top: 200px;
     border: 1px solid black;
+}
+.status-title{
+    margin : 40px;
 }
 
 .full-img {
@@ -156,3 +175,9 @@
     .close-btn:hover::after {
         background-color: #e67e50;
     }
+
+.price {
+    font-family: 'Comfortaa';
+    font-size: 1.2rem;
+    font-weight: 600;
+}
