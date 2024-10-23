@@ -13,14 +13,14 @@ namespace AgriNov.Models
         public decimal Price {get; set;}
         public int UserAccountId {get; set;}
 
-        public bool Temp  {get; set;} //If true, the membership fee has been paid
+        public bool WasPaid  {get; set;} //If true, the membership fee has been paid
 
         public MemberShipFee()
         {
             Price = 10;
             StartDate = DateTime.Now;
             EndDate = StartDate.AddYears(1);
-            Temp = false;
+            WasPaid = false;
         }
     }
     
