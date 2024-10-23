@@ -55,14 +55,6 @@ using(IServiceCorporateUser sCU = new ServiceCorporateUser())
 {
     sCU.InitializeTable();
 }
-using(IServiceAdmin sA = new ServiceAdmin())
-{
-    sA.InitializeTable();
-}
-using(IServiceVolunteer sV = new ServiceVolunteer())
-{
-    sV.InitializeTable();
-}
 using (ServiceProduction sP = new ServiceProduction())
 {
     sP.Initializetable();

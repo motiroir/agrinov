@@ -29,9 +29,8 @@
         <p class="p2"><b>Code postal :  &nbsp</b>@Model.Address.PostCode</p>
         <p class="p2"><b>Ville : &nbsp</b>@Model.Address.City</p>
 
-    
        
-        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER)
+        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
         {
                 <p class="p2"><b>Nom de l'entreprise : &nbsp</b>@Model.CompanyDetails.CompanyName</p>
                 <p class="p2"><b>Siret : &nbsp</b>@Model.CompanyDetails.SiretNumber</p>

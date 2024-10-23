@@ -18,6 +18,8 @@ namespace AgriNov.Controllers
 
                 viewModel.UserAccountId = currentAccount.Id;
                 viewModel.UserAccountLevel = currentAccount.UserAccountLevel;
+                viewModel.ProfilePic = currentAccount.ProfilePic;
+
                 // Assign data to viewModel depending on the type of account
                 if (currentAccount.UserAccountLevel == UserAccountLevel.USER || currentAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER || currentAccount.UserAccountLevel == UserAccountLevel.ADMIN)
                 {

@@ -353,12 +353,11 @@ namespace AgriNov.Controllers
                 List<UserAccount> userAccounts = sUA.GetUserAccountsFull();
 
                 List<UserAccountViewModel> viewModels = userAccounts.Select(userAccount => {
-                    var viewModel = new UserAccountViewModel
+                    UserAccountViewModel viewModel = new UserAccountViewModel
                     {
                         UserAccount = userAccount
                     };
 
-                    // Vérification pour les utilisateurs, volontaires et admins
                     if (userAccount.UserAccountLevel == UserAccountLevel.USER ||
                         userAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER ||
                         userAccount.UserAccountLevel == UserAccountLevel.ADMIN)
@@ -370,7 +369,6 @@ namespace AgriNov.Controllers
                             viewModel.ContactName = $"{contactName} {contactFirstName}".Trim();
                         }
                     }
-                    // Vérification pour les utilisateurs "corporate"
                     else if (userAccount.UserAccountLevel == UserAccountLevel.CORPORATE)
                     {
                         if (userAccount.CorporateUser != null && userAccount.CorporateUser.CompanyDetails != null)
@@ -378,7 +376,6 @@ namespace AgriNov.Controllers
                             viewModel.ContactName = userAccount.CorporateUser.CompanyDetails.CompanyName;
                         }
                     }
-                    // Vérification pour les fournisseurs
                     else if (userAccount.UserAccountLevel == UserAccountLevel.SUPPLIER)
                     {
                         if (userAccount.Supplier != null && userAccount.Supplier.CompanyDetails != null)

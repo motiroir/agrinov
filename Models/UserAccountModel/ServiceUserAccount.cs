@@ -290,7 +290,7 @@ namespace AgriNov
 
         public string GetUserFullName(UserAccount user)
         {
-            if (user.UserAccountLevel.ToString() == "USER")
+            if (user.UserAccountLevel.ToString() == "USER" || user.UserAccountLevel.ToString() == "VOLUNTEER" || user.UserAccountLevel.ToString() == "ADMIN")
             {
                 string lastName = user.User.ContactDetails.Name;
                 string firstName = user.User.ContactDetails.FirstName;
