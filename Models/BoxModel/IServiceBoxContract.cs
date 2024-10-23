@@ -1,5 +1,4 @@
-﻿using AgriNov.Models.ProductionModel;
-
+﻿
 namespace AgriNov.Models
 {
 	public interface IServiceBoxContract : IDisposable

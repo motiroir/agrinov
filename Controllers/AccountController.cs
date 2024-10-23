@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using AgriNov.Models;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -18,11 +13,11 @@ namespace AgriNov.Controllers
         public IActionResult TypeSelection()
         {
             UserAccount currentUserAccount;
-            using(IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 currentUserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-            if(currentUserAccount.UserId != null || currentUserAccount.SupplierId != null || currentUserAccount.CorporateUserId != null)
+            if (currentUserAccount.UserId != null || currentUserAccount.SupplierId != null || currentUserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -55,7 +50,7 @@ namespace AgriNov.Controllers
             {
                 user.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-            if(user.UserAccount.UserId != null || user.UserAccount.SupplierId != null || user.UserAccount.CorporateUserId != null)
+            if (user.UserAccount.UserId != null || user.UserAccount.SupplierId != null || user.UserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -99,7 +94,7 @@ namespace AgriNov.Controllers
             {
                 corporateUser.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-            if(corporateUser.UserAccount.UserId != null || corporateUser.UserAccount.SupplierId != null || corporateUser.UserAccount.CorporateUserId != null)
+            if (corporateUser.UserAccount.UserId != null || corporateUser.UserAccount.SupplierId != null || corporateUser.UserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -143,7 +138,7 @@ namespace AgriNov.Controllers
             {
                 viewModel.Supplier.UserAccount = serviceUserAccount.GetUserAccountByID(HttpContext.User.Identity.Name);
             }
-             if(viewModel.Supplier.UserAccount.UserId != null || viewModel.Supplier.UserAccount.SupplierId != null || viewModel.Supplier.UserAccount.CorporateUserId != null)
+            if (viewModel.Supplier.UserAccount.UserId != null || viewModel.Supplier.UserAccount.SupplierId != null || viewModel.Supplier.UserAccount.CorporateUserId != null)
             {
                 return View("Error");
             }
@@ -331,7 +326,7 @@ namespace AgriNov.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles="SUPPLIER,ADMIN")]
+        [Authorize(Roles = "SUPPLIER,ADMIN")]
         public IActionResult DownloadPdf(int supplierId)
         {
             byte[] pdfBinaryData = null;
@@ -348,6 +343,86 @@ namespace AgriNov.Controllers
                 return NotFound();
             }
             return File(pdfBinaryData, "application/pdf", "justificatif.pdf");
+        }
+
+        //[Authorize(Roles = "ADMIN")]
+        public IActionResult ShowAllUserAccounts()
+        {
+            using (ServiceUserAccount sUA = new ServiceUserAccount())
+            {
+                List<UserAccount> userAccounts = sUA.GetUserAccountsFull();
+
+                List<UserAccountViewModel> viewModels = userAccounts.Select(userAccount => {
+                    UserAccountViewModel viewModel = new UserAccountViewModel
+                    {
+                        UserAccount = userAccount
+                    };
+
+                    if (userAccount.UserAccountLevel == UserAccountLevel.USER ||
+                        userAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER ||
+                        userAccount.UserAccountLevel == UserAccountLevel.ADMIN)
+                    {
+                        if (userAccount.User != null && userAccount.User.ContactDetails != null)
+                        {
+                            string contactName = userAccount.User.ContactDetails.Name ?? "";
+                            string contactFirstName = userAccount.User.ContactDetails.FirstName ?? "";
+                            viewModel.ContactName = $"{contactName} {contactFirstName}".Trim();
+                        }
+                    }
+                    else if (userAccount.UserAccountLevel == UserAccountLevel.CORPORATE)
+                    {
+                        if (userAccount.CorporateUser != null && userAccount.CorporateUser.CompanyDetails != null)
+                        {
+                            viewModel.ContactName = userAccount.CorporateUser.CompanyDetails.CompanyName;
+                        }
+                    }
+                    else if (userAccount.UserAccountLevel == UserAccountLevel.SUPPLIER)
+                    {
+                        if (userAccount.Supplier != null && userAccount.Supplier.CompanyDetails != null)
+                        {
+                            viewModel.ContactName = userAccount.Supplier.CompanyDetails.CompanyName;
+                        }
+                    }
+
+                    return viewModel;
+                }).ToList();
+                return View(viewModels);
+            }
+        }
+
+        public IActionResult UserDetails(int id)
+        {
+            UserAccountInfoUpdate viewModel = new UserAccountInfoUpdate();
+            using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
+            {
+                viewModel.UserAccountId = id;
+                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDEager(id);
+                viewModel.Mail = currentAccount.Mail;
+                viewModel.ProfilePic = currentAccount.ProfilePic;
+                viewModel.UserAccountLevel = currentAccount.UserAccountLevel;
+                // Assign data to viewModel depending on the type of account
+                if (currentAccount.UserAccountLevel == UserAccountLevel.USER || currentAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER || currentAccount.UserAccountLevel == UserAccountLevel.ADMIN)
+                {
+                    viewModel.User = currentAccount.User;
+                    viewModel.Address = currentAccount.User.Address;
+                    viewModel.ContactDetails = currentAccount.User.ContactDetails;
+                }
+                if (currentAccount.UserAccountLevel == UserAccountLevel.CORPORATE)
+                {
+                    viewModel.CorporateUser = currentAccount.CorporateUser;
+                    viewModel.Address = currentAccount.CorporateUser.Address;
+                    viewModel.ContactDetails = currentAccount.CorporateUser.ContactDetails;
+                    viewModel.CompanyDetails = currentAccount.CorporateUser.CompanyDetails;
+                }
+                if (currentAccount.UserAccountLevel == UserAccountLevel.SUPPLIER)
+                {
+                    viewModel.Supplier = currentAccount.Supplier;
+                    viewModel.Address = currentAccount.Supplier.Address;
+                    viewModel.ContactDetails = currentAccount.Supplier.ContactDetails;
+                    viewModel.CompanyDetails = currentAccount.Supplier.CompanyDetails;
+                }
+            }
+            return View(viewModel);
         }
 
     }

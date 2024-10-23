@@ -144,6 +144,89 @@ namespace AgriNov.Models
                 };
                 InsertSupplier(s8);
 
+                // Supplier s9
+                Address a9 = new Address()
+                {
+                    Line1 = "Ferme des Prés Verts",
+                    Line2 = "15 rue des Fleurs",
+                    City = "Nantes",
+                    PostCode = "44000"
+                };
+                ContactDetails c9 = new ContactDetails()
+                {
+                    Name = "Leclerc",
+                    FirstName = "Rémi",
+                    PhoneNumber = "0778564321"
+                };
+                CompanyDetails cd9 = new CompanyDetails()
+                {
+                    CompanyName = "Fruits et Légumes Bio",
+                    SiretNumber = "1234567890123456"
+                };
+                Supplier s9 = new Supplier()
+                {
+                    UserAccount = serviceUserAccount.GetUserAccountByID(18),
+                    Address = a9,
+                    ContactDetails = c9,
+                    CompanyDetails = cd9
+                };
+                InsertSupplier(s9);
+
+                // Supplier s10
+                Address a10 = new Address()
+                {
+                    Line1 = "Domaine de la Grande Forêt",
+                    Line2 = "25 avenue des Chênes",
+                    City = "Clisson",
+                    PostCode = "44190"
+                };
+                ContactDetails c10 = new ContactDetails()
+                {
+                    Name = "Bernard",
+                    FirstName = "Théo",
+                    PhoneNumber = "0657894321"
+                };
+                CompanyDetails cd10 = new CompanyDetails()
+                {
+                    CompanyName = "Maraîchage Bernard",
+                    SiretNumber = "2345678901234567"
+                };
+                Supplier s10 = new Supplier()
+                {
+                    UserAccount = serviceUserAccount.GetUserAccountByID(19),
+                    Address = a10,
+                    ContactDetails = c10,
+                    CompanyDetails = cd10
+                };
+                InsertSupplier(s10);
+
+                // Supplier s11
+                Address a11 = new Address()
+                {
+                    Line1 = "Ferme de la Rivière",
+                    Line2 = "30 route des Berges",
+                    City = "Vertou",
+                    PostCode = "44120"
+                };
+                ContactDetails c11 = new ContactDetails()
+                {
+                    Name = "Fontaine",
+                    FirstName = "Adrien",
+                    PhoneNumber = "0632549876"
+                };
+                CompanyDetails cd11 = new CompanyDetails()
+                {
+                    CompanyName = "Les Fermiers de Vertou",
+                    SiretNumber = "3456789012345678"
+                };
+                Supplier s11 = new Supplier()
+                {
+                    UserAccount = serviceUserAccount.GetUserAccountByID(20),
+                    Address = a11,
+                    ContactDetails = c11,
+                    CompanyDetails = cd11
+                };
+                InsertSupplier(s11);
             }
 
         }

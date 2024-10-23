@@ -1,4 +1,4 @@
-﻿namespace AgriNov.Models.ProductionModel
+﻿namespace AgriNov.Models
 {
     public interface IServiceProduction : IDisposable
     {

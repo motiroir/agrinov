@@ -1,0 +1,52 @@
+﻿@using AgriNov.Models
+@model AgriNov.ViewModels.UserAccountInfoUpdate
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Informations du compte";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/userInfo.css">
+}
+
+<a href="@Url.Action("ShowAllUserAccounts", "Account")" class="return-link">< Retour à la liste des comptes</a>
+
+<div class="card">
+    <div class="banner">
+        <div class="img-container">
+            <img src="@Url.Content("~/img/userspic/" + Model.ProfilePic)">
+        </div>
+        <div class="banner-content">
+            <h3>@Model.ContactDetails.FirstName @Model.ContactDetails.Name </h3>
+            <h4>Status : @Model.UserAccountLevel.GetDisplayName()</h4>
+        </div>
+    </div>
+
+    <div class="content">
+        <p class="p2"><b>Téléphone : &nbsp</b>@Model.ContactDetails.PhoneNumber</p>
+        <p class="p2"><b>Email : &nbsp</b>@Model.Mail</p>
+        <p class="p2"><b>Addresse : &nbsp</b>@Model.Address.Line2, @Model.Address.Line1</p>
+        <p class="p2"><b>Code postal :  &nbsp</b>@Model.Address.PostCode</p>
+        <p class="p2"><b>Ville : &nbsp</b>@Model.Address.City</p>
+
+       
+        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
+        {
+                <p class="p2"><b>Nom de l'entreprise : &nbsp</b>@Model.CompanyDetails.CompanyName</p>
+                <p class="p2"><b>Siret : &nbsp</b>@Model.CompanyDetails.SiretNumber</p>
+           
+        }
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.CORPORATE)
+        {
+                <p class="p2"><b>Nombre d'abonnements maximal : &nbsp</b>@Model.CorporateUser.MaxBoxContractSubscription</p>
+                <p class="p2"><b>Nombre maximal de participants à une activité : &nbsp</b>@Model.CorporateUser.MaxActivitiesSignUp</p>
+           
+        }
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
+        {
+            <p class="p2"><b>Justificatif : &nbsp</b>@Model.PdfFile</p>
+            
+        }
+</div>
+    
+</div>

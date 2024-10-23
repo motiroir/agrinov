@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
     <link rel="stylesheet" href="~/CSS/alert.css">
 }
-
+<a href="@Url.Action("Index", "DashBoard")" class="return-link">< Retour au dashboard</a>
 <div id="popup">
     <div class="popup-content">
         <span class="close-button">&times;</span>
@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var boxContractViewModel in Model)
+            @foreach (AgriNov.ViewModels.BoxContractViewModel boxContractViewModel in Model)
             {
                 <tr data-id="@boxContractViewModel.BoxContract.Id" onclick="selectRow(this, @boxContractViewModel.BoxContract.ForSale.ToString().ToLower());">
                     <td>@boxContractViewModel.BoxContract.Seasons.GetDisplayName()</td>

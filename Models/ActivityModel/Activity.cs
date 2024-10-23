@@ -1,5 +1,4 @@
-﻿using AgriNov.Models.SharedStatus;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgriNov.Models

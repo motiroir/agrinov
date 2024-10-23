@@ -1,7 +1,5 @@
-﻿using AgriNov.Models.ProductionModel;
-using AgriNov.Models;
+﻿using AgriNov.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using AgriNov.Models.SharedStatus;
 
 namespace AgriNov.ViewModels
 {

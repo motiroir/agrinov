@@ -1,11 +1,7 @@
 ﻿using AgriNov.Models;
-using AgriNov.Models.ProductionModel;
-using AgriNov.Models.SharedStatus;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
 
 
 

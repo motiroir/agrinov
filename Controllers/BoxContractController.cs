@@ -1,5 +1,4 @@
 ﻿using AgriNov.Models;
-using AgriNov.Models.ProductionModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
@@ -107,7 +106,7 @@ namespace AgriNov.Controllers
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
                 List<BoxContract> boxContracts = sBC.GetAllBoxContracts();
-                var viewModel = boxContracts.Select(boxContract => new BoxContractViewModel
+                List<BoxContractViewModel> viewModel = boxContracts.Select(boxContract => new BoxContractViewModel
                 {
                     BoxContract = boxContract,
                     ProductOptions = GetEnumSelectListString<ProductType>(),
