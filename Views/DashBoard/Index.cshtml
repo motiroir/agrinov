@@ -22,40 +22,42 @@
                     <span class="info-label">Nom :</span>
                     <span class="info-value">@Model.ContactDetails.Name</span>
                 </div>
-
-                <span class="info-label">Numéro de Téléphone:</span>
-                <span class="info-value">@Model.ContactDetails.PhoneNumber</span>
-            </div>
-
-            <div class="info-row">
+                <div class="info-row">
                     <span class="info-label">Prénom :</span>
                     <span class="info-value">@Model.ContactDetails.FirstName</span>
-            </div>
-            <div class="info-row">
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Numéro de Téléphone:</span>
+                    <span class="info-value">@Model.ContactDetails.PhoneNumber</span>
+                </div>
+                <div class="info-row">
                     <span class="info-label">Adresse :</span>
-                    <span class="info-value">@Model.Address.Line1</span>
                     @if (!string.IsNullOrEmpty(Model.Address.Line2))
 
                     {
-                        <span class="info-value">@Model.Address.Line2</span>
+                        <span class="info-value">@Model.Address.Line2,</span>
                     }
-            </div>
-            <div class="info-row">
+                        <span class="info-value">@Model.Address.Line1</span>
+                </div>
+                <div class="info-row">
                     <span class="info-label">Ville :</span>
                     <span class="info-value">@Model.Address.City</span>
+                </div>
             </div>
+        </div>
+        <div class="action-buttons">
+            @Html.ActionLink("modifier mes informations", "ChangeInfo", "Account", null, new { @class = "action-btn" })
+            @Html.ActionLink("modifier mon mot de passe", "ChangePassword", "Account", null, new { @class = "action-btn" })
         </div>
     </div>
 
-    <div class="action-buttons">
-            @Html.ActionLink("modifier mes informations", "ChangeInfo", "Account", null, new { @class = "action-btn" })
-            @Html.ActionLink("modifier mon mot de passe", "ChangePassword", "Account", null, new { @class = "action-btn" })
-    </div>
-    
-
-    
     <div class="management-section">
-        
+
+        @Html.ActionLink("Voir mon abonnement",
+                 "ProductDashboard", 
+                 "Product",         
+                 new { activeTab = "ShowMyBox" }, 
+                 new { @class = "management-card" })
 
             @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN)
             {
@@ -68,15 +70,15 @@
                 && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.CORPORATE
                 && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER)
             {
-                @Html.ActionLink("Faire une proposition de Productions", "CreateProduction", "Production", null, new { @class = "management-card" })
+                @Html.ActionLink("Faire une proposition de production", "CreateProduction", "Production", null, new { @class = "management-card" })
                 @Html.ActionLink("Gérer les productions", "SupShowAllProductions", "Production", null, new { @class = "management-card" })
-                @Html.ActionLink("Faire une proposition de Produits", "CreateProduct", "Product", null, new { @class = "management-card" })
+                @Html.ActionLink("Faire une proposition de produit", "CreateProduct", "Product", null, new { @class = "management-card" })
             }
 
             @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN)
             {
 
-                @Html.ActionLink("Gérer les proposions de Productions", "ShowAllProductions", "Production", null, new { @class = "management-card" })
+                @Html.ActionLink("Gérer les propositions de Production", "ShowAllProductions", "Production", null, new { @class = "management-card" })
                 @Html.ActionLink("Gérer les produits", "ShowAllProducts", "Product", null, new { @class = "management-card" })
             }
              
@@ -85,11 +87,15 @@
             {
                 @Html.ActionLink("Voir mes commandes", "Index", "Home", null, new { @class = "management-card" })
 
-                @Html.ActionLink("La Boutique", "ProductDashboard", "Product", null, new { @class = "management-card" })
+                @Html.ActionLink("Accéder à la Boutique", "ProductDashboard", "Product", null, new { @class = "management-card" })
 
                 
             }
-                @Html.ActionLink("Les Ateliers", "ActivityDashboard", "Activity", null, new { @class = "management-card" })
+        @Html.ActionLink("Voir mes Ateliers", "ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" }, new { @class = "management-card" })
+        @Html.ActionLink("Faire une proposition d'atelier", "ActivityDashboard", "Activity", new { activeTab = "CreateActivity" }, new { @class = "management-card" })
         
     </div>
+
+    
+
 </div>
