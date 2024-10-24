@@ -14,6 +14,10 @@ namespace AgriNov.ViewModels
 
         public List<Production> ViewModelList { get; set; }
 
+        public List <Production> ProductionsBySupplier { get; set; }
+        public string SupplierName { get; set; }
+
+       
 
         public int Year { get; set; }
         public ProductType ProductType { get; set; }

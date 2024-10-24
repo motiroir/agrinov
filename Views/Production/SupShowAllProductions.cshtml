@@ -1,7 +1,6 @@
-﻿@using AgriNov.Models
+﻿﻿@using AgriNov.Models
 @using AgriNov.ViewModels
-
-@model List<AgriNov.ViewModels.ProductionViewModel>
+@model AgriNov.ViewModels.ProductionViewModel
 
 @{
     Layout = "_BaseLayout";
@@ -15,12 +14,11 @@
 }
 
 <div class="table-container-production">
-    <table style="--colNbr:9">
+    <table style="--colNbr:8">
         <thead>
             <tr>
                 <th>Saison</th>
                 <th>Année</th>
-                <th>Fournisseur</th>
                 <th>Type de produit</th>
                 <th>Description</th>
                 <th>Volume par livraison</th>
@@ -31,22 +29,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var production in Model)
+            @foreach (AgriNov.Models.Production production in Model.ProductionsBySupplier)
             {
-                <tr data-id="@production.Production.Id" onclick="selectRow(this);">
-                    
+                <tr data-id="@production.Id" data-validation-status="@production.ValidationStatus" onclick="selectRow(this);">
 
-                        <td>@production.SeasonOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Seasons).ToString())?.Text</td>
-                        <td>@production.YearOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Years).ToString())?.Text</td>
-                        <td>@production.Production.CompanyName</td>
-                        <td>@production.Production.ProductType.GetDisplayName()</td>
-                        <td>@production.Production.Description</td>
-                        <td>@production.Production.VolumePerDelivery</td>
-                        <td>@production.Production.Price.ToString("F2")</td>
-                        <td>@production.Production.DeliveryFrequency.GetDisplayName()</td>
-                        <td>@production.Production.ValidationStatus.GetDisplayName()</td>
-                        
-                    
+                        <td>@production.Seasons.GetDisplayName()</td>
+                        <td>@production.Years.GetDisplayName()</td>
+                        <td>@production.ProductType.GetDisplayName()</td>
+                        <td>@production.Description</td>
+                        <td>@production.VolumePerDelivery</td>
+                        <td>@production.Price.ToString("F2")</td>
+                        <td>@production.DeliveryFrequency.GetDisplayName()</td>
+                        <td>@production.ValidationStatus.GetDisplayName()</td>
                 </tr>
             }
         </tbody>
@@ -58,9 +52,10 @@
 {
     <div class="btn-container">
         <button type="submit" name="action" value="add" class="orange-btn w-30">Ajouter</button>
-      
+       
         <button type="button" name="action" value="update" class="orange-btn w-30" id="updateButton" disabled>Modifier</button>
-    </div>
+      
+      </div>
 }
 
 @section Scripts {
