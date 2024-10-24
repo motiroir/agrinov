@@ -111,5 +111,43 @@ namespace AgriNov.Models
                 .Any(bc => bc.ProductType == productType && bc.Seasons == season && bc.Years == year);
         }
 
+        // Do not call this method for seasons with value none
+        public List<DateTime> ComputeSeasonStartAndEnd(Years year, Seasons season)
+        {
+            DateTime startDateTime;
+            DateTime endDateTime;
+            if(season == Seasons.AUTUMN)
+            {
+                startDateTime = new DateTime(int.Parse(year.GetDisplayName()),9,21,0,0,0,0);
+                endDateTime = new DateTime(int.Parse(year.GetDisplayName()),12,20,23,59,59,999);
+            }
+            else if(season == Seasons.WINTER)
+            {
+                startDateTime = new DateTime(int.Parse(year.GetDisplayName()),12,21,0,0,0,0);
+                endDateTime = new DateTime(int.Parse(year.GetDisplayName())+1,3,20,23,59,59,999);
+            }
+            else if(season == Seasons.SPRING)
+            {
+                startDateTime = new DateTime(int.Parse(year.GetDisplayName()),3,21,0,0,0,0);
+                endDateTime = new DateTime(int.Parse(year.GetDisplayName()),6,20,23,59,59,999);
+            }
+            else // (season == Seasons.SUMMER)
+            {
+                startDateTime = new DateTime(int.Parse(year.GetDisplayName()),6,21,0,0,0,0);
+                endDateTime = new DateTime(int.Parse(year.GetDisplayName()),9,20,23,59,59,999);
+            }
+            return new List<DateTime>() {startDateTime, endDateTime};
+        }
+
+        public bool IsInCurrentSeason(int boxContractId){
+            BoxContract boxContract = _DBContext.BoxContracts.FirstOrDefault(bC => bC.Id == boxContractId);
+            if(boxContract == null)
+            {
+                return false;
+            }
+            List<DateTime> dates = ComputeSeasonStartAndEnd(boxContract.Years, boxContract.Seasons);
+            DateTime currentDate = DateTime.Now;
+            return true;
+        }
     }
 }
