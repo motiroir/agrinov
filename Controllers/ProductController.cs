@@ -85,7 +85,7 @@ namespace AgriNov.Controllers
             // getting all relavant box contracts for sale in viewmodel
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
-                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
+                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsForSale();
                 pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(userId);
             }
 
@@ -144,10 +144,6 @@ namespace AgriNov.Controllers
                 if(boxContract == null || !boxContract.ForSale)
                 {
                     return View("Error");
-                }
-                if(boxContract.MaxSubscriptions < 100)
-                {
-                    
                 }
             }
             using (IServiceShoppingCart sSC = new ServiceShoppingCart())

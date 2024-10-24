@@ -44,10 +44,10 @@ namespace AgriNov.Models
             BoxContract bc9 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 10, ForSale = false };
             BoxContract bc10 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false };
 
-            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 28, ForSale = true };
+            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 2, ForSale = true };
             BoxContract bc12 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = true };
             BoxContract bc13 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 12, ForSale = true };
-            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 12, ForSale = true };
+            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 1, ForSale = true };
             BoxContract bc15 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = true };
             
             InsertBoxContract(bc1);
@@ -71,9 +71,9 @@ namespace AgriNov.Models
         {
             return _DBContext.BoxContracts.ToList();
         }
-        public List<BoxContract> GetAllBoxContractsToSale()
+        public List<BoxContract> GetAllBoxContractsForSale()
         {
-            return _DBContext.BoxContracts.Where(bc => bc.ForSale == true).ToList();
+            return _DBContext.BoxContracts.Where(bc => bc.ForSale == true && bc.MaxSubscriptions > 0).ToList();
         }
 
         public BoxContract GetBoxContractById(int id)
