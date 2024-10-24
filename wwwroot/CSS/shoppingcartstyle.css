@@ -2,6 +2,7 @@
     margin: 200px auto;
     width: 24.5%;
 }
+
 .payment-header {
     margin: 200px auto;
     width: 20%;
@@ -37,10 +38,11 @@
 .cart-container {
     margin: auto;
     width: 1500px;
-    display:flex;
-    justify-content:space-between;
-    flex-direction:row;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }
+
 .message-container {
     margin: auto;
     width: 1500px;
@@ -48,17 +50,19 @@
     justify-content: center;
 }
 
-.shop-resume-container{
-    display:flex;
-    flex-direction:column;
-    gap:40px;
-    justify-content:flex-start;
-    align-items:center;
-    z-index:1;
+.shop-resume-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1;
 }
-.shop-resume-container h4{
-    text-transform:none;
-}
+
+    .shop-resume-container h4 {
+        text-transform: none;
+    }
+
 .shop-resume,
 .cart-right {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -73,28 +77,28 @@
     gap: 10px;
 }
 
-.shop-resume h4,
-.cart-right h4 {
-    margin-bottom: 40px;
-    font-size: 2vw;
-}
+    .shop-resume h4,
+    .cart-right h4 {
+        margin-bottom: 40px;
+        font-size: 2vw;
+    }
 
-.shop-resume p,
-.cart-right p {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 0.8vw;
-    line-height: 150%;
-}
+    .shop-resume p,
+    .cart-right p {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.8vw;
+        line-height: 150%;
+    }
 
-.shop-resume .cart-line,
-.cart-right .cart-line {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+    .shop-resume .cart-line,
+    .cart-right .cart-line {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 
 .cart-line .name {
     width: 70%;
@@ -118,7 +122,7 @@
     margin: 50px auto 20px auto;
     flex-direction: column;
     justify-content: space-around;
-    gap:20px;
+    gap: 20px;
 }
 
 .shop-resume-btn-container {
@@ -144,15 +148,18 @@
     display: flex;
     justify-content: center;
 }
-.btn:hover {
-    background-color: #e67e50;
-}
+
+    .btn:hover {
+        background-color: #e67e50;
+    }
+
 span.active {
     background-color: #FE9E55;
 }
-span.active:hover {
-    background-color: #FFB57C;
-}
+
+    span.active:hover {
+        background-color: #FFB57C;
+    }
 
 .bottom-container {
     margin-top: 50px;
@@ -173,9 +180,9 @@ span.active:hover {
     color: gray;
 }
 
-.return:hover {
-    text-decoration: underline;
-}
+    .return:hover {
+        text-decoration: underline;
+    }
 
 
 
@@ -190,7 +197,7 @@ span.active:hover {
     border: solid 1px #B1B1B1;
     border-radius: 20px;
     background-color: white;
-    padding:30px 0;
+    padding: 30px 0;
     gap: 20px;
     width: 500px;
     display: flex;
@@ -198,6 +205,7 @@ span.active:hover {
     align-items: center;
     justify-content: center;
 }
+
 #online-payment .payment-container {
     background-color: transparent;
     border: solid 0px #B1B1B1;
@@ -222,27 +230,27 @@ span.active:hover {
 
 .product-info {
     display: flex;
-    width:50%;
+    width: 50%;
     flex-direction: column;
     margin-left: 20px;
     gap: 20px;
 }
 
-.product-info h3 {
-    font-size: 1.3vw;
-    margin: 0;
-    font-weight: bold;
-}
+    .product-info h3 {
+        font-size: 1.3vw;
+        margin: 0;
+        font-weight: bold;
+    }
 
-.product-info .product-details {
-    font-size: 0.7vw;
-    color: #777;
-}
+    .product-info .product-details {
+        font-size: 0.7vw;
+        color: #777;
+    }
 
-.product-info .product-price {
-    font-size: 0.8vw;
-    margin-top: 5px;
-}
+    .product-info .product-price {
+        font-size: 0.8vw;
+        margin-top: 5px;
+    }
 
 .product-quantity {
     display: flex;
@@ -265,17 +273,17 @@ span.active:hover {
     color: #f2701c;
 }
 
-.product-total span {
-    margin-right:15px;
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    border-radius: 5px;
-    color: #FE9E55;
-    font-size: 25px;
-    font-weight: 700;
-    box-sizing: border-box;
-}
+    .product-total span {
+        margin-right: 15px;
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+        border-radius: 5px;
+        color: #FE9E55;
+        font-size: 25px;
+        font-weight: 700;
+        box-sizing: border-box;
+    }
 
 .number-input {
     width: 100%;
@@ -321,30 +329,30 @@ span.active:hover {
     align-items: center;
     color: #000000;
     position: relative;
-    left:20px;
+    left: 20px;
 }
 
-.payment-container li::before {
-    content: '•';
-    font-size: 1.5em;
-    color: #000000;
-    position: absolute;
-    left: -20px;
-    top:2px;
-}
+    .payment-container li::before {
+        content: '•';
+        font-size: 1.5em;
+        color: #000000;
+        position: absolute;
+        left: -20px;
+        top: 2px;
+    }
 
 .text-container {
-    width:90%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap:20px
+    gap: 20px
 }
 
-.text-container h4 {
-    text-transform: none;
-}
+    .text-container h4 {
+        text-transform: none;
+    }
 
 .address {
     margin: 50px auto;
@@ -390,7 +398,7 @@ span.active:hover {
 .form-container {
     display: grid;
     grid-column-gap: 10px;
-    grid-row-gap:10px;
+    grid-row-gap: 10px;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto auto;
     grid-template-areas: "name name""number number""expiration security";
@@ -480,9 +488,11 @@ input {
 #svgname {
     text-transform: uppercase;
 }
+
 #cardfront .st1 {
     text-shadow: 2px 1px 0 rgba(50,50, 50, 0.7);
 }
+
 #cardfront .st2 {
     fill: #FFFFFF;
 }
@@ -618,12 +628,12 @@ input {
         border-radius: 21px;
     }
 
-.creditcard .back {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
+    .creditcard .back {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
 
-.creditcard.flipped {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
+    .creditcard.flipped {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }

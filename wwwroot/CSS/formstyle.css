@@ -169,7 +169,92 @@ form textarea,
     margin-top: 5px;
 }
 
+
+.form-underline {
+    display: flex;
+    justify-content: center;
+    height: 2px;
+    margin: 25px;
+    margin-inline: 80px;
+    background-color: var(--orangeRed);
+}
+
+
+.pdfdownload {
+   
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+   
+    line-height: 100%;
+   
+    padding-top: 60px;
+    text-decoration: none;
+    color: var(--orange);
+  
+}
+
+    .pdfdownload :hover {
+        text-decoration: underline;
+    }
+
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden; 
+}
+
+.custom-file-input::before {
+    content: 'Choisir un fichier';
+    display: inline-block;
+    background-color: var(--orange);
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.radio-label {
+    position: relative;
+    padding-left: 60px; 
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    
+    color: var(--contentParagraph);
+}
+
+    
+    .radio-label::before {
+        content: "";
+        position: absolute;
+        left: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px; 
+        height: 10px; 
+        border: 2px solid var(--orangeRed);
+        border-radius: 50%; 
+        background: white; 
+        transition: background 0.3s, border 0.3s; 
+    }
+
+
+input[type="radio"]:checked + .radio-label::before {
+    background: var(--lightOrange); 
+    border-color: var(--orange); 
+}
+
+
+.radio-label:hover::before {
+    border-color: var(--orangeRed); 
+}
+
 #imgViewer {
     max-width: 100%;
 }
+
 
