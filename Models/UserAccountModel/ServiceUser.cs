@@ -269,7 +269,7 @@ namespace AgriNov.Models
                 };
                 Address va1 = new Address()
                 {
-                    Line1 = "RÈsidence des Roses",
+                    Line1 = "R√©sidence des Roses",
                     Line2 = "15 boulevard des Jardins",
                     City = "Nantes",
                     PostCode = "44000"
@@ -293,7 +293,7 @@ namespace AgriNov.Models
                 Address va2 = new Address()
                 {
                     Line1 = "Appartement 7B",
-                    Line2 = "3 rue du Ch‚teau",
+                    Line2 = "3 rue du Ch√¢teau",
                     City = "Clisson",
                     PostCode = "44190"
                 };
