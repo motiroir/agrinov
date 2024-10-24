@@ -132,7 +132,7 @@ namespace AgriNov.Controllers
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
             //for now, only weekly big or small boxes are allowed
-            if(!(Decimal.Equals(quantity,0.5) || Decimal.Equals(quantity,1)))
+            if(!(quantity ==2 || quantity == 1))
             {
                 return View("Error");
             }

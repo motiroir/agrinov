@@ -55,7 +55,7 @@
                             else if (item.BoxContract != null)
                             {
                                 
-                                <h3>@(item.Quantity == 0.5 ? "Petit" : item.Quantity == 1 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
+                                <h3>@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
                                 <p class="product-details">Prix à la semaine</p>
                                 <p class="product-price">@item.BoxContract.Price.ToString("C")</p>
                             }
@@ -113,7 +113,7 @@
                     else if(item.BoxContract != null)
                     {
                         
-                         <p class="name">@(item.Quantity == 0.5 ? "Petit" : item.Quantity == 1 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</p>
+                         <p class="name">@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</p>
                         <p class="price">@item.Total.ToString("C")</p> 
                     }
                 </div>

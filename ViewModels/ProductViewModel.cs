@@ -8,6 +8,7 @@ namespace AgriNov.ViewModels
         public Product Product { get; set; }
         public int QuantityByProductInCart { get; set; }
         public List<BoxContract> AllBoxContractsToSale { get; set; }
+        public List<BoxContract> MyCurrentBoxContracts { get; set;}
         public int QuantityByBoxContract {  get; set; }
         public string SupplierName { get; set; }
     }
