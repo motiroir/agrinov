@@ -2,6 +2,8 @@
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
+using System.Runtime.Intrinsics.X86;
 
 
 
@@ -56,8 +58,11 @@ namespace AgriNov.Controllers
 
             if (ModelState.IsValid)
             {
+                int userId = int.Parse(HttpContext.User.Identity.Name);
+                viewModel.Production.SupplierId = userId;
                 using (ServiceProduction sP = new ServiceProduction())
                 {
+                   
                     
                     sP.InsertProduction(viewModel.Production);
                     return RedirectToAction("SupShowAllProductions", "Production");
@@ -69,6 +74,7 @@ namespace AgriNov.Controllers
 
         public IActionResult UpdateProduction(int id)
         {
+            
             if (id > 0)
             {
                 Production oldProduction = sP.GetProductionByID(id);
@@ -83,6 +89,8 @@ namespace AgriNov.Controllers
                         SeasonOptions = GetEnumSelectListString<Seasons>(),
                         DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>()
                     };
+
+              
 
                     return View(viewModel);
                 }
@@ -101,6 +109,8 @@ namespace AgriNov.Controllers
         [HttpPost]
         public IActionResult UpdateProduction(int id, ProductionViewModel viewModel)
         {
+            
+
             viewModel.Production.Id = id;
 
             viewModel.YearOptions = GetEnumSelectListString<Years>();
@@ -111,6 +121,9 @@ namespace AgriNov.Controllers
 
             if (ModelState.IsValid)
             {
+                int userId = int.Parse(HttpContext.User.Identity.Name);
+                viewModel.Production.SupplierId = userId;
+
                 if (id > 0)
                 {
                     using (ServiceProduction sP = new ServiceProduction())
@@ -213,33 +226,36 @@ namespace AgriNov.Controllers
             
         }
 
-        public IActionResult SupShowAllProductions()
+        public IActionResult SupShowAllProductions(int userid)
         {
-            using (ServiceProduction sP = new ServiceProduction())
-            {
-                
-                List<Production> productions = sP.GetProductions();
-                List<ProductionViewModel> viewModelList = productions.Select(p => new ProductionViewModel
+            ProductionViewModel pVM= new ProductionViewModel();
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+          using (ServiceProduction sP = new ServiceProduction())
+          {
+                Production production = sP.GetProductionByID(userId);
+                pVM.Production = production;
+
+                using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    Production = p,
-                    YearOptions = GetEnumSelectListString<Years>(),
-                    ProductOptions = GetEnumSelectListString<ProductType>(),
-                    SeasonOptions = GetEnumSelectListString<Seasons>(),
-                    DeliveryFrequencyOptions = GetEnumSelectListString<DeliveryFrequency>(),
-                    ValidationStatusOptions = GetEnumSelectListString<ValidationStatus>(),
-                    ValidationStatus = p.ValidationStatus
-
-                }).ToList();
+                    UserAccount supplier = sUA.GetUserAccountByIDEager(production.SupplierId);
+                    pVM.SupplierName = sUA.GetUserFullName(supplier);
+                }
+            
                 
-                return View(viewModelList); 
-            }
-
+              List<Production> productions = sP.GetProductions();
+              pVM.ProductionsBySupplier = sP.GetProductionsBySupplier(userId);
+                
+                
+               
+          }
+            return View(pVM);
         }
 
+       
         [HttpPost]
-        public IActionResult SupShowAllProductions(ProductionViewModel viewModel, string action, int selectedProductionId)
+        public IActionResult SupShowAllProductions(ProductionViewModel pVM, string action, int selectedProductionId)
         {
-
+            
             switch (action)
             {
                 case "add":
@@ -247,10 +263,13 @@ namespace AgriNov.Controllers
 
                 
                 case "update":
-                    return UpdateProduction(selectedProductionId);
+                    
+                        return UpdateProduction(selectedProductionId);
+                    
+               
 
                 default:
-                    return View(viewModel);
+                    return View(pVM);
             }
         }
     }

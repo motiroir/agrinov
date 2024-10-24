@@ -23,6 +23,10 @@ namespace AgriNov.Models
         public int? ProductId {get; set;}
         public Product Product {get; set;}
 
+        // Optional relationship
+        public int? BoxContractId {get; set;}
+        public BoxContract BoxContract {get; set;}
+        
         public OrderItem()
         {
             DateCreated = DateTime.Now;

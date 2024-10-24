@@ -9,9 +9,26 @@ function selectRow(row) {
     selectedRow.classList.add('selected');
 
    
+    // Récupération du statut de validation
+    let validationStatus = selectedRow.getAttribute('data-validation-status');
+    
+
     const updateButton = document.getElementById('updateButton');
-    updateButton.disabled = false;
+
+    // Vérifier si le statut est "REFUSED" ou "APPROVED"
+    if (validationStatus === 'REFUSED' || validationStatus === 'APPROVED')
+    {
+        updateButton.disabled = true;
+        
+    }
+    else 
+    {
+        updateButton.disabled = false;
+        
+    }
 }
+    
+
 
 
 

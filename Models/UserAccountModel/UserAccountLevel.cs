@@ -8,11 +8,11 @@ namespace AgriNov.Models
         DEFAULT,
         [Display(Name = "Fournisseur")]
         SUPPLIER,
-        [Display(Name = "Adhérant")]
+        [Display(Name = "AdhÃ©rant")]
         USER,
         [Display(Name = "Entreprise")]
         CORPORATE,
-        [Display(Name = "Bénévole")]
+        [Display(Name = "BÃ©nÃ©vole")]
         VOLUNTEER,
         [Display(Name = "Administrateur")]
         ADMIN
