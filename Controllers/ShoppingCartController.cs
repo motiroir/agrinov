@@ -60,7 +60,7 @@ namespace AgriNov.Controllers
             {
                 for (int i = 0; i < currentShoppingCart.ShoppingCartItems.Count; i++)
                 {
-                    //checking if product quantity was changed for a shoppingcartitem
+                    //checking if product quantity was changed for a shoppingcartitem, the form does not allow changing other quantities
                     if (currentShoppingCart.ShoppingCartItems[i].Product != null && currentShoppingCart.ShoppingCartItems[i].Quantity != shoppingCart.ShoppingCartItems[i].Quantity)
                     {
                         //Ignore Change if input superior to product stock

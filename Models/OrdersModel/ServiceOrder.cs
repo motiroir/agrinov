@@ -23,7 +23,7 @@ namespace AgriNov.Models
         {
             SaveShoppingCartAsAnOrder(1, null);
             SaveShoppingCartAsAnOrder(12, null);
-            SaveShoppingCartAsAnOrder(4, null);
+            SaveShoppingCartAsAnOrder(10, null);
         }
 
         public void Save()

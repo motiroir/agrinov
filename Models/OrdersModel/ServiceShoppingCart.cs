@@ -138,11 +138,31 @@ namespace AgriNov.Models
             {
                 return;
             }
-            // if (sC.ShoppingCartItems.Any())
-            // {
-            //     //check if box contract already in cart
-            //     // for now impossible to add twice the same contract
-            // }
+            //check if box contract already in cart
+            if (sC.ShoppingCartItems.Any())
+            {
+                foreach (ShoppingCartItem item in sC.ShoppingCartItems)
+                {
+                    if (item.BoxContract != null && item.BoxContract.Id == boxContractId)
+                    {
+                        if(quantity>0)
+                        {
+                            //Updating shopping cart item
+                            item.Quantity = quantity;
+                            item.Total = 13 * item.Quantity * item.BoxContract.Price;
+                            item.DateLastModified = DateTime.Now;
+                            UpdateShoppingCartItem(item);
+                            return;
+                        }
+                        else
+                        {
+                            _DBContext.ShoppingCartItems.Remove(item);
+                            Save();
+                            return;
+                        }
+                    }
+                }
+            }
             ShoppingCartItem shoppingCartItem = new ShoppingCartItem() { BoxContractId = boxContractId};
             shoppingCartItem.Quantity = quantity;
             using(IServiceBoxContract sBC = new ServiceBoxContract())
@@ -175,7 +195,6 @@ namespace AgriNov.Models
             return productItem != null ? productItem.Quantity : 0;
         }
 
-
         public void InitializeTable()
         {
             // AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
@@ -189,10 +208,10 @@ namespace AgriNov.Models
             AddProductToShoppingCart(3, 1, 4);
             AddProductToShoppingCart(3, 1, 12);
             AddBoxContractToShoppingCart(1,1,12);
-            AddBoxContractToShoppingCart(5,1,4);
-            AddBoxContractToShoppingCart(7,1,4);
-            AddBoxContractToShoppingCart(8,1,4);
-            AddBoxContractToShoppingCart(9,2,4);
+            AddBoxContractToShoppingCart(5,1,10);
+            AddBoxContractToShoppingCart(7,1,10);
+            AddBoxContractToShoppingCart(8,1,10);
+            AddBoxContractToShoppingCart(9,2,10);
 
         }
 

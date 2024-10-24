@@ -73,10 +73,12 @@
                             else if(item.MemberShipFee != null)
                             {
                                @item.Quantity;
+                               @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
                             }
                             else if(item.BoxContract != null)
                             {
                                 <span>1</span>
+                                @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
                             }
                         </div>
                         </div>
