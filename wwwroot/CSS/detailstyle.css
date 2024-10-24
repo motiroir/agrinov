@@ -38,10 +38,10 @@
 }
 
 #imgViewer {
-    width: 100%; /* Adapte l'image à la largeur de la div */
-    height: 100%; /* Prend aussi la hauteur totale */
-    object-fit: cover; /* Maintient les proportions sans déformation */
-    object-position: center; /* Centre l'image dans la div */
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center; 
     border-radius: 15px;
 }
 
