@@ -76,6 +76,7 @@ namespace AgriNov.Controllers
             {
                 using (IServiceUser serviceUser = new ServiceUser())
                 {
+                    user.UserAccount.UserAccountLevel = UserAccountLevel.USER;
                     serviceUser.InsertUser(user);
                     return RedirectToAction("Index", "Home");
                 }
@@ -120,6 +121,7 @@ namespace AgriNov.Controllers
             {
                 using (IServiceCorporateUser serviceCorporateUser = new ServiceCorporateUser())
                 {
+                    corporateUser.UserAccount.UserAccountLevel = UserAccountLevel.CORPORATE;
                     serviceCorporateUser.InsertCorporateUser(corporateUser);
                     return RedirectToAction("Index", "Home");
                 }
@@ -170,6 +172,7 @@ namespace AgriNov.Controllers
                 }
                 using (IServiceSupplier serviceSupplier = new ServiceSupplier())
                 {
+                    viewModel.Supplier.UserAccount.UserAccountLevel = UserAccountLevel.SUPPLIER;
                     serviceSupplier.InsertSupplier(viewModel.Supplier);
                     return RedirectToAction("Index", "Home");
                 }
