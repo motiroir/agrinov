@@ -166,3 +166,51 @@ form textarea,
     font-size: 12px;
     margin-top: 5px;
 }
+
+.underline {
+    display: flex;
+    justify-content: center;
+    height: 2px;
+    margin: 25px;
+    margin-inline : 80px;
+}
+
+#underline-2 {
+    background-color: var(--orangeRed);
+}
+
+.pdfdownload {
+   
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+   
+    line-height: 100%;
+    height: 20px;
+    padding-top: 50px;
+    text-decoration: none;
+    color: var(--orange);
+  
+}
+
+    .pdfdownload :hover {
+        text-decoration: underline;
+    }
+
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden; /* Cache le bouton par défaut */
+}
+
+.custom-file-input::before {
+    content: 'Choisir un fichier';
+    display: inline-block;
+    background-color: var(--orange);
+    border: none;
+    color: white;
+    padding: 10px 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}

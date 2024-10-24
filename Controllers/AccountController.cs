@@ -226,7 +226,7 @@ namespace AgriNov.Controllers
             {
                 ModelState.AddModelError("NewPassword", "Les mots de passe ne correspondent pas");
             }
-            return View(viewModel);
+            return RedirectToAction("Index", "DashBoard");
         }
 
         [Authorize]
