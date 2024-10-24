@@ -139,7 +139,7 @@ namespace AgriNov.Models
             return new List<DateTime>() {startDateTime, endDateTime};
         }
 
-        public boolean IsInCurrentSeason(int boxContractId){
+        public bool IsInCurrentSeason(int boxContractId){
             BoxContract boxContract = _DBContext.BoxContracts.FirstOrDefault(bC => bC.Id == boxContractId);
             if(boxContract == null)
             {
@@ -147,7 +147,7 @@ namespace AgriNov.Models
             }
             List<DateTime> dates = ComputeSeasonStartAndEnd(boxContract.Years, boxContract.Seasons);
             DateTime currentDate = DateTime.Now;
-            
+            return true;
         }
     }
 }
