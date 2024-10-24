@@ -2,6 +2,7 @@
 using AgriNov.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Linq;
 
 namespace AgriNov.Models
 {
@@ -33,7 +34,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01)
+            DateLimitForReview = new DateTime(2024, 11, 01),
+            SupplierId= 5
         },
         new Production
         {
@@ -44,7 +46,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01)
+            DateLimitForReview = new DateTime(2024, 11, 01),
+            SupplierId= 5
         },
         new Production
         {   CompanyName = "Fruits du Pays",
@@ -54,7 +57,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01)
+            DateLimitForReview = new DateTime(2024, 11, 01),
+            SupplierId= 6
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -64,7 +68,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01)
+            DateLimitForReview = new DateTime(2024, 11, 01),
+            SupplierId= 7
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -74,18 +79,10 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01)
+            DateLimitForReview = new DateTime(2024, 11, 01),
+            SupplierId= 7
         },
-        new Production
-        {   CompanyName = "Le HellFish",
-            ProductType = ProductType.FISH,
-            VolumePerDelivery = 15,
-            Price = 220,
-            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
-            Seasons = Seasons.WINTER,
-            Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01)
-        },
+       
         new Production
         {   CompanyName = "La ferme des blés",
             ProductType = ProductType.MEAT,
@@ -94,7 +91,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01)
+            DateLimitForReview = new DateTime(2024, 11, 01),
+            SupplierId= 5
         },
 
         new Production
@@ -105,7 +103,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01)
+            DateLimitForReview = new DateTime(2025, 5, 01),
+            SupplierId= 8
         },
         new Production
         {   CompanyName = "Carottes Bio",
@@ -115,7 +114,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01)
+            DateLimitForReview = new DateTime(2025, 5, 01),
+            SupplierId= 8
         },
         new Production
         {   CompanyName = "Fruits du Pays",
@@ -125,7 +125,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01)
+            DateLimitForReview = new DateTime(2025, 5, 01),
+            SupplierId= 6
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -135,7 +136,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01)
+            DateLimitForReview = new DateTime(2025, 5, 01),
+            SupplierId= 7
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -145,18 +147,10 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01)
+            DateLimitForReview = new DateTime(2025, 5, 01),
+            SupplierId= 7
         },
-        new Production
-        {   CompanyName = "Le HellFish",
-            ProductType = ProductType.FISH,
-            VolumePerDelivery = 25,
-            Price = 220,
-            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
-            Seasons = Seasons.SPRING,
-            Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01)
-        },
+       
         new Production
         {   CompanyName = "La ferme des blés",
             ProductType = ProductType.MEAT,
@@ -165,7 +159,8 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01)
+            DateLimitForReview = new DateTime(2025, 5, 01),
+            SupplierId= 5
         }
     };
 
@@ -211,6 +206,12 @@ namespace AgriNov.Models
         {
             return _DBContext.Productions.ToList();
         }
+
+        public List<Production> GetProductionsBySupplier(int supplierID)
+        {
+            return _DBContext.Productions.Where(production => production.SupplierId == supplierID).ToList();
+        }
+        
 
         public void InsertProduction(Production production)
         {

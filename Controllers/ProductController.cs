@@ -128,18 +128,28 @@ namespace AgriNov.Controllers
         }
         
         [HttpPost]
-        public IActionResult AddBoxContractToCart(BoxContract boxContract, int quantity)
+        public IActionResult AddBoxContractToCart(int boxContractId, int quantity)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
-            /*if (quantity <= 0 || quantity > product.Stock)
+            //for now, only weekly big or small boxes are allowed
+            if(!(Decimal.Equals(quantity,0.5) || Decimal.Equals(quantity,1)))
             {
-                return RedirectToAction("ShowProductDetails", "Product", new { id = product.Id });
-            }*/
-            using (ServiceShoppingCart sSC = new ServiceShoppingCart())
-            {
-                sSC.AddProductToShoppingCart(boxContract.Id, 1, userId);
+                return View("Error");
             }
-            return RedirectToAction("ProductDashboard", "Product", new {activeTab="ShowMyBox"});
+            // check if input Id was not modified to an unauthorized one
+            using(IServiceBoxContract sBC = new ServiceBoxContract())
+            {
+                BoxContract boxContract = sBC.GetBoxContractById(boxContractId);
+                if(boxContract == null || !boxContract.ForSale)
+                {
+                    return View("Error");
+                }
+            }
+            using (IServiceShoppingCart sSC = new ServiceShoppingCart())
+            {
+                sSC.AddBoxContractToShoppingCart(boxContractId, quantity, userId);
+            }
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         public IActionResult ShowMyBox(ProductViewModel pVM)

@@ -128,6 +128,7 @@ label {
 input[type="text"],
 input[type="number"],
 input[type="date"],
+input[type="password"],
 select {
     margin-bottom: 10px;
     margin-top: 5px;
@@ -147,6 +148,7 @@ form input[type="date"],
 form input[type="number"],
 form input[type="file"],
 .form-no-shadow input[type="file"],
+input[type="password"],
 form textarea,
 .form-no-shadow textarea,
 .text-area {
