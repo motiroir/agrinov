@@ -11,7 +11,6 @@ namespace AgriNov.Models
     {
         public DateTime Date {get; set;}
         public PaymentType PaymentType {get; set;}
-
         public bool Received {get; set;}
     }
 }

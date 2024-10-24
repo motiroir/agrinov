@@ -71,10 +71,6 @@ namespace AgriNov.Controllers
                 {
                     user.UserAccount = currentUserAccount;
                 }
-                else
-                {
-                    return View("Error");
-                }
             }
             if (!ModelState.IsValid)
             {

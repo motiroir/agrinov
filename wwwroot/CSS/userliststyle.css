@@ -14,11 +14,20 @@
 }
 
 .full-img {
-    background-color: black;
+    background-color: white;
+    height:360px;
     background-size: cover;
     background-position: center;
     border-radius: 15px;
     width: 50%;
+}
+
+#imgViewer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
 }
 
 .activity-content {

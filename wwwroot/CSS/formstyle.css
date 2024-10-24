@@ -147,8 +147,10 @@ form input[type="text"],
 form input[type="date"],
 form input[type="number"],
 form input[type="file"],
+.form-no-shadow input[type="file"],
 input[type="password"],
 form textarea,
+.form-no-shadow textarea,
 .text-area {
     width: 100%;
     padding: 10px;
@@ -166,6 +168,7 @@ form textarea,
     font-size: 12px;
     margin-top: 5px;
 }
+
 
 .form-underline {
     display: flex;
@@ -197,7 +200,7 @@ form textarea,
 
 
 .custom-file-input::-webkit-file-upload-button {
-    visibility: hidden; /* Cache le bouton par défaut */
+    visibility: hidden; 
 }
 
 .custom-file-input::before {
@@ -249,3 +252,9 @@ input[type="radio"]:checked + .radio-label::before {
 .radio-label:hover::before {
     border-color: var(--orangeRed); 
 }
+
+#imgViewer {
+    max-width: 100%;
+}
+
+

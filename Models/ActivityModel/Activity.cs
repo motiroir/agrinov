@@ -32,5 +32,7 @@ namespace AgriNov.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
         public int OrganizerId { get; set; }
+        [DisplayName("Image de couverture")]
+        public byte[] ImgActivity { get; set; }
     }
 }

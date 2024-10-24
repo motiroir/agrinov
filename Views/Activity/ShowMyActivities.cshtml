@@ -6,52 +6,84 @@
 }
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/userliststyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 <div class="activities-section">
-    <h3>Les ateliers dont je suis l'organisateur(rice)</h3>
-    <div class="activity-organized">
-        @foreach (AgriNov.Models.Activity activity in Model.ActivitiesByOrganizer)
-        {
-            <div class="activity-detail-container">
-                <div class="full-img"></div>
-                <div class="activity-content">
-                    <div class="text-content">
-                        <h2 class="activity-name">@activity.Name</h2>
-                        <p class="activity-author">@activity.Location</p>
-                        <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
-                        <p class="activity-description">@activity.Description</p>
+    @if (Model.ActivitiesBookedByUser != null && Model.ActivitiesBookedByUser.Any())
+    {
+        <h3>Les ateliers auxquels je me suis inscrit(e)</h3>
+        <div class="activity-organized">
+            @foreach (AgriNov.Models.Activity activity in Model.ActivitiesBookedByUser)
+            {
+                <div class="activity-detail-container">
+                    <div class="full-img">
+                        @{
+                            String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(activity.ImgActivity) + "";
+                            <img id="imgViewer" src=@srcValue />
+                        }
                     </div>
-                    <div class="btn-div">
-                        <a class="btn-inscription">annuler</a>
-                        <a href="@Url.Action("UpdateActivity", "Activity", new { id = @activity.Id })" class="btn-inscription">modifier</a>
-                        <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" type="submit" class="btn-inscription">voir les détails</a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-<div class="activities-section">
-    <h3>Les activitiés auxquelles je me suis inscrit(e)</h3>
-    <div class="activity-organized">
-        @foreach (AgriNov.Models.Activity activity in Model.ActivitiesBookedByUser)
-        {
-            <div class="activity-detail-container">
-                <div class="full-img"></div>
-                <div class="activity-content">
-                    <div class="text-content">
-                        <h2 class="activity-name">@activity.Name</h2>
-                        <p class="activity-author">@activity.Location</p>
-                        <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
-                        <p class="activity-description">@activity.Description</p>
-                    </div>
-                    <div class="btn-div">
+                    <div class="activity-content">
+                        <div class="text-content">
+                            <h2 class="activity-name">@activity.Name</h2>
+                            <p class="activity-author">@activity.Location</p>
+                            <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
+                            <p class="activity-description">@activity.Description</p>
+                        </div>
+                        <div class="btn-div">
                             <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" type="submit" class="btn-inscription">voir les détails</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h4>Vous n'êtes pas encore inscrit à un atelier. Vous pouvez voir tous les ateliers ici :  </h4>
+        <div class="btn-div">
+            <a href="@Url.Action("ActivityDashboard","Activity", new{activeTab="ShowAllActivities"})" class="orange-btn">voir tous les ateliers</a>
+        </div>
+    }
 </div>
+
+<div class="activities-section">
+    @if (Model.ActivitiesByOrganizer != null && Model.ActivitiesByOrganizer.Any())
+    {
+        <h3>Les ateliers dont je suis l'organisateur(rice)</h3>
+        <div class="activity-organized">
+            @foreach (AgriNov.Models.Activity activity in Model.ActivitiesByOrganizer)
+            {
+                <div class="activity-detail-container">
+                    <div class="full-img">
+                        @{
+                            String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(activity.ImgActivity) + "";
+                            <img id="imgViewer" src=@srcValue />
+                        }
+                    </div>
+                    <div class="activity-content">
+                        <div class="text-content">
+                            <h2 class="activity-name">@activity.Name</h2>
+                            <p class="activity-author">@activity.Location</p>
+                            <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
+                            <p class="activity-description">@activity.Description</p>
+                        </div>
+                        <div class="btn-div">
+                            <a class="btn-inscription">annuler</a>
+                            <a href="@Url.Action("UpdateActivity", "Activity", new { id = @activity.Id })" class="btn-inscription">modifier</a>
+                            <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" type="submit" class="btn-inscription">voir les détails</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    } else
+    {
+        <h4>Vous n'avez pas d'atelier dont vous êtes l'organisateur. Vous souhaitez en proposer un ? </h4>
+        <div class="btn-div">
+            <a href="@Url.Action("ActivityDashboard","Activity", new{ activeTab="CreateActivity" })" class="orange-btn">proposer un atelier</a>
+        </div>
+    }
+</div>
+
 
 <script src="~/scripts/quantity-selector.js"></script>

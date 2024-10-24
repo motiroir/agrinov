@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Threading.Tasks;
 using AgriNov.Models;
+using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -76,30 +78,96 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult PlaceOrder()
         {
-            //Check stocks for product and boxcontract before proceeding to payment
-            //TODO
-            Payment payment = new Payment();
-            //Select cash by default
-            payment.PaymentType = PaymentType.CASH;
-            return View();
+            PaymentViewModel viewModel = new PaymentViewModel
+            {
+                Payment = new Payment(), 
+                ShoppingCart = null
+            };
+
+            using (ServiceUserAccount sUA = new ServiceUserAccount())
+            {
+                using (IServiceShoppingCart sSC = new ServiceShoppingCart())
+                {
+                    int userAccountId = Int32.Parse(HttpContext.User.Identity.Name);
+
+                    if (!sUA.CheckIfMemberShipValid(userAccountId))
+                    {
+                        if (!sSC.IsAMemberShipFeeInTheCart(userAccountId))
+                        {
+                            sSC.AddMemberShipFeeToShoppingCart(userAccountId, new ShoppingCartItem());
+                        }
+                    }
+
+                    viewModel.ShoppingCart = sSC.GetShoppingCartForUserAccount(HttpContext.User.Identity.Name);
+                }
+            }
+
+            if (viewModel.ShoppingCart == null)
+            {
+                return View("Error");
+            }
+
+            return View(viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult PlaceOrder(Payment payment)
+        public IActionResult PlaceOrder(PaymentViewModel viewModel, string action)
         {
-            payment.Date = DateTime.Now;
-            // to implement online payment, check if payment online and redirect before setting to true
-            if (payment.PaymentType == PaymentType.CARD)
+            using (ServiceUserAccount sUA = new ServiceUserAccount())
             {
-                payment.Received = true;
+                using (IServiceShoppingCart sSC = new ServiceShoppingCart())
+                {
+                    int userAccountId = Int32.Parse(HttpContext.User.Identity.Name);
+
+                    if (!sUA.CheckIfMemberShipValid(userAccountId))
+                    {
+                        if (!sSC.IsAMemberShipFeeInTheCart(userAccountId))
+                        {
+                            sSC.AddMemberShipFeeToShoppingCart(userAccountId, new ShoppingCartItem());
+                        }
+                    }
+
+                    viewModel.ShoppingCart = sSC.GetShoppingCartForUserAccount(HttpContext.User.Identity.Name);
+                }
             }
-            // the stocks will be decreased when writing order, so you need to be sure the payment is received
-            using (IServiceOrder sO = new ServiceOrder())
+
+            if (action == "online")
             {
-                sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name, payment);
+                if (ModelState.IsValid)
+                {
+                    Payment payment = new Payment();
+                    payment.Date = DateTime.Now;
+                    payment.PaymentType = PaymentType.CARD;
+                    payment.Received = true;
+
+                    viewModel.Payment = payment;
+
+                    using (IServiceOrder sO = new ServiceOrder())
+                    {
+                        sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name, viewModel.Payment);
+                    }
+
+                    return RedirectToAction("Index", "ShoppingCart");
+                }
             }
-            return RedirectToAction("Index", "ShoppingCart");
+            if (action == "offline")
+            {
+                Payment payment = new Payment();
+                payment.PaymentType = PaymentType.NA;
+                payment.Received = false;
+
+                viewModel.Payment = payment;
+
+                using (IServiceOrder sO = new ServiceOrder())
+                {
+                    sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name, viewModel.Payment);
+                }
+
+                return RedirectToAction("Index", "ShoppingCart");
+            }
+
+                return View(viewModel);
         }
 
         [Authorize]

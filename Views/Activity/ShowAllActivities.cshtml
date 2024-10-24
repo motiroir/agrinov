@@ -13,7 +13,12 @@
     @foreach (AgriNov.Models.Activity activity in Model.AllActivities)
     {
         <div class="activity-tile">
-            <div class="preview-img"></div>
+            <div class="preview-img">
+                @{
+                    String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(activity.ImgActivity) + "";
+                    <img id="imgViewer" src=@srcValue />
+                }
+            </div>
             <div class="tile-content">
                 <div class="text-content">
                     <h2 class="activity-name">@activity.Name</h2>
@@ -21,7 +26,7 @@
                     <p class="activity-date">@activity.Datetime.ToString("dd/MM/yyyy HH:mm")</p>
                 </div>
                 <div class="btn-div">
-                    <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = activity.Id, returnUrl = "ActivityDashboard"})" class="btn-inscription">en savoir plus</a>
+                    <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = activity.Id })" class="btn-inscription">en savoir plus</a>
                 </div>
             </div>
         </div>
