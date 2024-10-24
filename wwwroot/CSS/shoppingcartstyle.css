@@ -147,10 +147,10 @@
 .btn:hover {
     background-color: #e67e50;
 }
-button.active {
+span.active {
     background-color: #FE9E55;
 }
-button.active:hover {
+span.active:hover {
     background-color: #FFB57C;
 }
 
@@ -390,8 +390,9 @@ button.active:hover {
 .form-container {
     display: grid;
     grid-column-gap: 10px;
+    grid-row-gap:10px;
     grid-template-columns: auto auto;
-    grid-template-rows: 90px 90px 90px;
+    grid-template-rows: auto auto auto;
     grid-template-areas: "name name""number number""expiration security";
     max-width: 400px;
     padding: 20px;

@@ -1,5 +1,5 @@
 @using AgriNov.Models
-@model AgriNov.Models.ShoppingCart
+@model AgriNov.ViewModels.PaymentViewModel
 @{
     Layout = "_BaseLayout";
     ViewBag.Title = "Mon panier";
@@ -17,7 +17,8 @@
     <div class="underline" id="underline-2"></div>
     <div class="underline" id="underline-3"></div>
 </div>
-
+@using (Html.BeginForm("PlaceOrder", "ShoppingCart", FormMethod.Post))
+    {
     <div class="page-container">
 
         <div class="shop-resume-container">
@@ -25,30 +26,32 @@
             <h4>Comment souhaitez vous régler ?</h4>
 
             <div class="shop-resume-btn-container">
-                <button id="online-button" class="btn active" href='@Url.Action("EmptyCart","ShoppingCart")'>En ligne</button>
-                <button id="offline-button" class="btn" href='@Url.Action("PlaceOrder","ShoppingCart")'>Sur place</button>
+                <span id="online-button" class="btn active" href='@Url.Action("EmptyCart","ShoppingCart")'>En ligne</span>
+                <span id="offline-button" class="btn" href='@Url.Action("PlaceOrder","ShoppingCart")'>Sur place</span>
             </div>
 
             <div class="shop-resume">
                 <h4>ma commande</h4>
 
-                @for (int i = 0; i < Model.ShoppingCartItems.Count; i++)
-                {
-                    ShoppingCartItem item = Model.ShoppingCartItems[i];
-                    <div class="cart-line">
-                        <p class="name">@item.Product.Name</p>
-                        <p class="price">@item.Total.ToString("C")</p>
-                    </div>
-                }
+            @for (int i = 0; i < Model.ShoppingCart.ShoppingCartItems.Count; i++)
+            {
+                ShoppingCartItem item = Model.ShoppingCart.ShoppingCartItems[i];
+                <div class="cart-line">
+                    <p class="name">@item.Product.Name</p>
+                    <p class="price">@item.Total.ToString("C")</p>
+                </div>
+            }
 
                 <div class="line"></div>
                 <div class="cart-line">
                     <p class="name"><b>Total</b></p>
-                    <p class="price"><b>@Model.Total.ToString("C")</b></p>
+                <p class="price"><b>@Model.ShoppingCart.Total.ToString("C")</b></p>
                 </div>
             
             </div>
         </div>
+
+    
 
         <div id="online-payment">
         <div class="payment-container">
@@ -153,28 +156,37 @@
             </div>
 
 
+            
             <div class="form-container">
-                <div class="field-container">
-                    <label for="name">Nom du propriétaire</label>
-                    <input id="name" maxlength="20" type="text">
-                </div>
-                <div class="field-container">
-                    <label for="cardnumber">Numéro de carte</label>
-                    <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
-                </div>
-                <div class="field-container">
-                    <label for="expirationdate">Date d'expiration (mm/aa)</label>
-                    <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
-                </div>
-                <div class="field-container">
-                    <label for="securitycode">CSV</label>
-                    <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
-                </div>
-            </div>
+                    <div class="field-container">
+                        <label for="name">Nom du propriétaire</label>
+                        @Html.TextBoxFor(model => model.Name, new { id = "name", type = "text", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "validation-error" })
+                    </div>
 
-            <a class="lightOrange-btn w-50" href='@Url.Action("Index","Home")'>Valider</a>
+                    <div class="field-container">
+                        <label for="cardnumber">Numéro de carte</label>
+                        @Html.TextBoxFor(model => model.CardNumber, new { id = "cardnumber", type = "text", inputmode = "numeric", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CardNumber, null, new { @class = "validation-error" })
+                    </div>
+
+                    <div class="field-container">
+                        <label for="expirationdate">Date d'expiration (mm/aa)</label>
+                        @Html.TextBoxFor(model => model.ExpirationDate, new { id = "expirationdate", type = "text", inputmode = "numeric", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ExpirationDate, null, new { @class = "validation-error" })
+                    </div>
+
+                    <div class="field-container">
+                        <label for="securitycode">CSV</label>
+                        @Html.TextBoxFor(model => model.SecurityCode, new { id = "securitycode", type = "text", inputmode = "numeric", @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SecurityCode, null, new { @class = "validation-error" })
+                    </div>
+
+            </div>
+                <button type="submit" name="action" value="online" class="lightOrange-btn w-250px">Valider</button>
         </div>
         </div>
+            
 
         <div id="offline-payment">
         <div class="payment-container">
@@ -196,13 +208,13 @@
                     </h4>
                 </div>
             </div>
-            <a class="lightOrange-btn w-50" href='@Url.Action("Index","Home")'>Valider</a>
+            <button type="submit" name="action" value="offline" class="lightOrange-btn w-50">Valider</button>
         </div>
         </div>
-
 
 
     </div>
+    }
   
 
 
