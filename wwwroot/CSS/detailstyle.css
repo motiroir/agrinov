@@ -30,15 +30,19 @@
 } 
 
 .full-img {
-    background-color: mistyrose;
+    background-color: white;
     background-size: cover;
     background-position: center;
     border-radius: 15px;
     width: 50%;
 }
 
-#imgViewer{
-    width: 100%
+#imgViewer {
+    width: 100%; /* Adapte l'image à la largeur de la div */
+    height: 100%; /* Prend aussi la hauteur totale */
+    object-fit: cover; /* Maintient les proportions sans déformation */
+    object-position: center; /* Centre l'image dans la div */
+    border-radius: 15px;
 }
 
 .activity-content {

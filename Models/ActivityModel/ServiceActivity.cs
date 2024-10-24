@@ -51,32 +51,7 @@ namespace AgriNov.Models
                 return activities;
             }
         }
-        /*private void AddImageToActivity(int activityId, string fileName)
-        {
-            // Chemin du dossier d'images
-            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "activities");
-            var filePath = Path.Combine(imagePath, fileName);
-
-            if (File.Exists(filePath))
-            {
-                // Lire le contenu du fichier en bytes (méthode synchrone)
-                byte[] fileContent = File.ReadAllBytes(filePath);
-
-                // Trouver l'activité par ID
-                Activity activity = GetActivity(activityId);
-                if (activity != null)
-                {
-                    // Associer l'image à l'activité
-                    activity.ImgActivity = fileContent;
-                }
-            }
-            else
-            {
-                // Gérer le cas où le fichier n'existe pas
-                throw new FileNotFoundException($"Le fichier {fileName} n'a pas été trouvé à l'emplacement spécifié.");
-            }
-        }*/
-
+       
     
     public void InitializeTable()
         {

@@ -28,12 +28,18 @@
     }
 
 .preview-img {
-    background-color: #000;
     height: 200px;
     width: 100%;
     background-size: cover;
     background-position: center;
     border-bottom: 1px solid #e0e0e0;
+}
+
+#imgViewer {
+    width: 100%; /* Adapte l'image à la largeur de la div */
+    height: 100%; /* Prend aussi la hauteur totale */
+    object-fit: cover; /* Maintient les proportions sans déformation */
+    object-position: center; /* Centre l'image dans la div */
 }
 
 .tile-content {
