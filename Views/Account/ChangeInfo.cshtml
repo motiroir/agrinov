@@ -71,10 +71,11 @@
       </fieldset>
      </div>
 
-        <div class="form-underline"></div>
+       
 
         @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
         {
+              <div class="form-underline"></div>
             <div class="fieldsets-container">
                 <fieldset>
             <div>
