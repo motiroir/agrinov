@@ -50,7 +50,7 @@
             @Html.ValidationMessageFor(model => model.Address.City)
         </div>
 
-        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER)
+        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
         {
             <div>
                 @Html.LabelFor(model => model.CompanyDetails.CompanyName)
