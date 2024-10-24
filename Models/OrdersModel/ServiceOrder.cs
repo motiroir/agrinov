@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgriNov.Models
 {
@@ -119,22 +120,41 @@ namespace AgriNov.Models
 
         public void UpdateOrder(Order order)
         {
-            throw new NotImplementedException();
+            //Does not recaculate prices and totals, do not use for updating anything other than payment and delivery
+            //Do not modify order items with this
+            Order oldOrder = _DBContext.Orders.FirstOrDefault(o=> o.Id == order.Id);
+            _DBContext.Entry(oldOrder).CurrentValues.SetValues(order);
+            Save();
         }
 
+        public List<Order> GetAllOrdersWithoutDetails()
+        {
+            return _DBContext.Orders.ToList();
+        }
         public List<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _DBContext.Orders.Include(order => order.OrderItems).ThenInclude(orderItem => orderItem.MemberShipFee)
+                                    .Include(order => order.OrderItems).ThenInclude(orderItem => orderItem.Product)
+                                    .Include(order => order.OrderItems).ThenInclude(orderItem => orderItem.BoxContract)
+                                    .ToList();
         }
         public List<Order> GetAllOrdersForUserAccount(int userAccountId)
         {
-            throw new NotImplementedException();
+            return _DBContext.Orders.Where(order => order.UserAccountId == userAccountId)
+                                    .Include(order => order.OrderItems).ThenInclude(orderItem => orderItem.MemberShipFee)
+                                    .Include(order => order.OrderItems).ThenInclude(orderItem => orderItem.Product)
+                                    .Include(order => order.OrderItems).ThenInclude(orderItem => orderItem.BoxContract)
+                                    .ToList();
 
         }
         public List<Order> GetAllOrdersForUserAccount(string userAccountIdStr)
         {
-            throw new NotImplementedException();
-
+            int id;
+            if (int.TryParse(userAccountIdStr, out id))
+            {
+                return GetAllOrdersForUserAccount(id);
+            }
+            return null;
         }
     }
 }
