@@ -5,58 +5,94 @@
     ViewBag.Title = "Renseignements Inscription Comité d'Entreprise";
 }
 @section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/globalstyle.css">
     <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 <div class="form">
     @using (Html.BeginForm("AddCorporateUser", "Account", FormMethod.Post))
     {
         @Html.TextBoxFor(model => model.UserAccount.Id, new { @Value = @Model.UserAccount.Id, style = "display:none;" })
+        <h2>Entrez vos informations</h2>
+        <div class="fieldsets-container">
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.ContactDetails.Name)
+                    @Html.TextBoxFor(model => model.ContactDetails.Name, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.ContactDetails.Name)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.ContactDetails.FirstName)
+                    @Html.TextBoxFor(model => model.ContactDetails.FirstName, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.ContactDetails.FirstName)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.ContactDetails.PhoneNumber)
+                    @Html.TextBoxFor(model => model.ContactDetails.PhoneNumber, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.ContactDetails.PhoneNumber)
+                </div>
+            </fieldset>
+            <fieldset>
 
-        @Html.LabelFor(model => model.ContactDetails.Name)
-        @Html.TextBoxFor(model => model.ContactDetails.Name, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.ContactDetails.Name)
+                <div>
+                    @Html.LabelFor(model => model.Address.Line2)
+                    @Html.TextBoxFor(model => model.Address.Line2, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Address.Line2)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Address.Line1)
+                    @Html.TextBoxFor(model => model.Address.Line1, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Address.Line1)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Address.PostCode)
+                    @Html.TextBoxFor(model => model.Address.PostCode, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Address.PostCode)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Address.City)
+                    @Html.TextBoxFor(model => model.Address.City, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Address.City)
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-underline"></div>
 
-        @Html.LabelFor(model => model.ContactDetails.FirstName)
-        @Html.TextBoxFor(model => model.ContactDetails.FirstName, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.ContactDetails.FirstName)
+        <div class="fieldsets-container">
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.CompanyDetails.CompanyName)
+                    @Html.TextBoxFor(model => model.CompanyDetails.CompanyName, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.CompanyDetails.CompanyName)
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.CompanyDetails.SiretNumber)
+                    @Html.TextBoxFor(model => model.CompanyDetails.SiretNumber, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.CompanyDetails.SiretNumber)
+                </div>
+            </fieldset>
+        </div>
 
-        @Html.LabelFor(model => model.ContactDetails.PhoneNumber)
-        @Html.TextBoxFor(model => model.ContactDetails.PhoneNumber, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.ContactDetails.PhoneNumber)
-
-        @Html.LabelFor(model => model.Address.Line1)
-        @Html.TextBoxFor(model => model.Address.Line1, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Address.Line1)
-
-        @Html.LabelFor(model => model.Address.Line2)
-
-        @Html.TextBoxFor(model => model.Address.Line2, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Address.Line2)
-
-        @Html.LabelFor(model => model.Address.PostCode)
-        @Html.TextBoxFor(model => model.Address.PostCode, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Address.PostCode)
-
-        @Html.LabelFor(model => model.Address.City)
-        @Html.TextBoxFor(model => model.Address.City, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Address.City)
-
-        @Html.LabelFor(model => model.CompanyDetails.CompanyName)
-        @Html.TextBoxFor(model => model.CompanyDetails.CompanyName, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.CompanyDetails.CompanyName)
-
-        @Html.LabelFor(model => model.CompanyDetails.SiretNumber)
-        @Html.TextBoxFor(model => model.CompanyDetails.SiretNumber, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.CompanyDetails.SiretNumber)
-
-        @Html.LabelFor(model => model.MaxBoxContractSubscription)
-        @Html.TextBoxFor(model => model.MaxBoxContractSubscription, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.MaxBoxContractSubscription)
-
-        @Html.LabelFor(model => model.MaxActivitiesSignUp)
-        @Html.TextBoxFor(model => model.MaxActivitiesSignUp, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.MaxActivitiesSignUp)
-
-            <button type="submit">Envoyer</button>
+        <div class="fieldsets-container">
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.MaxBoxContractSubscription)
+                    @Html.TextBoxFor(model => model.MaxBoxContractSubscription, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.MaxBoxContractSubscription)
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.MaxActivitiesSignUp)
+                    @Html.TextBoxFor(model => model.MaxActivitiesSignUp, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.MaxActivitiesSignUp)
+                </div>
+            </fieldset>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="orange-btn">Envoyer</button>
+        </div>
     }
 </div>

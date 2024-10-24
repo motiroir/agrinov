@@ -81,7 +81,7 @@ namespace AgriNov.Controllers
                 using (IServiceUser serviceUser = new ServiceUser())
                 {
                     serviceUser.InsertUser(user);
-                    return RedirectToAction("Index", "MyAccount");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(user);
@@ -125,7 +125,7 @@ namespace AgriNov.Controllers
                 using (IServiceCorporateUser serviceCorporateUser = new ServiceCorporateUser())
                 {
                     serviceCorporateUser.InsertCorporateUser(corporateUser);
-                    return RedirectToAction("Index", "MyAccount");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(corporateUser);
@@ -175,7 +175,7 @@ namespace AgriNov.Controllers
                 using (IServiceSupplier serviceSupplier = new ServiceSupplier())
                 {
                     serviceSupplier.InsertSupplier(viewModel.Supplier);
-                    return RedirectToAction("Index", "MyAccount");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(viewModel);

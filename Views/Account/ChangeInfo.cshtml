@@ -20,7 +20,7 @@
     
     @using (Html.BeginForm("ChangeInfo", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <h2>Modifier les informations</h2>
+        <h2>Modifier mes informations</h2>
         @Html.TextBoxFor(model => model.UserAccountId, new { @Value = @Model.UserAccountId, style = "display:none;" })
         @Html.TextBoxFor(model => model.UserAccountLevel, new { @Value = @Model.UserAccountLevel, style = "display:none;" })
       <div class="fieldsets-container">
@@ -43,11 +43,11 @@
       </fieldset>
       <fieldset>
           
-                <div>
-                    @Html.LabelFor(model => model.Address.Line2)
-                    @Html.TextBoxFor(model => model.Address.Line2, new { @class = "form-input" })
-                    @Html.ValidationMessageFor(model => model.Address.Line2)
-                </div>
+        <div>
+            @Html.LabelFor(model => model.Address.Line2)
+            @Html.TextBoxFor(model => model.Address.Line2, new { @class = "form-input" })
+            @Html.ValidationMessageFor(model => model.Address.Line2)
+        </div>
         <div>
             @Html.LabelFor(model => model.Address.Line1)
             @Html.TextBoxFor(model => model.Address.Line1, new { @class = "form-input" })
@@ -71,7 +71,7 @@
       </fieldset>
      </div>
 
-        <div class="underline" id="underline-2"></div>
+        <div class="form-underline"></div>
 
         @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
         {
@@ -123,9 +123,9 @@
                 @Html.LabelFor(model => model.PdfFile, "Justificatif")
                     @Html.TextBoxFor(model => model.PdfFile, new { type = "file", accept = "application/pdf", @class = "custom-file-input" })
                 </fieldset>
-                <fieldset>
+                
                 <a class="pdfdownload" href="@Url.Action("DownloadPdf","Account",new { supplierId = Model.Supplier.Id })" target="_blank" rel="noreferrer noopener">Ouvrir le PDF</a>
-                </fieldset>
+                
             </div>
           
         }

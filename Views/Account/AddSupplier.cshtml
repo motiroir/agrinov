@@ -5,53 +5,86 @@
     ViewBag.Title = "Renseignements Inscription Fournisseur";
 }
 @section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/globalstyle.css">
     <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 <div class="form">
     @using (Html.BeginForm("AddSupplier", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.TextBoxFor(model => model.Supplier.UserAccount.Id, new { @Value = @Model.Supplier.UserAccount.Id, style = "display:none;" })
+        <h2>Entrez vos informations</h2>
+        <div class="fieldsets-container">
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.ContactDetails.Name)
+                    @Html.TextBoxFor(model => model.Supplier.ContactDetails.Name, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.ContactDetails.Name)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.ContactDetails.FirstName)
+                    @Html.TextBoxFor(model => model.Supplier.ContactDetails.FirstName, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.ContactDetails.FirstName)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.ContactDetails.PhoneNumber)
+                    @Html.TextBoxFor(model => model.Supplier.ContactDetails.PhoneNumber, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.ContactDetails.PhoneNumber)
+                </div>
+            </fieldset>
+            <fieldset>
 
-        @Html.LabelFor(model => model.Supplier.ContactDetails.Name)
-        @Html.TextBoxFor(model => model.Supplier.ContactDetails.Name, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.ContactDetails.Name)
+                <div>
+                    @Html.LabelFor(model => model.Supplier.Address.Line2)
+                    @Html.TextBoxFor(model => model.Supplier.Address.Line2, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.Address.Line2)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.Address.Line1)
+                    @Html.TextBoxFor(model => model.Supplier.Address.Line1, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.Address.Line1)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.Address.PostCode)
+                    @Html.TextBoxFor(model => model.Supplier.Address.PostCode, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.Address.PostCode)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.Address.City)
+                    @Html.TextBoxFor(model => model.Supplier.Address.City, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.Address.City)
+                </div>
+            </fieldset>
+        </div>
 
-        @Html.LabelFor(model => model.Supplier.ContactDetails.FirstName)
-        @Html.TextBoxFor(model => model.Supplier.ContactDetails.FirstName, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.ContactDetails.FirstName)
+        <div class="form-underline"></div>
 
-        @Html.LabelFor(model => model.Supplier.ContactDetails.PhoneNumber)
-        @Html.TextBoxFor(model => model.Supplier.ContactDetails.PhoneNumber, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.ContactDetails.PhoneNumber)
+        <div class="fieldsets-container">
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.CompanyDetails.CompanyName)
+                    @Html.TextBoxFor(model => model.Supplier.CompanyDetails.CompanyName, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.CompanyDetails.CompanyName)
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    @Html.LabelFor(model => model.Supplier.CompanyDetails.SiretNumber)
+                    @Html.TextBoxFor(model => model.Supplier.CompanyDetails.SiretNumber, new { @class = "form-input" })
+                    @Html.ValidationMessageFor(model => model.Supplier.CompanyDetails.SiretNumber)
+                </div>
+            </fieldset>
+        </div>
+        <div class="fieldsets-container">
 
-        @Html.LabelFor(model => model.Supplier.Address.Line1)
-        @Html.TextBoxFor(model => model.Supplier.Address.Line1, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.Address.Line1)
+            <fieldset>
+                @Html.LabelFor(model => model.PdfFile, "Justificatif")
+                @Html.TextBoxFor(model => model.PdfFile, new { type = "file", accept = "application/pdf", @class = "custom-file-input" })
+            </fieldset>
+        </div>
 
-        @Html.LabelFor(model => model.Supplier.Address.Line2)
-
-        @Html.TextBoxFor(model => model.Supplier.Address.Line2, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.Address.Line2)
-
-        @Html.LabelFor(model => model.Supplier.Address.PostCode)
-        @Html.TextBoxFor(model => model.Supplier.Address.PostCode, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.Address.PostCode)
-
-        @Html.LabelFor(model => model.Supplier.Address.City)
-        @Html.TextBoxFor(model => model.Supplier.Address.City, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.Address.City)
-
-        @Html.LabelFor(model => model.Supplier.CompanyDetails.CompanyName)
-        @Html.TextBoxFor(model => model.Supplier.CompanyDetails.CompanyName, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.CompanyDetails.CompanyName)
-
-        @Html.LabelFor(model => model.Supplier.CompanyDetails.SiretNumber)
-        @Html.TextBoxFor(model => model.Supplier.CompanyDetails.SiretNumber, new { @class = "form-input" })
-        @Html.ValidationMessageFor(model => model.Supplier.CompanyDetails.SiretNumber)
-
-        @Html.LabelFor(model => model.PdfFile)
-        @Html.TextBoxFor(model => model.PdfFile, new { type = "file", accept = "application/pdf" })
-
-        <button type="submit">Envoyer</button>
+        <div class="button-container">
+            <button type="submit" class="orange-btn">Envoyer</button>
+        </div>
     }
 </div>

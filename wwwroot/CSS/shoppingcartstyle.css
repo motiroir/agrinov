@@ -24,16 +24,20 @@
 
 .cart-container {
     margin: auto;
-    width: 1500px;
-    display:flex;
-    justify-content:space-between;
-    flex-direction:row;
+    max-width: 100%;
+    width: 90vw; /* Utilisation de pourcentage ou viewport width pour rendre la largeur responsive */
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 20px; /* Ajout de padding pour espacer les bords */
+    box-sizing: border-box;
 }
 .message-container {
-    margin: auto;
-    width: 1500px;
+    margin: 0px 500px 100px 20px;
+    width: 1800px;
     display: flex;
     justify-content: center;
+    padding
 }
 
 
