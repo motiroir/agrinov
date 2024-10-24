@@ -1,5 +1,6 @@
 ﻿
 
+using System.Data.Entity;
 using System.Security.Cryptography;
 
 namespace AgriNov.Models
@@ -155,7 +156,7 @@ namespace AgriNov.Models
         public bool IsInCurrentSeason(int boxContractId)
         {
             BoxContract boxContract = _DBContext.BoxContracts.FirstOrDefault(bC => bC.Id == boxContractId);
-            if (boxContract == null)
+            if (boxContract == null || boxContract.Seasons == Seasons.None)
             {
                 return false;
             }
@@ -164,23 +165,18 @@ namespace AgriNov.Models
             return currentDate >= dates[0] && currentDate <= dates[1];
         }
 
-        public List<BoxContract> GetCurrentBoxContractsForUser(int userAccountId)
+        public List<BoxContractSubscription> GetCurrentBoxContractsForUser(int userAccountId)
         {
-            return _DBContext.BoxContracts
-                    .GroupJoin(
-                         _DBContext.OrderItems
-                            .Join(_DBContext.Orders,
-                                    oi => oi.OrderId, // join criteria
-                                    o => o.Id, // join criteria
-                    (oi, o) => new { oi.BoxContractId, o.UserAccountId }) // fields i want to keep
-                .Where(o => o.UserAccountId == userAccountId), // Keep only for my useraccount
-                        bc => bc.Id, // criteria for the join from boxcontracts
-                        ooi => ooi.BoxContractId, // criteria from the previous join
-            (bc, ooi) => bc) // keep box contracts
-                    .ToList();
+            List<BoxContractSubscription> contracts =  _DBContext.OrderItems.Include(oi => oi.Order)
+                                        .Where(oi => oi.Order.UserAccountId == userAccountId && oi.BoxContract != null)
+                                        .Include(oi => oi.BoxContract)
+                                        .Select(oi => new BoxContractSubscription() {BoxContract = oi.BoxContract , Quantity = oi.Quantity})
+                                        .Distinct()
+                                        .ToList();
+            return contracts.Where(bcs => IsInCurrentSeason(bcs.BoxContract.Id)).ToList();
         }
 
-        public List<BoxContract> GetCurrentBoxContractsForUser(string userAccountIdStr)
+        public List<BoxContractSubscription> GetCurrentBoxContractsForUser(string userAccountIdStr)
         {
             int id;
             if(int.TryParse(userAccountIdStr, out id))
@@ -189,5 +185,6 @@ namespace AgriNov.Models
             }
             return null;
         }
+
     }
 }

@@ -189,7 +189,7 @@ namespace AgriNov.Models
             AddProductToShoppingCart(3, 1, 4);
             AddProductToShoppingCart(3, 1, 12);
             AddBoxContractToShoppingCart(1,1,12);
-            AddBoxContractToShoppingCart(6,1,4);
+            AddBoxContractToShoppingCart(5,1,4);
             AddBoxContractToShoppingCart(7,1,4);
             AddBoxContractToShoppingCart(8,1,4);
             AddBoxContractToShoppingCart(9,2,4);
