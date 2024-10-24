@@ -63,12 +63,22 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult PlaceOrder()
         {
-            //Check stocks before proceeding to payment
-            //TODO
-            Payment payment = new Payment();
-            //Select cash by default
-            payment.PaymentType = PaymentType.CASH;
-            return View();
+            ShoppingCart currentShoppingCart;
+            using (ServiceShoppingCart sSC = new ServiceShoppingCart())
+            {
+                currentShoppingCart = sSC.GetShoppingCartForUserAccount(HttpContext.User.Identity.Name);
+            }
+            if (currentShoppingCart == null)
+            {
+                return View("Error");
+            }
+            return View(currentShoppingCart);
+            ////Check stocks before proceeding to payment
+            ////TODO
+            //Payment payment = new Payment();
+            ////Select cash by default
+            //payment.PaymentType = PaymentType.CASH;
+            //return View();
         }
 
         [Authorize]

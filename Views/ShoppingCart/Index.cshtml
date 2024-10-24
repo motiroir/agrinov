@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="~/CSS/shoppingcartstyle.css">
     <link rel="stylesheet" href="~/CSS/formstyle.css" />
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
-    <style>
-        .cart {
-            margin-top: 200px;
-        }
-    </style>
 }
 
 <div class="cart-header">
@@ -91,8 +86,8 @@
                 <p class="price"><b>@Model.Total.ToString("C")</b></p>
             </div>
             <div class="btn-container">
-                <a class="lightOrange-btn w-100" href='@Url.Action("EmptyCart","ShoppingCart")'>Vider le panier</a>
-                <a class="lightOrange-btn w-100" href='@Url.Action("PlaceOrder","ShoppingCart")'>Passer commande</a>
+                <a class="lightOrange-btn w-100" href='@Url.Action("PlaceOrder","ShoppingCart")'>Passer au paiement</a>
+                <a class="orangeRed-btn w-100" href='@Url.Action("EmptyCart","ShoppingCart")'>Vider le panier</a>
             </div>
             
 

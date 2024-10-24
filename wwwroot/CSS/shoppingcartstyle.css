@@ -2,6 +2,18 @@
     margin: 200px auto;
     width: 24.5%;
 }
+.payment-header {
+    margin: 200px auto;
+    width: 20%;
+}
+
+.page-container {
+    width: 70%;
+    margin: 200px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .underline {
     display: flex;
@@ -36,7 +48,18 @@
     justify-content: center;
 }
 
-
+.shop-resume-container{
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+    justify-content:flex-start;
+    align-items:center;
+    z-index:1;
+}
+.shop-resume-container h4{
+    text-transform:none;
+}
+.shop-resume,
 .cart-right {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 500px;
@@ -49,10 +72,14 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.shop-resume h4,
 .cart-right h4 {
     margin-bottom: 40px;
     font-size: 2vw;
 }
+
+.shop-resume p,
 .cart-right p {
     font-family: 'Inter';
     font-style: normal;
@@ -61,12 +88,14 @@
     line-height: 150%;
 }
 
+.shop-resume .cart-line,
 .cart-right .cart-line {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+
 .cart-line .name {
     width: 70%;
     text-align: left;
@@ -92,12 +121,45 @@
     gap:20px;
 }
 
+.shop-resume-btn-container {
+    display: flex;
+    width: 100%;
+    gap: 40px;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 50px;
+}
+
+.btn {
+    width: 40%;
+    background-color: var(--orange);
+    text-decoration: none;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+}
+.btn:hover {
+    background-color: #e67e50;
+}
+button.active {
+    background-color: #FE9E55;
+}
+button.active:hover {
+    background-color: #FFB57C;
+}
+
 .bottom-container {
     margin-top: 50px;
-    width:100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
-    align-items:center;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -122,6 +184,23 @@
 .cart-left {
     gap: 40px;
     width: 900px;
+}
+
+.payment-container {
+    border: solid 1px #B1B1B1;
+    border-radius: 20px;
+    background-color: white;
+    padding:30px 0;
+    gap: 20px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#online-payment .payment-container {
+    background-color: transparent;
+    border: solid 0px #B1B1B1;
 }
 
 .product-card {
@@ -207,4 +286,343 @@
     font-size: 16px;
     box-sizing: border-box;
     box-shadow: rgba(209, 81, 80, 1) 0px 0px !important;
+}
+
+
+/* PAYMENT */
+#offline-payment,
+#online-payment {
+    width: 500px;
+    height: 800px;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+#offline-payment {
+    display: block;
+    transform: translate(500px, 20px);
+    opacity: 0;
+}
+
+#online-payment {
+    display: block;
+    transform: translate(300px, -60px);
+    opacity: 1;
+}
+
+
+.payment-container li {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1vw;
+    line-height: 110%;
+    /* or 26px */
+    display: flex;
+    align-items: center;
+    color: #000000;
+    position: relative;
+    left:20px;
+}
+
+.payment-container li::before {
+    content: '•';
+    font-size: 1.5em;
+    color: #000000;
+    position: absolute;
+    left: -20px;
+    top:2px;
+}
+
+.text-container {
+    width:90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap:20px
+}
+
+.text-container h4 {
+    text-transform: none;
+}
+
+.address {
+    margin: 50px auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px
+}
+
+/* CARD STYLES */
+.payment-title {
+    width: 100%;
+    text-align: center;
+}
+
+.form-container .field-container:first-of-type {
+    grid-area: name;
+}
+
+.form-container .field-container:nth-of-type(2) {
+    grid-area: number;
+}
+
+.form-container .field-container:nth-of-type(3) {
+    grid-area: expiration;
+}
+
+.form-container .field-container:nth-of-type(4) {
+    grid-area: security;
+}
+
+.field-container input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.field-container {
+    position: relative;
+}
+
+.form-container {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: auto auto;
+    grid-template-rows: 90px 90px 90px;
+    grid-template-areas: "name name""number number""expiration security";
+    max-width: 400px;
+    padding: 20px;
+    color: #707070;
+}
+
+label {
+    padding-bottom: 5px;
+    font-size: 13px;
+}
+
+input {
+    margin-top: 3px;
+    padding: 15px;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #dcdcdc;
+}
+
+.ccicon {
+    height: 38px;
+    position: absolute;
+    right: 6px;
+    top: calc(50% - 17px);
+    width: 60px;
+}
+
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    max-height: 251px;
+    height: 54vw;
+    padding: 20px;
+}
+
+#ccsingle {
+    position: absolute;
+    right: 15px;
+    top: 20px;
+}
+
+    #ccsingle svg {
+        width: 100px;
+        max-height: 60px;
+    }
+
+.creditcard svg#cardfront,
+.creditcard svg#cardback {
+    width: 100%;
+    border-radius: 22px;
+}
+
+#generatecard {
+    cursor: pointer;
+    float: right;
+    font-size: 12px;
+    color: #fff;
+    padding: 2px 4px;
+    background-color: #909090;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+/* CHANGEABLE CARD ELEMENTS */
+.creditcard .lightcolor,
+.creditcard .darkcolor {
+    -webkit-transition: fill .5s;
+    transition: fill .5s;
+}
+
+.creditcard .lightcolor {
+    fill: #FE9E55;
+}
+
+.creditcard .darkcolor {
+    fill: #D15150;
+}
+
+
+
+/* FRONT OF CARD */
+#svgname {
+    text-transform: uppercase;
+}
+#cardfront .st1 {
+    text-shadow: 2px 1px 0 rgba(50,50, 50, 0.7);
+}
+#cardfront .st2 {
+    fill: #FFFFFF;
+}
+
+#cardfront .st3 {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 600;
+}
+
+#cardfront .st4 {
+    font-size: 54.7817px;
+}
+
+#cardfront .st5 {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 400;
+}
+
+#cardfront .st6 {
+    font-size: 33.1112px;
+}
+
+#cardfront .st7 {
+    opacity: 0.6;
+    fill: #FFFFFF;
+}
+
+#cardfront .st8 {
+    font-size: 24px;
+}
+
+#cardfront .st9 {
+    font-size: 36.5498px;
+}
+
+#cardfront .st10 {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 300;
+}
+
+#cardfront .st11 {
+    font-size: 16.1716px;
+}
+
+#cardfront .st12 {
+    fill: #4C4C4C;
+}
+
+/* BACK OF CARD */
+#cardback .st0 {
+    fill: none;
+    stroke: #0F0F0F;
+    stroke-miterlimit: 10;
+}
+
+#cardback .st2 {
+    fill: #111111;
+}
+
+#cardback .st3 {
+    fill: #F2F2F2;
+}
+
+#cardback .st4 {
+    fill: #D8D2DB;
+}
+
+#cardback .st5 {
+    fill: #C4C4C4;
+}
+
+#cardback .st6 {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 400;
+}
+
+#cardback .st7 {
+    font-size: 27px;
+}
+
+#cardback .st8 {
+    opacity: 0.6;
+}
+
+#cardback .st9 {
+    fill: #FFFFFF;
+}
+
+#cardback .st10 {
+    font-size: 24px;
+}
+
+#cardback .st11 {
+    fill: #EAEAEA;
+}
+
+#cardback .st12 {
+    font-family: 'Rock Salt', cursive;
+}
+
+#cardback .st13 {
+    font-size: 37.769px;
+}
+
+/* FLIP ANIMATION */
+.container {
+    perspective: 1000px;
+}
+
+.creditcard {
+    width: 100%;
+    max-width: 400px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: -webkit-transform 0.6s;
+    -webkit-transition: -webkit-transform 0.6s;
+    transition: transform 0.6s;
+    transition: transform 0.6s, -webkit-transform 0.6s;
+    cursor: pointer;
+}
+
+    .creditcard .front,
+    .creditcard .back {
+        position: absolute;
+        width: 100%;
+        max-width: 400px;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
+        background-color: #D15150;
+        -webkit-box-shadow: 1px 5px 6px 0px black;
+        box-shadow: 1px 5px 6px 0px black;
+        border-radius: 21px;
+    }
+
+.creditcard .back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.creditcard.flipped {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
