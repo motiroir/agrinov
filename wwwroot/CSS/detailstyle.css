@@ -27,14 +27,18 @@
 }
 .status-title{
     margin : 40px;
-}
+} 
 
 .full-img {
-    background-color: black;
+    background-color: mistyrose;
     background-size: cover;
     background-position: center;
     border-radius: 15px;
     width: 50%;
+}
+
+#imgViewer{
+    width: 100%
 }
 
 .activity-content {

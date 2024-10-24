@@ -6,12 +6,11 @@
 }
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/formstyle.css">
-        <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 
 }
 <div class="form-no-shadow">
-    @using (Html.BeginForm("CreateActivity", "Activity", FormMethod.Post))
-    {
+
         <div class="fieldsets-container">
             <fieldset>
                 <div>
@@ -31,9 +30,6 @@
                     @Html.TextBoxFor(model => model.Activity.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Activity.Duration)
                 </div>
-            </fieldset>
-
-            <fieldset>
                 <div>
                     @Html.LabelFor(model => model.Activity.Location)
                     @Html.TextBoxFor(model => model.Activity.Location)
@@ -45,12 +41,20 @@
                     @Html.TextBoxFor(model => model.Activity.MaxParticipants, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Activity.MaxParticipants)
                 </div>
-        
+
                 <div>
                     @Html.LabelFor(model => model.Activity.MaxInvitesPerPerson)
                     @Html.TextBoxFor(model => model.Activity.MaxInvitesPerPerson, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Activity.MaxInvitesPerPerson)
                 </div>
+            </fieldset>
+
+            <fieldset>
+                    @* add file *@
+                    @Html.LabelFor(Model => Model.Activity.ImgActivity)
+                    <input id="txtFile" type="file" value="Upload File" />
+                    @* show file in live time with js script down below*@
+                    <img id="imgViewer" />
             </fieldset>
         </div>
 
@@ -61,7 +65,48 @@
         </div>
 
         <div class="button-container">
-            <button class="orange-btn w-100">Valider</button>
+            <button id="btnSave" class="orange-btn w-100">Valider</button>
         </div>
-    }
+
 </div>
+
+<script type="text/javascript" src="/scripts/jquery-3.7.1.min.js"></script>
+
+<script type="text/javascript">
+    $("#txtFile").change(function (event) {
+        var files = event.target.files;
+        $("#imgViewer").attr("src", window.URL.createObjectURL(files[0]));
+    });
+
+    $("#btnSave").click(function () {
+        var files = $("#txtFile").prop("files");
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            formData.append("file", files[i]);
+        }
+
+        var oActivity = {
+            Name: $("#Activity_Name").val(),
+            DateTime: $("#Activity_Datetime").val(),
+            Duration: $("#Activity_Duration").val(),
+            Location: $("#Activity_Location").val(),
+            MaxParticipants: $("#Activity_MaxParticipants").val(),
+            MaxInvitesPerPerson: $("#Activity_MaxInvitesPerPerson").val(),
+            Description: $("#Activity_Description").val(),
+        }
+
+        formData.append("Activity", JSON.stringify(oActivity));
+        $.ajax({
+            type: "POST",
+            url: "/Activity/CreateActivity",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                window.location.href = "/Activity/ActivityDashboard?activeTab=ShowMyActivities";
+            },
+        });
+    });
+    
+</script>
+

@@ -1,7 +1,9 @@
 ﻿using AgriNov.Models;
+using AgriNov.Models.ActivityModel;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AgriNov.Controllers
 {
@@ -19,24 +21,35 @@ namespace AgriNov.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateActivity(Activity activity)
+        public IActionResult CreateActivity(FileUploadActivity fileObj)
         {
-            if(ModelState.IsValid)
+            Activity activity = JsonConvert.DeserializeObject<Activity>(fileObj.Activity);
+            if (ModelState.IsValid)
             {
                 using(ServiceActivity sA = new ServiceActivity()) 
                 {
                     activity.OrganizerId = Int32.Parse(HttpContext.User.Identity.Name);
+                    //add img to activity
+                    if (fileObj.file.Length > 0)
+                    {
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            fileObj.file.CopyTo(ms);
+                            byte[] fileBytes = ms.ToArray();
+                            activity.ImgActivity = fileBytes;
+                        }
+                    }
                     sA.InsertActivity(activity);
+                    //isn't read, redirection is defined in ajax 
                     return RedirectToAction("ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" });
                 }
             }
-            ActivityViewModel aVM = new ActivityViewModel();
+
             //update the activity info to aVM that will be given to ActivityDashboard so that errors will be displayed
+            ActivityViewModel aVM = new ActivityViewModel();
             aVM.Activity = activity;  
             ViewData["ActiveTab"] = "CreateActivity";
             return View("ActivityDashboard", aVM);  
-        
-
         }
 
         public IActionResult UpdateActivity(int id)
@@ -148,6 +161,11 @@ namespace AgriNov.Controllers
             return RedirectToAction("ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" });
         }
 
+        public IActionResult AddImgActivityExample()
+        {
+            return View();
+        }
 
+        
     }
 }
