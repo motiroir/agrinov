@@ -131,8 +131,8 @@ namespace AgriNov.Controllers
         public IActionResult AddBoxContractToCart(int boxContractId, int quantity)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
-            // for now, only weekly big or small boxes are allowed
-            if(quantity != 0.5 || quantity !=1)
+            //for now, only weekly big or small boxes are allowed
+            if(!(Decimal.Equals(quantity,0.5) || Decimal.Equals(quantity,1)))
             {
                 return View("Error");
             }
@@ -140,7 +140,7 @@ namespace AgriNov.Controllers
             using(IServiceBoxContract sBC = new ServiceBoxContract())
             {
                 BoxContract boxContract = sBC.GetBoxContractById(boxContractId);
-                if( boxContract == null || !boxContract.ForSale)
+                if(boxContract == null || !boxContract.ForSale)
                 {
                     return View("Error");
                 }
