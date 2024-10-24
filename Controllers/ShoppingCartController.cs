@@ -19,17 +19,19 @@ namespace AgriNov.Controllers
             ShoppingCart currentShoppingCart = null;
             using (ServiceUserAccount sUA = new ServiceUserAccount())
             {
-                int userAccountId = Int32.Parse(HttpContext.User.Identity.Name);
-                if (!sUA.CheckIfMemberShipValid(userAccountId))
+                using (IServiceShoppingCart sSC = new ServiceShoppingCart())
                 {
-                    using (IServiceShoppingCart sSC = new ServiceShoppingCart())
+                    int userAccountId = Int32.Parse(HttpContext.User.Identity.Name);
+                    if (!sUA.CheckIfMemberShipValid(userAccountId))
                     {
+
                         if (!sSC.IsAMemberShipFeeInTheCart(userAccountId))
                         {
                             sSC.AddMemberShipFeeToShoppingCart(userAccountId, new ShoppingCartItem());
                         }
-                        currentShoppingCart = sSC.GetShoppingCartForUserAccount(HttpContext.User.Identity.Name);
+
                     }
+                    currentShoppingCart = sSC.GetShoppingCartForUserAccount(HttpContext.User.Identity.Name);
                 }
             }
             if (currentShoppingCart == null)
