@@ -22,6 +22,9 @@ namespace AgriNov.Models
         //Optional relationship
         public int? ProductId {get; set;}
         public Product Product {get; set;}
+        //Optional relationshio
+        public int? BoxContractId {get; set;}
+        public BoxContract BoxContract {get; set;}
 
         public ShoppingCartItem()
         {

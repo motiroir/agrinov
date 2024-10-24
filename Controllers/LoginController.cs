@@ -88,15 +88,16 @@ namespace AgriNov.Controllers
                         ClaimsPrincipal userPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
                         HttpContext.SignInAsync(userPrincipal);
-                        if(!sUA.CheckIfMemberShipValid(userAccount.Id))
-                        {
-                            using(IServiceShoppingCart sSC = new ServiceShoppingCart())
-                            {
-                                if(!sSC.IsAMemberShipFeeInTheCart(userAccount.Id)){
-                                    sSC.AddMemberShipFeeToShoppingCart(userAccount.Id, new ShoppingCartItem());
-                                }
-                            }
-                        }
+                        // Moved to ShoppingCart/Index
+                        // if(!sUA.CheckIfMemberShipValid(userAccount.Id))
+                        // {
+                        //     using(IServiceShoppingCart sSC = new ServiceShoppingCart())
+                        //     {
+                        //         if(!sSC.IsAMemberShipFeeInTheCart(userAccount.Id)){
+                        //             sSC.AddMemberShipFeeToShoppingCart(userAccount.Id, new ShoppingCartItem());
+                        //         }
+                        //     }
+                        // }
 
                         return RedirectToAction("Index","DashBoard"); 
                     }

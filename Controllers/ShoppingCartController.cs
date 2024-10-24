@@ -16,10 +16,21 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ShoppingCart currentShoppingCart;
-            using (ServiceShoppingCart sSC = new ServiceShoppingCart())
+            ShoppingCart currentShoppingCart = null;
+            using (ServiceUserAccount sUA = new ServiceUserAccount())
             {
-                currentShoppingCart = sSC.GetShoppingCartForUserAccount(HttpContext.User.Identity.Name);
+                int userAccountId = Int32.Parse(HttpContext.User.Identity.Name);
+                if (!sUA.CheckIfMemberShipValid(userAccountId))
+                {
+                    using (IServiceShoppingCart sSC = new ServiceShoppingCart())
+                    {
+                        if (!sSC.IsAMemberShipFeeInTheCart(userAccountId))
+                        {
+                            sSC.AddMemberShipFeeToShoppingCart(userAccountId, new ShoppingCartItem());
+                        }
+                        currentShoppingCart = sSC.GetShoppingCartForUserAccount(HttpContext.User.Identity.Name);
+                    }
+                }
             }
             if (currentShoppingCart == null)
             {
@@ -56,7 +67,7 @@ namespace AgriNov.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index","ShoppingCart");
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         [Authorize]
@@ -77,7 +88,10 @@ namespace AgriNov.Controllers
         {
             payment.Date = DateTime.Now;
             // to implement online payment, check if payment online and redirect before setting to true
-            payment.Received = true;
+            if (payment.PaymentType == PaymentType.CARD)
+            {
+                payment.Received = true;
+            }
             // the stocks will be decreased when writing order, so you need to be sure the payment is received
             using (IServiceOrder sO = new ServiceOrder())
             {
