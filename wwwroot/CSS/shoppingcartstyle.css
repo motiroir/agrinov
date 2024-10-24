@@ -2,18 +2,6 @@
     margin: 200px auto;
     width: 24.5%;
 }
-.payment-header {
-    margin: 200px auto;
-    width: 20%;
-}
-
-.page-container {
-    width: 70%;
-    margin: 200px auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
 
 .payment-header {
     margin: 200px auto;
@@ -62,7 +50,6 @@
     justify-content: center;
 }
 
-<<<<<<< HEAD
 .shop-resume-container {
     display: flex;
     flex-direction: column;
@@ -76,19 +63,6 @@
         text-transform: none;
     }
 
-=======
-.shop-resume-container{
-    display:flex;
-    flex-direction:column;
-    gap:40px;
-    justify-content:flex-start;
-    align-items:center;
-    z-index:1;
-}
-.shop-resume-container h4{
-    text-transform:none;
-}
->>>>>>> main
 .shop-resume,
 .cart-right {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -102,7 +76,6 @@
     flex-direction: column;
     gap: 10px;
 }
-<<<<<<< HEAD
 
     .shop-resume h4,
     .cart-right h4 {
@@ -126,31 +99,6 @@
         flex-direction: row;
         justify-content: space-between;
     }
-=======
-
-.shop-resume h4,
-.cart-right h4 {
-    margin-bottom: 40px;
-    font-size: 2vw;
-}
-
-.shop-resume p,
-.cart-right p {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 0.8vw;
-    line-height: 150%;
-}
-
-.shop-resume .cart-line,
-.cart-right .cart-line {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
->>>>>>> main
 
 .cart-line .name {
     width: 70%;
@@ -200,7 +148,6 @@
     display: flex;
     justify-content: center;
 }
-<<<<<<< HEAD
 
     .btn:hover {
         background-color: #e67e50;
@@ -213,17 +160,6 @@ span.active {
     span.active:hover {
         background-color: #FFB57C;
     }
-=======
-.btn:hover {
-    background-color: #e67e50;
-}
-span.active {
-    background-color: #FE9E55;
-}
-span.active:hover {
-    background-color: #FFB57C;
-}
->>>>>>> main
 
 .bottom-container {
     margin-top: 50px;
@@ -261,11 +197,7 @@ span.active:hover {
     border: solid 1px #B1B1B1;
     border-radius: 20px;
     background-color: white;
-<<<<<<< HEAD
     padding: 30px 0;
-=======
-    padding:30px 0;
->>>>>>> main
     gap: 20px;
     width: 500px;
     display: flex;
@@ -273,10 +205,7 @@ span.active:hover {
     align-items: center;
     justify-content: center;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 #online-payment .payment-container {
     background-color: transparent;
     border: solid 0px #B1B1B1;
@@ -400,7 +329,6 @@ span.active:hover {
     align-items: center;
     color: #000000;
     position: relative;
-<<<<<<< HEAD
     left: 20px;
 }
 
@@ -415,41 +343,16 @@ span.active:hover {
 
 .text-container {
     width: 90%;
-=======
-    left:20px;
-}
-
-.payment-container li::before {
-    content: '•';
-    font-size: 1.5em;
-    color: #000000;
-    position: absolute;
-    left: -20px;
-    top:2px;
-}
-
-.text-container {
-    width:90%;
->>>>>>> main
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-<<<<<<< HEAD
     gap: 20px
 }
 
     .text-container h4 {
         text-transform: none;
     }
-=======
-    gap:20px
-}
-
-.text-container h4 {
-    text-transform: none;
-}
->>>>>>> main
 
 .address {
     margin: 50px auto;
@@ -495,11 +398,7 @@ span.active:hover {
 .form-container {
     display: grid;
     grid-column-gap: 10px;
-<<<<<<< HEAD
     grid-row-gap: 10px;
-=======
-    grid-row-gap:10px;
->>>>>>> main
     grid-template-columns: auto auto;
     grid-template-rows: auto auto auto;
     grid-template-areas: "name name""number number""expiration security";
@@ -589,17 +488,11 @@ input {
 #svgname {
     text-transform: uppercase;
 }
-<<<<<<< HEAD
 
 #cardfront .st1 {
     text-shadow: 2px 1px 0 rgba(50,50, 50, 0.7);
 }
 
-=======
-#cardfront .st1 {
-    text-shadow: 2px 1px 0 rgba(50,50, 50, 0.7);
-}
->>>>>>> main
 #cardfront .st2 {
     fill: #FFFFFF;
 }
@@ -735,13 +628,12 @@ input {
         border-radius: 21px;
     }
 
+    .creditcard .back {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
 
-.creditcard .back {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
-
-.creditcard.flipped {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
+    .creditcard.flipped {
+        -webkit-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
