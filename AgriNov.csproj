@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Activity\AddImgActivityExample.cshtml" />
     <Content Remove="wwwroot\CSS\dashboard.css" />
   </ItemGroup>
 
@@ -35,6 +36,10 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\activities\" />
   </ItemGroup>
 
 </Project>
