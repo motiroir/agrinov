@@ -23,7 +23,7 @@
     <div class="underline" id="underline-3"></div>
 </div>
 
-@if (Model.ShoppingCartItems.Any())
+@if (Model.ShoppingCartItems != null && Model.ShoppingCartItems.Any())
 {
     
     <div class="cart-container">
@@ -43,6 +43,8 @@
                             @if (item.MemberShipFee != null)
                             {
                                 <h3>@("Cotisation annuelle")</h3>
+                                <p class="product-details">Vous devez adhérer tous les ans pour faire des achats.</p>
+                                <p class="product-price">@item.MemberShipFee.Price.ToString("C")</p>
                             }
                             else if (item.Product != null)
                             {
@@ -50,14 +52,32 @@
                                 <p class="product-details">@item.Product.Description</p>
                                 <p class="product-price">@item.Product.Price.ToString("C")</p>
                             }
+                            else if (item.BoxContract != null)
+                            {
+                                
+                                <h3>@(item.Quantity == 0.5 ? "Petit" : item.Quantity == 1 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
+                                <p class="product-details">Prix à la semaine</p>
+                                <p class="product-price">@item.BoxContract.Price.ToString("C")</p>
+                            }
                         </div>
                         <div class="product-right-div">
                         <div class="product-total">
                             <span>@item.Total.ToString("C")</span>
                         </div>
                         <div class="product-quantity">
-                            @Html.TextBoxFor(m => m.ShoppingCartItems[i].Quantity, new { @class = "number-input", type = "number", min = "0", max = item.Product.Stock, oninvalid = "this.SetCustomValidity('La quantité ne peut pas être supérieure au stock')", oninput = "this.SetCustomValidity('')" })
-                            @Html.ValidationMessageFor(m => m.ShoppingCartItems[i].Quantity)
+                            @if(item.Product != null)
+                            {
+                                @Html.TextBoxFor(m => m.ShoppingCartItems[i].Quantity, new { @class = "number-input", type = "number", min = "0", max = item.Product.Stock, oninvalid = "this.SetCustomValidity('La quantité ne peut pas être supérieure au stock')", oninput = "this.SetCustomValidity('')" })
+                                @Html.ValidationMessageFor(m => m.ShoppingCartItems[i].Quantity)
+                            }
+                            else if(item.MemberShipFee != null)
+                            {
+                               @item.Quantity;
+                            }
+                            else if(item.BoxContract != null)
+                            {
+                                <span>1</span>
+                            }
                         </div>
                         </div>
                     </div>
@@ -80,8 +100,22 @@
             {
                 ShoppingCartItem item = Model.ShoppingCartItems[i];
                 <div class="cart-line">
-                    <p class="name">@item.Product.Name</p>
-                    <p class="price">@item.Total.ToString("C")</p>
+                    @if (item.MemberShipFee != null)
+                    {
+                        <p class="name">Cotisation annuelle</p>
+                        <p class="price">@item.Total.ToString("C")</p>
+                    }
+                    else if(item.Product != null)
+                    {
+                        <p class="name">@item.Product.Name</p>
+                        <p class="price">@item.Total.ToString("C")</p>
+                    }
+                    else if(item.BoxContract != null)
+                    {
+                        
+                         <p class="name">@(item.Quantity == 0.5 ? "Petit" : item.Quantity == 1 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</p>
+                        <p class="price">@item.Total.ToString("C")</p> 
+                    }
                 </div>
             }
 
