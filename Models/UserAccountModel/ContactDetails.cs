@@ -22,7 +22,7 @@ namespace AgriNov.Models
         public string FirstName { get; set; }
         [DisplayName("Téléphone")]
         [Required(ErrorMessage = "Numéro de téléphone obligatoire")]
-        [RegularExpression(@"^\+?[0-9]\d{1,14}$", ErrorMessage = "Numéro de téléphone invalide")]
+        [RegularExpression(@"^\+?[0-9]\d{10,14}$", ErrorMessage = "Numéro de téléphone invalide")]
         public string PhoneNumber { get; set; }
     }
 }

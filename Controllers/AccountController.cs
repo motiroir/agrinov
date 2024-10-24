@@ -36,6 +36,8 @@ namespace AgriNov.Controllers
                     return RedirectToAction("AddCorporateUser", "Account");
                 case UserAccountLevel.SUPPLIER:
                     return RedirectToAction("AddSupplier", "Account");
+                case UserAccountLevel.DEFAULT:
+                    return View();
                 default:
                     return View();
             }
@@ -266,6 +268,10 @@ namespace AgriNov.Controllers
         [HttpPost]
         public IActionResult ChangeInfo(UserAccountInfoUpdate viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
             // Assign data from viewModel depending on the type of account
             if (viewModel.UserAccountLevel == UserAccountLevel.USER || viewModel.UserAccountLevel == UserAccountLevel.VOLUNTEER || viewModel.UserAccountLevel == UserAccountLevel.ADMIN)
             {
@@ -280,6 +286,7 @@ namespace AgriNov.Controllers
                 {
                     serviceUser.UpdateUser(updatedUser);
                 }
+                return RedirectToAction("Index", "DashBoard");
             }
             if (viewModel.UserAccountLevel == UserAccountLevel.CORPORATE)
             {
@@ -297,6 +304,7 @@ namespace AgriNov.Controllers
                 {
                     serviceCorporateUser.UpdateCorporateUser(updatedCorporateUser);
                 }
+                return RedirectToAction("Index", "DashBoard");
             }
             if (viewModel.UserAccountLevel == UserAccountLevel.SUPPLIER)
             {
@@ -321,6 +329,7 @@ namespace AgriNov.Controllers
                 {
                     serviceSupplier.UpdateSupplier(updatedSupplier);
                 }
+                return RedirectToAction("Index", "DashBoard");
             }
             return View(viewModel);
         }
@@ -352,7 +361,8 @@ namespace AgriNov.Controllers
             {
                 List<UserAccount> userAccounts = sUA.GetUserAccountsFull();
 
-                List<UserAccountViewModel> viewModels = userAccounts.Select(userAccount => {
+                List<UserAccountViewModel> viewModels = userAccounts.Select(userAccount =>
+                {
                     UserAccountViewModel viewModel = new UserAccountViewModel
                     {
                         UserAccount = userAccount

@@ -4,6 +4,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+
 namespace AgriNov.Models
 {
     public class ServiceShoppingCart : IServiceShoppingCart
@@ -28,7 +29,10 @@ namespace AgriNov.Models
         }
         public ShoppingCart GetShoppingCartForUserAccount(int userAccountId)
         {
-            return _DBContext.ShoppingCarts.Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.MemberShipFee).Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.Product).FirstOrDefault(s => s.UserAccountId == userAccountId);
+            return _DBContext.ShoppingCarts.Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.MemberShipFee)
+                                            .Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.Product)
+                                            .Include(cart => cart.ShoppingCartItems).ThenInclude(shoppingCartItem => shoppingCartItem.BoxContract)
+                                            .FirstOrDefault(s => s.UserAccountId == userAccountId);
         }
         public void AddShoppingCartItemToShoppingCart(int shoppingCartId, ShoppingCartItem shoppingCartItem)
         {
@@ -63,6 +67,7 @@ namespace AgriNov.Models
             shoppingCartItem.MemberShipFee = m;
             //Quantity must be set after setting MemberShipFee, otherwise the total price can't be computed
             shoppingCartItem.Quantity = 1;
+            shoppingCartItem.Total = shoppingCartItem.MemberShipFee.Price * shoppingCartItem.Quantity;
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
         public bool IsAMemberShipFeeInTheCart(int userAccountId)
@@ -82,15 +87,19 @@ namespace AgriNov.Models
         }
         public void AddProductToShoppingCart(int productId, int quantity, int shoppingCartId)
         {
-            // if product already in shopping cart
             ShoppingCart sC = GetShoppingCartForUserAccount(shoppingCartId);
-            if (sC != null && sC.ShoppingCartItems.Any())
+            if(sC == null)
+            {
+                return;
+            }
+            // if product already in shopping cart
+            if (sC.ShoppingCartItems.Any())
             {
                 foreach (ShoppingCartItem item in sC.ShoppingCartItems)
                 {
                     if (item.Product != null && item.Product.Id == productId)
                     {
-                        if(quantity > 0)
+                        if (quantity > 0)
                         {
                             //Updating shopping cart item
                             item.Quantity = quantity;
@@ -120,6 +129,29 @@ namespace AgriNov.Models
             }
             AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
         }
+
+        public void AddBoxContractToShoppingCart(int boxContractId, int quantity, int shoppingCartId)
+        {
+            ShoppingCart sC = GetShoppingCartForUserAccount(shoppingCartId);
+            if(sC == null)
+            {
+                return;
+            }
+            // if (sC.ShoppingCartItems.Any())
+            // {
+            //     //check if box contract already in cart
+            //     // for now impossible to add twice the same contract
+            // }
+            ShoppingCartItem shoppingCartItem = new ShoppingCartItem() { BoxContractId = boxContractId};
+            shoppingCartItem.Quantity = quantity;
+            using(IServiceBoxContract sBC = new ServiceBoxContract())
+            {
+                // 13 is the number of weeks in a contract
+                shoppingCartItem.Total = 13 * sBC.GetBoxContractById(boxContractId).Price * shoppingCartItem.Quantity;
+            }
+            AddShoppingCartItemToShoppingCart(shoppingCartId, shoppingCartItem);
+        }
+
         public void UpdateShoppingCartItem(ShoppingCartItem shoppingCartItem)
         {
             ShoppingCartItem oldShoppingCartItem = _DBContext.ShoppingCartItems.FirstOrDefault(sCI => sCI.Id == shoppingCartItem.Id);
@@ -145,14 +177,17 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
-            AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
-            AddMemberShipFeeToShoppingCart(3, new ShoppingCartItem());
+            // AddMemberShipFeeToShoppingCart(1, new ShoppingCartItem());
+            // AddMemberShipFeeToShoppingCart(2, new ShoppingCartItem());
+            // AddMemberShipFeeToShoppingCart(3, new ShoppingCartItem());
             AddProductToShoppingCart(1, 2, 1);
             AddProductToShoppingCart(1, 3, 1);
             AddProductToShoppingCart(1, 1, 2);
             AddProductToShoppingCart(2, 1, 2);
             AddProductToShoppingCart(3, 1, 3);
+            AddProductToShoppingCart(3, 1, 4);
+            AddProductToShoppingCart(3, 1, 12);
+            AddBoxContractToShoppingCart(1,1,12);
         }
 
         //Do not call when order was not placed, this would remove membership fee

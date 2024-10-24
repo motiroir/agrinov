@@ -41,7 +41,7 @@ namespace AgriNov.Controllers
                     using (ServiceUserAccount sUA = new ServiceUserAccount())
                     {
                         sUA.InsertUserAccount(bigViewModel.UserAccountCreation.UserAccount);
-                        return RedirectToAction("Index", "MyAccount");
+                        return RedirectToAction("LoginWithSignUpSlide", "Login");
                     }
                 }
             }
@@ -88,17 +88,21 @@ namespace AgriNov.Controllers
                         ClaimsPrincipal userPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
                         HttpContext.SignInAsync(userPrincipal);
-                        if(!sUA.CheckIfMemberShipValid(userAccount.Id))
+                        // Moved to ShoppingCart/Index
+                        // if(!sUA.CheckIfMemberShipValid(userAccount.Id))
+                        // {
+                        //     using(IServiceShoppingCart sSC = new ServiceShoppingCart())
+                        //     {
+                        //         if(!sSC.IsAMemberShipFeeInTheCart(userAccount.Id)){
+                        //             sSC.AddMemberShipFeeToShoppingCart(userAccount.Id, new ShoppingCartItem());
+                        //         }
+                        //     }
+                        // }
+                        if(userAccount.UserAccountLevel != UserAccountLevel.DEFAULT)
                         {
-                            using(IServiceShoppingCart sSC = new ServiceShoppingCart())
-                            {
-                                if(!sSC.IsAMemberShipFeeInTheCart(userAccount.Id)){
-                                    sSC.AddMemberShipFeeToShoppingCart(userAccount.Id, new ShoppingCartItem());
-                                }
-                            }
+                            return RedirectToAction("Index","DashBoard"); 
                         }
-
-                        return RedirectToAction("Index","DashBoard"); 
+                        return RedirectToAction("TypeSelection","Account");
                     }
                     else
                     {
