@@ -74,7 +74,7 @@ namespace AgriNov.Controllers
         [HttpGet]
         public IActionResult PlaceOrder()
         {
-            //Check stocks before proceeding to payment
+            //Check stocks for product and boxcontract before proceeding to payment
             //TODO
             Payment payment = new Payment();
             //Select cash by default

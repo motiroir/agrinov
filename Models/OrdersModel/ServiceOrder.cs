@@ -21,6 +21,7 @@ namespace AgriNov.Models
         public void InitializeTable()
         {
             SaveShoppingCartAsAnOrder(1, null);
+            SaveShoppingCartAsAnOrder(12, null);
         }
 
         public void Save()
@@ -50,7 +51,7 @@ namespace AgriNov.Models
                 {
                     return;
                 }
-                // If product decrease stock, if membership mark as ok
+                // If product or membership decrease stock, if membership mark as ok
                 foreach (ShoppingCartItem item in shoppingCart.ShoppingCartItems)
                 {
                     if (item.Product != null)
@@ -67,6 +68,14 @@ namespace AgriNov.Models
                         {
                             item.MemberShipFee.WasPaid = true;
                             sMF.UpdateMemberShipFee(item.MemberShipFee);
+                        }
+                    }
+                    if(item.BoxContract != null)
+                    {
+                        using(IServiceBoxContract sBC = new ServiceBoxContract())
+                        {
+                            item.BoxContract.MaxSubscriptions -= item.Quantity;
+                            sBC.UpdateBoxContract(item.BoxContract);
                         }
                     }
                 }
@@ -86,6 +95,10 @@ namespace AgriNov.Models
                     else if (item.ProductId != null)
                     {
                         oItem.ProductId = item.ProductId;
+                    }
+                    else if(item.BoxContract != null)
+                    {
+                        oItem.BoxContractId = item.BoxContractId;
                     }
                     order.OrderItems.Add(oItem);
                 }

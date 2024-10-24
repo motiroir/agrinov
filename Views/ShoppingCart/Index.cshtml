@@ -70,9 +70,13 @@
                                 @Html.TextBoxFor(m => m.ShoppingCartItems[i].Quantity, new { @class = "number-input", type = "number", min = "0", max = item.Product.Stock, oninvalid = "this.SetCustomValidity('La quantité ne peut pas être supérieure au stock')", oninput = "this.SetCustomValidity('')" })
                                 @Html.ValidationMessageFor(m => m.ShoppingCartItems[i].Quantity)
                             }
-                            else
+                            else if(item.MemberShipFee != null)
                             {
                                @item.Quantity;
+                            }
+                            else if(item.BoxContract != null)
+                            {
+                                <span>1</span>
                             }
                         </div>
                         </div>
