@@ -41,7 +41,7 @@ namespace AgriNov.Controllers
                     using (ServiceUserAccount sUA = new ServiceUserAccount())
                     {
                         sUA.InsertUserAccount(bigViewModel.UserAccountCreation.UserAccount);
-                        return RedirectToAction("Index", "MyAccount");
+                        return RedirectToAction("LoginWithSignUpSlide", "Login");
                     }
                 }
             }
@@ -98,8 +98,11 @@ namespace AgriNov.Controllers
                         //         }
                         //     }
                         // }
-
-                        return RedirectToAction("Index","DashBoard"); 
+                        if(userAccount.UserAccountLevel != UserAccountLevel.DEFAULT)
+                        {
+                            return RedirectToAction("Index","DashBoard"); 
+                        }
+                        return RedirectToAction("TypeSelection","Account");
                     }
                     else
                     {
