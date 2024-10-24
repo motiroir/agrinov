@@ -342,7 +342,7 @@ namespace AgriNov.Controllers
             {
                 return NotFound();
             }
-            return File(pdfBinaryData, "application/pdf", "justificatif");
+            return File(pdfBinaryData, "application/pdf", "justificatif.pdf");
         }
 
         //[Authorize(Roles = "ADMIN")]

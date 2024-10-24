@@ -5,91 +5,105 @@
     ViewBag.Title = "Mon panier";
 }
 @section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/shoppingcartstyle.css">
     <link rel="stylesheet" href="~/CSS/formstyle.css" />
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css" />
     <style>
         .cart {
             margin-top: 200px;
         }
     </style>
 }
-<div class="cart">
-        <h2>Votre panier</h2>
-        @if (Model.ShoppingCartItems.Any())
-        {
-            using(Html.BeginForm("Index", "ShoppingCart", FormMethod.Post))
-            {
-                <table class="table">
-                   
-                    <thead>
-                        <tr>
-                            <th colspan="2">Article</th>
-                            <th>Quantité</th>
-                            <th>Prix</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.ShoppingCartItems.Count ; i++)
-                        {
-                            ShoppingCartItem item = Model.ShoppingCartItems[i];
-                            <tr>
-                                <td>
-                                    @if (item.MemberShipFee != null)
-                                    {
-                                        <img src="~/img/global/Logo.png" alt="image cotisation">
-                                    }
-                                    else if(item.Product != null)
-                                    {
-                                        <img src="~/img/global/Logo.png" alt="image produit">
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.MemberShipFee != null)
-                                    {
-                                        @("Cotisation annuelle")
-                                    }
-                                    else if(item.Product != null)
-                                    {
-                                        @item.Product.Name
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.MemberShipFee != null)
-                                    {
-                                        @item.Quantity
-                                    }
-                                    else if(item.Product != null)
-                                    {
-                                        @Html.TextBoxFor(m=> m.ShoppingCartItems[i].Quantity, new { type = "number", min = "0", max = item.Product.Stock, oninvalid="this.SetCustomValidity('La quantité ne peut pas être supérieure au stock')", oninput="this.SetCustomValidity('')"})
-                                        @Html.ValidationMessageFor(m => m.ShoppingCartItems[i].Quantity)
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.MemberShipFee != null)
-                                    {
-                                        @item.MemberShipFee.Price.ToString("C")
-                                    }
-                                    else if(item.Product != null)
-                                    {
-                                        @item.Product.Price.ToString("C")
-                                    }
-                                </td>
-                                <td>@item.Total.ToString("C")</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
 
-                <div>
-                    <strong>Total:</strong> @Model.Total.ToString("C")
-                </div>
-                <button type="submit">Mettre à jour le panier</button>
-            }
-            <a href='@Url.Action("EmptyCart","ShoppingCart")'>Vider le panier</a>
-            <a href='@Url.Action("PlaceOrder","ShoppingCart")'>Passer commande</a>
-        }
-        else
-        {
-            <p>Votre panier est vide</p>
-        }
+<div class="cart-header">
+    <h2>mon panier</h2>
+    <div></div>
+    <div class="underline" id="underline-1"></div>
+    <div class="underline" id="underline-2"></div>
+    <div class="underline" id="underline-3"></div>
 </div>
+
+@if (Model.ShoppingCartItems.Any())
+{
+    
+    <div class="cart-container">
+        <div class="cart-left">
+            @using (Html.BeginForm("Index", "ShoppingCart", FormMethod.Post))
+            {
+
+                @for (int i = 0; i < Model.ShoppingCartItems.Count; i++)
+                {
+                    ShoppingCartItem item = Model.ShoppingCartItems[i];
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="~/img/global/miel.png"/>
+                        </div>
+                        <div class="product-info">
+                            @if (item.MemberShipFee != null)
+                            {
+                                <h3>@("Cotisation annuelle")</h3>
+                            }
+                            else if (item.Product != null)
+                            {
+                                <h3>@item.Product.Name</h3>
+                                <p class="product-details">@item.Product.Description</p>
+                                <p class="product-price">@item.Product.Price.ToString("C")</p>
+                            }
+                        </div>
+                        <div class="product-right-div">
+                        <div class="product-total">
+                            <span>@item.Total.ToString("C")</span>
+                        </div>
+                        <div class="product-quantity">
+                            @Html.TextBoxFor(m => m.ShoppingCartItems[i].Quantity, new { @class = "number-input", type = "number", min = "0", max = item.Product.Stock, oninvalid = "this.SetCustomValidity('La quantité ne peut pas être supérieure au stock')", oninput = "this.SetCustomValidity('')" })
+                            @Html.ValidationMessageFor(m => m.ShoppingCartItems[i].Quantity)
+                        </div>
+                        </div>
+                    </div>
+
+                }       
+                       
+
+                <div class="bottom-container">
+                    <a href="@Url.Action("ProductDashboard", "Product")" class="return">&lt; continuer mes achats</a>
+                    <button class="lightOrange-btn" type="submit">Mettre à jour le panier</button>
+                </div>
+                
+            }
+        </div>
+
+        <div class="cart-right">
+            <h4>ma commande</h4>
+
+            @for (int i = 0; i < Model.ShoppingCartItems.Count; i++)
+            {
+                ShoppingCartItem item = Model.ShoppingCartItems[i];
+                <div class="cart-line">
+                    <p class="name">@item.Product.Name</p>
+                    <p class="price">@item.Total.ToString("C")</p>
+                </div>
+            }
+
+            <div class="line"></div>
+            <div class="cart-line">
+                <p class="name"><b>Total</b></p>
+                <p class="price"><b>@Model.Total.ToString("C")</b></p>
+            </div>
+            <div class="btn-container">
+                <a class="lightOrange-btn w-100" href='@Url.Action("EmptyCart","ShoppingCart")'>Vider le panier</a>
+                <a class="lightOrange-btn w-100" href='@Url.Action("PlaceOrder","ShoppingCart")'>Passer commande</a>
+            </div>
+            
+
+        </div>
+
+    </div>
+       
+    }else
+{
+    <div class="message-container">
+        <h4>Le panier est actuellement vide, rendez vous dans &nbsp;<a class="mentions-legales" href="@Url.Action("ProductDashboard", "Product")">notre boutique en ligne</a>&nbsp; pour le remplir des délicieux produits de nos producteurs.</h4>
+    </div>
+}
+

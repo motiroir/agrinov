@@ -9,22 +9,38 @@ namespace AgriNov.Controllers
 
     public class LoginController : Controller
     {
-		[HttpGet]
-        public IActionResult CreateAccount()
+        [HttpGet]
+        public IActionResult LoginWithSignUpSlide()
         {
-            return View();
+            LoginWithSignup viewModel = new LoginWithSignup() { UserAccountLogin = new UserAccountLogin(), UserAccountCreation = new UserAccountCreation()};
+            viewModel.UserAccountLogin.IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+            if (viewModel.UserAccountLogin.IsAuthenticated)
+            {
+                using (ServiceUserAccount sUA = new ServiceUserAccount())
+                {
+                    viewModel.UserAccountLogin.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
+                }
+            }
+            ViewData["FromAccountCreation"] = false;
+            return View(viewModel);
         }
 
+		// [HttpGet]
+        // public IActionResult CreateAccount()
+        // {
+        //     return View();
+        // }
+
         [HttpPost]
-        public IActionResult CreateAccount(UserAccountCreation viewModel)
+        public IActionResult CreateAccount(LoginWithSignup bigViewModel)
         {
-            if (viewModel.UserAccount.Password.Equals(viewModel.ConfirmPassword))
+            if (bigViewModel.UserAccountCreation.UserAccount.Password.Equals(bigViewModel.UserAccountCreation.ConfirmPassword))
             {
                 if (ModelState.IsValid)
                 {
                     using (ServiceUserAccount sUA = new ServiceUserAccount())
                     {
-                        sUA.InsertUserAccount(viewModel.UserAccount);
+                        sUA.InsertUserAccount(bigViewModel.UserAccountCreation.UserAccount);
                         return RedirectToAction("Index", "MyAccount");
                     }
                 }
@@ -33,31 +49,34 @@ namespace AgriNov.Controllers
             {
                 ModelState.AddModelError("UserAccountCreation.ConfirmPassword", "Les mots de passe ne correspondent pas.");
             }
-            return View(viewModel);
+            bigViewModel.UserAccountLogin = new UserAccountLogin();
+            bigViewModel.UserAccountLogin.IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+            ViewData["FromAccountCreation"] = true;
+            return View("LoginWithSignUpSlide", bigViewModel);
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            UserAccountLogin viewModel = new UserAccountLogin() { IsAuthenticated = HttpContext.User.Identity.IsAuthenticated };
-            if (viewModel.IsAuthenticated)
-            {
-                using (ServiceUserAccount sUA = new ServiceUserAccount())
-                {
-                    viewModel.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
-                }
-            }
-            return View(viewModel);
-        }
+        // [HttpGet]
+        // public IActionResult Login()
+        // {
+        //     UserAccountLogin viewModel = new UserAccountLogin() { IsAuthenticated = HttpContext.User.Identity.IsAuthenticated };
+        //     if (viewModel.IsAuthenticated)
+        //     {
+        //         using (ServiceUserAccount sUA = new ServiceUserAccount())
+        //         {
+        //             viewModel.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
+        //         }
+        //     }
+        //     return View(viewModel);
+        // }
 
         [HttpPost]
-        public IActionResult Login(UserAccountLogin viewModel)
+        public IActionResult Login(LoginWithSignup bigViewModel)
         {
             if (ModelState.IsValid)
             {
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    UserAccount userAccount = sUA.Authenticate(viewModel.UserAccount.Mail, viewModel.UserAccount.Password);
+                    UserAccount userAccount = sUA.Authenticate(bigViewModel.UserAccountLogin.UserAccount.Mail, bigViewModel.UserAccountLogin.UserAccount.Password);
                     if (userAccount != null)
                     {
                         List<Claim> userClaims = new List<Claim>() {
@@ -83,11 +102,12 @@ namespace AgriNov.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("UserAccount.Mail", "Identifiant et/ou mot de passe incorrect(s)");
+                        ModelState.AddModelError("UserAccountLogin.UserAccount.Mail", "Identifiant et/ou mot de passe incorrect(s)");
                     }
                 }
             }
-            return View(viewModel);
+            ViewData["FromAccountCreation"] = false;
+            return View("LoginWithSignUpSlide",bigViewModel);
         }
 
         [HttpGet]
