@@ -37,7 +37,28 @@
 
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="~/img/global/miel.png"/>
+                            @if (item.MemberShipFee != null)
+                            {
+                                <img src="~/img/global/Logo-footer.png"/>
+                            }
+                            else if (item.Product != null)
+                            {
+                                String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.Product.ImgProduct) + "";
+                                <img id="imgViewer" src=@srcValue />
+                            }
+                            else if (item.BoxContract != null)
+                            {
+                                if (item.Quantity == 1)
+                                {
+                                    String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.BoxContract.ImgSmallBoxContract) + "";
+                                    <img id="imgViewer" src=@srcValue />
+                                }
+                                else
+                                {
+                                    String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.BoxContract.ImgBigBoxContract) + "";
+                                    <img id="imgViewer" src=@srcValue />
+                                }
+                            }
                         </div>
                         <div class="product-info">
                             @if (item.MemberShipFee != null)

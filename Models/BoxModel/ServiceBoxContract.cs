@@ -104,12 +104,32 @@ namespace AgriNov.Models
 
         public void InsertBoxContract(BoxContract boxContract)
         {
+            string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "productions");
             if (boxContract.ProductType.ToString() == "VEGETABLES")
             {
                 //add images by default on vegetables
-                string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "productions");
                 boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablessmall.jpg"));
                 boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablesbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "FRUITS")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitsmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "MEAT")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatsmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "EGGS")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggssmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggsbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "DAYRIS")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairysmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairybig.jpg"));
             }
             boxContract.DateCreated = DateTime.Now;
             boxContract.DateLastModified = DateTime.Now;
