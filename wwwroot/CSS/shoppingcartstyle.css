@@ -77,28 +77,28 @@
     gap: 10px;
 }
 
-    .shop-resume h4,
-    .cart-right h4 {
-        margin-bottom: 40px;
-        font-size: 2vw;
-    }
+.shop-resume h4,
+.cart-right h4 {
+    margin-bottom: 40px;
+    font-size: 2vw;
+}
 
-    .shop-resume p,
-    .cart-right p {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 0.8vw;
-        line-height: 150%;
-    }
+.shop-resume p,
+.cart-right p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.8vw;
+    line-height: 150%;
+}
 
-    .shop-resume .cart-line,
-    .cart-right .cart-line {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+.shop-resume .cart-line,
+.cart-right .cart-line {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .cart-line .name {
     width: 70%;

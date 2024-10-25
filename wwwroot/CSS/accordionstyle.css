@@ -41,7 +41,38 @@
 }
 
 .tab input:checked ~ .tab-content {
-    max-height: 10rem;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.order-resume {
+    width: 700px;
+    height: fit-content;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.cart-line{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cart-line .name {
+    width: 70%;
+    text-align: left;
+}
+
+.cart-line .price {
+    width: 20%;
+    text-align: right;
+}
+
+.line {
+    margin-top: 20px;
+    width: auto;
+    border: solid 1px #B1B1B1;
 }
 
 .tab-label,
@@ -56,7 +87,17 @@
     justify-content: space-between;
     padding: 1rem;
     border-radius: 5px;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1vw;
+    line-height: 110%;
+    /* or 26px */
+    display: flex;
+    align-items: center;
+    color: white;
 }
+
 .tab input:checked ~ .tab-label {
     border-radius: 5px 5px 0 0;
 }

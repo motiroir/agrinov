@@ -230,8 +230,8 @@ namespace AgriNov.Controllers
         {
             ProductionViewModel pVM= new ProductionViewModel();
             int userId = int.Parse(HttpContext.User.Identity.Name);
-          using (ServiceProduction sP = new ServiceProduction())
-          {
+            using (ServiceProduction sP = new ServiceProduction())
+            {
                 Production production = sP.GetProductionByID(userId);
                 pVM.Production = production;
 
@@ -242,12 +242,12 @@ namespace AgriNov.Controllers
                 }
             
                 
-              List<Production> productions = sP.GetProductions();
-              pVM.ProductionsBySupplier = sP.GetProductionsBySupplier(userId);
+                List<Production> productions = sP.GetProductions();
+                pVM.ProductionsBySupplier = sP.GetProductionsBySupplier(userId);
                 
                 
                
-          }
+            }
             return View(pVM);
         }
 

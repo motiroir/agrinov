@@ -26,16 +26,58 @@
     
 
     <div class="accordion">
-        @for (int i = 1; i <= 10; i++)
-        {
-            <div class="tab">
-                <input type="checkbox" name="accordion-@i" id="cb-@i">
-                <label for="cb-@i" class="tab-label">Tab @i</label>
-                <div class="tab-content">
-                    <p>Content for Tab @i. Pure CSS accordion based on the "input:checked + label" style trick.</p>
-                </div>
+    @{
+        int i = 1;
+        List<Order> orders = Model.AllOrders;
+    }
+    @for (int index = orders.Count - 1; index >= 0; index--)
+    {
+        var order = orders[index];
+        <div class="tab">
+            <input type="checkbox" name="accordion-@i" id="cb-@i">
+            <label for="cb-@i" class="tab-label">
+                Commande n° : @order.OrderNumber | 
+                Date : @order.DateCreated.ToString("dd/MM/yyyy") | 
+                Statut : @(order.WasDelivered ? "Récupérée" : "En attente")
+            </label>
+            <div class="tab-content">
+                    <div class="order-resume">
+                        <h4>
+                            @(order.Payment.Received ? "La commande a été réglée." : "La commande devra être réglée sur place.")
+                        </h4>
+                        <br /><br />
+                        @foreach (OrderItem orderItem in @order.OrderItems)
+                        {
+                           <div class="cart-line">
+                                @if (orderItem.MemberShipFee != null)
+                                {
+                                <p class="name">Cotisation annuelle</p>
+                                <p class="price">@orderItem.Total.ToString("C")</p>
+                                }
+                                else if (orderItem.Product != null)
+                                {
+                                <p class="name">@orderItem.Product.Name</p>
+                                <p class="price">@orderItem.Total.ToString("C")</p>
+                                }
+                                else if (orderItem.BoxContract != null)
+                                {
+
+                                <p class="name">@(orderItem.Quantity == 1 ? "Petit" : orderItem.Quantity == 2 ? "Grand" : "") panier de @orderItem.BoxContract.ProductType.GetDisplayName()</p>
+                                <p class="price">@orderItem.Total.ToString("C")</p>
+                                }
+                           </div>
+                        }
+                    <div class="line"></div>
+                    <div class="cart-line">
+                        <p class="name"><b>Total</b></p>
+                        <p class="price"><b>@order.Total.ToString("C")</b></p>
+                    </div>
+                    </div>
+
             </div>
-        }
-    </div>
+        </div>
+        i++;
+    }
+</div>
 
 </div>
