@@ -37,7 +37,28 @@
 
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="~/img/global/miel.png"/>
+                            @if (item.MemberShipFee != null)
+                            {
+                                <img src="~/img/global/Logo-footer.png"/>
+                            }
+                            else if (item.Product != null)
+                            {
+                                String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.Product.ImgProduct) + "";
+                                <img id="imgViewer" src=@srcValue />
+                            }
+                            else if (item.BoxContract != null)
+                            {
+                                if (item.Quantity == 1)
+                                {
+                                    String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.BoxContract.ImgSmallBoxContract) + "";
+                                    <img id="imgViewer" src=@srcValue />
+                                }
+                                else
+                                {
+                                    String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.BoxContract.ImgBigBoxContract) + "";
+                                    <img id="imgViewer" src=@srcValue />
+                                }
+                            }
                         </div>
                         <div class="product-info">
                             @if (item.MemberShipFee != null)
@@ -56,7 +77,7 @@
                             {
                                 
                                 <h3>@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
-                                <p class="product-details">Prix à la semaine</p>
+                                <p class="product-details">Panier pour la saison @item.BoxContract.Seasons.GetDisplayName() @item.BoxContract.Years.GetDisplayName() Prix à la semaine</p>
                                 <p class="product-price">@((@item.BoxContract.Price * item.Quantity).ToString("C"))</p>
                             }
                         </div>
@@ -127,7 +148,7 @@
                 <p class="price"><b>@Model.Total.ToString("C")</b></p>
             </div>
             <div class="btn-container">
-                <a class="lightOrange-btn w-100" href='@Url.Action("PlaceOrder","ShoppingCart")'>Passer commande</a>
+                <a class="lightOrange-btn w-100" href='@Url.Action("PlaceOrder","ShoppingCart")'>Passer au paiement</a>
                 <a class="orangeRed-btn w-100" href='@Url.Action("EmptyCart","ShoppingCart")'>Vider le panier</a>
             </div>
             

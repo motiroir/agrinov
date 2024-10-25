@@ -5,10 +5,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>S'identifier</title>
+        <link rel="icon" type="image/x-icon" href="~/img/global/Logo.ico">
         <link rel="stylesheet" href="~/CSS/loginstyle.css">
     </head>
     <body class="@(ViewData["FromAccountCreation"] != null && (bool)ViewData["FromAccountCreation"] ? "slide" : "")">
-        <a href="@Url.Action("Index", "Home")" class="return-link">Retour à l'accueil</a>
+        
+        <a href="@Url.Action("Index", "Home")" class="return-home">Retour à l'accueil</a>
+
         <div class="container">
             @if(!Model.UserAccountLogin.IsAuthenticated)
             {

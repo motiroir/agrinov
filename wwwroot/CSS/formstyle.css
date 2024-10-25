@@ -67,13 +67,12 @@
     gap: 40px;
 }
 
-    .form-right-content span {
-        font-family: 'Comfortaa';
-        display: block;
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: #333;
-    }
+.form-right-content span {
+    font-family: 'Comfortaa';
+    display: block;
+    font-weight: 600;
+    color: #333;
+}
 
 .form-left-content {
     width: 50%;

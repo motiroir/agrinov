@@ -15,14 +15,13 @@ namespace AgriNov.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0.")]
         public decimal Price { get; set; }
 
-        [Required]
-        [DisplayName("Nombre maximum d'abonnements")]
-        [Range(1, int.MaxValue, ErrorMessage = "Le nombre d'abonnements doit être supérieur à 0.")]
         public int MaxSubscriptions { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
 
         public bool ForSale { get; set; }
+        public byte[] ImgSmallBoxContract { get; set; }
+        public byte[] ImgBigBoxContract { get; set; }
 
     }
 

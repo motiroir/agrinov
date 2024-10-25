@@ -23,6 +23,7 @@ namespace AgriNov.Models
 
         public void Initializetable()
         {
+
             var productions = new List<Production>
     {
         new Production
@@ -170,7 +171,7 @@ namespace AgriNov.Models
         }
     };
 
-            
+
             foreach (var production in productions)
             {
                 InsertProduction(production);
@@ -217,7 +218,7 @@ namespace AgriNov.Models
         {
             return _DBContext.Productions.Where(production => production.SupplierId == supplierID).ToList();
         }
-        
+
 
         public void InsertProduction(Production production)
         {
@@ -269,11 +270,11 @@ namespace AgriNov.Models
             switch (frequency)
             {
                 case DeliveryFrequency.WEEKLY:
-                    return 13; 
+                    return 13;
                 case DeliveryFrequency.BIWEEKLY:
-                    return 6; 
+                    return 6;
                 case DeliveryFrequency.MONTHLY:
-                    return 3; 
+                    return 3;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(frequency), frequency, "Frequency is not recognized");
             }

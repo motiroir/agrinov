@@ -32,24 +32,35 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            BoxContract bc1 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.SPRING, Years = Years._2024, Price = 8M, MaxSubscriptions = 20, ForSale = false };
-            BoxContract bc2 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = false };
-            BoxContract bc3 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.SPRING, Years = Years._2024, Price = 16M, MaxSubscriptions = 10, ForSale = false };
-            BoxContract bc4 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.SPRING, Years = Years._2024, Price = 12M, MaxSubscriptions = 5, ForSale = false };
-            BoxContract bc5 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false };
+            string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "productions");
+            BoxContract bc1 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.SPRING, Years = Years._2024, Price = 8M, MaxSubscriptions = 20, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablessmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablesbig.jpg")) };
+            BoxContract bc2 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairysmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairybig.jpg")) };
+            BoxContract bc3 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.SPRING, Years = Years._2024, Price = 16M, MaxSubscriptions = 10, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatbig.jpg")) };
+            BoxContract bc4 = new BoxContract() { ProductType = ProductType.FRUITS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 12M, MaxSubscriptions = 15, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitbig.jpg")) };
+            BoxContract bc5 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggssmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggsbig.jpg")) };
 
-            BoxContract bc6 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 25, ForSale = false };
-            BoxContract bc7 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 10, ForSale = false };
-            BoxContract bc8 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 10, ForSale = false };
-            BoxContract bc9 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 10, ForSale = false };
-            BoxContract bc10 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false };
+            BoxContract bc6 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 25, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablessmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablesbig.jpg")) };
+            BoxContract bc7 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 10, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairysmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairybig.jpg")) };
+            BoxContract bc8 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 10, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatbig.jpg")) };
+            BoxContract bc9 = new BoxContract() { ProductType = ProductType.FRUITS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 10, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitbig.jpg")) };
+            BoxContract bc10 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggssmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggsbig.jpg")) };
 
-            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 2, ForSale = true };
-            BoxContract bc12 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = true };
-            BoxContract bc13 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 12, ForSale = true };
-            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 1, ForSale = true };
-            BoxContract bc15 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = true };
+            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 20, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablessmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablesbig.jpg")) };
+            BoxContract bc12 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairysmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairybig.jpg")) };
+            BoxContract bc13 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatbig.jpg")) };
+            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FRUITS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 10, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitbig.jpg")) };
+            BoxContract bc15 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggssmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggsbig.jpg")) };
             
+            BoxContract bc16 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.WINTER, Years = Years._2024, Price = 8M, MaxSubscriptions = 12, ForSale = true, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablessmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablesbig.jpg")) };
+            BoxContract bc17 = new BoxContract() { ProductType = ProductType.FRUITS, Seasons = Seasons.WINTER, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = true, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitbig.jpg")) };
+            BoxContract bc18 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.WINTER, Years = Years._2024, Price = 16M, MaxSubscriptions = 12, ForSale = true, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatbig.jpg")) };
+            BoxContract bc19 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.WINTER, Years = Years._2024, Price = 12M, MaxSubscriptions = 10, ForSale = true, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairysmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairybig.jpg")) };
+            BoxContract bc20 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.WINTER, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = true, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggssmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggsbig.jpg")) };
+            
+            BoxContract bc21 = new BoxContract() { ProductType = ProductType.FRUITS, Seasons = Seasons.SPRING, Years = Years._2025, Price = 5M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitbig.jpg")) };
+            BoxContract bc22 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.SPRING, Years = Years._2025, Price = 16M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatsmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatbig.jpg")) };
+            BoxContract bc23 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.SPRING, Years = Years._2025, Price = 12M, MaxSubscriptions = 10, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairysmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairybig.jpg")) };
+            BoxContract bc24 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.SPRING, Years = Years._2025, Price = 2M, MaxSubscriptions = 12, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggssmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggsbig.jpg")) };
         
             InsertBoxContract(bc1);
             InsertBoxContract(bc2);
@@ -66,6 +77,15 @@ namespace AgriNov.Models
             InsertBoxContract(bc13);
             InsertBoxContract(bc14);
             InsertBoxContract(bc15);
+            InsertBoxContract(bc16);
+            InsertBoxContract(bc17);
+            InsertBoxContract(bc18);
+            InsertBoxContract(bc19);
+            InsertBoxContract(bc20);
+            InsertBoxContract(bc21);
+            InsertBoxContract(bc22);
+            InsertBoxContract(bc23);
+            InsertBoxContract(bc24);
         }
 
         public List<BoxContract> GetAllBoxContracts()
@@ -84,6 +104,33 @@ namespace AgriNov.Models
 
         public void InsertBoxContract(BoxContract boxContract)
         {
+            string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "productions");
+            if (boxContract.ProductType.ToString() == "VEGETABLES")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablessmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablesbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "FRUITS")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitsmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "fruitbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "MEAT")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatsmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "meatbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "EGGS")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggssmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "eggsbig.jpg"));
+            } else if (boxContract.ProductType.ToString() == "DAYRIS")
+            {
+                //add images by default on vegetables
+                boxContract.ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairysmall.jpg"));
+                boxContract.ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "dairybig.jpg"));
+            }
             boxContract.DateCreated = DateTime.Now;
             boxContract.DateLastModified = DateTime.Now;
             _DBContext.BoxContracts.Add(boxContract);

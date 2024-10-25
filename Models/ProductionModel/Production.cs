@@ -47,5 +47,6 @@ namespace AgriNov.Models
         public DateTime DateLastModified { get; set; }
 
         public int SupplierId { get; set; }
+        
     }
 }

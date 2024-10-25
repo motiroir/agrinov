@@ -87,6 +87,11 @@ namespace AgriNov.Controllers
             {
                 pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsForSaleNotAlreadySubscribed(userId);
                 pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(userId);
+                if(pVM.AllBoxContractsToSale.Count > 0)
+                {
+                    List<DateTime> startEndSeason = sBC.ComputeSeasonStartAndEnd(pVM.AllBoxContractsToSale[0].Years,pVM.AllBoxContractsToSale[1].Seasons);
+                    pVM.NextSeasonInfo = $"La prochaine saison {pVM.AllBoxContractsToSale[0].Seasons.GetDisplayName()} {pVM.AllBoxContractsToSale[0].Years.GetDisplayName()} débutera le {startEndSeason[0]:dd/MM/yyyy} et se terminera le {startEndSeason[1]:dd/MM/yyyy}.";
+                }
             }
 
             ViewData["ActiveTab"] = activeTab;
