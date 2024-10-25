@@ -9,6 +9,7 @@
 }
 
 @section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/globalstyle.css">
     <link rel="stylesheet" href="~/CSS/formstyle.css">
     <link rel="stylesheet" href="~/CSS/tablestyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
@@ -16,10 +17,13 @@
 
 <a href="@Url.Action("Index", "DashBoard")" class="return-link">< Retour à mon compte</a>
 
-
+            
 <div class="table-container-production">
+    
     <table style="--colNbr: 10">
+        <caption>Gestion des Productions</caption>
         <thead>
+            
             <tr>
                 <th>Saison</th>
                 <th>Année</th>
@@ -48,8 +52,40 @@
                         <td>@production.Production.CompanyName</td>
                         <td>@production.Production.ProductType.GetDisplayName()</td>
                         <td>@production.Production.Description</td>
-                        <td>@production.Production.VolumePerDelivery</td>
-                        <td>@production.Production.Price.ToString("F2")</td>
+                        <td>@production.Production.VolumePerDelivery
+                            @if (production.Production.ProductType == ProductType.FRUITS ||
+                           production.Production.ProductType == ProductType.FISH ||
+                           production.Production.ProductType == ProductType.MEAT ||
+                           production.Production.ProductType == ProductType.VEGETABLES)
+                            {
+                                <span>Kg</span>
+                            }
+                            else if (production.Production.ProductType == ProductType.EGGS)
+                            {
+                                <span>pièce(s)</span>
+                            }
+                            else if (production.Production.ProductType == ProductType.DAYRIS)
+                            {
+                                <span>litre(s)</span>
+                            }
+                        </td>
+                        <td>@production.Production.Price.ToString("F2")
+                            @if (production.Production.ProductType == ProductType.FRUITS ||
+                           production.Production.ProductType == ProductType.FISH ||
+                           production.Production.ProductType == ProductType.MEAT ||
+                           production.Production.ProductType == ProductType.VEGETABLES)
+                            {
+                                <span>€/Kg</span>
+                            }
+                            else if (production.Production.ProductType == ProductType.EGGS)
+                            {
+                                <span>€/pièce</span>
+                            }
+                            else if (production.Production.ProductType == ProductType.DAYRIS)
+                            {
+                                <span>€/litre</span>
+                            }
+                        </td>
                         <td>@production.Production.DeliveryFrequency.GetDisplayName()</td>
 
                         <td>

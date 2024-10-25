@@ -3,6 +3,7 @@ using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Diagnostics;
 using System.Runtime.Intrinsics.X86;
 
@@ -57,12 +58,20 @@ namespace AgriNov.Controllers
             {
                 int userId = int.Parse(HttpContext.User.Identity.Name);
                 viewModel.Production.SupplierId = userId;
-                using (ServiceProduction sP = new ServiceProduction())
+                using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                   
-                    
-                    sP.InsertProduction(viewModel.Production);
-                    return RedirectToAction("SupShowAllProductions", "Production");
+                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.SupplierId);
+
+
+                    viewModel.Production.CompanyName = viewModel.UserAccount.Supplier.CompanyDetails.CompanyName;
+
+
+                    using (ServiceProduction sP = new ServiceProduction())
+                    {
+
+                        sP.InsertProduction(viewModel.Production);
+                        return RedirectToAction("SupShowAllProductions", "Production");
+                    }
                 }
             }
 
@@ -122,19 +131,27 @@ namespace AgriNov.Controllers
             {
                 int userId = int.Parse(HttpContext.User.Identity.Name);
                 viewModel.Production.SupplierId = userId;
-
-                if (id > 0)
+                using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    using (ServiceProduction sP = new ServiceProduction())
-                    {
-                        viewModel.Production.DateLastModified = DateTime.Now;
-                      
-                        sP.UpdateProduction(viewModel.Production);
+                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.SupplierId);
 
-                        return RedirectToAction("SupShowAllProductions", "Production");
+
+                    viewModel.Production.CompanyName = viewModel.UserAccount.Supplier.CompanyDetails.CompanyName;
+
+
+                    if (id > 0)
+                    {
+                        using (ServiceProduction sP = new ServiceProduction())
+                        {
+                            viewModel.Production.DateLastModified = DateTime.Now;
+
+                            sP.UpdateProduction(viewModel.Production);
+
+                            return RedirectToAction("SupShowAllProductions", "Production");
+                        }
                     }
+                    return View(viewModel);
                 }
-                return View(viewModel);
             }
 
             return View(viewModel);
@@ -204,12 +221,12 @@ namespace AgriNov.Controllers
         [Authorize(Roles = "ADMIN")]
         public IActionResult ShowAllProductions()
         {
-                using (ServiceProduction sP = new ServiceProduction())
+            using (ServiceProduction sP = new ServiceProduction())
                 {
-                   
+                
                     List<Production> productions = sP.GetProductions();
 
-                    
+
                     List<ProductionViewModel> viewModelList = productions.Select(p => new ProductionViewModel
                     {
                         Production = p,
@@ -222,8 +239,9 @@ namespace AgriNov.Controllers
 
                     }).ToList();
 
-                    return View(viewModelList); 
-                }
+                    return View(viewModelList);
+                
+            }
             
         }
 

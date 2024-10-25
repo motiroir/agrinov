@@ -46,11 +46,7 @@
                 </div>
             </fieldset>
             <fieldset>
-                <div class="companyName">
-                    @Html.LabelFor(model => model.Production.CompanyName, "Nom du Fournisseur", new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.Production.CompanyName)
-                    @Html.ValidationMessageFor(model => model.Production.CompanyName)
-                </div>
+               
 
                 <div class="seasons">
                     @Html.LabelFor(model => model.Production.Seasons, new { @class = "control-label" })
@@ -64,11 +60,6 @@
                     @Html.ValidationMessageFor(model => model.Production.Years, "", new { @class = "text-danger" })
                 </div>
 
-                <div class="dateLimitForReview">
-                    @Html.LabelFor(model => model.Production.DateLimitForReview, "Date limite de validation de la production")
-                    @Html.EditorFor(model => model.Production.DateLimitForReview, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
-                    @Html.ValidationMessageFor(model => model.Production.DateLimitForReview)
-                </div>
             </fieldset>
         </div>
         <div class="production-description">

@@ -20,8 +20,8 @@
                 </div>
 
                 <div>
-                    @Html.LabelFor(model => model.Activity.Datetime)
-                    @Html.EditorFor(model => model.Activity.Datetime, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.LabelFor(model => model.Activity.Datetime,"Jour et Heure de l'atelier")
+                @Html.EditorFor(model => model.Activity.Datetime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
                     @Html.ValidationMessageFor(model => model.Activity.Datetime)
                 </div>
 

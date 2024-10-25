@@ -7,11 +7,11 @@ namespace AgriNov.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Le nom de Fournisseur est requis.")]
+        
         public string CompanyName { get; set; }
 
         [Required]
-        [DisplayName("Quantité (au kg / Litre / Pièce)")]
+        [DisplayName("Quantité par semaine (au kg / Litre / Pièce)")]
         [Range(1, int.MaxValue, ErrorMessage = "Le volume doit être supérieur à 0.")]
         public int VolumePerDelivery { get; set; }
 
@@ -19,10 +19,6 @@ namespace AgriNov.Models
         [DisplayName("Prix (en €)")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0.")]
         public decimal Price { get; set; }
-
-        [Required(ErrorMessage = "La date limite est requise.")]
-        [DisplayName("Date limite de validation de la production")]
-        public DateTime DateLimitForReview { get; set; }
 
         
         public ValidationStatus ValidationStatus { get; set; }
