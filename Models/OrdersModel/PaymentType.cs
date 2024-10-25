@@ -9,7 +9,7 @@ namespace AgriNov.Models
         NA,
         [Display(Name = "CB")]
         CARD,
-        [Display(Name = "Escpèces")]
+        [Display(Name = "Espèces")]
         CASH,
         [Display(Name = "Chèque")]
         CHECK

@@ -23,13 +23,13 @@ namespace AgriNov.Models
         {
             Payment p1 = new Payment
             {
-                Date = DateTime.Now,
+                Date = new DateTime(2024, 10, 15),
                 PaymentType = PaymentType.CARD,
                 Received = true
             };
             Payment p2 = new Payment
             {
-                Date = DateTime.Now,
+                Date = new DateTime(2024, 10, 25),
                 PaymentType = PaymentType.CASH,
                 Received = true
             };
@@ -40,7 +40,7 @@ namespace AgriNov.Models
             };
             Payment p4 = new Payment
             {
-                Date = DateTime.Now,
+                Date = new DateTime(2024, 10, 15),
                 PaymentType = PaymentType.CARD,
                 Received = true
             };
@@ -65,14 +65,14 @@ namespace AgriNov.Models
 
             Payment p8 = new Payment
             {
-                Date = DateTime.Now,
+                Date = new DateTime(2024, 10, 20),
                 PaymentType = PaymentType.CHECK,
                 Received = true
             };
 
             Payment p9 = new Payment
             {
-                Date = DateTime.Now,
+                Date = new DateTime(2024, 10, 19),
                 PaymentType = PaymentType.CASH,
                 Received = true
             };
@@ -87,6 +87,51 @@ namespace AgriNov.Models
             SaveShoppingCartAsAnOrder(9, p8);  
             SaveShoppingCartAsAnOrder(3, p9);
 
+            Order o1 = GetOrderById(1);
+            Order o2 = GetOrderById(2);
+            Order o3 = GetOrderById(3);
+            Order o4 = GetOrderById(4);
+            Order o5 = GetOrderById(5);
+            Order o6 = GetOrderById(6);
+            Order o7 = GetOrderById(7);
+            Order o8 = GetOrderById(8);
+            Order o9 = GetOrderById(9);
+               
+            
+
+            o1.DateCreated = new DateTime(2024, 10, 15);
+            o1.WasDelivered = true;
+            
+            o2.DateCreated = new DateTime(2024, 10, 15);
+            o2.WasDelivered = true;
+
+            o3.DateCreated = new DateTime(2024, 10, 16);
+
+            o4.DateCreated = new DateTime(2024, 10, 16);
+            o4.WasDelivered = true;
+
+            o5.DateCreated = new DateTime(2024, 10, 16);
+
+            o6.DateCreated = new DateTime(2024, 10, 19);
+
+            o7.DateCreated = new DateTime(2024, 10, 20);
+
+            o8.DateCreated = new DateTime(2024, 10, 20);
+
+            o8.WasDelivered = true;
+
+            o9.DateCreated = new DateTime(2024, 10, 20);
+            o9.WasDelivered = true;
+
+            UpdateOrder(o1);
+            UpdateOrder(o2);
+            UpdateOrder(o3);
+            UpdateOrder(o4);
+            UpdateOrder(o5);
+            UpdateOrder(o6);
+            UpdateOrder(o7);
+            UpdateOrder(o8);
+            UpdateOrder(o9);
         }
 
         public void Save()

@@ -39,7 +39,7 @@ namespace AgriNov.Controllers
             viewModel.WasDeliveredOptions = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Livré", Value = "true" },
-                new SelectListItem { Text = "En cours", Value = "false" }
+                new SelectListItem { Text = "En attente", Value = "false" }
             };
             return View(viewModel);
         }
@@ -74,7 +74,7 @@ namespace AgriNov.Controllers
             viewModel.WasDeliveredOptions = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Livré", Value = "true" },
-                new SelectListItem { Text = "En cours", Value = "false" }
+                new SelectListItem { Text = "En attente", Value = "false" }
             };
 
             return View(viewModel);

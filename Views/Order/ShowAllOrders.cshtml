@@ -19,7 +19,7 @@
         <thead>
             <tr>
                 <th>Numéro de commande</th>
-                <th>Total (en €)</th>
+                <th>Total</th>
                 <th>Date de commande</th>
                 <th>Statut livraison</th>
                 <th>Date de paiement</th>
@@ -31,7 +31,7 @@
         <tbody>
             @if (Model.AllOrders != null && Model.AllOrders.Any())
             {
-                @foreach (AgriNov.Models.Order order in Model.AllOrders)
+                @foreach (AgriNov.Models.Order order in Model.AllOrders.ToList().AsEnumerable().Reverse())
                 {
                     @using (Html.BeginForm("UpdateOrderValidation", "Order", FormMethod.Post))
                     {
@@ -39,7 +39,7 @@
                         @Html.HiddenFor(model => order.Id)
 
                         <td>@order.OrderNumber</td>
-                        <td>@order.Total.ToString("F2")</td>
+                        <td>@order.Total.ToString("C")</td>
                         <td>@order.DateCreated.ToString("dd/MM/yyyy")</td>
                         <td>
                            @Html.DropDownListFor(m => order.WasDelivered, new SelectList(Model.WasDeliveredOptions, "Value", "Text"), new { @class = "form-control" })

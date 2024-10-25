@@ -41,7 +41,7 @@
 }
 
 .tab input:checked ~ .tab-content {
-    max-height: 400px;
+    max-height: 1000px;
     overflow: auto;
 }
 
