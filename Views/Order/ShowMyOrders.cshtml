@@ -36,7 +36,6 @@
         <div class="tab">
             <input type="checkbox" name="accordion-@i" id="cb-@i">
             <label for="cb-@i" class="tab-label">
-                Commande n° : @order.OrderNumber | 
                 Date : @order.DateCreated.ToString("dd/MM/yyyy") | 
                 Statut : @(order.WasDelivered ? "Récupérée" : "Prête à être récupérée")
             </label>
