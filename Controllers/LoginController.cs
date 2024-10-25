@@ -25,12 +25,6 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-		// [HttpGet]
-        // public IActionResult CreateAccount()
-        // {
-        //     return View();
-        // }
-
         [HttpPost]
         public IActionResult CreateAccount(LoginWithSignup bigViewModel)
         {
@@ -55,20 +49,6 @@ namespace AgriNov.Controllers
             return View("LoginWithSignUpSlide", bigViewModel);
         }
 
-        // [HttpGet]
-        // public IActionResult Login()
-        // {
-        //     UserAccountLogin viewModel = new UserAccountLogin() { IsAuthenticated = HttpContext.User.Identity.IsAuthenticated };
-        //     if (viewModel.IsAuthenticated)
-        //     {
-        //         using (ServiceUserAccount sUA = new ServiceUserAccount())
-        //         {
-        //             viewModel.UserAccount = sUA.GetUserAccountByID(HttpContext.User.Identity.Name);
-        //         }
-        //     }
-        //     return View(viewModel);
-        // }
-
         [HttpPost]
         public IActionResult Login(LoginWithSignup bigViewModel)
         {
@@ -88,16 +68,6 @@ namespace AgriNov.Controllers
                         ClaimsPrincipal userPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
 
                         HttpContext.SignInAsync(userPrincipal);
-                        // Moved to ShoppingCart/Index
-                        // if(!sUA.CheckIfMemberShipValid(userAccount.Id))
-                        // {
-                        //     using(IServiceShoppingCart sSC = new ServiceShoppingCart())
-                        //     {
-                        //         if(!sSC.IsAMemberShipFeeInTheCart(userAccount.Id)){
-                        //             sSC.AddMemberShipFeeToShoppingCart(userAccount.Id, new ShoppingCartItem());
-                        //         }
-                        //     }
-                        // }
                         if(userAccount.UserAccountLevel != UserAccountLevel.DEFAULT)
                         {
                             return RedirectToAction("Index","DashBoard"); 
@@ -120,6 +90,13 @@ namespace AgriNov.Controllers
             HttpContext.SignOutAsync();
             return Redirect("/Home/Index");
         }
+
+        public IActionResult AccessDenied()
+        {
+          
+            return View();
+        }
+
 
     }
 

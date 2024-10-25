@@ -52,13 +52,14 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
+            string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "proofpdfdoc");
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 // Supplier s5
                 Address a5 = new Address() { Line1 = "Au bout du chemin", Line2 = "Rue des blés", City = "Clissons", PostCode = "44190" };
                 ContactDetails c5 = new ContactDetails() { Name = "Martin", FirstName = "Lefevre", PhoneNumber = "0677413231" };
                 CompanyDetails cd5 = new CompanyDetails() { CompanyName = "La ferme des blés", SiretNumber = "01876543232411" };
-                Supplier s5 = new Supplier() { UserAccount = serviceUserAccount.GetUserAccountByID(5), Address = a5, ContactDetails = c5, CompanyDetails = cd5 };
+                Supplier s5 = new Supplier() { UserAccount = serviceUserAccount.GetUserAccountByID(5), Address = a5, ContactDetails = c5, CompanyDetails = cd5, ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf")) };
                 InsertSupplier(s5);
                 // Supplier s6
                 Address a6 = new Address()
@@ -84,7 +85,8 @@ namespace AgriNov.Models
                     UserAccount = serviceUserAccount.GetUserAccountByID(6),
                     Address = a6,
                     ContactDetails = c6,
-                    CompanyDetails = cd6
+                    CompanyDetails = cd6,
+                    ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf"))
                 };
                 InsertSupplier(s6);
 
@@ -112,7 +114,8 @@ namespace AgriNov.Models
                     UserAccount = serviceUserAccount.GetUserAccountByID(7),
                     Address = a7,
                     ContactDetails = c7,
-                    CompanyDetails = cd7
+                    CompanyDetails = cd7,
+                    ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf"))
                 };
                 InsertSupplier(s7);
 
@@ -127,7 +130,7 @@ namespace AgriNov.Models
                 ContactDetails c8 = new ContactDetails()
                 {
                     Name = "Lambert",
-                    FirstName = "Simone-Gertrude",
+                    FirstName = "Simone",
                     PhoneNumber = "0666541234"
                 };
                 CompanyDetails cd8 = new CompanyDetails()
@@ -140,7 +143,8 @@ namespace AgriNov.Models
                     UserAccount = serviceUserAccount.GetUserAccountByID(8),
                     Address = a8,
                     ContactDetails = c8,
-                    CompanyDetails = cd8
+                    CompanyDetails = cd8,
+                    ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf"))
                 };
                 InsertSupplier(s8);
 
@@ -168,7 +172,8 @@ namespace AgriNov.Models
                     UserAccount = serviceUserAccount.GetUserAccountByID(18),
                     Address = a9,
                     ContactDetails = c9,
-                    CompanyDetails = cd9
+                    CompanyDetails = cd9,
+                    ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf"))
                 };
                 InsertSupplier(s9);
 
@@ -196,7 +201,8 @@ namespace AgriNov.Models
                     UserAccount = serviceUserAccount.GetUserAccountByID(19),
                     Address = a10,
                     ContactDetails = c10,
-                    CompanyDetails = cd10
+                    CompanyDetails = cd10,
+                    ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf"))
                 };
                 InsertSupplier(s10);
 
@@ -224,7 +230,8 @@ namespace AgriNov.Models
                     UserAccount = serviceUserAccount.GetUserAccountByID(20),
                     Address = a11,
                     ContactDetails = c11,
-                    CompanyDetails = cd11
+                    CompanyDetails = cd11,
+                    ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf"))
                 };
                 InsertSupplier(s11);
             }

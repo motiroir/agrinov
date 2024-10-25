@@ -10,16 +10,14 @@ namespace AgriNov.Controllers
     [Authorize]
     public class ActivityController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
+        [Authorize]
         public IActionResult CreateActivity(ActivityViewModel aVM)
         {
             return View(aVM);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult CreateActivity(FileUploadActivity fileObj)
         {
@@ -52,6 +50,7 @@ namespace AgriNov.Controllers
             return View("ActivityDashboard", aVM);  
         }
 
+        [Authorize]
         public IActionResult UpdateActivity(int id)
         {
             if (id > 0)
@@ -68,6 +67,7 @@ namespace AgriNov.Controllers
             return View("Error");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult UpdateActivity(Activity activity)
         {
@@ -86,6 +86,7 @@ namespace AgriNov.Controllers
             return View(activity);
         }
 
+        [Authorize]
         public IActionResult ActivityDashboard(string activeTab = "ShowAllActivities")
         {
             ActivityViewModel aVM = new ActivityViewModel();
@@ -106,16 +107,19 @@ namespace AgriNov.Controllers
             return View(aVM);
         }
 
+        [Authorize]
         public IActionResult ShowAllActivities(ActivityViewModel aVM)
         {
              return View(aVM);
         }
 
+        [Authorize]
         public IActionResult ShowMyActivities(ActivityViewModel aVM)
         {
             return View(aVM);
         }
 
+        [Authorize]
         public IActionResult ShowActivityDetails(int id, string returnUrl = null)
         {
             ActivityViewModel aVM = new ActivityViewModel();
@@ -140,6 +144,7 @@ namespace AgriNov.Controllers
             return View(aVM);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult BookActivity(Activity activity)
         {

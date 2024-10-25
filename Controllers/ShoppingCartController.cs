@@ -61,12 +61,21 @@ namespace AgriNov.Controllers
                 for (int i = 0; i < currentShoppingCart.ShoppingCartItems.Count; i++)
                 {
                     //checking if product quantity was changed for a shoppingcartitem, the form does not allow changing other quantities
-                    if (currentShoppingCart.ShoppingCartItems[i].Product != null && currentShoppingCart.ShoppingCartItems[i].Quantity != shoppingCart.ShoppingCartItems[i].Quantity)
+                    if (i < shoppingCart.ShoppingCartItems.Count &&
+                        currentShoppingCart.ShoppingCartItems[i].Product != null &&
+                        currentShoppingCart.ShoppingCartItems[i].Quantity != shoppingCart.ShoppingCartItems[i].Quantity)
                     {
+                        int requestedQuantity = shoppingCart.ShoppingCartItems[i].Quantity;
+                        int availableStock = currentShoppingCart.ShoppingCartItems[i].Product.Stock;
+
                         //Ignore Change if input superior to product stock
-                        if (!(shoppingCart.ShoppingCartItems[i].Quantity > currentShoppingCart.ShoppingCartItems[i].Product.Stock))
+                        if (requestedQuantity <= availableStock && requestedQuantity >= 0)
                         {
-                            sSC.AddProductToShoppingCart(currentShoppingCart.ShoppingCartItems[i].Product.Id, shoppingCart.ShoppingCartItems[i].Quantity, currentShoppingCart.UserAccountId);
+                            sSC.AddProductToShoppingCart(
+                                currentShoppingCart.ShoppingCartItems[i].Product.Id,
+                                requestedQuantity,
+                                currentShoppingCart.UserAccountId
+                            );
                         }
                     }
                 }

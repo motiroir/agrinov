@@ -44,7 +44,14 @@
         }
         @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.SUPPLIER)
         {
-            <p class="p2"><b>Justificatif : &nbsp</b>@Model.PdfFile</p>
+            <p class="p2"><b>Justificatif : &nbsp</b></p>
+            <div class="full-img">
+                
+                @{
+                    String srcValue = "data:application/pdf;base64," + Convert.ToBase64String(Model.Supplier.ProofPdfDocument);
+                }
+                <iframe id="imgViewer" src="@srcValue"></iframe>
+            </div>
             
         }
 </div>
