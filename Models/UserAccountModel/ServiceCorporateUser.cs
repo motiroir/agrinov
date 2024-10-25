@@ -56,7 +56,7 @@ namespace AgriNov.Models
                 // Corporate User c9
                 Address a9 = new Address() { Line1 = "Etage 27", Line2 = "Avenue Thiers", City = "Nantes", PostCode = "44000" };
                 ContactDetails c9 = new ContactDetails() { Name = "Dupont", FirstName = "Sacha", PhoneNumber = "0674453281" };
-                CompanyDetails cd9 = new CompanyDetails() { CompanyName = "Total Energies", SiretNumber = "0145675432075411" };
+                CompanyDetails cd9 = new CompanyDetails() { CompanyName = "Total Energies", SiretNumber = "01456754320754" };
                 CorporateUser cu9 = new CorporateUser() { UserAccount = serviceUserAccount.GetUserAccountByID(9), Address = a9, ContactDetails = c9, CompanyDetails = cd9 };
                 InsertCorporateUser(cu9);
 

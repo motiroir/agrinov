@@ -14,6 +14,8 @@ namespace AgriNov.Models
         List<Order> GetAllOrders();
         List<Order> GetAllOrdersForUserAccount(int userAccountId);
         List<Order> GetAllOrdersForUserAccount(string userAccountIdStr);
+        Order GetOrderById(int id);
+        Order GetOrderById(string id);
         void UpdateOrder(Order order);
         void Save();
     }

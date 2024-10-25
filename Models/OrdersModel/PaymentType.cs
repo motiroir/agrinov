@@ -5,10 +5,11 @@ namespace AgriNov.Models
 {
     public enum PaymentType
     {
+        [Display(Name = "NA")]
+        NA,
         [Display(Name = "CB")]
         CARD,
         [Display(Name = "Escpèces")]
-
         CASH,
         [Display(Name = "Chèque")]
         CHECK

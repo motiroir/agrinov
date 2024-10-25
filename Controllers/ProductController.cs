@@ -82,10 +82,11 @@ namespace AgriNov.Controllers
             {
                 pVM.AllProducts = sP.GetProducts();
             }
-            // getting all box contracts to sale in viewmodel
+            // getting all relavant box contracts for sale in viewmodel
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
-                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
+                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsForSale();
+                pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(userId);
             }
 
             ViewData["ActiveTab"] = activeTab;
@@ -132,7 +133,7 @@ namespace AgriNov.Controllers
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
             //for now, only weekly big or small boxes are allowed
-            if(!(Decimal.Equals(quantity,0.5) || Decimal.Equals(quantity,1)))
+            if(!(quantity ==2 || quantity == 1))
             {
                 return View("Error");
             }
@@ -152,14 +153,22 @@ namespace AgriNov.Controllers
             return RedirectToAction("Index", "ShoppingCart");
         }
 
-        public IActionResult ShowMyBox(ProductViewModel pVM)
-        {
-            using (ServiceBoxContract sBC = new ServiceBoxContract())
-            {
-                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
-                return View(pVM);
-            }
-        }
+        // public IActionResult ShowMyBox(ProductViewModel pVM)
+        // {
+        //     // using (ServiceBoxContract sBC = new ServiceBoxContract())
+        //     // {
+        //     //     pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
+               
+        //     // }
+        //     // using (ServiceBoxContract sBC = new ServiceBoxContract())
+        //     // {
+        //     //     pVM.MyCurrentBoxContracts  = new List<BoxContract>();
+        //     //     //pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(HttpContext.User.Identity.Name);
+        //     // }
+        //     return View();
+
+        // }
+        
 
     }
 }

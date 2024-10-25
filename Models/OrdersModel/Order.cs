@@ -8,6 +8,7 @@ namespace AgriNov.Models
     public class Order
     {
         public int Id {get; set;}
+        public int OrderNumber { get; set; }
         public int UserAccountId { get; set; }
         public ICollection<OrderItem> OrderItems {get; }= new List<OrderItem>();
         public DateTime DateCreated { get; set; }

@@ -71,17 +71,14 @@ namespace AgriNov.Controllers
                 {
                     user.UserAccount = currentUserAccount;
                 }
-                else
-                {
-                    return View("Error");
-                }
             }
             if (!ModelState.IsValid)
             {
                 using (IServiceUser serviceUser = new ServiceUser())
                 {
+                    user.UserAccount.UserAccountLevel = UserAccountLevel.USER;
                     serviceUser.InsertUser(user);
-                    return RedirectToAction("Index", "MyAccount");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(user);
@@ -124,8 +121,9 @@ namespace AgriNov.Controllers
             {
                 using (IServiceCorporateUser serviceCorporateUser = new ServiceCorporateUser())
                 {
+                    corporateUser.UserAccount.UserAccountLevel = UserAccountLevel.CORPORATE;
                     serviceCorporateUser.InsertCorporateUser(corporateUser);
-                    return RedirectToAction("Index", "MyAccount");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(corporateUser);
@@ -174,8 +172,9 @@ namespace AgriNov.Controllers
                 }
                 using (IServiceSupplier serviceSupplier = new ServiceSupplier())
                 {
+                    viewModel.Supplier.UserAccount.UserAccountLevel = UserAccountLevel.SUPPLIER;
                     serviceSupplier.InsertSupplier(viewModel.Supplier);
-                    return RedirectToAction("Index", "MyAccount");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(viewModel);
@@ -226,7 +225,7 @@ namespace AgriNov.Controllers
             {
                 ModelState.AddModelError("NewPassword", "Les mots de passe ne correspondent pas");
             }
-            return View(viewModel);
+            return RedirectToAction("Index", "DashBoard");
         }
 
         [Authorize]

@@ -55,9 +55,9 @@
                             else if (item.BoxContract != null)
                             {
                                 
-                                <h3>@(item.Quantity == 0.5 ? "Petit" : item.Quantity == 1 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
+                                <h3>@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
                                 <p class="product-details">Prix à la semaine</p>
-                                <p class="product-price">@item.BoxContract.Price.ToString("C")</p>
+                                <p class="product-price">@((@item.BoxContract.Price * item.Quantity).ToString("C"))</p>
                             }
                         </div>
                         <div class="product-right-div">
@@ -73,10 +73,12 @@
                             else if(item.MemberShipFee != null)
                             {
                                @item.Quantity;
+                               @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
                             }
                             else if(item.BoxContract != null)
                             {
                                 <span>1</span>
+                                @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
                             }
                         </div>
                         </div>
@@ -113,7 +115,7 @@
                     else if(item.BoxContract != null)
                     {
                         
-                         <p class="name">@(item.Quantity == 0.5 ? "Petit" : item.Quantity == 1 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</p>
+                         <p class="name">@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</p>
                         <p class="price">@item.Total.ToString("C")</p> 
                     }
                 </div>
@@ -125,8 +127,8 @@
                 <p class="price"><b>@Model.Total.ToString("C")</b></p>
             </div>
             <div class="btn-container">
-                <a class="lightOrange-btn w-100" href='@Url.Action("EmptyCart","ShoppingCart")'>Vider le panier</a>
                 <a class="lightOrange-btn w-100" href='@Url.Action("PlaceOrder","ShoppingCart")'>Passer commande</a>
+                <a class="orangeRed-btn w-100" href='@Url.Action("EmptyCart","ShoppingCart")'>Vider le panier</a>
             </div>
             
 
@@ -140,4 +142,3 @@
         <h4>Le panier est actuellement vide, rendez vous dans &nbsp;<a class="mentions-legales" href="@Url.Action("ProductDashboard", "Product")">notre boutique en ligne</a>&nbsp; pour le remplir des délicieux produits de nos producteurs.</h4>
     </div>
 }
-

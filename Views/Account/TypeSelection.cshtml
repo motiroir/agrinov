@@ -5,20 +5,29 @@
     ViewBag.Title = "Votre Compte";
 }
 @section ExtraStyle {
+    
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
     <link rel="stylesheet" href="~/CSS/formstyle.css">
 
 }
 <div class="form">
     @using (Html.BeginForm("TypeSelection", "Account", FormMethod.Post))
     {
-        <label>Choisir votre type de compte :</label>
-        @Html.LabelFor(model => model.UserAccountLevel)
-        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.USER, new { id="user"});
-        <label for="user">Acheteur</label>
-        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.CORPORATE, new { id="corporate"})
-        <label for="corporate">Acheteur Comité d'Entreprise</label>
-        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.SUPPLIER, new { id="supplier"})
-        <label for="supplier">Fournisseur</label>
-        <button type="submit">Valider</button>
+        <h2>Choisissez votre type de compte</h2>
+
+        @Html.LabelFor(model => model.UserAccountLevel, "Type de Compte :")
+
+        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.USER, new { id = "user", @class = "radio-input" })
+        <label for="user" class="radio-label">Adhérent</label>
+
+        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.CORPORATE, new { id = "corporate", @class = "radio-input" })
+        <label for="corporate" class="radio-label">Adhérent Comité d'Entreprise</label>
+
+        @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.SUPPLIER, new { id = "supplier", @class = "radio-input" })
+        <label for="supplier" class="radio-label">Fournisseur</label>
+
+        <div class="button-container">
+        <button type="submit" class="orange-btn">Valider</button>
+        </div>
     }
 </div>

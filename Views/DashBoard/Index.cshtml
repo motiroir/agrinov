@@ -70,7 +70,8 @@
                 || @Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.VOLUNTEER)
             {
                 @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
-            @Html.ActionLink("Gérer les utilisateurs", "ShowAllUserAccounts", "Account", null, new { @class = "management-card" })
+                @Html.ActionLink("Gérer les utilisateurs", "ShowAllUserAccounts", "Account", null, new { @class = "management-card" })
+                @Html.ActionLink("Gérer les commandes", "ShowAllOrders", "Order", null, new { @class = "management-card" })
                 
             }
             

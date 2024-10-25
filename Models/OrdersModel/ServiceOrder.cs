@@ -21,8 +21,72 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            SaveShoppingCartAsAnOrder(1, null);
-            SaveShoppingCartAsAnOrder(12, null);
+            Payment p1 = new Payment
+            {
+                Date = DateTime.Now,
+                PaymentType = PaymentType.CARD,
+                Received = true
+            };
+            Payment p2 = new Payment
+            {
+                Date = DateTime.Now,
+                PaymentType = PaymentType.CASH,
+                Received = true
+            };
+            Payment p3 = new Payment
+            {
+                PaymentType = PaymentType.NA,
+                Received = false
+            };
+            Payment p4 = new Payment
+            {
+                Date = DateTime.Now,
+                PaymentType = PaymentType.CARD,
+                Received = true
+            };
+
+            Payment p5 = new Payment
+            {
+
+                PaymentType = PaymentType.NA,
+                Received = false
+            };
+
+            Payment p6 = new Payment
+            {
+                PaymentType = PaymentType.NA,
+                Received = false
+            };
+            Payment p7 = new Payment
+            {
+                PaymentType = PaymentType.NA,
+                Received = false
+            };
+
+            Payment p8 = new Payment
+            {
+                Date = DateTime.Now,
+                PaymentType = PaymentType.CHECK,
+                Received = true
+            };
+
+            Payment p9 = new Payment
+            {
+                Date = DateTime.Now,
+                PaymentType = PaymentType.CASH,
+                Received = true
+            };
+
+            SaveShoppingCartAsAnOrder(1, p1);
+            SaveShoppingCartAsAnOrder(12, p2);
+            SaveShoppingCartAsAnOrder(4, p3);
+            SaveShoppingCartAsAnOrder(15, p4);  
+            SaveShoppingCartAsAnOrder(17, p5);   
+            SaveShoppingCartAsAnOrder(10, p6);  
+            SaveShoppingCartAsAnOrder(2, p7);   
+            SaveShoppingCartAsAnOrder(9, p8);  
+            SaveShoppingCartAsAnOrder(3, p9);
+
         }
 
         public void Save()
@@ -81,7 +145,8 @@ namespace AgriNov.Models
                     }
                 }
                 // Copy it to order and order item
-                Order order = new Order() { UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total, Payment = payment };
+
+                Order order = new Order() { OrderNumber = GenerateRandomNumber(), UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total, Payment = payment };
                 foreach (ShoppingCartItem item in shoppingCart.ShoppingCartItems)
                 {
                     OrderItem oItem = new OrderItem()
@@ -110,6 +175,12 @@ namespace AgriNov.Models
 
 
 
+        }
+
+        private int GenerateRandomNumber()
+        {
+            Random random = new Random();
+            return random.Next(10000000, 99999999);
         }
 
         public void InsertOrder(Order order)
@@ -153,6 +224,21 @@ namespace AgriNov.Models
             if (int.TryParse(userAccountIdStr, out id))
             {
                 return GetAllOrdersForUserAccount(id);
+            }
+            return null;
+        }
+
+        public Order GetOrderById(int orderId)
+        {
+            return this._DBContext.Orders.Find(orderId);
+        }
+
+        public Order GetOrderById(string orderIDStr)
+        {
+            int id;
+            if (int.TryParse(orderIDStr, out id))
+            {
+                return this.GetOrderById(id);
             }
             return null;
         }

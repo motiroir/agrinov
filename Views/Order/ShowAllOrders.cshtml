@@ -1,0 +1,76 @@
+﻿@model AgriNov.ViewModels.OrderViewModel
+@using AgriNov.Models
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Toutes les commandes";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/tablestyle.css">
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+<a href="@Url.Action("Index", "DashBoard")" class="return-link">< Retour au dashboard</a>
+
+
+<div class="table-container">
+
+    <table style="--colNbr:8">
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>Total (en €)</th>
+                <th>Date de commande</th>
+                <th>Statut livraison</th>
+                <th>Date de paiement</th>
+                <th>Type de paiement</th>
+                <th>Statut paiement</th>
+                <th>Modifier</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.AllOrders != null && Model.AllOrders.Any())
+            {
+                @foreach (AgriNov.Models.Order order in Model.AllOrders)
+                {
+                    @using (Html.BeginForm("UpdateOrderValidation", "Order", FormMethod.Post))
+                    {
+                    <tr>
+                        @Html.HiddenFor(model => order.Id)
+
+                        <td>@order.OrderNumber</td>
+                        <td>@order.Total.ToString("F2")</td>
+                        <td>@order.DateCreated.ToString("dd/MM/yyyy")</td>
+                        <td>
+                           @Html.DropDownListFor(m => order.WasDelivered, new SelectList(Model.WasDeliveredOptions, "Value", "Text"), new { @class = "form-control" })
+
+                        </td>
+                            <td>
+                                @(order.Payment.Date == DateTime.MinValue ? "NA" : order.Payment.Date.ToString("dd/MM/yyyy"))
+                            </td>
+                        <td>
+                            @Html.DropDownListFor(m => order.Payment.PaymentType, new SelectList(Model.PaymentOptions, "Value", "Text"), new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(m => order.Payment.Received, new SelectList(Model.ReceivedOptions, "Value", "Text"), new { @class = "form-control" })
+                        </td>
+                        <td class="btn-container-production">
+                            <input type="hidden" name="Id" value="@order.Id" />
+                            <button type="submit" class="orange-btn">Valider</button>
+                        </td>
+                    </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">Aucune commande trouvée.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+</div>
