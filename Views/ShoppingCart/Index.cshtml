@@ -56,7 +56,7 @@
                             {
                                 
                                 <h3>@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
-                                <p class="product-details">Prix à la semaine</p>
+                                <p class="product-details">Panier pour la saison @item.BoxContract.Seasons.GetDisplayName() @item.BoxContract.Years.GetDisplayName() Prix à la semaine</p>
                                 <p class="product-price">@((@item.BoxContract.Price * item.Quantity).ToString("C"))</p>
                             }
                         </div>

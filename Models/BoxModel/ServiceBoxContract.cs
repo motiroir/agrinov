@@ -44,12 +44,17 @@ namespace AgriNov.Models
             BoxContract bc9 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 10, ForSale = false };
             BoxContract bc10 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false };
 
-            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 2, ForSale = true };
-            BoxContract bc12 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = true };
-            BoxContract bc13 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 12, ForSale = true };
-            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 1, ForSale = true };
-            BoxContract bc15 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = true };
+            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 2, ForSale = false };
+            BoxContract bc12 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = false };
+            BoxContract bc13 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 12, ForSale = false };
+            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 1, ForSale = false };
+            BoxContract bc15 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false };
             
+            BoxContract bc16 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.WINTER, Years = Years._2025, Price = 8M, MaxSubscriptions = 2, ForSale = true };
+            BoxContract bc17 = new BoxContract() { ProductType = ProductType.FRUITS, Seasons = Seasons.WINTER, Years = Years._2025, Price = 5M, MaxSubscriptions = 12, ForSale = true };
+            BoxContract bc18 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.WINTER, Years = Years._2025, Price = 16M, MaxSubscriptions = 12, ForSale = true };
+            BoxContract bc19 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.WINTER, Years = Years._2025, Price = 12M, MaxSubscriptions = 1, ForSale = true };
+            BoxContract bc20 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.WINTER, Years = Years._2025, Price = 2M, MaxSubscriptions = 12, ForSale = true };
         
             InsertBoxContract(bc1);
             InsertBoxContract(bc2);
@@ -66,6 +71,11 @@ namespace AgriNov.Models
             InsertBoxContract(bc13);
             InsertBoxContract(bc14);
             InsertBoxContract(bc15);
+            InsertBoxContract(bc16);
+            InsertBoxContract(bc17);
+            InsertBoxContract(bc18);
+            InsertBoxContract(bc19);
+            InsertBoxContract(bc20);
         }
 
         public List<BoxContract> GetAllBoxContracts()
