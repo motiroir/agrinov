@@ -24,7 +24,7 @@ namespace AgriNov.Controllers
                 }).ToList();
         }
 
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult CreateBoxContract()
         {
@@ -40,6 +40,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public IActionResult CreateBoxContract(BoxContractViewModel viewModel, string action)
         {
@@ -101,6 +102,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "ADMIN")]
         public IActionResult ShowAllBoxContracts()
         {
             using (ServiceBoxContract sBC = new ServiceBoxContract())
@@ -119,7 +121,7 @@ namespace AgriNov.Controllers
             }
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public IActionResult ShowAllBoxContracts(BoxContractViewModel viewModel, string action, int selectedBoxContractId)
         {
@@ -142,6 +144,7 @@ namespace AgriNov.Controllers
             }
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult UpdateBoxContract(int id)
         {
@@ -180,7 +183,7 @@ namespace AgriNov.Controllers
             }
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public IActionResult UpdateBoxContract(string action, int id, BoxContractViewModel viewModel)
         {
@@ -249,7 +252,7 @@ namespace AgriNov.Controllers
         }
 
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public IActionResult UpdateForSaleStatus(int id, bool forSale)
         {
@@ -277,7 +280,7 @@ namespace AgriNov.Controllers
             return RedirectToAction("ShowAllBoxContracts", "BoxContract");
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         [HttpDelete]
         public IActionResult DeleteBoxContract(int id)
         {

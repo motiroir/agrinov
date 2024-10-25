@@ -362,7 +362,7 @@ namespace AgriNov.Controllers
             return File(pdfBinaryData, "application/pdf", "justificatif.pdf");
         }
 
-        //[Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN, VOLUNTEER")]
         public IActionResult ShowAllUserAccounts()
         {
             using (ServiceUserAccount sUA = new ServiceUserAccount())
@@ -408,6 +408,7 @@ namespace AgriNov.Controllers
             }
         }
 
+        [Authorize(Roles = "ADMIN,VOLUNTEER")]
         public IActionResult UserDetails(int id)
         {
             UserAccountInfoUpdate viewModel = new UserAccountInfoUpdate();

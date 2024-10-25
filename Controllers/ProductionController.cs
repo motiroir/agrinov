@@ -1,5 +1,6 @@
 ﻿using AgriNov.Models;
 using AgriNov.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
@@ -23,12 +24,8 @@ namespace AgriNov.Controllers
                     Text = e.GetDisplayName()
                 }).ToList();
         }
-        
-        public IActionResult Index()
-        {
-            return View();
-        }
 
+        [Authorize(Roles = "SUPPLIER")]
         [HttpGet]
         public IActionResult CreateProduction()
         {
@@ -45,7 +42,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-
+        [Authorize(Roles = "SUPPLIER")]
         [HttpPost]
         public IActionResult CreateProduction(ProductionViewModel viewModel)
         {
@@ -72,6 +69,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "SUPPLIER,ADMIN")]
         public IActionResult UpdateProduction(int id)
         {
             
@@ -106,6 +104,7 @@ namespace AgriNov.Controllers
 
         }
 
+        [Authorize(Roles = "SUPPLIER,ADMIN")]
         [HttpPost]
         public IActionResult UpdateProduction(int id, ProductionViewModel viewModel)
         {
@@ -141,6 +140,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult UpdateProductionValidation(int id)
         {
@@ -174,6 +174,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public IActionResult UpdateProductionValidation(int id, ProductionViewModel viewModel)
         {
@@ -200,7 +201,7 @@ namespace AgriNov.Controllers
             return RedirectToAction("ShowAllProductions", "Production");
         }
 
-
+        [Authorize(Roles = "ADMIN")]
         public IActionResult ShowAllProductions()
         {
                 using (ServiceProduction sP = new ServiceProduction())
@@ -226,6 +227,7 @@ namespace AgriNov.Controllers
             
         }
 
+        [Authorize(Roles = "SUPPLIER")]
         public IActionResult SupShowAllProductions(int userid)
         {
             ProductionViewModel pVM= new ProductionViewModel();
@@ -251,7 +253,7 @@ namespace AgriNov.Controllers
             return View(pVM);
         }
 
-       
+        [Authorize(Roles = "SUPPLIER")]
         [HttpPost]
         public IActionResult SupShowAllProductions(ProductionViewModel pVM, string action, int selectedProductionId)
         {

@@ -12,8 +12,8 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     options => 
     {
-        options.LoginPath = "/Login/Login";
-        options.AccessDeniedPath = "/Login/Login";
+        options.LoginPath = "/Login/LoginWithSignupSlide";
+        options.AccessDeniedPath = "/Login/AccessDenied";
     }
     );
 
@@ -30,7 +30,7 @@ else
 {
     app.UseExceptionHandler("/Home/Error");
 }
-
+ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
