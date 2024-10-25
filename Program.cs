@@ -31,7 +31,6 @@ else
     app.UseExceptionHandler("/Home/Error");
 }
 
-
 app.UseStaticFiles();
 app.UseRouting();
 
@@ -63,17 +62,14 @@ using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
 }
-
 using (ProductService pS = new ProductService())
 {
     pS.InitializeTable();
 }
-    
 using (ServiceBoxContract bC = new ServiceBoxContract())
 {
     bC.InitializeTable();
 }
-
 using(ServiceBooking sB = new ServiceBooking())
 {
     sB.InitializeTable();

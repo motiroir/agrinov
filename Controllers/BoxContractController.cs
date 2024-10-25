@@ -1,5 +1,6 @@
 ﻿using AgriNov.Models;
 using AgriNov.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,10 +12,6 @@ namespace AgriNov.Controllers
 {
     public class BoxContractController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         private List<SelectListItem> GetEnumSelectListString<T>() where T : Enum
         {
@@ -26,8 +23,8 @@ namespace AgriNov.Controllers
                     Text = e.GetDisplayName()
                 }).ToList();
         }
-        
 
+        [Authorize]
         [HttpGet]
         public IActionResult CreateBoxContract()
         {
