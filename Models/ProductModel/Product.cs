@@ -33,6 +33,7 @@ namespace AgriNov.Models
         public string Category { get; set; }
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
+        public byte[] ImgProduct { get; set; }
 
     }
 
