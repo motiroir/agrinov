@@ -20,6 +20,12 @@
   <ItemGroup>
     <Content Remove="Views\Activity\AddImgActivityExample.cshtml" />
     <Content Remove="wwwroot\CSS\dashboard.css" />
+    <Content Remove="wwwroot\img\products\confiture-myrtilles.png" />
+    <Content Remove="wwwroot\img\products\coulis_tomates.png" />
+    <Content Remove="wwwroot\img\products\jus_orange.png" />
+    <Content Remove="wwwroot\img\products\lait.png" />
+    <Content Remove="wwwroot\img\products\miel.png" />
+    <Content Remove="wwwroot\img\products\tote_bag.png" />
   </ItemGroup>
 
   <ItemGroup>

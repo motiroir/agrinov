@@ -57,6 +57,7 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
+            string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "products");
             _DBContext.Products.Add(new Product()
             {
                 Name = "Pot de miel moyen",
@@ -64,9 +65,10 @@ namespace AgriNov.Models
                 CreationDate = DateTime.Now,
                 Price = 3,
                 ExpirationDate = new DateTime(2024, 12, 12),
-                Description = "Pot de miel aux fleurs d'acacia",
+                Description = "Ingrédients : miel de fleurs 99.96 %, mélange d'huiles essentielles d'eucalyptus, de menthe poivrée, de citron, de thym et de lavande 0.04% tous les ingrédients sont issus de l'agriculture biologique",
                 Stock = 10,
                 SupplierId = 1,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "miel_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
@@ -79,6 +81,7 @@ namespace AgriNov.Models
                 Description = "Pâtes 100% blé entier pour des repas sains",
                 Stock = 50,
                 SupplierId = 1,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "miel_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
@@ -91,30 +94,33 @@ namespace AgriNov.Models
                 Description = "Huile d'olive de première pression à froid",
                 Stock = 20,
                 SupplierId= 1,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "lait_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
             {
-                Name = "Vinaigre balsamique",
-                Category = "Vinaigres",
+                Name = "Confiture de myrtilles",
+                Category = "Confitures",
                 CreationDate = DateTime.Now,
-                Price = 4,
+                Price = 5.5M,
                 ExpirationDate = new DateTime(2025, 8, 12),
-                Description = "Vinaigre balsamique de Modène",
+                Description = "Ingrédients : Myrtilles sauvages, sucre de canne, tous les ingrédients sont issus de l'agriculture biologique",
                 Stock = 30,
                 SupplierId = 3,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "confiture_myrtilles_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
             {
-                Name = "Café moulu bio",
-                Category = "Cafés",
+                Name = "Coulis de tomates",
+                Category = "Conserves",
                 CreationDate = DateTime.Now,
-                Price = 6,
+                Price = 3,
                 ExpirationDate = new DateTime(2024, 11, 10),
-                Description = "Café moulu biologique pour un goût riche",
+                Description = "Ingrédients : Tomates issues de l'Agriculture Biologique (99,6%), sel de Guérande, tous les ingrédients sont issus de l'agriculture biologique",
                 Stock = 15,
                 SupplierId = 2,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "coulis_tomates_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
@@ -127,30 +133,33 @@ namespace AgriNov.Models
                 Description = "Thé vert matcha en poudre",
                 Stock = 8,
                 SupplierId = 4,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "miel_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
             {
-                Name = "Riz basmati",
-                Category = "Céréales",
+                Name = "Lait de vache",
+                Category = "Produit laitier",
                 CreationDate = DateTime.Now,
                 Price = 3,
                 ExpirationDate = new DateTime(2025, 9, 30),
-                Description = "Riz basmati à grains longs et parfumé",
+                Description = "Ingrédients : Lait entier pasteurisé de vache (origine France), tous les ingrédients sont issus de l'agriculture biologique",
                 Stock = 25,
                 SupplierId = 3,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "lait_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
             {
-                Name = "Sel de mer",
-                Category = "Épices",
+                Name = "Jus d'orange",
+                Category = "Fruits",
                 CreationDate = DateTime.Now,
-                Price = 2,
+                Price = 4.5M,
                 ExpirationDate = new DateTime(2026, 3, 15),
-                Description = "Sel de mer naturel pour assaisonner vos plats",
+                Description = "Ingrédients : Jus d'orange (96%), pulpe d'orange (4%), tous les ingrédients sont issus de l'agriculture biologique",
                 Stock = 40,
                 SupplierId = 2,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "jus_orange_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
@@ -163,18 +172,20 @@ namespace AgriNov.Models
                 Description = "Confiture artisanale de fraises",
                 Stock = 12,
                 SupplierId = 3,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "confiture_myrtilles_product.jpg"))
             });
 
             _DBContext.Products.Add(new Product()
             {
-                Name = "Cacao en poudre",
-                Category = "Cacaos",
+                Name = "Totebag agrinov",
+                Category = "Sac",
                 CreationDate = DateTime.Now,
                 Price = 4,
                 ExpirationDate = new DateTime(2025, 1, 1),
-                Description = "Cacao en poudre non sucré pour pâtisserie",
+                Description = "Totebag en coton bio 100%, réutilisable",
                 Stock = 20,
                 SupplierId = 4,
+                ImgProduct = File.ReadAllBytes(Path.Combine(dirPath, "tote_bag_product.jpg"))
             });
 
             Save();
