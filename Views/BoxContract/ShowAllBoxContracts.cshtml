@@ -27,7 +27,7 @@
                 <th>Saison</th>
                 <th>Année</th>
                 <th>Type de produit</th>
-                <th>Prix (en €)</th>
+                <th>Prix</th>
                 <th>Nombre maximum d'abonnements</th>
                 <th>Mettre en ligne</th>
             </tr>
@@ -39,7 +39,7 @@
                     <td>@boxContractViewModel.BoxContract.Seasons.GetDisplayName()</td>
                     <td>@boxContractViewModel.BoxContract.Years.GetDisplayName()</td>
                     <td>@boxContractViewModel.BoxContract.ProductType.GetDisplayName()</td>
-                    <td>@boxContractViewModel.BoxContract.Price.ToString("F2")</td>
+                    <td>@boxContractViewModel.BoxContract.Price.ToString("C")</td>
                     <td>@boxContractViewModel.BoxContract.MaxSubscriptions</td>
                     <td class="checkbox-td">
                         @using (Html.BeginForm("UpdateForSaleStatus", "BoxContract", FormMethod.Post, new { id = "form_" + boxContractViewModel.BoxContract.Id }))

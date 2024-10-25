@@ -38,7 +38,7 @@
             <label for="cb-@i" class="tab-label">
                 Commande n° : @order.OrderNumber | 
                 Date : @order.DateCreated.ToString("dd/MM/yyyy") | 
-                Statut : @(order.WasDelivered ? "Récupérée" : "En attente")
+                Statut : @(order.WasDelivered ? "Récupérée" : "Prête à être récupérée")
             </label>
             <div class="tab-content">
                     <div class="order-resume">
