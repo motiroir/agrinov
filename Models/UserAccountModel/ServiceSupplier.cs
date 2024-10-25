@@ -130,7 +130,7 @@ namespace AgriNov.Models
                 ContactDetails c8 = new ContactDetails()
                 {
                     Name = "Lambert",
-                    FirstName = "Simone-Gertrude",
+                    FirstName = "Simone",
                     PhoneNumber = "0666541234"
                 };
                 CompanyDetails cd8 = new CompanyDetails()

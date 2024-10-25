@@ -12,8 +12,8 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     options => 
     {
-        options.LoginPath = "/Login/Login";
-        options.AccessDeniedPath = "/Login/Login";
+        options.LoginPath = "/Login/LoginWithSignupSlide";
+        options.AccessDeniedPath = "/Login/AccessDenied";
     }
     );
 
@@ -30,8 +30,7 @@ else
 {
     app.UseExceptionHandler("/Home/Error");
 }
-
-
+ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
@@ -63,17 +62,14 @@ using (ServiceActivity sA = new ServiceActivity())
 {
     sA.InitializeTable();
 }
-
 using (ProductService pS = new ProductService())
 {
     pS.InitializeTable();
 }
-    
 using (ServiceBoxContract bC = new ServiceBoxContract())
 {
     bC.InitializeTable();
 }
-
 using(ServiceBooking sB = new ServiceBooking())
 {
     sB.InitializeTable();

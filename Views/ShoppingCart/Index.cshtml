@@ -37,6 +37,7 @@
 
                     <div class="product-card">
                         <div class="product-image">
+<<<<<<< HEAD
                             @if (item.MemberShipFee != null)
                             {
                                 <img src="~/img/global/Logo-footer.png"/>
@@ -59,6 +60,24 @@
                                     <img id="imgViewer" src=@srcValue />
                                 }
                             }
+=======
+                            @if (item.Product != null)
+                            {
+                                
+                                String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.Product.ImgProduct) + "";
+                                <img id="imgViewer" src=@srcValue />
+                                
+                            }
+                            else if (item.MemberShipFee != null)
+                            {
+                                <img src="~/img/products/membershipfee.png" />
+                            }
+                            else if (item.BoxContract != null)
+                            {
+                                <img src="~/img/products/boxcontract.png" />
+                            }
+                            
+>>>>>>> ar-details
                         </div>
                         <div class="product-info">
                             @if (item.MemberShipFee != null)
@@ -81,27 +100,34 @@
                                 <p class="product-price">@((@item.BoxContract.Price * item.Quantity).ToString("C"))</p>
                             }
                         </div>
+
                         <div class="product-right-div">
-                        <div class="product-total">
-                            <span>@item.Total.ToString("C")</span>
-                        </div>
-                        <div class="product-quantity">
-                            @if(item.Product != null)
-                            {
-                                @Html.TextBoxFor(m => m.ShoppingCartItems[i].Quantity, new { @class = "number-input", type = "number", min = "0", max = item.Product.Stock, oninvalid = "this.SetCustomValidity('La quantité ne peut pas être supérieure au stock')", oninput = "this.SetCustomValidity('')" })
-                                @Html.ValidationMessageFor(m => m.ShoppingCartItems[i].Quantity)
-                            }
-                            else if(item.MemberShipFee != null)
-                            {
-                               @* @item.Quantity; *@
-                               @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
-                            }
-                            else if(item.BoxContract != null)
-                            {
-                                @* <span>1</span> *@
-                                @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
-                            }
-                        </div>
+                            
+                            <div class="product-quantity">
+                                @if(item.Product != null)
+                                {
+                                    <div class="quantity-selector">
+                                        <button class="minus">-</button>
+                                        <input type="text" name="ShoppingCartItems[@i].Quantity" value="@Model.ShoppingCartItems[i].Quantity" min="0" max="@Model.ShoppingCartItems[i].Product.Stock" readonly>
+                                        <button class="plus">+</button>
+                                    </div>
+                                    
+                                }
+                                else if(item.MemberShipFee != null)
+                                {
+                                   @* @item.Quantity; *@
+                                   @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
+                                }
+                                else if(item.BoxContract != null)
+                                {
+                                    @* <span>1</span> *@
+                                    @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
+                                }
+                            </div>
+                            <div class="product-total">
+                                <span>@item.Total.ToString("C")</span>
+                            </div>
+
                         </div>
                     </div>
 
@@ -163,3 +189,35 @@
         <h4>Le panier est actuellement vide, rendez vous dans &nbsp;<a class="mentions-legales" href="@Url.Action("ProductDashboard", "Product")">notre boutique en ligne</a>&nbsp; pour le remplir des délicieux produits de nos producteurs.</h4>
     </div>
 }
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Sélectionne toutes les instances de .quantity-selector pour chaque produit
+        const quantitySelectors = document.querySelectorAll('.quantity-selector');
+
+        quantitySelectors.forEach(selector => {
+            const minusButton = selector.querySelector('button.minus');
+            const plusButton = selector.querySelector('button.plus');
+            const quantityInput = selector.querySelector('input');
+            const minValue = parseInt(quantityInput.getAttribute('min'));
+            const maxValue = parseInt(quantityInput.getAttribute('max'));
+
+            minusButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Empêche la soumission du formulaire
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue > minValue) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+
+            plusButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Empêche la soumission du formulaire
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue < maxValue) {
+                    quantityInput.value = currentValue + 1;
+                }
+            });
+        });
+    });
+
+</script>

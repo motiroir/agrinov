@@ -5,13 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AgriNov.Controllers
 {
+    
     public class ProductController : Controller
     {
+        [Authorize(Roles = "SUPPLIER")]
         public IActionResult CreateProduct()
         {
             return View();
         }
 
+        [Authorize(Roles = "SUPPLIER")]
         [HttpPost]
         public IActionResult CreateProduct(Product product)
         {
@@ -28,6 +31,7 @@ namespace AgriNov.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = "SUPPLIER")]
         public IActionResult UpdateProduct(int id)
         {
             if (id > 0)
@@ -44,6 +48,7 @@ namespace AgriNov.Controllers
             return View("Error");
         }
 
+        [Authorize(Roles = "SUPPLIER")]
         [HttpPost]
         public IActionResult UpdateProduct(Product product)
         {
@@ -60,13 +65,15 @@ namespace AgriNov.Controllers
             }
             return View(product);
         }
-       
+
+        [Authorize(Roles = "SUPPLIER")]
         public IActionResult DeleteProduct(int id)
         {
             return View();
         }
 
-       public IActionResult ShowAllProducts(ProductViewModel pVM)
+        [Authorize(Roles = "ADMIN")]
+        public IActionResult ShowAllProducts(ProductViewModel pVM)
         {
             return View(pVM);
         }
@@ -98,6 +105,7 @@ namespace AgriNov.Controllers
             return View(pVM);
         }
 
+        [Authorize(Roles = "ADMIN,VOLUNTEER,USER,SUPPLIER,CORPORATE")]
         public IActionResult ShowProductDetails(int id)
         {
             int userId = int.Parse(HttpContext.User.Identity.Name);
@@ -118,6 +126,7 @@ namespace AgriNov.Controllers
             return View(pVM);
         }
 
+        [Authorize(Roles = "ADMIN,VOLUNTEER,USER,SUPPLIER,CORPORATE")]
         [HttpPost]
         public IActionResult AddProductToCart(Product product, int quantity)
         {
@@ -132,7 +141,8 @@ namespace AgriNov.Controllers
             }
             return RedirectToAction("ProductDashboard", "Product");
         }
-        
+
+        [Authorize(Roles = "ADMIN,VOLUNTEER,USER,SUPPLIER,CORPORATE")]
         [HttpPost]
         public IActionResult AddBoxContractToCart(int boxContractId, int quantity)
         {
@@ -158,22 +168,6 @@ namespace AgriNov.Controllers
             return RedirectToAction("Index", "ShoppingCart");
         }
 
-        // public IActionResult ShowMyBox(ProductViewModel pVM)
-        // {
-        //     // using (ServiceBoxContract sBC = new ServiceBoxContract())
-        //     // {
-        //     //     pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
-               
-        //     // }
-        //     // using (ServiceBoxContract sBC = new ServiceBoxContract())
-        //     // {
-        //     //     pVM.MyCurrentBoxContracts  = new List<BoxContract>();
-        //     //     //pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(HttpContext.User.Identity.Name);
-        //     // }
-        //     return View();
-
-        // }
-        
 
     }
 }

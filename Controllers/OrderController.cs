@@ -1,5 +1,6 @@
 ﻿using AgriNov.Models;
 using AgriNov.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +21,7 @@ namespace AgriNov.Controllers
                 }).ToList();
         }
 
+        [Authorize(Roles = "ADMIN,VOLUNTEER")]
         [HttpGet]
         public IActionResult ShowAllOrders(OrderViewModel viewModel)
         {
@@ -44,6 +46,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult UpdateOrderValidation(int id)
         {
@@ -80,6 +83,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         public IActionResult UpdateOrderValidation(int id, OrderViewModel viewModel)
         {
@@ -112,7 +116,7 @@ namespace AgriNov.Controllers
             return RedirectToAction("ShowAllOrders", "Order");
         }
 
-
+        [Authorize]
         public IActionResult ShowMyOrders()
         {
 
@@ -127,9 +131,5 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        public IActionResult OrderDetails()
-        {
-            return View();
-        }
     }
 }
