@@ -41,8 +41,40 @@
                         <td>@production.Years.GetDisplayName()</td>
                         <td>@production.ProductType.GetDisplayName()</td>
                         <td>@production.Description</td>
-                        <td>@production.VolumePerDelivery</td>
-                        <td>@production.Price.ToString("F2")</td>
+                        <td>@production.VolumePerDelivery
+                        @if (production.ProductType == ProductType.FRUITS ||
+                       production.ProductType == ProductType.FISH ||
+                       production.ProductType == ProductType.MEAT ||
+                       production.ProductType == ProductType.VEGETABLES)
+                        {
+                            <span>Kg</span>
+                        }
+                        else if (production.ProductType == ProductType.EGGS)
+                        {
+                            <span>pièce(s)</span>
+                        }
+                        else if (production.ProductType == ProductType.DAYRIS)
+                        {
+                            <span>litre(s)</span>
+                        }
+                    </td>
+                        <td>@production.Price.ToString("F2")
+                        @if (production.ProductType == ProductType.FRUITS ||
+                       production.ProductType == ProductType.FISH ||
+                       production.ProductType == ProductType.MEAT ||
+                       production.ProductType == ProductType.VEGETABLES)
+                        {
+                            <span>€/Kg</span>
+                        }
+                        else if (production.ProductType == ProductType.EGGS)
+                        {
+                            <span>€/pièce</span>
+                        }
+                        else if (production.ProductType == ProductType.DAYRIS)
+                        {
+                            <span>€/litre</span>
+                        }
+                    </td>
                         <td>@production.DeliveryFrequency.GetDisplayName()</td>
                         <td>@production.ValidationStatus.GetDisplayName()</td>
                 </tr>
