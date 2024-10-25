@@ -82,10 +82,11 @@ namespace AgriNov.Controllers
             {
                 pVM.AllProducts = sP.GetProducts();
             }
-            // getting all box contracts to sale in viewmodel
+            // getting all relavant box contracts for sale in viewmodel
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
-                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
+                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsForSale();
+                pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(userId);
             }
 
             ViewData["ActiveTab"] = activeTab;
@@ -152,14 +153,22 @@ namespace AgriNov.Controllers
             return RedirectToAction("Index", "ShoppingCart");
         }
 
-        public IActionResult ShowMyBox(ProductViewModel pVM)
-        {
-            using (ServiceBoxContract sBC = new ServiceBoxContract())
-            {
-                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
-                return View(pVM);
-            }
-        }
+        // public IActionResult ShowMyBox(ProductViewModel pVM)
+        // {
+        //     // using (ServiceBoxContract sBC = new ServiceBoxContract())
+        //     // {
+        //     //     pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsToSale();
+               
+        //     // }
+        //     // using (ServiceBoxContract sBC = new ServiceBoxContract())
+        //     // {
+        //     //     pVM.MyCurrentBoxContracts  = new List<BoxContract>();
+        //     //     //pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(HttpContext.User.Identity.Name);
+        //     // }
+        //     return View();
+
+        // }
+        
 
     }
 }

@@ -8,13 +8,49 @@
 @section ExtraStyle {
     <link rel="stylesheet" href="~/CSS/detailstyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+    <style>
+        details {
+            cursor: hover;
+        }
+        details summary {
+            @* list-style: none; to remove arrow *@
+        }
+    </style>
 }
 <div class="all-info">
-    <h4 class="status-title">Vous n'avez pas encore d'abonnement panier</h4>
+<details>
+    <summary>
+        <h3 class="status-title">Vos paniers de la saison en cours</h3>
+    </summary>
+    @if (Model.MyCurrentBoxContracts != null && Model.MyCurrentBoxContracts.Count > 0)
+    {
+
+        @foreach (BoxContractSubscription boxContractSub in Model.MyCurrentBoxContracts)
+        {
+            <div class="box-to-sell-div">
+                <div class="full-img"></div>
+                <div class="activity-content">
+                    <div class="text-content">
+                        <h2 class="activity-name">@(boxContractSub.Quantity == 1 ? "Petit" : boxContractSub.Quantity == 2 ? "Grand" : "") panier de @boxContractSub.BoxContract.ProductType.GetDisplayName()</h2>
+                        <p class="price">@((boxContractSub.BoxContract.Price * boxContractSub.Quantity ).ToString("C")) à la semaine</p>
+                        <p class="activity-description">Saison @boxContractSub.BoxContract.Seasons.GetDisplayName() @boxContractSub.BoxContract.Years.GetDisplayName()</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h4 class="status-title">Vous n'avez d'abonnement panier en cours</h4>
+    }
+</details>
+<details>
+    <summary>
     <h3 class="status-title">les paniers disponibles à l'abonnement</h3>
+    </summary>
     <div class="all-tiles-box">
         <div class="columns-box">
-            @for(int i = 0; i < Model.AllBoxContractsToSale.Count ; i++)
+            @for (int i = 0; i < Model.AllBoxContractsToSale.Count; i++)
             {
                 BoxContract boxContract = Model.AllBoxContractsToSale[i];
                 @using (Html.BeginForm("AddBoxContractToCart", "Product", FormMethod.Post))
@@ -26,8 +62,8 @@
                         <div class="activity-content">
                             <div class="text-content">
                                 <h2 class="activity-name">petit panier de @boxContract.ProductType.GetDisplayName()</h2>
-                                <p class="price">@((@boxContract.Price / 2).ToString("C")) à la semaine</p>
-                                <p class="activity-author">Soit @(((@boxContract.Price / 2) * 13).ToString("C")) pour la saison
+                                <p class="price">@((@boxContract.Price).ToString("C")) à la semaine</p>
+                                <p class="activity-author">Soit @(((@boxContract.Price ) * 13).ToString("C")) pour la saison
                                 </p>
                                 <p class="activity-description">Ce panier est conçu pour répondre au besoin d'une à deux
                                     personnes par semaine.</p>
@@ -41,30 +77,34 @@
             }
         </div>
         <div class="columns-box">
-            @for (int i = 0; i < Model.AllBoxContractsToSale.Count ; i++)
+            @for (int i = 0; i < Model.AllBoxContractsToSale.Count; i++)
             {
                 BoxContract boxContract = Model.AllBoxContractsToSale[i];
-                @using (Html.BeginForm("AddBoxContractToCart", "Product", FormMethod.Post))
+                @if(boxContract.MaxSubscriptions > 1)
                 {
-                    <input type="hidden" name="boxContractId" value="@boxContract.Id">
-                    <input type="hidden" name="quantity" value="2">
+                    @using (Html.BeginForm("AddBoxContractToCart", "Product", FormMethod.Post))
+                    {
+                        <input type="hidden" name="boxContractId" value="@boxContract.Id">
+                        <input type="hidden" name="quantity" value="2">
                         <div class="box-to-sell-div">
-                        <div class="full-img"></div>
-                        <div class="activity-content">
-                            <div class="text-content">
-                                <h2 class="activity-name">grand panier de @boxContract.ProductType.GetDisplayName()</h2>
-                                <p class="price">@boxContract.Price.ToString("C") à la semaine</p>
-                                <p class="activity-author">Soit @((@boxContract.Price * 13).ToString("C")) pour la saison</p>
-                                <p class="activity-description">Ce panier est conçu pour répondre au besoin de 4 personnes en
-                                    moyenne par semaine.</p>
-                            </div>
-                            <div class="btn-div">
-                                <button type="submit" class="btn-inscription">ajouter</button>
+                            <div class="full-img"></div>
+                            <div class="activity-content">
+                                <div class="text-content">
+                                    <h2 class="activity-name">grand panier de @boxContract.ProductType.GetDisplayName()</h2>
+                                    <p class="price">@((@boxContract.Price *2).ToString("C")) à la semaine</p>
+                                    <p class="activity-author">Soit @((@boxContract.Price * 2 * 13).ToString("C")) pour la saison</p>
+                                    <p class="activity-description">Ce panier est conçu pour répondre au besoin de 4 personnes en
+                                        moyenne par semaine.</p>
+                                </div>
+                                <div class="btn-div">
+                                    <button type="submit" class="btn-inscription">ajouter</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
             }
         </div>
     </div>
+</details>
 </div>

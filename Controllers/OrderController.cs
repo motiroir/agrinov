@@ -99,6 +99,10 @@ namespace AgriNov.Controllers
             {
                 orderToUpdate.Payment.Date = DateTime.Now;
             }
+            else
+            {
+                orderToUpdate.Payment.Date = DateTime.MinValue;
+            }
             orderToUpdate.Payment.PaymentType = viewModel.Order.Payment.PaymentType;
             orderToUpdate.Payment.Received = viewModel.Order.Payment.Received;
             orderToUpdate.DateLastModified = DateTime.Now;

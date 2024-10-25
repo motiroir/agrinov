@@ -1,5 +1,6 @@
 ﻿
 
+using System.Data.Entity;
 using System.Security.Cryptography;
 
 namespace AgriNov.Models
@@ -43,10 +44,10 @@ namespace AgriNov.Models
             BoxContract bc9 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 10, ForSale = false };
             BoxContract bc10 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = false };
 
-            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 28, ForSale = true };
+            BoxContract bc11 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 8M, MaxSubscriptions = 2, ForSale = true };
             BoxContract bc12 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = true };
             BoxContract bc13 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 16M, MaxSubscriptions = 12, ForSale = true };
-            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 12, ForSale = true };
+            BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 1, ForSale = true };
             BoxContract bc15 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = true };
             
             InsertBoxContract(bc1);
@@ -70,9 +71,9 @@ namespace AgriNov.Models
         {
             return _DBContext.BoxContracts.ToList();
         }
-        public List<BoxContract> GetAllBoxContractsToSale()
+        public List<BoxContract> GetAllBoxContractsForSale()
         {
-            return _DBContext.BoxContracts.Where(bc => bc.ForSale == true).ToList();
+            return _DBContext.BoxContracts.Where(bc => bc.ForSale == true && bc.MaxSubscriptions > 0).ToList();
         }
 
         public BoxContract GetBoxContractById(int id)
@@ -155,7 +156,7 @@ namespace AgriNov.Models
         public bool IsInCurrentSeason(int boxContractId)
         {
             BoxContract boxContract = _DBContext.BoxContracts.FirstOrDefault(bC => bC.Id == boxContractId);
-            if (boxContract == null)
+            if (boxContract == null || boxContract.Seasons == Seasons.None)
             {
                 return false;
             }
@@ -164,23 +165,18 @@ namespace AgriNov.Models
             return currentDate >= dates[0] && currentDate <= dates[1];
         }
 
-        public List<BoxContract> GetCurrentBoxContractsForUser(int userAccountId)
+        public List<BoxContractSubscription> GetCurrentBoxContractsForUser(int userAccountId)
         {
-            return _DBContext.BoxContracts
-                    .GroupJoin(
-                         _DBContext.OrderItems
-                            .Join(_DBContext.Orders,
-                                    oi => oi.OrderId, // join criteria
-                                    o => o.Id, // join criteria
-                    (oi, o) => new { oi.BoxContractId, o.UserAccountId }) // fields i want to keep
-                .Where(o => o.UserAccountId == userAccountId), // Keep only for my useraccount
-                        bc => bc.Id, // criteria for the join from boxcontracts
-                        ooi => ooi.BoxContractId, // criteria from the previous join
-            (bc, ooi) => bc) // keep box contracts
-                    .ToList();
+            List<BoxContractSubscription> contracts =  _DBContext.OrderItems.Include(oi => oi.Order)
+                                        .Where(oi => oi.Order.UserAccountId == userAccountId && oi.BoxContract != null)
+                                        .Include(oi => oi.BoxContract)
+                                        .Select(oi => new BoxContractSubscription() {BoxContract = oi.BoxContract , Quantity = oi.Quantity})
+                                        .Distinct()
+                                        .ToList();
+            return contracts.Where(bcs => IsInCurrentSeason(bcs.BoxContract.Id)).ToList();
         }
 
-        public List<BoxContract> GetCurrentBoxContractsForUser(string userAccountIdStr)
+        public List<BoxContractSubscription> GetCurrentBoxContractsForUser(string userAccountIdStr)
         {
             int id;
             if(int.TryParse(userAccountIdStr, out id))
@@ -189,5 +185,6 @@ namespace AgriNov.Models
             }
             return null;
         }
+
     }
 }

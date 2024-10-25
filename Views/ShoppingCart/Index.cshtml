@@ -57,7 +57,7 @@
                                 
                                 <h3>@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</h3>
                                 <p class="product-details">Prix à la semaine</p>
-                                <p class="product-price">@item.BoxContract.Price.ToString("C")</p>
+                                <p class="product-price">@((@item.BoxContract.Price * item.Quantity).ToString("C"))</p>
                             }
                         </div>
                         <div class="product-right-div">
@@ -73,10 +73,12 @@
                             else if(item.MemberShipFee != null)
                             {
                                @item.Quantity;
+                               @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
                             }
                             else if(item.BoxContract != null)
                             {
                                 <span>1</span>
+                                @Html.HiddenFor(m=> m.ShoppingCartItems[i].Quantity)
                             }
                         </div>
                         </div>

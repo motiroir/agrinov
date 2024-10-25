@@ -86,6 +86,7 @@ namespace AgriNov.Models
             SaveShoppingCartAsAnOrder(2, p7);   
             SaveShoppingCartAsAnOrder(9, p8);  
             SaveShoppingCartAsAnOrder(3, p9);
+
         }
 
         public void Save()
