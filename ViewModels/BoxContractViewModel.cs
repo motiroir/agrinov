@@ -29,10 +29,12 @@ namespace AgriNov.ViewModels
         [Range(1, int.MaxValue, ErrorMessage = "Veuillez sélectionner une année.")]
         public Years Years { get; set; }
 
-
         [DisplayName("Stock total (kg/l/pièce)")]
-        public int GlobalStock { get; internal set; }
+        public int GlobalStock { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "La quantité doit être supérieure à 0.")]
         [DisplayName("Quantité par panier (kg/l/pièce)")]
-        public int QuantityPerBox { get; internal set; }
+        public int QuantityPerBox { get; set; }
     }
 }
