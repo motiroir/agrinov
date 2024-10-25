@@ -113,9 +113,17 @@ namespace AgriNov.Controllers
         }
 
 
-        public IActionResult ShowMyOrders(OrderViewModel viewModel)
+        public IActionResult ShowMyOrders()
         {
-           
+
+            OrderViewModel viewModel = new OrderViewModel();
+            int userId = int.Parse(HttpContext.User.Identity.Name);
+
+            using (ServiceOrder sO = new ServiceOrder())
+            {
+                List<Order> userOrders = sO.GetAllOrdersForUserAccount(userId);
+                viewModel.AllOrders = userOrders;
+            }
             return View(viewModel);
         }
 

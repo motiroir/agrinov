@@ -61,7 +61,7 @@
     <div class="management-section">
 
         @Html.ActionLink("Voir mon abonnement", "ProductDashboard", "Product", new { activeTab = "ShowMyBox" }, new { @class = "management-card" })
-        @Html.ActionLink("Voir mes commandes", "Index", "Home", null, new { @class = "management-card" })
+        @Html.ActionLink("Voir mes commandes", "ShowMyOrders", "Order", null, new { @class = "management-card" })
         @Html.ActionLink("Accéder à la Boutique", "ProductDashboard", "Product", null, new { @class = "management-card" })
         @Html.ActionLink("Voir mes Ateliers", "ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" }, new { @class = "management-card" })
         @Html.ActionLink("Faire une proposition d'atelier", "ActivityDashboard", "Activity", new { activeTab = "CreateActivity" }, new { @class = "management-card" })

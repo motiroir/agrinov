@@ -1,0 +1,156 @@
+﻿.orders-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+    min-height:500px;
+    margin: 200px auto;
+    gap: 50px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap:20px;
+}
+
+.accordion {
+    color: var(--orangeRed);
+    overflow: hidden;
+    width:70%;
+}
+
+.tab {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.tab input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+.tab-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.35s;
+}
+
+.tab input:checked ~ .tab-content {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.order-resume {
+    width: 700px;
+    height: fit-content;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.cart-line{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cart-line .name {
+    width: 70%;
+    text-align: left;
+}
+
+.cart-line .price {
+    width: 20%;
+    text-align: right;
+}
+
+.line {
+    margin-top: 20px;
+    width: auto;
+    border: solid 1px #B1B1B1;
+}
+
+.tab-label,
+.tab-close {
+    display: flex;
+    color: white;
+    background: var(--orange);
+    cursor: pointer;
+}
+
+.tab-label {
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 5px;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1vw;
+    line-height: 110%;
+    /* or 26px */
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.tab input:checked ~ .tab-label {
+    border-radius: 5px 5px 0 0;
+}
+
+.tab-label::after {
+    content: "\276F";
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    transform: rotate(90deg);
+    transition: all 0.35s;
+}
+
+.tab input:checked + .tab-label::after {
+    transform: rotate(270deg);
+}
+
+
+.tab-content {
+    color: var(--contentParagraph);
+    border: 0px solid var(--orange);
+    border-radius: 0 0 5px 5px;
+}
+.tab input:checked ~ .tab-content {
+    border: 1px solid var(--orange);
+}
+
+.tab-content p {
+    margin: 0;
+    padding: 1rem;
+}
+
+.tab-close {
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+}
+
+.accordion-radio {
+    --theme: var(--secondary);
+}
+
+/* Arrow animation */
+.tab input:not(:checked) + .tab-label:hover::after {
+    animation: bounce .5s infinite;
+}
+
+@keyframes bounce {
+    25% {
+        transform: rotate(90deg) translate(.25rem);
+    }
+
+    75% {
+        transform: rotate(90deg) translate(-.25rem);
+    }
+}

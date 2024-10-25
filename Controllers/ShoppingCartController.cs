@@ -148,7 +148,7 @@ namespace AgriNov.Controllers
                         sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name, viewModel.Payment);
                     }
 
-                    return RedirectToAction("Index", "ShoppingCart");
+                    return RedirectToAction("ShowMyOrders", "Order");
                 }
             }
             if (action == "offline")
@@ -164,7 +164,7 @@ namespace AgriNov.Controllers
                     sO.SaveShoppingCartAsAnOrder(HttpContext.User.Identity.Name, viewModel.Payment);
                 }
 
-                return RedirectToAction("Index", "ShoppingCart");
+                return RedirectToAction("ShowMyOrders", "Order");
             }
 
                 return View(viewModel);
