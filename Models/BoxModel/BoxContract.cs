@@ -23,6 +23,8 @@ namespace AgriNov.Models
         public DateTime DateLastModified { get; set; }
 
         public bool ForSale { get; set; }
+        public byte[] ImgSmallBoxContract { get; set; }
+        public byte[] ImgBigBoxContract { get; set; }
 
     }
 

@@ -23,148 +23,149 @@ namespace AgriNov.Models
 
         public void Initializetable()
         {
-            var productions = new List<Production>
-    {
-        new Production
-        {
-            CompanyName = "La ferme des blés",
-            ProductType = ProductType.VEGETABLES,
-            VolumePerDelivery = 50,
-            Price = 150,
-            DeliveryFrequency = DeliveryFrequency.MONTHLY,
-            Seasons = Seasons.WINTER,
-            Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01),
-            SupplierId= 5
-        },
-        new Production
-        {
-            CompanyName = "La ferme des blés",
-            ProductType = ProductType.VEGETABLES,
-            VolumePerDelivery = 20,
-            Price = 70,
-            DeliveryFrequency = DeliveryFrequency.WEEKLY,
-            Seasons = Seasons.WINTER,
-            Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01),
-            SupplierId= 5
-        },
-        new Production
-        {   CompanyName = "Fruits du Pays",
-            ProductType = ProductType.FRUITS,
-            VolumePerDelivery = 30,
-            Price = 100,
-            DeliveryFrequency = DeliveryFrequency.WEEKLY,
-            Seasons = Seasons.WINTER,
-            Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01),
-            SupplierId= 6
-        },
-        new Production
-        {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.EGGS,
-            VolumePerDelivery = 20,
-            Price = 200,
-            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
-            Seasons = Seasons.WINTER,
-            Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01),
-            SupplierId= 7
-        },
-        new Production
-        {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.DAYRIS,
-            VolumePerDelivery = 25,
-            Price = 180,
-            DeliveryFrequency = DeliveryFrequency.MONTHLY,
-            Seasons = Seasons.WINTER,
-            Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01),
-            SupplierId= 7
-        },
-       
-        new Production
-        {   CompanyName = "La ferme des blés",
-            ProductType = ProductType.MEAT,
-            VolumePerDelivery = 40,
-            Price = 250,
-            DeliveryFrequency = DeliveryFrequency.WEEKLY,
-            Seasons = Seasons.WINTER,
-            Years = Years._2024,
-            DateLimitForReview = new DateTime(2024, 11, 01),
-            SupplierId= 5
-        },
-
-        new Production
-        {   CompanyName = "Carottes Bio",
-            ProductType = ProductType.VEGETABLES,
-            VolumePerDelivery = 60,
-            Price = 160,
-            DeliveryFrequency = DeliveryFrequency.MONTHLY,
-            Seasons = Seasons.SPRING,
-            Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01),
-            SupplierId= 8
-        },
-        new Production
-        {   CompanyName = "Carottes Bio",
-            ProductType = ProductType.VEGETABLES,
-            VolumePerDelivery = 40,
-            Price = 100,
-            DeliveryFrequency = DeliveryFrequency.WEEKLY,
-            Seasons = Seasons.SPRING,
-            Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01),
-            SupplierId= 8
-        },
-        new Production
-        {   CompanyName = "Fruits du Pays",
-            ProductType = ProductType.FRUITS,
-            VolumePerDelivery = 40,
-            Price = 120,
-            DeliveryFrequency = DeliveryFrequency.WEEKLY,
-            Seasons = Seasons.SPRING,
-            Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01),
-            SupplierId= 6
-        },
-        new Production
-        {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.EGGS,
-            VolumePerDelivery = 30,
-            Price = 200,
-            DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
-            Seasons = Seasons.SPRING,
-            Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01),
-            SupplierId= 7
-        },
-        new Production
-        {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.DAYRIS,
-            VolumePerDelivery = 35,
-            Price = 180,
-            DeliveryFrequency = DeliveryFrequency.MONTHLY,
-            Seasons = Seasons.SPRING,
-            Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01),
-            SupplierId= 7
-        },
-       
-        new Production
-        {   CompanyName = "La ferme des blés",
-            ProductType = ProductType.MEAT,
-            VolumePerDelivery = 50,
-            Price = 250,
-            DeliveryFrequency = DeliveryFrequency.WEEKLY,
-            Seasons = Seasons.SPRING,
-            Years = Years._2025,
-            DateLimitForReview = new DateTime(2025, 5, 01),
-            SupplierId= 5
-        }
-    };
-
             
+            var productions = new List<Production>
+            {
+                new Production
+                {
+                    CompanyName = "La ferme des blés",
+                    ProductType = ProductType.VEGETABLES,
+                    VolumePerDelivery = 50,
+                    Price = 150,
+                    DeliveryFrequency = DeliveryFrequency.MONTHLY,
+                    Seasons = Seasons.WINTER,
+                    Years = Years._2024,
+                    DateLimitForReview = new DateTime(2024, 11, 01),
+                    SupplierId= 5
+                },
+                new Production
+                {
+                    CompanyName = "La ferme des blés",
+                    ProductType = ProductType.VEGETABLES,
+                    VolumePerDelivery = 20,
+                    Price = 70,
+                    DeliveryFrequency = DeliveryFrequency.WEEKLY,
+                    Seasons = Seasons.WINTER,
+                    Years = Years._2024,
+                    DateLimitForReview = new DateTime(2024, 11, 01),
+                    SupplierId= 5
+                },
+                new Production
+                {   CompanyName = "Fruits du Pays",
+                    ProductType = ProductType.FRUITS,
+                    VolumePerDelivery = 30,
+                    Price = 100,
+                    DeliveryFrequency = DeliveryFrequency.WEEKLY,
+                    Seasons = Seasons.WINTER,
+                    Years = Years._2024,
+                    DateLimitForReview = new DateTime(2024, 11, 01),
+                    SupplierId= 6
+                },
+                new Production
+                {   CompanyName = "Les Récoltes de Claire",
+                    ProductType = ProductType.EGGS,
+                    VolumePerDelivery = 20,
+                    Price = 200,
+                    DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
+                    Seasons = Seasons.WINTER,
+                    Years = Years._2024,
+                    DateLimitForReview = new DateTime(2024, 11, 01),
+                    SupplierId= 7
+                },
+                new Production
+                {   CompanyName = "Les Récoltes de Claire",
+                    ProductType = ProductType.DAYRIS,
+                    VolumePerDelivery = 25,
+                    Price = 180,
+                    DeliveryFrequency = DeliveryFrequency.MONTHLY,
+                    Seasons = Seasons.WINTER,
+                    Years = Years._2024,
+                    DateLimitForReview = new DateTime(2024, 11, 01),
+                    SupplierId= 7
+                },
+
+                new Production
+                {   CompanyName = "La ferme des blés",
+                    ProductType = ProductType.MEAT,
+                    VolumePerDelivery = 40,
+                    Price = 250,
+                    DeliveryFrequency = DeliveryFrequency.WEEKLY,
+                    Seasons = Seasons.WINTER,
+                    Years = Years._2024,
+                    DateLimitForReview = new DateTime(2024, 11, 01),
+                    SupplierId= 5
+                },
+
+                new Production
+                {   CompanyName = "Carottes Bio",
+                    ProductType = ProductType.VEGETABLES,
+                    VolumePerDelivery = 60,
+                    Price = 160,
+                    DeliveryFrequency = DeliveryFrequency.MONTHLY,
+                    Seasons = Seasons.SPRING,
+                    Years = Years._2025,
+                    DateLimitForReview = new DateTime(2025, 5, 01),
+                    SupplierId= 8
+                },
+                new Production
+                {   CompanyName = "Carottes Bio",
+                    ProductType = ProductType.VEGETABLES,
+                    VolumePerDelivery = 40,
+                    Price = 100,
+                    DeliveryFrequency = DeliveryFrequency.WEEKLY,
+                    Seasons = Seasons.SPRING,
+                    Years = Years._2025,
+                    DateLimitForReview = new DateTime(2025, 5, 01),
+                    SupplierId= 8
+                },
+                new Production
+                {   CompanyName = "Fruits du Pays",
+                    ProductType = ProductType.FRUITS,
+                    VolumePerDelivery = 40,
+                    Price = 120,
+                    DeliveryFrequency = DeliveryFrequency.WEEKLY,
+                    Seasons = Seasons.SPRING,
+                    Years = Years._2025,
+                    DateLimitForReview = new DateTime(2025, 5, 01),
+                    SupplierId= 6
+                },
+                new Production
+                {   CompanyName = "Les Récoltes de Claire",
+                    ProductType = ProductType.EGGS,
+                    VolumePerDelivery = 30,
+                    Price = 200,
+                    DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
+                    Seasons = Seasons.SPRING,
+                    Years = Years._2025,
+                    DateLimitForReview = new DateTime(2025, 5, 01),
+                    SupplierId= 7
+                },
+                new Production
+                {   CompanyName = "Les Récoltes de Claire",
+                    ProductType = ProductType.DAYRIS,
+                    VolumePerDelivery = 35,
+                    Price = 180,
+                    DeliveryFrequency = DeliveryFrequency.MONTHLY,
+                    Seasons = Seasons.SPRING,
+                    Years = Years._2025,
+                    DateLimitForReview = new DateTime(2025, 5, 01),
+                    SupplierId= 7
+                },
+
+                new Production
+                {   CompanyName = "La ferme des blés",
+                    ProductType = ProductType.MEAT,
+                    VolumePerDelivery = 50,
+                    Price = 250,
+                    DeliveryFrequency = DeliveryFrequency.WEEKLY,
+                    Seasons = Seasons.SPRING,
+                    Years = Years._2025,
+                    DateLimitForReview = new DateTime(2025, 5, 01),
+                    SupplierId= 5
+                }
+            };
+
+
             foreach (var production in productions)
             {
                 InsertProduction(production);
@@ -211,7 +212,7 @@ namespace AgriNov.Models
         {
             return _DBContext.Productions.Where(production => production.SupplierId == supplierID).ToList();
         }
-        
+
 
         public void InsertProduction(Production production)
         {
@@ -258,11 +259,11 @@ namespace AgriNov.Models
             switch (frequency)
             {
                 case DeliveryFrequency.WEEKLY:
-                    return 13; 
+                    return 13;
                 case DeliveryFrequency.BIWEEKLY:
-                    return 6; 
+                    return 6;
                 case DeliveryFrequency.MONTHLY:
-                    return 3; 
+                    return 3;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(frequency), frequency, "Frequency is not recognized");
             }

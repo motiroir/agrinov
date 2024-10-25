@@ -32,7 +32,8 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            BoxContract bc1 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.SPRING, Years = Years._2024, Price = 8M, MaxSubscriptions = 20, ForSale = false };
+            string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "productions");
+            BoxContract bc1 = new BoxContract() { ProductType = ProductType.VEGETABLES, Seasons = Seasons.SPRING, Years = Years._2024, Price = 8M, MaxSubscriptions = 20, ForSale = false, ImgSmallBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablessmall.jpg")), ImgBigBoxContract = File.ReadAllBytes(Path.Combine(dirPath, "vegetablesbig.jpg")) };
             BoxContract bc2 = new BoxContract() { ProductType = ProductType.DAYRIS, Seasons = Seasons.SPRING, Years = Years._2024, Price = 5M, MaxSubscriptions = 12, ForSale = false };
             BoxContract bc3 = new BoxContract() { ProductType = ProductType.MEAT, Seasons = Seasons.SPRING, Years = Years._2024, Price = 16M, MaxSubscriptions = 10, ForSale = false };
             BoxContract bc4 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.SPRING, Years = Years._2024, Price = 12M, MaxSubscriptions = 5, ForSale = false };
