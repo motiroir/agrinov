@@ -89,6 +89,7 @@ namespace AgriNov.Controllers
                             viewModel.BoxContract.ProductType = viewModel.ProductType;
                             viewModel.BoxContract.Seasons = viewModel.Seasons;
                             viewModel.BoxContract.Years = viewModel.Years;
+
                             sBC.InsertBoxContract(viewModel.BoxContract);
                             return RedirectToAction("ShowAllBoxContracts", "BoxContract");
                         }

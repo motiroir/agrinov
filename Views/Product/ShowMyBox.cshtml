@@ -28,7 +28,12 @@
         @foreach (BoxContractSubscription boxContractSub in Model.MyCurrentBoxContracts)
         {
             <div class="box-to-sell-div">
-                <div class="full-img"></div>
+                <div class="full-img">
+                        @{
+                            String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(boxContractSub.BoxContract.ImgSmallBoxContract) + "";
+                            <img id="imgViewer" src=@srcValue />
+                        }
+                </div>
                 <div class="activity-content">
                     <div class="text-content">
                         <h2 class="activity-name">@(boxContractSub.Quantity == 1 ? "Petit" : boxContractSub.Quantity == 2 ? "Grand" : "") panier de @boxContractSub.BoxContract.ProductType.GetDisplayName()</h2>
@@ -59,7 +64,12 @@
                     <input type="hidden" name="boxContractId" value="@boxContract.Id">
                     <input type="hidden" name="quantity" value="1">
                     <div class="box-to-sell-div">
-                        <div class="full-img"></div>
+                        <div class="full-img">
+                                @{
+                                    String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(boxContract.ImgSmallBoxContract) + "";
+                                    <img id="imgViewer" src=@srcValue />
+                                }
+                        </div>
                         <div class="activity-content">
                             <div class="text-content">
                                 <h2 class="activity-name">petit panier de @boxContract.ProductType.GetDisplayName()</h2>
@@ -88,7 +98,12 @@
                         <input type="hidden" name="boxContractId" value="@boxContract.Id">
                         <input type="hidden" name="quantity" value="2">
                         <div class="box-to-sell-div">
-                            <div class="full-img"></div>
+                            <div class="full-img">
+                                    @{
+                                        String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(boxContract.ImgBigBoxContract) + "";
+                                        <img id="imgViewer" src=@srcValue />
+                                    }
+                            </div>
                             <div class="activity-content">
                                 <div class="text-content">
                                     <h2 class="activity-name">grand panier de @boxContract.ProductType.GetDisplayName()</h2>
