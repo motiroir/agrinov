@@ -166,6 +166,37 @@ namespace AgriNov.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult DeleteActivity(int id)
+        {
+            using (ServiceActivity sA = new ServiceActivity())
+            {
+                Activity activity = sA.GetActivity(id);
+                if (activity != null)
+                {
+                    return View(activity); 
+                }
+            }
+            return View("Error");
+        }
+
         
+        [HttpPost, ActionName("DeleteActivity")]
+        
+        public IActionResult DeleteConfirmed(int id)
+        {
+            using (ServiceActivity sA = new ServiceActivity())
+            {
+                // Vérifiez si l'activité existe avant de tenter de la supprimer
+                Activity activity = sA.GetActivity(id);
+                if (activity != null)
+                {
+                    sA.DeleteActivity(id); 
+                    TempData["SuccessMessage"] = "L'activité a été supprimée avec succès.";
+                    return RedirectToAction("ActivityDashboard", new { activeTab = "ShowMyActivities" });
+                }
+            }
+            return View("Error");
+        }
     }
 }

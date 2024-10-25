@@ -1,0 +1,24 @@
+﻿@model AgriNov.Models.Activity
+
+@{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Modifier une activité";
+}
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/formstyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+
+<h2>Supprimer l'activité</h2>
+
+<p>Êtes-vous sûr de vouloir supprimer l'activité : <strong>@Model.Name</strong> ?</p>
+
+<form asp-action="DeleteConfirmed" method="post">
+
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+
+    <a asp-action="ActivityDashboard" class="btn btn-secondary">Annuler</a>
+
+</form>

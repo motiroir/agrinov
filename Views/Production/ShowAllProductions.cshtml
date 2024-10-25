@@ -9,6 +9,7 @@
 }
 
 @section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/globalstyle.css">
     <link rel="stylesheet" href="~/CSS/formstyle.css">
     <link rel="stylesheet" href="~/CSS/tablestyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
@@ -16,10 +17,13 @@
 
 <a href="@Url.Action("Index", "DashBoard")" class="return-link">< Retour à mon compte</a>
 
-
+            
 <div class="table-container-production">
+    
     <table style="--colNbr: 10">
+        <caption>Gestion des Productions</caption>
         <thead>
+            
             <tr>
                 <th>Saison</th>
                 <th>Année</th>

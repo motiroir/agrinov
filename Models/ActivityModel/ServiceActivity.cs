@@ -19,7 +19,12 @@ namespace AgriNov.Models
 
         public void DeleteActivity(int id)
         {
-            throw new NotImplementedException();
+            Activity activity = _DBContext.Activities.Find(id);
+            if (activity != null)
+            {
+                _DBContext.Activities.Remove(activity);
+                Save();
+            }
         }
 
         public Activity GetActivity(int id)
