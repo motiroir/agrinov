@@ -37,10 +37,10 @@
 
                     <div class="product-card">
                         <div class="product-image">
-<<<<<<< HEAD
+
                             @if (item.MemberShipFee != null)
                             {
-                                <img src="~/img/global/Logo-footer.png"/>
+                                <img src="~/img/products/membershipfee.png" />
                             }
                             else if (item.Product != null)
                             {
@@ -60,24 +60,8 @@
                                     <img id="imgViewer" src=@srcValue />
                                 }
                             }
-=======
-                            @if (item.Product != null)
-                            {
-                                
-                                String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(item.Product.ImgProduct) + "";
-                                <img id="imgViewer" src=@srcValue />
-                                
-                            }
-                            else if (item.MemberShipFee != null)
-                            {
-                                <img src="~/img/products/membershipfee.png" />
-                            }
-                            else if (item.BoxContract != null)
-                            {
-                                <img src="~/img/products/boxcontract.png" />
-                            }
-                            
->>>>>>> ar-details
+
+  
                         </div>
                         <div class="product-info">
                             @if (item.MemberShipFee != null)
