@@ -33,14 +33,29 @@
             <div class="shop-resume">
                 <h4>ma commande</h4>
 
-            @for (int i = 0; i < Model.ShoppingCart.ShoppingCartItems.Count; i++)
-            {
-                ShoppingCartItem item = Model.ShoppingCart.ShoppingCartItems[i];
-                <div class="cart-line">
-                    <p class="name">@item.Product.Name</p>
-                    <p class="price">@item.Total.ToString("C")</p>
-                </div>
-            }
+                @for (int i = 0; i < Model.ShoppingCart.ShoppingCartItems.Count; i++)
+                {
+                    ShoppingCartItem item = Model.ShoppingCart.ShoppingCartItems[i];
+                    <div class="cart-line">
+                        @if (item.MemberShipFee != null)
+                        {
+                            <p class="name">Cotisation annuelle</p>
+                            <p class="price">@item.Total.ToString("C")</p>
+                        }
+                        else if (item.Product != null)
+                        {
+                            <p class="name">@item.Product.Name</p>
+                            <p class="price">@item.Total.ToString("C")</p>
+                        }
+                        else if (item.BoxContract != null)
+                        {
+
+                            <p class="name">@(item.Quantity == 1 ? "Petit" : item.Quantity == 2 ? "Grand" : "") panier de @item.BoxContract.ProductType.GetDisplayName()</p>
+                            <p class="price">@item.Total.ToString("C")</p>
+                        }
+                    </div>
+                }
+           
 
                 <div class="line"></div>
                 <div class="cart-line">

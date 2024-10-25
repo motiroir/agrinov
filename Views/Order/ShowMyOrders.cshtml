@@ -1,5 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model AgriNov.ViewModels.OrderViewModel
+@using AgriNov.Models
+
 @{
+    Layout = "_BaseLayout";
+    ViewBag.Title = "Toutes les commandes";
 }
+@section ExtraStyle {
+    <link rel="stylesheet" href="~/CSS/tablestyle.css">
+    <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
+}
+
