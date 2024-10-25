@@ -197,17 +197,17 @@ namespace AgriNov.Models
 
         public void InitializeTable()
         {
-            AddProductToShoppingCart(1, 2, 1);
+            AddProductToShoppingCart(10, 2, 1);
             AddProductToShoppingCart(1, 3, 1);
-            AddProductToShoppingCart(1, 1, 2);
+            AddProductToShoppingCart(10, 1, 2);
             AddProductToShoppingCart(2, 1, 2);
             AddProductToShoppingCart(5, 1, 2);  
             AddProductToShoppingCart(3, 1, 3);
             AddProductToShoppingCart(6, 1, 3); 
             AddProductToShoppingCart(3, 1, 4);
             AddProductToShoppingCart(3, 1, 12);
-            AddProductToShoppingCart(1, 2, 15);  
-            AddProductToShoppingCart(1, 3, 17);   
+            AddProductToShoppingCart(8, 2, 15);  
+            AddProductToShoppingCart(8, 3, 17);   
             AddProductToShoppingCart(1, 1, 10);  
             AddProductToShoppingCart(3, 1, 9);  
             AddProductToShoppingCart(8, 1, 9);  
