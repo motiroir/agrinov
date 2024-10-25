@@ -225,7 +225,6 @@ namespace AgriNov.Models
             AddBoxContractToShoppingCart(7,1,10);
             AddBoxContractToShoppingCart(8,1,10);
             AddBoxContractToShoppingCart(9,2,10);
-
         }
 
         //Do not call when order was not placed, this would remove membership fee
