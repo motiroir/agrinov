@@ -28,7 +28,7 @@
                 </div>
                 <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "ProductDashboard" && ViewContext.RouteData.Values["controller"].ToString() == "Product" ? "active" : "")" href="@Url.Action("ProductDashboard", "Product")">La boutique</a>
                 <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "ActivityDashboard" && ViewContext.RouteData.Values["controller"].ToString() == "Activity" ? "active" : "")" href="@Url.Action("ActivityDashboard", "Activity")">Les ateliers</a>
-                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "contact" && ViewContext.RouteData.Values["controller"].ToString() == "contact" ? "active" : "")" href="@Url.Action("contact", "contact")">Contact</a>
+                <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")" href="@Url.Action("Contact", "Home")">Contact</a>
 
             </section>
 
@@ -105,7 +105,7 @@
                             <a href="@Url.Action("Index", "Home")">Accueil</a>
                             <a href="@Url.Action("ProductDashboard", "Product")">La boutique</a>
                             <a href="@Url.Action("ActivityDashboard", "Activity")">Les ateliers</a>
-                            <a href="@Url.Action("contact", "contact")">Contact</a>
+                            <a href="@Url.Action("Contact", "Home")">Contact</a>
                         </section>
                     </section>
 

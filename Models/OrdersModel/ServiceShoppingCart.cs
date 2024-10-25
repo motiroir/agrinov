@@ -185,14 +185,27 @@ namespace AgriNov.Models
             AddProductToShoppingCart(1, 3, 1);
             AddProductToShoppingCart(1, 1, 2);
             AddProductToShoppingCart(2, 1, 2);
+            AddProductToShoppingCart(5, 1, 2);  
             AddProductToShoppingCart(3, 1, 3);
+            AddProductToShoppingCart(6, 1, 3); 
             AddProductToShoppingCart(3, 1, 4);
             AddProductToShoppingCart(3, 1, 12);
+            AddProductToShoppingCart(1, 2, 15);  
+            AddProductToShoppingCart(1, 3, 17);   
+            AddProductToShoppingCart(1, 1, 10);  
+            AddProductToShoppingCart(3, 1, 9);  
+            AddProductToShoppingCart(8, 1, 9);  
             AddBoxContractToShoppingCart(1,1,12);
             AddBoxContractToShoppingCart(6,1,4);
             AddBoxContractToShoppingCart(7,1,4);
             AddBoxContractToShoppingCart(8,1,4);
             AddBoxContractToShoppingCart(9,2,4);
+            AddBoxContractToShoppingCart(1, 1, 15);
+            AddBoxContractToShoppingCart(6, 1, 15);
+            AddBoxContractToShoppingCart(7, 1, 10);
+            AddBoxContractToShoppingCart(8, 1, 9);
+            AddBoxContractToShoppingCart(9, 2, 9);
+
 
         }
 
