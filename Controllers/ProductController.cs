@@ -85,7 +85,7 @@ namespace AgriNov.Controllers
             // getting all relavant box contracts for sale in viewmodel
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
-                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsForSale();
+                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsForSaleNotAlreadySubscribed(userId);
                 pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(userId);
             }
 

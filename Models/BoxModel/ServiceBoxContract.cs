@@ -50,6 +50,7 @@ namespace AgriNov.Models
             BoxContract bc14 = new BoxContract() { ProductType = ProductType.FISH, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 12M, MaxSubscriptions = 1, ForSale = true };
             BoxContract bc15 = new BoxContract() { ProductType = ProductType.EGGS, Seasons = Seasons.AUTUMN, Years = Years._2024, Price = 2M, MaxSubscriptions = 12, ForSale = true };
             
+        
             InsertBoxContract(bc1);
             InsertBoxContract(bc2);
             InsertBoxContract(bc3);
@@ -185,6 +186,19 @@ namespace AgriNov.Models
             }
             return null;
         }
+
+        public List<BoxContract> GetAllBoxContractsForSaleNotAlreadySubscribed(int userAccountId)
+        {
+            List<BoxContract> contractsAlreadySubscribed = _DBContext.OrderItems.Include(oi => oi.Order)
+                                        .Where(oi => oi.Order.UserAccountId == userAccountId && oi.BoxContract != null)
+                                        .Include(oi => oi.BoxContract)
+                                        .Select(oi => oi.BoxContract)
+                                        .Distinct()
+                                        .ToList();
+
+            return GetAllBoxContractsForSale().Where( bc => !contractsAlreadySubscribed.Contains(bc)).ToList();
+        }
+
 
     }
 }
