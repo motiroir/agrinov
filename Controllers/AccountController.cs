@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using AgriNov.Models;
 using AgriNov.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -76,8 +78,11 @@ namespace AgriNov.Controllers
             {
                 using (IServiceUser serviceUser = new ServiceUser())
                 {
+                    // Level = User unless changed bu admin
                     user.UserAccount.UserAccountLevel = UserAccountLevel.USER;
                     serviceUser.InsertUser(user);
+                    // Rewrite cookie with new permission
+                    UpdateRoleInAuthCookie(UserAccountLevel.USER);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -121,8 +126,10 @@ namespace AgriNov.Controllers
             {
                 using (IServiceCorporateUser serviceCorporateUser = new ServiceCorporateUser())
                 {
-                    corporateUser.UserAccount.UserAccountLevel = UserAccountLevel.CORPORATE;
+                    // corporateUser.UserAccount.UserAccountLevel = UserAccountLevel.CORPORATE;
                     serviceCorporateUser.InsertCorporateUser(corporateUser);
+                    // Rewrite cookie with new permission
+                    UpdateRoleInAuthCookie(UserAccountLevel.CORPORATE);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -172,8 +179,10 @@ namespace AgriNov.Controllers
                 }
                 using (IServiceSupplier serviceSupplier = new ServiceSupplier())
                 {
-                    viewModel.Supplier.UserAccount.UserAccountLevel = UserAccountLevel.SUPPLIER;
+                    // viewModel.Supplier.UserAccount.UserAccountLevel = UserAccountLevel.SUPPLIER;
                     serviceSupplier.InsertSupplier(viewModel.Supplier);
+                    // Rewrite cookie with new permission
+                    UpdateRoleInAuthCookie(UserAccountLevel.SUPPLIER);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -432,6 +441,26 @@ namespace AgriNov.Controllers
                 }
             }
             return View(viewModel);
+        }
+
+        private void UpdateRoleInAuthCookie(UserAccountLevel newRole)
+        {
+            // Get former cookie info
+            ClaimsIdentity identity = (ClaimsIdentity) HttpContext.User.Identity;
+            Claim? oldRoleClaim = identity.FindFirst(ClaimTypes.Role);
+            // Remove old role
+            if(oldRoleClaim != null)
+            {
+                identity.RemoveClaim(oldRoleClaim);
+            }
+            // Add new role
+            Claim newRoleClaim = new Claim(ClaimTypes.Role, newRole.ToString());
+            identity.AddClaim(newRoleClaim);
+            
+            //Recreate the cookie
+            ClaimsPrincipal userPrincipal = new ClaimsPrincipal(identity);
+            HttpContext.SignInAsync(userPrincipal);
+
         }
 
     }

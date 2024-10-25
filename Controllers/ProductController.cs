@@ -71,7 +71,7 @@ namespace AgriNov.Controllers
             return View(pVM);
         }
 
-        [Authorize]
+        [Authorize( Roles = "ADMIN,VOLUNTEER,USER,SUPPLIER,CORPORATE")]
         public IActionResult ProductDashboard(string activeTab = "ShowAllProducts")
         {
             ProductViewModel pVM = new ProductViewModel();

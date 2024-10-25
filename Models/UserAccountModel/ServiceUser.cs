@@ -310,6 +310,7 @@ namespace AgriNov.Models
 
         public void InsertUser(User user)
         {
+            // Since a User can have three roles, the UserAccount.UserAccountLevel needs to be set before calling this
             user.UserAccount.DateLastModified = DateTime.Now;
             user.ContactDetails.Name = user.ContactDetails.Name.ToUpper();
             //_Update and track the user account that is part of user
