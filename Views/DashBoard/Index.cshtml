@@ -60,49 +60,36 @@
 
     <div class="management-section">
 
-        @Html.ActionLink("Voir mon abonnement",
-                 "ProductDashboard", 
-                 "Product",         
-                 new { activeTab = "ShowMyBox" }, 
-                 new { @class = "management-card" })
-
-            @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN
-                || @Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.VOLUNTEER)
-            {
-                @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
-                @Html.ActionLink("Gérer les utilisateurs", "ShowAllUserAccounts", "Account", null, new { @class = "management-card" })
-                @Html.ActionLink("Gérer les commandes", "ShowAllOrders", "Order", null, new { @class = "management-card" })
-                
-            }
-            
-            @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER 
-                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.CORPORATE
-                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER
-                && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
-            {
-                @Html.ActionLink("Faire une proposition de production", "CreateProduction", "Production", null, new { @class = "management-card" })
-                @Html.ActionLink("Gérer les productions", "SupShowAllProductions", "Production", null, new { @class = "management-card" })
-                @Html.ActionLink("Faire une proposition de produit", "CreateProduct", "Product", null, new { @class = "management-card" })
-            }
-
-            @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN)
-            {
-
-                @Html.ActionLink("Gérer les propositions de Production", "ShowAllProductions", "Production", null, new { @class = "management-card" })
-                @Html.ActionLink("Gérer les produits", "ShowAllProducts", "Product", null, new { @class = "management-card" })
-            }
-             
-             
-            @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.SUPPLIER)
-            {
-                @Html.ActionLink("Voir mes commandes", "Index", "Home", null, new { @class = "management-card" })
-
-                @Html.ActionLink("Accéder à la Boutique", "ProductDashboard", "Product", null, new { @class = "management-card" })
-
-                
-            }
+        @Html.ActionLink("Voir mon abonnement", "ProductDashboard", "Product", new { activeTab = "ShowMyBox" }, new { @class = "management-card" })
+        @Html.ActionLink("Voir mes commandes", "Index", "Home", null, new { @class = "management-card" })
+        @Html.ActionLink("Accéder à la Boutique", "ProductDashboard", "Product", null, new { @class = "management-card" })
         @Html.ActionLink("Voir mes Ateliers", "ActivityDashboard", "Activity", new { activeTab = "ShowMyActivities" }, new { @class = "management-card" })
         @Html.ActionLink("Faire une proposition d'atelier", "ActivityDashboard", "Activity", new { activeTab = "CreateActivity" }, new { @class = "management-card" })
+
+        @if (@Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.USER
+        && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.CORPORATE
+        && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.VOLUNTEER
+        && @Model.UserAccountLevel != AgriNov.Models.UserAccountLevel.ADMIN)
+        {
+            @Html.ActionLink("Faire une proposition de production", "CreateProduction", "Production", null, new { @class = "management-card" })
+            @Html.ActionLink("Gérer les productions", "SupShowAllProductions", "Production", null, new { @class = "management-card" })
+            @Html.ActionLink("Faire une proposition de produit", "CreateProduct", "Product", null, new { @class = "management-card" })
+        }
+
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN
+            || @Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.VOLUNTEER)
+        {
+            @Html.ActionLink("Gérer les utilisateurs", "ShowAllUserAccounts", "Account", null, new { @class = "management-card" })
+            @Html.ActionLink("Gérer les commandes", "ShowAllOrders", "Order", null, new { @class = "management-card" })
+        }
+
+        @if (@Model.UserAccountLevel == AgriNov.Models.UserAccountLevel.ADMIN)
+        {
+            @Html.ActionLink("Gérer les contrats", "ShowAllBoxContracts", "BoxContract", null, new { @class = "management-card" })
+            @Html.ActionLink("Gérer les propositions de Production", "ShowAllProductions", "Production", null, new { @class = "management-card" })
+        }
+             
+
         
     </div>
 
