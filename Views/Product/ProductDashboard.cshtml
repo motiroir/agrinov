@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
 
+<div class="alert-container">
+
+@if (TempData["SuccessMessage"] != null)
+{
+<div id="success-message" class="alert">
+    @TempData["SuccessMessage"]
+</div>
+}
+
+</div>
+
+
 <div class="full-tab-navigation-div">
     <div class="activity-header">
         <h2>la boutique</h2>
@@ -39,3 +51,5 @@
         </div>
     </div>
 </div>
+
+ 

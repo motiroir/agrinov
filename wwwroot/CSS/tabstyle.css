@@ -71,3 +71,49 @@
     min-height: 700px;
 }
 
+.alert-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0 2.5vw;
+    top: 100px;
+}
+
+.alert {
+    position: relative;
+    width: 350px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 10;
+    animation: fadeOut 2s forwards;
+}
+.alert:before {
+    content: ''; 
+    position: absolute; 
+    top: -10px;
+    left: 50px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #d4edda;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1; 
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0; 
+    }
+}
+
+

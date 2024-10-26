@@ -21,8 +21,8 @@
 
         @foreach (BoxContractSubscription boxContractSub in Model.MyCurrentBoxContracts)
         {
-                <div class="box-to-sell-div">
-                    <div class="full-img">
+                <div class="box-contract-div">
+                    <div class="cropped-img">
                         @{
                             //defined on small as default to avoid demo errors
                             String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(boxContractSub.BoxContract.ImgSmallBoxContract) + "";

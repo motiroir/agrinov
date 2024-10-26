@@ -139,6 +139,8 @@ namespace AgriNov.Controllers
             {
                 sSC.AddProductToShoppingCart(product.Id, quantity, userId);
             }
+
+            TempData["SuccessMessage"] = "L'article a bien été ajouté au panier.";
             return RedirectToAction("ProductDashboard", "Product");
         }
 
@@ -165,6 +167,8 @@ namespace AgriNov.Controllers
             {
                 sSC.AddBoxContractToShoppingCart(boxContractId, quantity, userId);
             }
+
+            TempData["SuccessMessage"] = "L'abonnement a bien été ajouté au panier.";
             return RedirectToAction("ProductDashboard", "Product", new { activeTab = "ShowMyBox" });
         }
 

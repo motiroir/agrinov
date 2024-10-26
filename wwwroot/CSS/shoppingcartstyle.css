@@ -66,6 +66,7 @@
 
 .message-container {
     margin: auto;
+    margin-bottom:250px;
     width: 1500px;
     display: flex;
     justify-content: center;
