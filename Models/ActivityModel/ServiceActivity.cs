@@ -44,7 +44,7 @@ namespace AgriNov.Models
 
         public List<Activity> GetActivitiesByUserBooking(int userId)
         {
-            using (ServiceBooking sB =  new ServiceBooking())
+            using (ServiceBooking sB = new ServiceBooking())
             {
                 List<int> activitiesId = sB.GetActivitiesIdByUserId(userId);
                 List<Activity> activities = new List<Activity>();
@@ -56,16 +56,16 @@ namespace AgriNov.Models
                 return activities;
             }
         }
-       
-    
-    public void InitializeTable()
+
+
+        public void InitializeTable()
         {
             string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "activities");
-            Activity a1 = new Activity() { Name = "Fabrication de pain au levain", OrganizerId = 10, Location = "Saint-Hilaire", Duration = 2, MaxParticipants = 10, MaxInvitesPerPerson = 2, Datetime = new DateTime(2024, 11, 12, 10, 0, 0), Description = "Apprenez à faire votre propre pain au levain avec des ingrédients bio locaux. Repartez avec votre pâte à levain et les bases pour continuer chez vous.", ImgActivity=File.ReadAllBytes(Path.Combine(dirPath,"a1.jpg")) };
+            Activity a1 = new Activity() { Name = "Fabrication de pain au levain", OrganizerId = 10, Location = "Saint-Hilaire", Duration = 2, MaxParticipants = 10, MaxInvitesPerPerson = 2, Datetime = new DateTime(2024, 11, 12, 10, 0, 0), Description = "Apprenez à faire votre propre pain au levain avec des ingrédients bio locaux. Repartez avec votre pâte à levain et les bases pour continuer chez vous.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a1.jpg")) };
             Activity a2 = new Activity() { Name = "Atelier permaculture", OrganizerId = 9, Location = "Clisson", Duration = 4, MaxParticipants = 15, MaxInvitesPerPerson = 1, Datetime = new DateTime(2024, 12, 02, 14, 0, 0), Description = "Initiez-vous aux techniques de permaculture en milieu urbain et rural. Apprenez à concevoir un potager autonome et durable.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a2.jpg")) };
             Activity a3 = new Activity() { Name = "Cuisiner les légumes d'hiver", OrganizerId = 8, Location = "Gorges", Duration = 1, MaxParticipants = 8, MaxInvitesPerPerson = 1, Datetime = new DateTime(2024, 11, 20, 16, 0, 0), Description = "Découvrez des recettes créatives et simples pour valoriser vos légumes d'hiver : courges, betteraves, et choux, pour une cuisine de saison.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a3.jpg")) };
             Activity a4 = new Activity() { Name = "Fabrication de savons naturels", OrganizerId = 7, Location = "Monnières", Duration = 2, MaxParticipants = 12, MaxInvitesPerPerson = 1, Datetime = new DateTime(2024, 12, 10, 11, 0, 0), Description = "Participez à cet atelier pour fabriquer des savons à partir d'huiles végétales locales et d'ingrédients naturels, sans additifs chimiques.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a4.jpg")) };
-            Activity a5 = new Activity() { Name = "Atelier conserves de légumes", OrganizerId =  6, Location = "Clisson", Duration = 1, MaxParticipants = 10, MaxInvitesPerPerson = 2, Datetime = new DateTime(2024, 12, 05, 9, 0, 0), Description = "Apprenez les techniques de conservation de légumes de saison : stérilisation, pickles et fermentations pour prolonger vos récoltes.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a5.jpg")) };
+            Activity a5 = new Activity() { Name = "Atelier conserves de légumes", OrganizerId = 6, Location = "Clisson", Duration = 1, MaxParticipants = 10, MaxInvitesPerPerson = 2, Datetime = new DateTime(2024, 12, 05, 9, 0, 0), Description = "Apprenez les techniques de conservation de légumes de saison : stérilisation, pickles et fermentations pour prolonger vos récoltes.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a5.jpg")) };
             Activity a6 = new Activity() { Name = "Taille des arbres fruitiers", OrganizerId = 5, Location = "Getigné", Duration = 5, MaxParticipants = 12, MaxInvitesPerPerson = 1, Datetime = new DateTime(2024, 11, 18, 13, 0, 0), Description = "Venez découvrir comment tailler correctement vos arbres fruitiers pour assurer leur bonne santé et une production abondante.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a6.jpg")) };
             Activity a7 = new Activity() { Name = "Fabrication de fromage fermier", OrganizerId = 4, Location = "Vallet", Duration = 8, MaxParticipants = 6, MaxInvitesPerPerson = 1, Datetime = new DateTime(2024, 12, 15, 15, 0, 0), Description = "Apprenez à fabriquer du fromage à partir de lait cru local. Repartez avec vos créations à savourer chez vous.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a7.jpg")) };
             Activity a8 = new Activity() { Name = "Initiation au jardinage bio", OrganizerId = 3, Location = "Clisson", Duration = 1, MaxParticipants = 20, MaxInvitesPerPerson = 2, Datetime = new DateTime(2024, 11, 30, 10, 0, 0), Description = "Découvrez les bases du jardinage biologique, en particulier la gestion des sols, les engrais naturels et la rotation des cultures.", ImgActivity = File.ReadAllBytes(Path.Combine(dirPath, "a8.jpg")) };
