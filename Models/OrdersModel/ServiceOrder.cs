@@ -191,7 +191,7 @@ namespace AgriNov.Models
                 }
                 // Copy it to order and order item
 
-                Order order = new Order() { OrderNumber = GenerateRandomNumber(), UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total, Payment = payment };
+                Order order = new Order() { UserAccountId = shoppingCart.UserAccountId, Total = shoppingCart.Total, Payment = payment };
                 foreach (ShoppingCartItem item in shoppingCart.ShoppingCartItems)
                 {
                     OrderItem oItem = new OrderItem()
@@ -222,12 +222,6 @@ namespace AgriNov.Models
 
         }
 
-        private int GenerateRandomNumber()
-        {
-            Random random = new Random();
-            return random.Next(10000000, 99999999);
-        }
-
         public void InsertOrder(Order order)
         {
             _DBContext.Orders.Add(order);
@@ -246,6 +240,13 @@ namespace AgriNov.Models
         public List<Order> GetAllOrdersWithoutDetails()
         {
             return _DBContext.Orders.ToList();
+        }
+
+        public List<Order> GetAllOrdersWithJustUserDetails()
+        {
+            return _DBContext.Orders.Include(order => order.UserAccount).ThenInclude(ua => ua.User)
+                                    .Include(order => order.UserAccount).ThenInclude(ua => ua.Supplier)
+                                    .Include(order => order.UserAccount).ThenInclude(ua => ua.CorporateUser).ToList();
         }
         public List<Order> GetAllOrders()
         {

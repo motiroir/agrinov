@@ -15,12 +15,14 @@
 
 <div class="table-container">
 
-    <table style="--colNbr:8">
+    <table style="--colNbr:9">
+        <caption>Toutes les commandes</caption>
         <thead>
             <tr>
-                <th>Numéro de commande</th>
+                <th>Numéro</th>
+                <th>Passée par</th>
                 <th>Total</th>
-                <th>Date de commande</th>
+                <th>Date</th>
                 <th>Statut livraison</th>
                 <th>Date de paiement</th>
                 <th>Type de paiement</th>
@@ -38,15 +40,29 @@
                     <tr>
                         @Html.HiddenFor(model => order.Id)
 
-                        <td>@order.OrderNumber</td>
+                        <td>@order.Id.ToString("D4")</td>
+                        <td>
+                            @if(@order.UserAccount.UserAccountLevel == UserAccountLevel.USER || @order.UserAccount.UserAccountLevel == UserAccountLevel.VOLUNTEER  || @order.UserAccount.UserAccountLevel == UserAccountLevel.ADMIN)
+                            {
+                               @( @order.UserAccount.User.ContactDetails.Name + " " + @order.UserAccount.User.ContactDetails.FirstName )
+                            }
+                            else if(@order.UserAccount.UserAccountLevel == UserAccountLevel.SUPPLIER)
+                            {
+                                @order.UserAccount.Supplier.CompanyDetails.CompanyName.ToUpper()
+                            }
+                            else if(@order.UserAccount.UserAccountLevel == UserAccountLevel.CORPORATE)
+                            {
+                                @order.UserAccount.CorporateUser.CompanyDetails.CompanyName.ToUpper()
+                            }
+                        </td>
                         <td>@order.Total.ToString("C")</td>
-                        <td>@order.DateCreated.ToString("dd/MM/yyyy")</td>
+                        <td>@order.DateCreated.ToString("dd/MM/yy")</td>
                         <td>
                            @Html.DropDownListFor(m => order.WasDelivered, new SelectList(Model.WasDeliveredOptions, "Value", "Text"), new { @class = "form-control" })
 
                         </td>
                             <td>
-                                @(order.Payment.Date == DateTime.MinValue ? "NA" : order.Payment.Date.ToString("dd/MM/yyyy"))
+                                @(order.Payment.Date == DateTime.MinValue ? "NA" : order.Payment.Date.ToString("dd/MM/yy"))
                             </td>
                         <td>
                             @Html.DropDownListFor(m => order.Payment.PaymentType, new SelectList(Model.PaymentOptions, "Value", "Text"), new { @class = "form-control" })
