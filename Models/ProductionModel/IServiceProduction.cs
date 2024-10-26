@@ -16,6 +16,7 @@
         void UpdateProduction(Production production);
 
         void DeleteProduction(int ProductionID);
+        public List<Production> GetProductionsWithSupplierPdfProof();
 
         void Save();
 

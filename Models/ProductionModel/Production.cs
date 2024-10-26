@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AgriNov.Models
 {
@@ -46,7 +47,8 @@ namespace AgriNov.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
 
-        public int SupplierId { get; set; }
-        
+        //Actually the userAccountId of the supplier
+        public int UserAccountId { get; set; }
+        public UserAccount UserAccount { get; set; }
     }
 }
