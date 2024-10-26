@@ -234,8 +234,9 @@ namespace AgriNov.Models
             return null;
         }
 
-        public List<BoxContract> GetAllBoxContractsForSaleNotAlreadySubscribed(int userAccountId)
+        public List<BoxContract> GetAllAvailableBoxContracts(int userAccountId)
         {
+            // Get all contracts already subscribed
             List<BoxContract> contractsAlreadySubscribed = _DBContext.OrderItems.Include(oi => oi.Order)
                                         .Where(oi => oi.Order.UserAccountId == userAccountId && oi.BoxContract != null)
                                         .Include(oi => oi.BoxContract)
@@ -243,7 +244,23 @@ namespace AgriNov.Models
                                         .Distinct()
                                         .ToList();
 
-            return GetAllBoxContractsForSale().Where( bc => !contractsAlreadySubscribed.Contains(bc)).ToList();
+            // Get all contracts already added to shopping cart
+            List<BoxContract> contractsInShoppingCart = _DBContext.ShoppingCartItems
+                                       .Include(sci => sci.BoxContract) 
+                                       .Where(sci => sci.ShoppingCartId == userAccountId)
+                                       .Select(sci => sci.BoxContract) 
+                                       .Distinct()
+                                       .ToList();
+
+            // Get all contracts for sale
+            List<BoxContract> allContractsForSale = GetAllBoxContractsForSale();
+
+            // Get only available contracts
+            List<BoxContract> availableContracts = allContractsForSale
+                .Where(bc => !contractsAlreadySubscribed.Contains(bc) && !contractsInShoppingCart.Contains(bc))
+                .ToList();
+
+            return availableContracts;
         }
 
 

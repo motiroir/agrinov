@@ -105,22 +105,6 @@ tbody tr.selected {
 }
 
 
-
-.table-container-production {
-    margin: 170px auto;
-    margin-bottom: 0px;
-    width: 80%;
-    height: 650px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: var(--lightOrange) 3px 3px, var(--orangeRed) 6px 6px, var(--paleRed) 9px 9px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .btn-container-production {
     
     border : none;
