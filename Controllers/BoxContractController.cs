@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Diagnostics;
+using System.IO.Pipelines;
 using static System.Collections.Specialized.BitVector32;
 
 namespace AgriNov.Controllers
@@ -168,7 +169,9 @@ namespace AgriNov.Controllers
                             YearOptions = GetEnumSelectListString<Years>(),
                             ProductOptions = GetEnumSelectListString<ProductType>(),
                             SeasonOptions = GetEnumSelectListString<Seasons>(),
+                            QuantityPerBox = 4
                         };
+                        viewModel.BoxContract.Price = Math.Round(oldBoxContract.Price, 2);
 
                         return View(viewModel);
                     }

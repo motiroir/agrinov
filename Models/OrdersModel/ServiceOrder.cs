@@ -23,40 +23,43 @@ namespace AgriNov.Models
         {
             Payment p1 = new Payment
             {
-                Date = new DateTime(2024, 10, 15),
+                Date = new DateTime(2024, 10, 19),
                 PaymentType = PaymentType.CARD,
                 Received = true
             };
             Payment p2 = new Payment
             {
-                Date = new DateTime(2024, 10, 25),
+                Date = new DateTime(2024, 10, 24),
                 PaymentType = PaymentType.CASH,
                 Received = true
             };
             Payment p3 = new Payment
             {
-                PaymentType = PaymentType.NA,
-                Received = false
+                Date = new DateTime(2024, 10, 19),
+                PaymentType = PaymentType.CARD,
+                Received = true
             };
             Payment p4 = new Payment
             {
-                Date = new DateTime(2024, 10, 15),
+                Date = new DateTime(2024, 10, 24),
                 PaymentType = PaymentType.CARD,
                 Received = true
             };
 
             Payment p5 = new Payment
             {
-
-                PaymentType = PaymentType.NA,
-                Received = false
+                Date = new DateTime(2024, 10, 24),
+                PaymentType = PaymentType.CASH,
+                Received = true
             };
 
             Payment p6 = new Payment
             {
-                PaymentType = PaymentType.NA,
-                Received = false
+                Date = new DateTime(2024, 10, 26),
+                PaymentType = PaymentType.CARD,
+                Received = true
             };
+
             Payment p7 = new Payment
             {
                 PaymentType = PaymentType.NA,
@@ -65,16 +68,16 @@ namespace AgriNov.Models
 
             Payment p8 = new Payment
             {
-                Date = new DateTime(2024, 10, 20),
-                PaymentType = PaymentType.CHECK,
+                Date = new DateTime(2024, 10, 28),
+                PaymentType = PaymentType.CARD,
                 Received = true
             };
 
+
             Payment p9 = new Payment
             {
-                Date = new DateTime(2024, 10, 19),
-                PaymentType = PaymentType.CASH,
-                Received = true
+                PaymentType = PaymentType.NA,
+                Received = false
             };
 
             SaveShoppingCartAsAnOrder(1, p1);
@@ -98,7 +101,6 @@ namespace AgriNov.Models
             Order o9 = GetOrderById(9);
                
             
-
             o1.DateCreated = new DateTime(2024, 10, 15);
             o1.WasDelivered = true;
             
@@ -106,22 +108,23 @@ namespace AgriNov.Models
             o2.WasDelivered = true;
 
             o3.DateCreated = new DateTime(2024, 10, 16);
+            o3.WasDelivered = true;
 
             o4.DateCreated = new DateTime(2024, 10, 16);
             o4.WasDelivered = true;
 
             o5.DateCreated = new DateTime(2024, 10, 16);
+            o5.WasDelivered = true;
 
-            o6.DateCreated = new DateTime(2024, 10, 19);
 
-            o7.DateCreated = new DateTime(2024, 10, 20);
+            o6.DateCreated = new DateTime(2024, 10, 26);
 
-            o8.DateCreated = new DateTime(2024, 10, 20);
+            o7.DateCreated = new DateTime(2024, 10, 26);
 
-            o8.WasDelivered = true;
+            o8.DateCreated = new DateTime(2024, 10, 28);
 
-            o9.DateCreated = new DateTime(2024, 10, 20);
-            o9.WasDelivered = true;
+
+            o9.DateCreated = new DateTime(2024, 10, 28);
 
             UpdateOrder(o1);
             UpdateOrder(o2);

@@ -13,6 +13,7 @@ namespace AgriNov.Models
         [Required]
         [DisplayName("Prix (en €)")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0.")]
+        [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
 
         public int MaxSubscriptions { get; set; }

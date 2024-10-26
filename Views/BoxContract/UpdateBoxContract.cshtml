@@ -93,13 +93,13 @@
             </div>
             <div>
                 @Html.LabelFor(model => model.BoxContract.Price)
-                @Html.TextBoxFor(model => model.BoxContract.Price, new { @type = "number", @value = @Model.BoxContract.Price.ToString("F2"), @min = "0", @step = "1", @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BoxContract.Price, null, new { @class = " validation-error" })
+                @Html.TextBoxFor(model => model.BoxContract.Price, new { @type = "text", @class = "form-control", @step = "0.01", @pattern = @"^\d+(\,\d{1,2})?$" })
+                @Html.ValidationMessageFor(model => model.BoxContract.Price, null, new { @class = "validation-error" })
             </div>
 
             <div>
                 @Html.LabelFor(model => model.QuantityPerBox)
-                @Html.TextBoxFor(model => model.QuantityPerBox, new { @type = "number", @min = "0", @step = "1", @class = "form-control"})
+                @Html.TextBoxFor(model => model.QuantityPerBox, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.QuantityPerBox, null, new { @class = "validation-error" })
             </div>
         </div>
