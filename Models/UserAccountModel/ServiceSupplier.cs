@@ -56,11 +56,32 @@ namespace AgriNov.Models
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 // Supplier s5
-                Address a5 = new Address() { Line1 = "Au bout du chemin", Line2 = "Rue des blés", City = "Clissons", PostCode = "44190" };
-                ContactDetails c5 = new ContactDetails() { Name = "Martin", FirstName = "Lefevre", PhoneNumber = "0677413231" };
-                CompanyDetails cd5 = new CompanyDetails() { CompanyName = "La ferme des blés", SiretNumber = "01876543232411" };
-                Supplier s5 = new Supplier() { UserAccount = serviceUserAccount.GetUserAccountByID(5), Address = a5, ContactDetails = c5, CompanyDetails = cd5, ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf")) };
+                Address a5 = new Address() 
+                { 
+                    Line1 = "Au bout du chemin", 
+                    Line2 = "Rue des blés", 
+                    City = "Clissons", PostCode = "44190" 
+                };
+                ContactDetails c5 = new ContactDetails() 
+                { 
+                    Name = "Martin", 
+                    FirstName = "Lefevre", 
+                    PhoneNumber = "0677413231" 
+                };
+                CompanyDetails cd5 = new CompanyDetails() 
+                { 
+                    CompanyName = "La ferme des blés", 
+                    SiretNumber = "01876543232411" 
+                };
+                Supplier s5 = new Supplier() 
+                { 
+                    UserAccount = serviceUserAccount.GetUserAccountByID(5), 
+                    Address = a5, ContactDetails = c5, 
+                    CompanyDetails = cd5, 
+                    ProofPdfDocument = File.ReadAllBytes(Path.Combine(dirPath, "c_moreau-champ_dores-justificatif.pdf")) 
+                };
                 InsertSupplier(s5);
+
                 // Supplier s6
                 Address a6 = new Address()
                 {
@@ -135,7 +156,7 @@ namespace AgriNov.Models
                 };
                 CompanyDetails cd8 = new CompanyDetails()
                 {
-                    CompanyName = "Carottes Bio",
+                    CompanyName = "Légumes Bio",
                     SiretNumber = "8765432109876577"
                 };
                 Supplier s8 = new Supplier()

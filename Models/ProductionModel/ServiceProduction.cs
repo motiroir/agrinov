@@ -66,7 +66,7 @@ namespace AgriNov.Models
             UserAccountId= 6
         },
         new Production
-        {   CompanyName = "Les Récoltes de Claire",
+        {   CompanyName = "Les Fermiers de Vertou",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 50,
             Price = 4,
@@ -75,19 +75,19 @@ namespace AgriNov.Models
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
            Description ="Navets",
-            UserAccountId= 7
+            UserAccountId= 20
         },
         new Production
-        {   CompanyName = "Les Récoltes de Claire",
+        {   CompanyName = "Maraîchage Bernard",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 25,
             Price = 3,
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            ValidationStatus = ValidationStatus.REFUSED,
+            ValidationStatus = ValidationStatus.APPROVED,
             Description ="Carottes",
-            UserAccountId= 7
+            UserAccountId= 19
         },
 
         new Production
@@ -104,25 +104,27 @@ namespace AgriNov.Models
         },
 
         new Production
-        {   CompanyName = "Carottes Bio",
+        {   CompanyName = "Légumes Bio",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 60,
             Price = 4,
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
+            ValidationStatus = ValidationStatus.APPROVED,
            Description ="Navets",
             UserAccountId= 8
         },
         new Production
-        {   CompanyName = "Carottes Bio",
+        {   CompanyName = "Légumes Bio",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 40,
             Price = 3,
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-           Description ="Carottes Nouveaux, Laitues, épinards",
+            ValidationStatus = ValidationStatus.APPROVED,
+           Description ="Carottes, Oignons, Laitues, Épinards",
             UserAccountId= 8
         },
         new Production
@@ -133,30 +135,33 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
+            ValidationStatus = ValidationStatus.APPROVED,
             Description ="Pommes",
             UserAccountId= 6
         },
         new Production
-        {   CompanyName = "Les Récoltes de Claire",
+        {   CompanyName = "Fruits et Légumes Bio",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 30,
-            Price = 2,
+            Price = 20,
             DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            Description ="Epinards",
-            UserAccountId= 7
+            ValidationStatus = ValidationStatus.REFUSED,
+            Description ="Épinards",
+            UserAccountId= 18
         },
         new Production
-        {   CompanyName = "Les Récoltes de Claire",
+        {   CompanyName = "Les Fermiers de Vertou",
             ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 35,
             Price = 3,
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
+            ValidationStatus = ValidationStatus.APPROVED,
             Description ="Laitues",
-            UserAccountId= 7
+            UserAccountId= 20
         },
 
         new Production
@@ -167,6 +172,7 @@ namespace AgriNov.Models
             DeliveryFrequency = DeliveryFrequency.WEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
+            ValidationStatus = ValidationStatus.APPROVED,
             Description ="Volailles",
             UserAccountId= 5
         }
