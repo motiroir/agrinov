@@ -20,7 +20,7 @@
             
 <div class="table-container-production">
     
-    <table style="--colNbr: 10">
+    <table style="--colNbr: 11">
         <caption>Gestion des Productions</caption>
         <thead>
             
@@ -28,6 +28,7 @@
                 <th>Saison</th>
                 <th>Année</th>
                 <th>Fournisseur</th>
+                <th>Justificatif</th>
                 <th>Type de produit</th>
                 <th>Description</th>
                 <th>Volume par livraison</th>
@@ -50,6 +51,10 @@
                         <td>@production.SeasonOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Seasons).ToString())?.Text</td>
                         <td>@production.YearOptions.FirstOrDefault(x => x.Value == ((int)production.Production.Years).ToString())?.Text</td>
                         <td>@production.Production.CompanyName</td>
+                        @if(true)
+                        {
+                        <td><a class="pdfdownload" href="@Url.Action("DownloadPdf","Account",new { supplierId = production.Production.UserAccount.Supplier.Id })" target="_blank" rel="noreferrer noopener">PDF</a></td>
+                        }
                         <td>@production.Production.ProductType.GetDisplayName()</td>
                         <td>@production.Production.Description</td>
                         <td>@production.Production.VolumePerDelivery

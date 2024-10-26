@@ -2,6 +2,7 @@
 using AgriNov.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.VisualBasic;
 using System.Linq;
 
 namespace AgriNov.Models
@@ -37,7 +38,7 @@ namespace AgriNov.Models
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
             Description ="Carottes, Radis",
-            SupplierId= 5
+            UserAccountId= 5
         },
         new Production
         {
@@ -50,7 +51,7 @@ namespace AgriNov.Models
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
             Description="Navets, Panets",
-            SupplierId= 5
+            UserAccountId= 5
         },
         new Production
         {   CompanyName = "Fruits du Pays",
@@ -62,7 +63,7 @@ namespace AgriNov.Models
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
             Description ="Pommes",
-            SupplierId= 6
+            UserAccountId= 6
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -74,7 +75,7 @@ namespace AgriNov.Models
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
            Description ="Oeufs gros calibre",
-            SupplierId= 7
+            UserAccountId= 7
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -86,7 +87,7 @@ namespace AgriNov.Models
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
             Description ="Lait entier",
-            SupplierId= 7
+            UserAccountId= 7
         },
        
         new Production
@@ -99,7 +100,7 @@ namespace AgriNov.Models
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
             Description ="Boeufs",
-            SupplierId= 5
+            UserAccountId= 5
         },
 
         new Production
@@ -111,7 +112,7 @@ namespace AgriNov.Models
             Seasons = Seasons.SPRING,
             Years = Years._2025,
            Description ="Navets",
-            SupplierId= 8
+            UserAccountId= 8
         },
         new Production
         {   CompanyName = "Carottes Bio",
@@ -122,7 +123,7 @@ namespace AgriNov.Models
             Seasons = Seasons.SPRING,
             Years = Years._2025,
            Description ="Carottes Nouveaux, Laitues, épinards",
-            SupplierId= 8
+            UserAccountId= 8
         },
         new Production
         {   CompanyName = "Fruits du Pays",
@@ -133,7 +134,7 @@ namespace AgriNov.Models
             Seasons = Seasons.SPRING,
             Years = Years._2025,
             Description ="Pommes",
-            SupplierId= 6
+            UserAccountId= 6
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -144,7 +145,7 @@ namespace AgriNov.Models
             Seasons = Seasons.SPRING,
             Years = Years._2025,
             Description ="Oeufs Moyen Calibre",
-            SupplierId= 7
+            UserAccountId= 7
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
@@ -155,7 +156,7 @@ namespace AgriNov.Models
             Seasons = Seasons.SPRING,
             Years = Years._2025,
             Description ="Lait demi-écrémé",
-            SupplierId= 7
+            UserAccountId= 7
         },
        
         new Production
@@ -167,7 +168,7 @@ namespace AgriNov.Models
             Seasons = Seasons.SPRING,
             Years = Years._2025,
             Description ="Volailles",
-            SupplierId= 5
+            UserAccountId= 5
         }
     };
 
@@ -214,9 +215,14 @@ namespace AgriNov.Models
             return _DBContext.Productions.ToList();
         }
 
+        public List<Production> GetProductionsWithSupplierPdfProof()
+        {
+           return _DBContext.Productions.Include(p => p.UserAccount).ThenInclude(ua => ua.Supplier).ToList();
+        }
+
         public List<Production> GetProductionsBySupplier(int supplierID)
         {
-            return _DBContext.Productions.Where(production => production.SupplierId == supplierID).ToList();
+            return _DBContext.Productions.Where(production => production.UserAccountId == supplierID).ToList();
         }
 
 

@@ -57,10 +57,10 @@ namespace AgriNov.Controllers
             if (ModelState.IsValid)
             {
                 int userId = int.Parse(HttpContext.User.Identity.Name);
-                viewModel.Production.SupplierId = userId;
+                viewModel.Production.UserAccountId = userId;
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.SupplierId);
+                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.UserAccountId);
 
 
                     viewModel.Production.CompanyName = viewModel.UserAccount.Supplier.CompanyDetails.CompanyName;
@@ -130,10 +130,10 @@ namespace AgriNov.Controllers
             if (ModelState.IsValid)
             {
                 int userId = int.Parse(HttpContext.User.Identity.Name);
-                viewModel.Production.SupplierId = userId;
+                viewModel.Production.UserAccountId = userId;
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.SupplierId);
+                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.UserAccountId);
 
 
                     viewModel.Production.CompanyName = viewModel.UserAccount.Supplier.CompanyDetails.CompanyName;
@@ -224,7 +224,7 @@ namespace AgriNov.Controllers
             using (ServiceProduction sP = new ServiceProduction())
                 {
                 
-                    List<Production> productions = sP.GetProductions();
+                    List<Production> productions = sP.GetProductionsWithSupplierPdfProof();
 
 
                     List<ProductionViewModel> viewModelList = productions.Select(p => new ProductionViewModel
@@ -257,7 +257,7 @@ namespace AgriNov.Controllers
 
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    UserAccount supplier = sUA.GetUserAccountByIDEager(production.SupplierId);
+                    UserAccount supplier = sUA.GetUserAccountByIDEager(production.UserAccountId);
                     pVM.SupplierName = sUA.GetUserFullName(supplier);
                 }
             
