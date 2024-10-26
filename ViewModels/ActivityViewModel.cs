@@ -9,6 +9,9 @@ namespace AgriNov.ViewModels
         public List<Activity> AllActivities { get; set; }
         public List<Activity> ActivitiesByOrganizer { get; set; }
         public List<Activity> ActivitiesBookedByUser { get; set; }
+
+        public List<Booking> Bookings { get; set; }
+
         public int NbBookingsLeft {  get; set; }
     }
 }

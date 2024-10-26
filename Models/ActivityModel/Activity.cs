@@ -24,7 +24,7 @@ namespace AgriNov.Models
         public string Name { get; set; }
         [Required]
         [MaxLength(500)]
-        [MinLength(20, ErrorMessage ="Veuillez décrire l'atelier")]
+        [MinLength(20, ErrorMessage = "Veuillez décrire l'atelier")]
         public string Description { get; set; }
         [DisplayName("Durée de l'atelier (en heure)")]
         public int Duration { get; set; }

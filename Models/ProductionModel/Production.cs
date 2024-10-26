@@ -32,11 +32,11 @@ namespace AgriNov.Models
         public string Description { get; set; }
 
         [Required]
-        [DisplayName("Saison assginée")]
+        [DisplayName("Saison")]
         public Seasons Seasons { get; set; }
 
         [Required]
-        [DisplayName("Année assginée")]
+        [DisplayName("Année")]
         public Years Years { get; set; }
 
         [Required]

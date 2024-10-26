@@ -11,21 +11,21 @@
 
         public void InitializeTable()
         {
-            InsertBooking(1,1);
-            InsertBooking(1,2);
-            InsertBooking(2,3);
-            InsertBooking(4,1);
-            InsertBooking(4,3);
-            InsertBooking(5,1);
-            InsertBooking(5,2);
-            InsertBooking(2,5);
-            InsertBooking(2,4);
-            InsertBooking(2,12);
+            InsertBooking(1, 1);
+            InsertBooking(1, 2);
+            InsertBooking(2, 3);
+            InsertBooking(4, 1);
+            InsertBooking(4, 3);
+            InsertBooking(5, 1);
+            InsertBooking(5, 2);
+            InsertBooking(2, 5);
+            InsertBooking(2, 4);
+            InsertBooking(2, 12);
         }
 
         public void InsertBooking(int userAccountId, int activityId)
         {
-            Booking booking = new Booking() { ActivityId = activityId, UserAccountId = userAccountId, DateReserved = DateTime.Now};
+            Booking booking = new Booking() { ActivityId = activityId, UserAccountId = userAccountId, DateReserved = DateTime.Now };
             _DBContext.Add(booking);
             _DBContext.SaveChanges();
         }
@@ -40,7 +40,7 @@
             int nbCurrentBooking = _DBContext.Bookings.Count(booking => booking.ActivityId == activityId);
             using (ServiceActivity sA = new ServiceActivity())
             {
-                Activity activity = sA.GetActivity(activityId); 
+                Activity activity = sA.GetActivity(activityId);
                 if (activity.MaxParticipants > nbCurrentBooking)
                 {
                     return true;
@@ -55,7 +55,7 @@
             using (ServiceActivity sA = new ServiceActivity())
             {
                 Activity activity = sA.GetActivity(activityId);
-                return activity.MaxParticipants-nbCurrentBooking;
+                return activity.MaxParticipants - nbCurrentBooking;
             }
         }
 

@@ -66,26 +66,26 @@ namespace AgriNov.Models
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.EGGS,
-            VolumePerDelivery = 20,
-            Price = 1,
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 50,
+            Price = 4,
             DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
             ValidationStatus = ValidationStatus.APPROVED,
-           Description ="Oeufs gros calibre",
+           Description ="Navets",
             SupplierId= 7
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.DAYRIS,
+            ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 25,
-            Price = 2,
+            Price = 3,
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.WINTER,
             Years = Years._2024,
-            ValidationStatus = ValidationStatus.APPROVED,
-            Description ="Lait entier",
+            ValidationStatus = ValidationStatus.REFUSED,
+            Description ="Carottes",
             SupplierId= 7
         },
        
@@ -137,24 +137,24 @@ namespace AgriNov.Models
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.EGGS,
+            ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 30,
-            Price = 1,
+            Price = 2,
             DeliveryFrequency = DeliveryFrequency.BIWEEKLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            Description ="Oeufs Moyen Calibre",
+            Description ="Epinards",
             SupplierId= 7
         },
         new Production
         {   CompanyName = "Les Récoltes de Claire",
-            ProductType = ProductType.DAYRIS,
+            ProductType = ProductType.VEGETABLES,
             VolumePerDelivery = 35,
             Price = 3,
             DeliveryFrequency = DeliveryFrequency.MONTHLY,
             Seasons = Seasons.SPRING,
             Years = Years._2025,
-            Description ="Lait demi-écrémé",
+            Description ="Laitues",
             SupplierId= 7
         },
        
@@ -222,7 +222,7 @@ namespace AgriNov.Models
 
         public void InsertProduction(Production production)
         {
-            if (production.ValidationStatus != ValidationStatus.APPROVED)
+            if (production.ValidationStatus != ValidationStatus.APPROVED && production.ValidationStatus != ValidationStatus.REFUSED)
             {
 
                 production.ValidationStatus = ValidationStatus.WAITING;
