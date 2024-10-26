@@ -92,7 +92,7 @@ namespace AgriNov.Controllers
             // getting all relavant box contracts for sale in viewmodel
             using (ServiceBoxContract sBC = new ServiceBoxContract())
             {
-                pVM.AllBoxContractsToSale = sBC.GetAllBoxContractsForSaleNotAlreadySubscribed(userId);
+                pVM.AllBoxContractsToSale = sBC.GetAllAvailableBoxContracts(userId);
                 pVM.MyCurrentBoxContracts = sBC.GetCurrentBoxContractsForUser(userId);
                 if(pVM.AllBoxContractsToSale.Count > 0)
                 {
@@ -165,7 +165,7 @@ namespace AgriNov.Controllers
             {
                 sSC.AddBoxContractToShoppingCart(boxContractId, quantity, userId);
             }
-            return RedirectToAction("Index", "ShoppingCart");
+            return RedirectToAction("ProductDashboard", "Product", new { activeTab = "ShowMyBox" });
         }
 
 
