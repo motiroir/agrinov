@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 
 }
+
+<button id="btnDemo" type="button" class="demo-btn">D</button>
+
 <div class="form-no-shadow">
 
     <div class="fieldsets-container">
@@ -108,4 +111,14 @@
         });
     });
 
+
+    document.getElementById('btnDemo').addEventListener('click', function () {
+        document.getElementById('Activity_Name').value = 'Sculpture de potimarrons';
+        document.getElementById('Activity_Datetime').value = '2024-10-30T15:30';
+        document.getElementById('Activity_Duration').value = 2; 
+        document.getElementById('Activity_Location').value = '12 rue des producteurs, 44190 Clisson, France';
+        document.getElementById('Activity_MaxParticipants').value = 20; 
+        document.getElementById('Activity_MaxInvitesPerPerson').value = 5; 
+        document.getElementById('Activity_Description').value = 'Plongez dans l\'art de la sculpture sur potimarron pour célébrer l\'automne et Halloween ! Cet atelier créatif vous guide étape par étape pour transformer de simples potimarrons en œuvres d\'art uniques. Rejoignez-nous pour une session conviviale où vous apprendrez différentes techniques de sculpture et repartirez avec votre propre création.';
+    });
 </script>

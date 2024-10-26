@@ -42,9 +42,14 @@
                     @if (!string.IsNullOrEmpty(Model.Address.Line2))
 
                     {
-                        <span class="info-value">@Model.Address.Line2,</span>
+                        <span class="info-value">@Model.Address.Line2</span>
                     }
+                    @if (!string.IsNullOrEmpty(Model.Address.Line1))
+
+                    {
                         <span class="info-value">@Model.Address.Line1</span>
+                    }
+                       
                 </div>
                 <div class="info-row">
                     <span class="info-label">Ville :</span>

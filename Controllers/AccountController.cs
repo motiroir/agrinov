@@ -83,7 +83,7 @@ namespace AgriNov.Controllers
                     serviceUser.InsertUser(user);
                     // Rewrite cookie with new permission
                     UpdateRoleInAuthCookie(UserAccountLevel.USER);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "DashBoard");
                 }
             }
             return View(user);
@@ -130,7 +130,7 @@ namespace AgriNov.Controllers
                     serviceCorporateUser.InsertCorporateUser(corporateUser);
                     // Rewrite cookie with new permission
                     UpdateRoleInAuthCookie(UserAccountLevel.CORPORATE);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "DashBoard");
                 }
             }
             return View(corporateUser);
@@ -183,7 +183,7 @@ namespace AgriNov.Controllers
                     serviceSupplier.InsertSupplier(viewModel.Supplier);
                     // Rewrite cookie with new permission
                     UpdateRoleInAuthCookie(UserAccountLevel.SUPPLIER);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "DashBoard");
                 }
             }
             return View(viewModel);

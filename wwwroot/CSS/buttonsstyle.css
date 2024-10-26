@@ -67,6 +67,22 @@
     background-color: #E47271;
 }
 
+.demo-btn {
+    position: relative;
+    margin: 10px;
+    margin-left: auto;
+    width: 20px;
+    border: solid 1px var(--orange);
+    text-decoration: none;
+    color: var(--orange);
+    padding: 10px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+}
 
 .rounded {
     --_bdrs: 50%;

@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="~/CSS/formstyle.css">
     <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
 }
+
+
 <div class="form">
+    <button id="btnDemo" type="button" class="demo-btn">D</button>
+
     @using (Html.BeginForm("AddRegularUser", "Account", FormMethod.Post))
     {
         <h2>Entrez vos informations</h2>
@@ -61,3 +65,15 @@
         </div>
     }
 </div>
+
+<script>
+    document.getElementById('btnDemo').addEventListener('click', function () {
+        document.getElementById('ContactDetails_Name').value = 'Nom';
+        document.getElementById('ContactDetails_FirstName').value = 'Prénom';
+        document.getElementById('ContactDetails_PhoneNumber').value = '0123456789';
+        document.getElementById('Address_Line2').value = '12 rue des producteurs';
+        document.getElementById('Address_Line1').value = ' ';
+        document.getElementById('Address_PostCode').value = '44190';
+        document.getElementById('Address_City').value = 'Clisson';
+    });
+</script>
