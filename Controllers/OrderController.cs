@@ -27,7 +27,7 @@ namespace AgriNov.Controllers
         {
             using (ServiceOrder sO = new ServiceOrder())
             {
-                viewModel.AllOrders = sO.GetAllOrdersWithoutDetails() ?? new List<Order>();
+                viewModel.AllOrders = sO.GetAllOrdersWithJustUserDetails() ?? new List<Order>();
             }
 
             viewModel.PaymentOptions = GetEnumSelectListString<PaymentType>() ?? new List<SelectListItem>();
