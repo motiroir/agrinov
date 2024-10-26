@@ -76,7 +76,7 @@ namespace AgriNov.Models
                 };
                 CompanyDetails cd10 = new CompanyDetails()
                 {
-                    CompanyName = "BNP Paribas",
+                    CompanyName = "Crédit Agricole",
                     SiretNumber = "98765432100123"
                 };
                 CorporateUser cu10 = new CorporateUser()
