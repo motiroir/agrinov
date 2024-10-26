@@ -38,7 +38,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var production in Model)
+            @foreach (var production in Model.ToList().AsEnumerable().Reverse())
             {
                 <tr>
                     <!-- Inclure un formulaire pour chaque ligne de production -->

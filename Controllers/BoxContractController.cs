@@ -199,22 +199,16 @@ namespace AgriNov.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                        
                     using (ServiceProduction sP = new ServiceProduction())
                     {
+
                         int stock = sP.CalculateStock(viewModel.ProductType, viewModel.Seasons, viewModel.Years);
-
-                        int quantityPerBox = (int)((stock / viewModel.BoxContract.MaxSubscriptions) / 13);
-
                         viewModel.GlobalStock = stock;
-                        viewModel.QuantityPerBox = quantityPerBox;
+                        viewModel.BoxContract.MaxSubscriptions = (int)(stock / (viewModel.QuantityPerBox * 13));
 
                         ViewBag.ContractExists = false;
                         return View(viewModel);
-                    }   
-                        
-                    
+                    }
                 }
             }
 
@@ -230,6 +224,12 @@ namespace AgriNov.Controllers
 
                             if (!contractExists)
                             {
+                                using (ServiceProduction sP = new ServiceProduction())
+                                {
+                                    int stock = sP.CalculateStock(viewModel.ProductType, viewModel.Seasons, viewModel.Years);
+                                    viewModel.GlobalStock = stock;
+                                    viewModel.BoxContract.MaxSubscriptions = (int)(stock / (viewModel.QuantityPerBox * 13));
+                                }
                                 viewModel.BoxContract.DateLastModified = DateTime.Now;
                                 viewModel.BoxContract.ProductType = viewModel.ProductType;
                                 viewModel.BoxContract.Seasons = viewModel.Seasons;

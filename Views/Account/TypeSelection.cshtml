@@ -13,18 +13,18 @@
 <div class="form">
     @using (Html.BeginForm("TypeSelection", "Account", FormMethod.Post))
     {
-        <h2>Choisissez votre type de compte</h2>
+        <h2>Pour compléter votre inscription, veuillez faire un choix:</h2>
 
         @Html.LabelFor(model => model.UserAccountLevel, "Type de Compte :")
 
         @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.USER, new { id = "user", @class = "radio-input" })
-        <label for="user" class="radio-label">Adhérent</label>
+        <label for="user" class="radio-label">Je suis un particulier</label>
 
         @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.CORPORATE, new { id = "corporate", @class = "radio-input" })
-        <label for="corporate" class="radio-label">Adhérent Comité d'Entreprise</label>
+        <label for="corporate" class="radio-label">Je représente un comité d'entreprise</label>
 
         @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.SUPPLIER, new { id = "supplier", @class = "radio-input" })
-        <label for="supplier" class="radio-label">Fournisseur</label>
+        <label for="supplier" class="radio-label">Je suis un producteur</label>
 
         <div class="button-container">
         <button type="submit" class="orange-btn">Valider</button>
