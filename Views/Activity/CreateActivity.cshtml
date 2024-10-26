@@ -11,62 +11,62 @@
 }
 <div class="form-no-shadow">
 
-        <div class="fieldsets-container">
-            <fieldset>
-                <div>
-                    @Html.LabelFor(model => model.Activity.Name)
-                    @Html.TextBoxFor(model => model.Activity.Name)
-                    @Html.ValidationMessageFor(model => model.Activity.Name)
-                </div>
+    <div class="fieldsets-container">
+        <fieldset>
+            <div>
+                @Html.LabelFor(model => model.Activity.Name)
+                @Html.TextBoxFor(model => model.Activity.Name)
+                @Html.ValidationMessageFor(model => model.Activity.Name)
+            </div>
 
-                <div>
-                    @Html.LabelFor(model => model.Activity.Datetime,"Jour et Heure de l'atelier")
+            <div>
+                @Html.LabelFor(model => model.Activity.Datetime, "Jour et Heure de l'atelier")
                 @Html.EditorFor(model => model.Activity.Datetime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local" } })
-                    @Html.ValidationMessageFor(model => model.Activity.Datetime)
-                </div>
+                @Html.ValidationMessageFor(model => model.Activity.Datetime)
+            </div>
 
-                <div>
-                    @Html.LabelFor(model => model.Activity.Duration)
-                    @Html.TextBoxFor(model => model.Activity.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Activity.Duration)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.Activity.Location)
-                    @Html.TextBoxFor(model => model.Activity.Location)
-                    @Html.ValidationMessageFor(model => model.Activity.Location)
-                </div>
+            <div>
+                @Html.LabelFor(model => model.Activity.Duration)
+                @Html.TextBoxFor(model => model.Activity.Duration, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Activity.Duration)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Activity.Location)
+                @Html.TextBoxFor(model => model.Activity.Location)
+                @Html.ValidationMessageFor(model => model.Activity.Location)
+            </div>
 
-                <div>
-                    @Html.LabelFor(model => model.Activity.MaxParticipants)
-                    @Html.TextBoxFor(model => model.Activity.MaxParticipants, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Activity.MaxParticipants)
-                </div>
+            <div>
+                @Html.LabelFor(model => model.Activity.MaxParticipants)
+                @Html.TextBoxFor(model => model.Activity.MaxParticipants, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Activity.MaxParticipants)
+            </div>
 
-                <div>
-                    @Html.LabelFor(model => model.Activity.MaxInvitesPerPerson)
-                    @Html.TextBoxFor(model => model.Activity.MaxInvitesPerPerson, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Activity.MaxInvitesPerPerson)
-                </div>
-            </fieldset>
+            <div>
+                @Html.LabelFor(model => model.Activity.MaxInvitesPerPerson)
+                @Html.TextBoxFor(model => model.Activity.MaxInvitesPerPerson, new { @type = "number", @min = "0", @step = "1", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Activity.MaxInvitesPerPerson)
+            </div>
+        </fieldset>
 
-            <fieldset>
-                    @* add file *@
-                    @Html.LabelFor(Model => Model.Activity.ImgActivity)
+        <fieldset>
+            @* add file *@
+            @Html.LabelFor(Model => Model.Activity.ImgActivity)
             <input id="txtFile" type="file" value="Upload File" class="custom-file-input" />
-                    @* show file in live time with js script down below*@
-                    <img id="imgViewer" />
-            </fieldset>
-        </div>
+            @* show file in live time with js script down below*@
+            <img id="imgViewer" />
+        </fieldset>
+    </div>
 
-        <div class="production-description">
-            @Html.LabelFor(model => model.Activity.Description)
-            @Html.TextAreaFor(model => model.Activity.Description, new { @class = "form-control", @rows = "5", @cols = "50" })
-            @Html.ValidationMessageFor(model => model.Activity.Description)
-        </div>
+    <div class="production-description">
+        @Html.LabelFor(model => model.Activity.Description)
+        @Html.TextAreaFor(model => model.Activity.Description, new { @class = "form-control", @rows = "5", @cols = "50" })
+        @Html.ValidationMessageFor(model => model.Activity.Description)
+    </div>
 
-        <div class="button-container">
-            <button id="btnSave" class="orange-btn w-100">Valider</button>
-        </div>
+    <div class="button-container">
+        <button id="btnSave" class="orange-btn w-100">Valider</button>
+    </div>
 
 </div>
 
@@ -107,6 +107,5 @@
             },
         });
     });
-    
-</script>
 
+</script>

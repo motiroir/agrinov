@@ -5,14 +5,14 @@
     ViewBag.Title = @Model.Activity.Name;
 }
 @section ExtraStyle {
-    <link rel="stylesheet" href="~/CSS/detailstyle.css">
+        <link rel="stylesheet" href="~/CSS/detailstyle.css">
 }
 <div class="activity-detail-container">
     <div class="full-img">
         @{
-            String srcValue = "data:image.jpg;base64," +Convert.ToBase64String(Model.Activity.ImgActivity) + "";
-                <img id="imgViewer"  src=@srcValue />
-         }
+            String srcValue = "data:image.jpg;base64," + Convert.ToBase64String(Model.Activity.ImgActivity) + "";
+                    <img id="imgViewer"  src=@srcValue />
+        }
     </div>
     <div class="activity-content">
         <a href="@Url.Action("ActivityDashboard", "Activity")">
@@ -42,15 +42,15 @@
         @using (Html.BeginForm("BookActivity", "Activity", FormMethod.Post))
         {
             @Html.HiddenFor(model => model.Activity.Id)
-            <div class="btn-div">
-                <div class="quantity-selector">
-                    <button class="minus">-</button>
-                    <input type="text" value="1" min="1" max="@(@Model.Activity.MaxInvitesPerPerson + 1)">
-                    <button class="plus">+</button>
+                <div class="btn-div">
+                    <div class="quantity-selector">
+                        <button class="minus">-</button>
+                        <input type="text" value="1" min="1" max="@(@Model.Activity.MaxInvitesPerPerson + 1)">
+                        <button class="plus">+</button>
+                    </div>
+                    <button type="submit" class="btn-inscription">inscription</button>
                 </div>
-                <button type="submit" class="btn-inscription">inscription</button>
-            </div>
-            
+
         }
     </div>
 </div>

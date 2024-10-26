@@ -24,7 +24,7 @@ namespace AgriNov.Controllers
             Activity activity = JsonConvert.DeserializeObject<Activity>(fileObj.Activity);
             if (ModelState.IsValid)
             {
-                using(ServiceActivity sA = new ServiceActivity()) 
+                using (ServiceActivity sA = new ServiceActivity())
                 {
                     activity.OrganizerId = Int32.Parse(HttpContext.User.Identity.Name);
                     //add img to activity
@@ -45,9 +45,9 @@ namespace AgriNov.Controllers
 
             //update the activity info to aVM that will be given to ActivityDashboard so that errors will be displayed
             ActivityViewModel aVM = new ActivityViewModel();
-            aVM.Activity = activity;  
+            aVM.Activity = activity;
             ViewData["ActiveTab"] = "CreateActivity";
-            return View("ActivityDashboard", aVM);  
+            return View("ActivityDashboard", aVM);
         }
 
         [Authorize]
@@ -103,14 +103,14 @@ namespace AgriNov.Controllers
                 aVM.ActivitiesBookedByUser = sA.GetActivitiesByUserBooking(userId);
             }
 
-            ViewData["ActiveTab"]=activeTab;
+            ViewData["ActiveTab"] = activeTab;
             return View(aVM);
         }
 
         [Authorize]
         public IActionResult ShowAllActivities(ActivityViewModel aVM)
         {
-             return View(aVM);
+            return View(aVM);
         }
 
         [Authorize]
@@ -136,7 +136,7 @@ namespace AgriNov.Controllers
                 }
             }
             // getting number booking left
-            using(ServiceBooking sB = new ServiceBooking())
+            using (ServiceBooking sB = new ServiceBooking())
             {
                 aVM.NbBookingsLeft = sB.NbBookingsLeft(id);
             }
@@ -179,15 +179,15 @@ namespace AgriNov.Controllers
                 Activity activity = sA.GetActivity(id);
                 if (activity != null)
                 {
-                    return View(activity); 
+                    return View(activity);
                 }
             }
             return View("Error");
         }
 
-        
+
         [HttpPost, ActionName("DeleteActivity")]
-        
+
         public IActionResult DeleteConfirmed(int id)
         {
             using (ServiceActivity sA = new ServiceActivity())
@@ -196,7 +196,7 @@ namespace AgriNov.Controllers
                 Activity activity = sA.GetActivity(id);
                 if (activity != null)
                 {
-                    sA.DeleteActivity(id); 
+                    sA.DeleteActivity(id);
                     TempData["SuccessMessage"] = "L'activité a été supprimée avec succès.";
                     return RedirectToAction("ActivityDashboard", new { activeTab = "ShowMyActivities" });
                 }

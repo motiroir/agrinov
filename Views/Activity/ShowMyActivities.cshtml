@@ -68,7 +68,6 @@
                             <p class="activity-description">@activity.Description</p>
                         </div>
                         <div class="btn-div">
-                            <a href="@Url.Action("DeleteActivity", "Activity", new { id = @activity.Id })" class="btn-inscription">annuler</a>
                             <a href="@Url.Action("UpdateActivity", "Activity", new { id = @activity.Id })" class="btn-inscription">modifier</a>
                             <a href="@Url.Action("ShowActivityDetails", "Activity", new { id = @activity.Id })" type="submit" class="btn-inscription">voir les détails</a>
                         </div>
@@ -76,7 +75,8 @@
                 </div>
             }
         </div>
-    } else
+    }
+    else
     {
         <h4>Vous n'avez pas d'atelier dont vous êtes l'organisateur. Vous souhaitez en proposer un ? </h4>
         <div class="btn-div">
