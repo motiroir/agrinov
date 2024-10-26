@@ -34,12 +34,12 @@ namespace AgriNov.Models
 
         public List<Activity> GetAllActivities()
         {
-            return _DBContext.Activities.ToList();
+            return _DBContext.Activities.OrderBy(activity => activity.Datetime).ToList();
         }
 
         public List<Activity> GetActivitiesByOrganizer(int organizerId)
         {
-            return _DBContext.Activities.Where(activity => activity.OrganizerId == organizerId).ToList();
+            return _DBContext.Activities.Where(activity => activity.OrganizerId == organizerId).OrderBy(activity => activity.Datetime).ToList();
         }
 
         public List<Activity> GetActivitiesByUserBooking(int userId)
@@ -53,7 +53,7 @@ namespace AgriNov.Models
                     Activity activity = GetActivity(activityId);
                     activities.Add(activity);
                 }
-                return activities;
+                return activities.OrderBy(activity => activity.Datetime).ToList();
             }
         }
        
