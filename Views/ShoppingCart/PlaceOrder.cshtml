@@ -17,7 +17,7 @@
     <div class="underline" id="underline-2"></div>
     <div class="underline" id="underline-3"></div>
 </div>
-
+<button id="btnDemo" type="button" class="demo-btn">P</button>
 <div class="info-container">
     <div class="info">
         <svg width="60" height="60" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@
         </svg>
 
         <p class="p2">
-            Toutes les commandes peuvent être récupérées sur site chaque jeudi (et dès le jeudi suivant la commande) de 9h à 12h et de 14h à 17h.
+            Toutes les commandes peuvent être récupérées sur site chaque jeudi (et dès le jeudi suivant la commande) de 15h à 19h.
             Si vous avez souscrit à un abonnement panier, celui-ci doit être obligatoirement récupéré chaque semaine à partir de la date de début de la saison correspondante.
         </p>
     </div>
@@ -250,5 +250,12 @@
 
 @section Scripts {
     <script src="~/scripts/payment.js"></script>
+    <script>
+        document.getElementById('btnDemo').addEventListener('click', function () {
+        document.getElementById('name').value = 'Mme Prune Dupont';
+        document.getElementById('cardnumber').value = '4533 4250 2810 2024';
+        document.getElementById('expirationdate').value = '09/29';
+    });
+    </script>
  
 }
