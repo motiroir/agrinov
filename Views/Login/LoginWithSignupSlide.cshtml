@@ -7,6 +7,7 @@
         <title>S'identifier</title>
         <link rel="icon" type="image/x-icon" href="~/img/global/Logo.ico">
         <link rel="stylesheet" href="~/CSS/loginstyle.css">
+        <link rel="stylesheet" href="~/CSS/buttonsstyle.css">
     </head>
     <body class="@(ViewData["FromAccountCreation"] != null && (bool)ViewData["FromAccountCreation"] ? "slide" : "")">
         
@@ -26,9 +27,16 @@
                 <button class="signupBtn">Inscription</button>
             </div>
             <div class="formBx">
+               
                 <div class="form signinform">
                     @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                     {
+                        <div class="button-container2">
+                            <button id="btn1" type="button" class="demo-btn2">U</button>
+                            <button id="btn2" type="button" class="demo-btn2">S</button>
+                            <button id="btn3" type="button" class="demo-btn2">A</button>
+                        </div>
+
                         <h3>se connecter</h3>
                             @* @Html.LabelFor(model => model.UserAccountLogin.UserAccount.Mail) *@
                             @Html.TextBoxFor(model => model.UserAccountLogin.UserAccount.Mail, new { placeholder = "Email"})
@@ -44,6 +52,9 @@
                 <div class="form signupform">
                     @using (Html.BeginForm("CreateAccount", "Login", FormMethod.Post))
                     {
+                        <div class="login-buttons-container">
+                            <button id="btn4" type="button" class="demo-btn2">U</button>
+                        </div>
                         <h3>s'inscrire</h3>
                             @* @Html.LabelFor(model => model.UserAccountCreation.UserAccount.Mail) *@
                             @Html.TextBoxFor(model => model.UserAccountCreation.UserAccount.Mail, new { placeholder = "Email"})
@@ -79,6 +90,29 @@
             signinBtn.onclick = function(){
                 body.classList.remove('slide');
             }
+
+            // Pauline singup
+            document.getElementById('btn4').addEventListener('click', function () {
+            document.getElementById('UserAccountCreation_UserAccount_Mail').value = 'p.lebreton@clisson.fr';
+            document.getElementById('UserAccountCreation_UserAccount_Password').value = 'agrinov2024';
+            });
+            // Pauline singin
+            document.getElementById('btn1').addEventListener('click', function () {
+            document.getElementById('UserAccountLogin_UserAccount_Mail').value = 'p.lebreton@clisson.fr';
+            document.getElementById('UserAccountLogin_UserAccount_Password').value = 'agrinov2024';
+            });
+
+            // Morgane singin
+            document.getElementById('btn2').addEventListener('click', function () {
+            document.getElementById('UserAccountLogin_UserAccount_Mail').value = 'c.moreau@angers.fr';
+            document.getElementById('UserAccountLogin_UserAccount_Password').value = 'france2024';
+            });
+
+            // Alexia singin
+            document.getElementById('btn3').addEventListener('click', function () {
+            document.getElementById('UserAccountLogin_UserAccount_Mail').value = 'a.roy@clisson.fr';
+            document.getElementById('UserAccountLogin_UserAccount_Password').value = 'chateau85';
+            });
     </script>
     </body>
 </html>
