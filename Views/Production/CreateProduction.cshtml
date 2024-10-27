@@ -12,11 +12,11 @@
 }
 
 <a href="@Url.Action("SupShowAllProductions", "Production")" class="return-link">< Retour à la liste des productions</a>
-<button id="btnDemo" type="button" class="demo-btn">D</button>
 
 <div class="form">
     @using (Html.BeginForm("CreateProduction", "Production", FormMethod.Post))
     {
+
         <h2>Proposer une nouvelle production</h2>
 
         <div class="fieldsets-container">
@@ -60,7 +60,7 @@
                     @Html.DropDownListFor(model => model.Production.Years, new SelectList(Model.YearOptions, "Value", "Text", 0), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Production.Years, "", new { @class = "text-danger" })
                 </div>
-
+                <button id="btnDemo" type="button" class="demo-btn">D</button>
             </fieldset>
         </div>
         <div class="production-description">

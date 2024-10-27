@@ -175,6 +175,97 @@ namespace AgriNov.Models
             ValidationStatus = ValidationStatus.APPROVED,
             Description ="Volailles",
             UserAccountId= 5
+        },
+
+        new Production
+        {   CompanyName = "Les récoltes de Claire",
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 12,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2024,
+            ValidationStatus = ValidationStatus.APPROVED,
+            Description ="Mâche, Chou-fleur, Carottes, Poireau",
+            UserAccountId= 7
+        },
+
+        new Production
+        {   CompanyName = "Les récoltes de Claire",
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 12,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2024,
+            ValidationStatus = ValidationStatus.REFUSED,
+            Description ="Carottes, Poireau",
+            UserAccountId= 7
+        },
+
+        new Production
+        {   CompanyName = "Les récoltes de Claire",
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 12,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SPRING,
+            Years = Years._2024,
+            ValidationStatus = ValidationStatus.APPROVED,
+            Description ="Mâche, Chou-fleur",
+            UserAccountId= 7
+        },
+
+        new Production
+        {   CompanyName = "Les récoltes de Claire",
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 12,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SUMMER,
+            Years = Years._2024,
+            ValidationStatus = ValidationStatus.APPROVED,
+            Description ="Tomate, Concombre, Epinard",
+            UserAccountId= 7
+        },
+
+        new Production
+        {   CompanyName = "Les récoltes de Claire",
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 12,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.SUMMER,
+            Years = Years._2024,
+            ValidationStatus = ValidationStatus.APPROVED,
+            Description ="Carotte, Radis, Mâche",
+            UserAccountId= 7
+        },
+
+        new Production
+        {   CompanyName = "Les récoltes de Claire",
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 12,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.AUTUMN,
+            Years = Years._2024,
+            ValidationStatus = ValidationStatus.APPROVED,
+            Description ="Poireau, Epinard, Courge, Mâche",
+            UserAccountId= 7
+        },
+
+        new Production
+        {   CompanyName = "Les récoltes de Claire",
+            ProductType = ProductType.VEGETABLES,
+            VolumePerDelivery = 40,
+            Price = 12,
+            DeliveryFrequency = DeliveryFrequency.WEEKLY,
+            Seasons = Seasons.WINTER,
+            Years = Years._2024,
+            ValidationStatus = ValidationStatus.APPROVED,
+            Description ="Courge, Carotte, Betterave, Chou-fleur, Mâche",
+            UserAccountId= 7
         }
     };
 
