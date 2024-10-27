@@ -12,7 +12,7 @@ namespace AgriNov.Models
         public string CompanyName { get; set; }
 
         [Required]
-        [DisplayName("Quantité par semaine (au kg / Litre / Pièce)")]
+        [DisplayName("Quantité par livraison (au kg / Litre / Pièce)")]
         [Range(1, int.MaxValue, ErrorMessage = "Le volume doit être supérieur à 0.")]
         public int VolumePerDelivery { get; set; }
 

@@ -42,15 +42,15 @@ using (ServiceUserAccount sUA = new ServiceUserAccount())
     sUA.CreateDeleteDatabase();
     sUA.InitializeTable();
 }
-using(IServiceUser sU = new ServiceUser())
+using (IServiceUser sU = new ServiceUser())
 {
     sU.InitializeTable();
 }
-using(IServiceSupplier sP = new ServiceSupplier())
+using (IServiceSupplier sP = new ServiceSupplier())
 {
     sP.InitializeTable();
 }
-using(IServiceCorporateUser sCU = new ServiceCorporateUser())
+using (IServiceCorporateUser sCU = new ServiceCorporateUser())
 {
     sCU.InitializeTable();
 }
@@ -70,19 +70,19 @@ using (ServiceBoxContract bC = new ServiceBoxContract())
 {
     bC.InitializeTable();
 }
-using(ServiceBooking sB = new ServiceBooking())
+using (ServiceBooking sB = new ServiceBooking())
 {
     sB.InitializeTable();
 }
-using(IServiceMemberShipFee sMB = new ServiceMemberShipFee())
+using (IServiceMemberShipFee sMB = new ServiceMemberShipFee())
 {
     sMB.InitializeTable();
 }
-using(IServiceShoppingCart sSC = new ServiceShoppingCart())
+using (IServiceShoppingCart sSC = new ServiceShoppingCart())
 {
     sSC.InitializeTable();
 }
-using(IServiceOrder sO = new ServiceOrder())
+using (IServiceOrder sO = new ServiceOrder())
 {
     sO.InitializeTable();
 }

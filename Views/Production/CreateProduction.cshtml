@@ -12,6 +12,7 @@
 }
 
 <a href="@Url.Action("SupShowAllProductions", "Production")" class="return-link">< Retour à la liste des productions</a>
+<button id="btnDemo" type="button" class="demo-btn">D</button>
 
 <div class="form">
     @using (Html.BeginForm("CreateProduction", "Production", FormMethod.Post))
@@ -74,3 +75,14 @@
     }
 
 </div>
+
+<script type="text/javascript">
+    document.getElementById('btnDemo').addEventListener('click', function () {
+        document.getElementById('Production_ProductType').value = 1;
+        document.getElementById('Production_VolumePerDelivery').value = 60;
+        document.getElementById('Production_Price').value = 4;
+        document.getElementById('Production_Seasons').value = 1;
+        document.getElementById('Production_Years').value = 2;
+        document.getElementById('Production_Description').value = 'Mâche, Chou-fleur, Navet, Poireaux, Carotte';
+    });
+</script>
