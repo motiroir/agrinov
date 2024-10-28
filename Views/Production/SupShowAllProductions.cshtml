@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (AgriNov.Models.Production production in Model.ProductionsBySupplier)
+            @foreach (AgriNov.Models.Production production in Model.ProductionsBySupplier.ToList().AsEnumerable().Reverse())
             {
                 <tr data-id="@production.Id" data-validation-status="@production.ValidationStatus" onclick="selectRow(this);">
 

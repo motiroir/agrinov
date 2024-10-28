@@ -194,8 +194,8 @@ namespace AgriNov.Models
                 // Admin adm3
                 ContactDetails c7 = new ContactDetails()
                 {
-                    Name = "Dupont", 
-                    FirstName = "Prune",
+                    Name = "Du Moulin", 
+                    FirstName = "Pauline",
                     PhoneNumber = "0789124567"
                 };
                 Address a7 = new Address()
