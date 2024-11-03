@@ -1,14 +1,9 @@
 ﻿using AgriNov.Models;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Diagnostics;
-using System.IO.Pipelines;
-using static System.Collections.Specialized.BitVector32;
-
 namespace AgriNov.Controllers
 {
     public class BoxContractController : Controller

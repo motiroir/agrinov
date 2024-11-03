@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
-using System.Threading.Tasks;
 using AgriNov.Models;
 using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace AgriNov.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -43,7 +36,7 @@ namespace AgriNov.Controllers
             return View(currentShoppingCart);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult Index(ShoppingCart shoppingCart)
         {
@@ -83,7 +76,7 @@ namespace AgriNov.Controllers
             return RedirectToAction("Index", "ShoppingCart");
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpGet]
         public IActionResult PlaceOrder()
         {
@@ -119,7 +112,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult PlaceOrder(PaymentViewModel viewModel, string action)
         {
@@ -179,7 +172,7 @@ namespace AgriNov.Controllers
                 return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpGet]
         public IActionResult EmptyCart()
         {

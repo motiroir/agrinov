@@ -189,7 +189,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpGet]
         public IActionResult ChangePassword()
         {
@@ -201,7 +201,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult ChangePassword(UserAccountUpdate viewModel)
         {
@@ -237,14 +237,14 @@ namespace AgriNov.Controllers
             return RedirectToAction("Index", "DashBoard");
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpGet]
         public IActionResult ChangeInfo()
         {
             UserAccountInfoUpdate viewModel = new UserAccountInfoUpdate();
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
-                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDEager(HttpContext.User.Identity.Name);
+                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDFullDetails(HttpContext.User.Identity.Name);
                 viewModel.UserAccountId = currentAccount.Id;
                 viewModel.UserAccountLevel = currentAccount.UserAccountLevel;
                 // Assign data to viewModel depending on the type of account
@@ -272,7 +272,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult ChangeInfo(UserAccountInfoUpdate viewModel)
         {
@@ -286,7 +286,7 @@ namespace AgriNov.Controllers
                 User updatedUser = null;
                 using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
                 {
-                    updatedUser = serviceUserAccount.GetUserAccountByIDEager(viewModel.UserAccountId).User;
+                    updatedUser = serviceUserAccount.GetUserAccountByIDFullDetails(viewModel.UserAccountId).User;
                 }
                 updatedUser.Address = viewModel.Address;
                 updatedUser.ContactDetails = viewModel.ContactDetails;
@@ -301,7 +301,7 @@ namespace AgriNov.Controllers
                 CorporateUser updatedCorporateUser = null;
                 using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
                 {
-                    updatedCorporateUser = serviceUserAccount.GetUserAccountByIDEager(viewModel.UserAccountId).CorporateUser;
+                    updatedCorporateUser = serviceUserAccount.GetUserAccountByIDFullDetails(viewModel.UserAccountId).CorporateUser;
                 }
                 updatedCorporateUser.MaxBoxContractSubscription = viewModel.CorporateUser.MaxBoxContractSubscription;
                 updatedCorporateUser.MaxActivitiesSignUp = viewModel.CorporateUser.MaxActivitiesSignUp;
@@ -319,7 +319,7 @@ namespace AgriNov.Controllers
                 Supplier updatedSupplier = null;
                 using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
                 {
-                    updatedSupplier = serviceUserAccount.GetUserAccountByIDEager(viewModel.UserAccountId).Supplier;
+                    updatedSupplier = serviceUserAccount.GetUserAccountByIDFullDetails(viewModel.UserAccountId).Supplier;
                 }
                 if (viewModel.PdfFile != null)
                 {
@@ -416,7 +416,7 @@ namespace AgriNov.Controllers
             using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
                 viewModel.UserAccountId = id;
-                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDEager(id);
+                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDFullDetails(id);
                 viewModel.Mail = currentAccount.Mail;
                 viewModel.ProfilePic = currentAccount.ProfilePic;
                 viewModel.UserAccountLevel = currentAccount.UserAccountLevel;
@@ -449,7 +449,7 @@ namespace AgriNov.Controllers
         {
             // Get former cookie info
             ClaimsIdentity identity = (ClaimsIdentity) HttpContext.User.Identity;
-            Claim? oldRoleClaim = identity.FindFirst(ClaimTypes.Role);
+            Claim oldRoleClaim = identity.FindFirst(ClaimTypes.Role);
             // Remove old role
             if(oldRoleClaim != null)
             {

@@ -3,7 +3,6 @@ using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
 
 namespace AgriNov.Controllers
 {
@@ -116,7 +115,7 @@ namespace AgriNov.Controllers
             return RedirectToAction("ShowAllOrders", "Order");
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult ShowMyOrders()
         {
 

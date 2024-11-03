@@ -15,8 +15,6 @@
     {
         <h2>Pour compléter votre inscription, veuillez faire un choix:</h2>
 
-        @* @Html.LabelFor(model => model.UserAccountLevel, "Type de Compte :") *@
-
         @Html.RadioButtonFor(model => model.UserAccountLevel, AgriNov.Models.UserAccountLevel.USER, new { id = "user", @class = "radio-input" })
         <label for="user" class="radio-label">Je suis un particulier</label>
 

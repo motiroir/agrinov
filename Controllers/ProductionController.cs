@@ -3,10 +3,6 @@ using AgriNov.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
-
 
 
 namespace AgriNov.Controllers
@@ -60,7 +56,7 @@ namespace AgriNov.Controllers
                 viewModel.Production.UserAccountId = userId;
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.UserAccountId);
+                    viewModel.UserAccount = sUA.GetUserAccountByIDFullDetails(viewModel.Production.UserAccountId);
 
 
                     viewModel.Production.CompanyName = viewModel.UserAccount.Supplier.CompanyDetails.CompanyName;
@@ -133,7 +129,7 @@ namespace AgriNov.Controllers
                 viewModel.Production.UserAccountId = userId;
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    viewModel.UserAccount = sUA.GetUserAccountByIDEager(viewModel.Production.UserAccountId);
+                    viewModel.UserAccount = sUA.GetUserAccountByIDFullDetails(viewModel.Production.UserAccountId);
 
 
                     viewModel.Production.CompanyName = viewModel.UserAccount.Supplier.CompanyDetails.CompanyName;
@@ -257,12 +253,12 @@ namespace AgriNov.Controllers
 
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    UserAccount supplier = sUA.GetUserAccountByIDEager(production.UserAccountId);
+                    UserAccount supplier = sUA.GetUserAccountByIDFullDetails(production.UserAccountId);
                     pVM.SupplierName = sUA.GetUserFullName(supplier);
                 }
             
                 
-                List<Production> productions = sP.GetProductions();
+                //List<Production> productions = sP.GetProductions();
                 pVM.ProductionsBySupplier = sP.GetProductionsBySupplier(userId);
                 
                 

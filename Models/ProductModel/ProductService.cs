@@ -1,6 +1,4 @@
-﻿
-
-namespace AgriNov.Models
+﻿namespace AgriNov.Models
 {
     public class ProductService : IProductService
     {

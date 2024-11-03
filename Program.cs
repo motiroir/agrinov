@@ -1,4 +1,3 @@
-using AgriNov;
 using AgriNov.Models;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;

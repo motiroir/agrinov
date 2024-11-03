@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AgriNov.Models
 {
     public class Production
     {
         public int Id { get; set; }
-
-        
         public string CompanyName { get; set; }
 
         [Required]
@@ -21,15 +18,13 @@ namespace AgriNov.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Le prix doit être supérieur à 0.")]
         public decimal Price { get; set; }
 
-        
         public ValidationStatus ValidationStatus { get; set; }
 
         [Required]
         [DisplayName("Type de produit")]
         public ProductType ProductType { get; set; }
 
-        [MaxLength(500)]
-        
+        [MaxLength(500)]  
         public string Description { get; set; }
 
         [Required]

@@ -7,14 +7,14 @@ namespace AgriNov.Controllers
 {
     public class DashBoard : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpGet]
         public IActionResult Index()
         {
             UserAccountInfoUpdate viewModel = new UserAccountInfoUpdate();
             using (ServiceUserAccount serviceUserAccount = new ServiceUserAccount())
             {
-                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDEager(HttpContext.User.Identity.Name);
+                UserAccount currentAccount = serviceUserAccount.GetUserAccountByIDFullDetails(HttpContext.User.Identity.Name);
 
                 viewModel.UserAccountId = currentAccount.Id;
                 viewModel.UserAccountLevel = currentAccount.UserAccountLevel;
@@ -45,7 +45,7 @@ namespace AgriNov.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult Index(UserAccountInfoUpdate viewModel)
         {
@@ -55,7 +55,7 @@ namespace AgriNov.Controllers
                 User updatedUser = null;
                 using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
                 {
-                    updatedUser = serviceUserAccount.GetUserAccountByIDEager(viewModel.UserAccountId).User;
+                    updatedUser = serviceUserAccount.GetUserAccountByIDFullDetails(viewModel.UserAccountId).User;
                 }
                 updatedUser.Address = viewModel.Address;
                 updatedUser.ContactDetails = viewModel.ContactDetails;
@@ -69,7 +69,7 @@ namespace AgriNov.Controllers
                 CorporateUser updatedCorporateUser = null;
                 using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
                 {
-                    updatedCorporateUser = serviceUserAccount.GetUserAccountByIDEager(viewModel.UserAccountId).CorporateUser;
+                    updatedCorporateUser = serviceUserAccount.GetUserAccountByIDFullDetails(viewModel.UserAccountId).CorporateUser;
                 }
                 updatedCorporateUser.MaxBoxContractSubscription = viewModel.CorporateUser.MaxBoxContractSubscription;
                 updatedCorporateUser.MaxActivitiesSignUp = viewModel.CorporateUser.MaxActivitiesSignUp;
@@ -86,7 +86,7 @@ namespace AgriNov.Controllers
                 Supplier updatedSupplier = null;
                 using (IServiceUserAccount serviceUserAccount = new ServiceUserAccount())
                 {
-                    updatedSupplier = serviceUserAccount.GetUserAccountByIDEager(viewModel.UserAccountId).Supplier;
+                    updatedSupplier = serviceUserAccount.GetUserAccountByIDFullDetails(viewModel.UserAccountId).Supplier;
                 }
                 if (viewModel.PdfFile != null)
                 {

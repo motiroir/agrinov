@@ -1,9 +1,8 @@
-using AgriNov.Models;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgriNov
+namespace AgriNov.Models
 {
     public class ServiceUserAccount : IServiceUserAccount
     {
@@ -46,7 +45,7 @@ namespace AgriNov
             return this._DBContext.UserAccounts.Find(userAccountID);
         }
 
-        public UserAccount GetUserAccountByIDEager(int userAccountID)
+        public UserAccount GetUserAccountByIDFullDetails(int userAccountID)
         {
             return this._DBContext.UserAccounts.Include("User").Include("CorporateUser").Include("Supplier").FirstOrDefault(u => u.Id == userAccountID);
         }
@@ -61,12 +60,12 @@ namespace AgriNov
             return null;
         }
 
-        public UserAccount GetUserAccountByIDEager(string userAccountIDStr)
+        public UserAccount GetUserAccountByIDFullDetails(string userAccountIDStr)
         {
             int id;
             if (int.TryParse(userAccountIDStr, out id))
             {
-                return this.GetUserAccountByIDEager(id);
+                return this.GetUserAccountByIDFullDetails(id);
             }
             return null;
         }
@@ -308,19 +307,6 @@ namespace AgriNov
                 string firstName = user.Supplier.ContactDetails.FirstName;
                 return firstName + " " + lastName;
             }
-            /*Activate when volunteer and admin class created
-             * if (user.UserAccountLevel.ToString() == "VOLUNTEER")
-            {
-                string lastName = user.Volunteer.ContactDetails.Name;
-                string firstName = user.Volunteer.ContactDetails.FirstName;
-                return firstName + lastName;
-            }
-            if (user.UserAccountLevel.ToString() == "ADMIN")
-            {
-                string lastName = user.Admin.ContactDetails.Name;
-                string firstName = user.Admin.ContactDetails.FirstName;
-                return firstName + lastName;
-            }*/
             return null;
         }
     }

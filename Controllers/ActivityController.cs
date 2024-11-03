@@ -11,13 +11,13 @@ namespace AgriNov.Controllers
     public class ActivityController : Controller
     {
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult CreateActivity(ActivityViewModel aVM)
         {
             return View(aVM);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult CreateActivity(FileUploadActivity fileObj)
         {
@@ -50,7 +50,7 @@ namespace AgriNov.Controllers
             return View("ActivityDashboard", aVM);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult UpdateActivity(int id)
         {
             if (id > 0)
@@ -67,7 +67,7 @@ namespace AgriNov.Controllers
             return View("Error");
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult UpdateActivity(Activity activity)
         {
@@ -86,7 +86,7 @@ namespace AgriNov.Controllers
             return View(activity);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult ActivityDashboard(string activeTab = "ShowAllActivities")
         {
             ActivityViewModel aVM = new ActivityViewModel();
@@ -107,19 +107,19 @@ namespace AgriNov.Controllers
             return View(aVM);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult ShowAllActivities(ActivityViewModel aVM)
         {
             return View(aVM);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult ShowMyActivities(ActivityViewModel aVM)
         {
             return View(aVM);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult ShowActivityDetails(int id, string returnUrl = null)
         {
             ActivityViewModel aVM = new ActivityViewModel();
@@ -131,7 +131,7 @@ namespace AgriNov.Controllers
 
                 using (ServiceUserAccount sUA = new ServiceUserAccount())
                 {
-                    UserAccount organizer = sUA.GetUserAccountByIDEager(activity.OrganizerId);
+                    UserAccount organizer = sUA.GetUserAccountByIDFullDetails(activity.OrganizerId);
                     aVM.OrganizerName = sUA.GetUserFullName(organizer);
                 }
             }
@@ -144,7 +144,7 @@ namespace AgriNov.Controllers
             return View(aVM);
         }
 
-        [Authorize]
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpPost]
         public IActionResult BookActivity(Activity activity)
         {
@@ -171,6 +171,7 @@ namespace AgriNov.Controllers
             return View();
         }
 
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         [HttpGet]
         public IActionResult DeleteActivity(int id)
         {
@@ -187,7 +188,7 @@ namespace AgriNov.Controllers
 
 
         [HttpPost, ActionName("DeleteActivity")]
-
+        [Authorize(Roles = "USER,CORPORATE,SUPPLIER,VOLUNTEER,ADMIN")]
         public IActionResult DeleteConfirmed(int id)
         {
             using (ServiceActivity sA = new ServiceActivity())

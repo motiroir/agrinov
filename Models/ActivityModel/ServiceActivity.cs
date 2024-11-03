@@ -1,5 +1,4 @@
-﻿using AgriNov.Models;
-
+﻿
 namespace AgriNov.Models
 {
     public class ServiceActivity : IServiceActivity
@@ -122,6 +121,7 @@ namespace AgriNov.Models
                 return;
             }
             activity.DateLastModified = DateTime.Now;
+            activity.ImgActivity =  oldActivity.ImgActivity;
             _DBContext.Entry(oldActivity).CurrentValues.SetValues(activity);
             Save();
         }

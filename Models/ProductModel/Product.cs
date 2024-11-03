@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace AgriNov.Models
@@ -31,6 +30,7 @@ namespace AgriNov.Models
         [Required(ErrorMessage = "Veuillez indiquer une catégorie")]
         [DisplayName("Catégorie")]
         public string Category { get; set; }
+        //Actually the UserAccountId of the Supplier
         public int SupplierId { get; set; }
         public Supplier Supplier { get; set; }
 

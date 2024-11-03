@@ -91,6 +91,7 @@ namespace AgriNov.Controllers
             return Redirect("/Home/Index");
         }
 
+        [HttpGet]
         public IActionResult AccessDenied()
         {
           

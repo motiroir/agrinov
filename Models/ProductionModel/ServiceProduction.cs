@@ -1,9 +1,4 @@
-﻿
-using AgriNov.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.VisualBasic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AgriNov.Models
 {

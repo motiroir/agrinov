@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace AgriNov.Models
 {
     public class MemberShipFee
@@ -17,9 +12,9 @@ namespace AgriNov.Models
 
         public MemberShipFee()
         {
-            Price = 10;
+            Price = 10; //Hardcoded for now
             StartDate = DateTime.Now;
-            EndDate = StartDate.AddYears(1);
+            EndDate = StartDate.AddYears(1); //Hardcoded for now
             WasPaid = false;
         }
     }

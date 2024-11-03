@@ -1,4 +1,3 @@
-using AgriNov.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -25,14 +24,5 @@ namespace AgriNov.Models
         {
             optionsBuilder.UseMySql(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
         }
-
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     modelBuilder.Entity<Production>()
-        //         .HasOne(p => p.UserAccount) 
-        //         .WithMany() 
-        //         .HasForeignKey(p => p.UserAccountId); 
-        // }
-
     }
 }
